@@ -39,24 +39,22 @@ public class LexicalParser {
         directRecognized.put('+',0);
         directRecognized.put('-',1);
         directRecognized.put('*',2);
-        directRecognized.put('<',5);
-        directRecognized.put('>',6);
-        directRecognized.put(';',16);
-        directRecognized.put(',',17);
-        directRecognized.put('(',18);
-        directRecognized.put(')',19);
-        directRecognized.put('{',20);
-        directRecognized.put('}',21);
-        directRecognized.put('[',22);
-        directRecognized.put(']',23);
+        directRecognized.put(';',18);
+        directRecognized.put(',',19);
+        directRecognized.put('(',20);
+        directRecognized.put(')',21);
+        directRecognized.put('{',22);
+        directRecognized.put('}',23);
+        directRecognized.put('[',24);
+        directRecognized.put(']',25);
 
-        reserveWords.put("if",9);
-        reserveWords.put("else",10);
-        reserveWords.put("while",11);
-        reserveWords.put("read",12);
-        reserveWords.put("write",13);
-        reserveWords.put("int",14);
-        reserveWords.put("real",15);
+        reserveWords.put("if",11);
+        reserveWords.put("else",12);
+        reserveWords.put("while",13);
+        reserveWords.put("read",14);
+        reserveWords.put("write",15);
+        reserveWords.put("int",16);
+        reserveWords.put("real",17);
     }
 
     public void getSourceCode() {
@@ -139,16 +137,26 @@ public class LexicalParser {
                 pointer--;
             }
         }
-//        else if(current == '<') {//判断小于还是不等于
-//            readChar();
-//            if(current =='>') {
-//                token.setType(Token.TokenType.NOT_EQUAL);
-//            }
-//            else {
-//                token.setType(Token.TokenType.LESS);
-//                pointer--;
-//            }
-//        }
+        else if(current == '<') {//判断小于还是小于等于
+            readChar();
+            if(current =='=') {
+                token.setType(Token.TokenType.LESS_EQUAL);
+            }
+            else {
+                token.setType(Token.TokenType.LESS);
+                pointer--;
+            }
+        }
+        else if(current == '>') {//判断小于还是不等于
+            readChar();
+            if(current =='=') {
+                token.setType(Token.TokenType.MORE_EQUAL);
+            }
+            else {
+                token.setType(Token.TokenType.MORE);
+                pointer--;
+            }
+        }
         else {
             if(current>='0'&&current<='9') {//说明接下来是一个数字字面量,判断它是整数还是实数
                 boolean isReal = false;

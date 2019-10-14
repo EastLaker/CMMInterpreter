@@ -15,37 +15,39 @@ public class Token {
         LESS,//5
         MORE,//6
         EQUAL,//7
-        NOT_EQUAL,//8
+        LESS_EQUAL,//8
+        MORE_EQUAL,//9
+        NOT_EQUAL,//10
 
         //保留字
-        IF,//9
-        ELSE,//10
-        WHILE,//11
-        READ,//12
-        WRITE,//13
-        INT,//14
-        REAL,//15
+        IF,//11
+        ELSE,//12
+        WHILE,//13
+        READ,//14
+        WRITE,//15
+        INT,//16
+        REAL,//17
 
         //分隔符
-        SEMICOLON,//16
-        DOT,//17
-        L_BRACKET,//18
-        R_BRACKET,//19
-        L_ANGLE_BRACKET,//20
-        R_ANGLE_BRACKET,//21
-        L_SQUARE_BRACKET,//22
-        R_SQUARE_BRACKET,//23
+        SEMICOLON,//18
+        DOT,//19
+        L_BRACKET,//20
+        R_BRACKET,//21
+        L_ANGLE_BRACKET,//22
+        R_ANGLE_BRACKET,//23
+        L_SQUARE_BRACKET,//24
+        R_SQUARE_BRACKET,//25
 
         //字面量
-        INT_LITERAL,//24
-        REAL_LITERAL,//25
-        IDENTIFIER,//26
+        INT_LITERAL,//26
+        REAL_LITERAL,//27
+        IDENTIFIER,//28
 
         //注释
-        SINGLE_LINE_COMMENT,//27
-        MULTIPLE_LINE_COMMENT,//28
+        SINGLE_LINE_COMMENT,//29
+        MULTIPLE_LINE_COMMENT,//30
 
-        NULL//29    空的token，说明已经到文件结尾
+        NULL//31    空的token，说明已经到文件结尾
     }
 
     private TokenType type;//token类型
