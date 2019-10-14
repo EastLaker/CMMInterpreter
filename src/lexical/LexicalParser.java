@@ -157,6 +157,16 @@ public class LexicalParser {
                 pointer--;
             }
         }
+        else if(current == '!') {//判断是否是!=
+            readChar();
+            if(current =='=') {
+                token.setType(Token.TokenType.NOT_EQUAL);
+            }
+            else {
+                pointer--;
+                current = sourceCode.charAt(pointer);
+            }
+        }
         else {
             if(current>='0'&&current<='9') {//说明接下来是一个数字字面量,判断它是整数还是实数
                 boolean isReal = false;
