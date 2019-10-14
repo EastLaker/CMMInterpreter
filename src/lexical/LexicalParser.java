@@ -41,22 +41,22 @@ public class LexicalParser {
         directRecognized.put('+',0);
         directRecognized.put('-',1);
         directRecognized.put('*',2);
-        directRecognized.put(';',18);
-        directRecognized.put(',',19);
-        directRecognized.put('(',20);
-        directRecognized.put(')',21);
-        directRecognized.put('{',22);
-        directRecognized.put('}',23);
-        directRecognized.put('[',24);
-        directRecognized.put(']',25);
+        directRecognized.put(';',20);
+        directRecognized.put(',',21);
+        directRecognized.put('(',22);
+        directRecognized.put(')',23);
+        directRecognized.put('{',24);
+        directRecognized.put('}',25);
+        directRecognized.put('[',26);
+        directRecognized.put(']',27);
 
-        reserveWords.put("if",11);
-        reserveWords.put("else",12);
-        reserveWords.put("while",13);
-        reserveWords.put("read",14);
-        reserveWords.put("write",15);
-        reserveWords.put("int",16);
-        reserveWords.put("real",17);
+        reserveWords.put("if",13);
+        reserveWords.put("else",14);
+        reserveWords.put("while",15);
+        reserveWords.put("read",16);
+        reserveWords.put("write",17);
+        reserveWords.put("int",18);
+        reserveWords.put("real",19);
     }
 
     public void getSourceCode() {
@@ -174,6 +174,26 @@ public class LexicalParser {
             readChar();
             if(current =='=') {
                 token.setType(Token.TokenType.NOT_EQUAL);
+            }
+            else {
+                pointer--;
+                current = sourceCode.charAt(pointer);
+            }
+        }
+        else if(current == '|') {//判断是否是 ||
+            readChar();
+            if(current =='|') {
+                token.setType(Token.TokenType.OR);
+            }
+            else {
+                pointer--;
+                current = sourceCode.charAt(pointer);
+            }
+        }
+        else if(current == '&') {//判断是否是 &&
+            readChar();
+            if(current =='&') {
+                token.setType(Token.TokenType.AND);
             }
             else {
                 pointer--;

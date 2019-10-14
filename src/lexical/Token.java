@@ -20,36 +20,38 @@ public class Token {
         LESS_EQUAL,//8
         MORE_EQUAL,//9
         NOT_EQUAL,//10
+        AND, //11
+        OR, //12
 
         //保留字
-        IF,//11
-        ELSE,//12
-        WHILE,//13
-        READ,//14
-        WRITE,//15
-        INT,//16
-        REAL,//17
+        IF,//13
+        ELSE,//14
+        WHILE,//15
+        READ,//16
+        WRITE,//17
+        INT,//18
+        REAL,//19
 
         //分隔符
-        SEMICOLON,//18
-        DOT,//19
-        L_BRACKET,//20
-        R_BRACKET,//21
-        L_ANGLE_BRACKET,//22
-        R_ANGLE_BRACKET,//23
-        L_SQUARE_BRACKET,//24
-        R_SQUARE_BRACKET,//25
+        SEMICOLON,//20
+        DOT,//21
+        L_BRACKET,//22
+        R_BRACKET,//23
+        L_ANGLE_BRACKET,//24
+        R_ANGLE_BRACKET,//25
+        L_SQUARE_BRACKET,//26
+        R_SQUARE_BRACKET,//27
 
         //字面量
-        INT_LITERAL,//26
-        REAL_LITERAL,//27
-        IDENTIFIER,//28
+        INT_LITERAL,//28
+        REAL_LITERAL,//29
+        IDENTIFIER,//30
 
         //注释
-        SINGLE_LINE_COMMENT,//29
-        MULTIPLE_LINE_COMMENT,//30
+        SINGLE_LINE_COMMENT,//31
+        MULTIPLE_LINE_COMMENT,//32
 
-        NULL//31    空的token，说明已经到文件结尾
+        NULL//33    空的token，说明已经到文件结尾
     }
     private HashMap<TokenType, String> dict = new HashMap<TokenType, String>(){{
         put(TokenType.PLUS, "+");
@@ -63,6 +65,8 @@ public class Token {
         put(TokenType.LESS_EQUAL, "<=");
         put(TokenType.MORE_EQUAL, ">=");
         put(TokenType.NOT_EQUAL, "!=");
+        put(TokenType.AND, "&&");
+        put(TokenType.OR, "||");
         put(TokenType.IF, "if");
         put(TokenType.ELSE, "else");
         put(TokenType.WHILE, "while");
