@@ -1,9 +1,11 @@
 package lexical;
 
+import java.lang.String;
+import java.util.HashMap;
+
 public class Token {
 
     public enum TokenType {
-
         //算术运算符
         PLUS,//0
         MINUS,//1
@@ -49,6 +51,37 @@ public class Token {
 
         NULL//31    空的token，说明已经到文件结尾
     }
+    private HashMap<TokenType, String> dict = new HashMap<TokenType, String>(){{
+        put(TokenType.PLUS, "+");
+        put(TokenType.MINUS, "-");
+        put(TokenType.MULTIPLY, "*");
+        put(TokenType.DIVIDE, "/");
+        put(TokenType.ASSIGN, "=");
+        put(TokenType.LESS, "<");
+        put(TokenType.MORE, ">");
+        put(TokenType.EQUAL, "==");
+        put(TokenType.LESS_EQUAL, "<=");
+        put(TokenType.MORE_EQUAL, ">=");
+        put(TokenType.NOT_EQUAL, "!=");
+        put(TokenType.IF, "if");
+        put(TokenType.ELSE, "else");
+        put(TokenType.WHILE, "while");
+        put(TokenType.READ, "read");
+        put(TokenType.WRITE, "write");
+        put(TokenType.INT, "int");
+        put(TokenType.REAL,  "real");
+        put(TokenType.SEMICOLON, ";");
+        put(TokenType.DOT, ",");
+        put(TokenType.L_BRACKET, "(");
+        put(TokenType.R_BRACKET, ")");
+        put(TokenType.L_ANGLE_BRACKET, "{");
+        put(TokenType.R_ANGLE_BRACKET, "}");
+        put(TokenType.L_SQUARE_BRACKET, "[");
+        put(TokenType.R_SQUARE_BRACKET, "]");
+        put(TokenType.SINGLE_LINE_COMMENT, "");
+        put(TokenType.MULTIPLE_LINE_COMMENT, "");
+        put(TokenType.NULL, "");
+    }};
 
     private TokenType type;//token类型
     private String stringValue;//字符串值
@@ -97,6 +130,19 @@ public class Token {
                 System.out.println(type+" "+getStringValue());break;
             default:
                 System.out.println(type);break;
+        }
+    }
+
+    public String getString() {
+        switch (type) {
+            case INT_LITERAL:
+                return String.valueOf(getIntValue());
+            case REAL_LITERAL:
+                return String.valueOf(getRealValue());
+            case IDENTIFIER:
+                return getStringValue();
+            default:
+                return dict.get(type);
         }
     }
 }

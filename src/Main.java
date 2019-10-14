@@ -17,10 +17,9 @@ public class Main {
         //建立一个LexicalParser对象，构造函数的参数为代码文件的地址
         LexicalParser lexicalParser = new LexicalParser(str_file);
         //使用getAllTokens()方法获取Tokens,返回一个包含了识别出的Tokens的ArrayList
-        List<Token> tokens = lexicalParser.getAllTokens();
-
-        for (Token token: tokens) {
-            token.printValue();
+        List<String> tokens = lexicalParser.getAllTokens();
+        for (String token: tokens) {
+            System.out.println(token);
         }
     }
 

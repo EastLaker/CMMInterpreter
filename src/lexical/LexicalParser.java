@@ -25,12 +25,14 @@ public class LexicalParser {
     private String path;
 
     private String sourceCode;
+    private List<Token> tokens;
 
     private int pointer = 0;
 
     public LexicalParser (String path) {
         this.path = path;
         this.getSourceCode();
+        parse();
     }
 
     public LexicalParser() {}
@@ -80,16 +82,27 @@ public class LexicalParser {
 
     public void setSourceCode(String sourceCode) {
         this.sourceCode = sourceCode;
+        parse();
     }
 
-    public List<Token> getAllTokens() {
-        List<Token> tokens = new ArrayList<Token>();
-        Token current;
+    public List<Token> parse() {
+        tokens = new ArrayList<Token>();
+        Token currentToken;
         do {
-            current = this.getNextToken();
-            tokens.add(current) ;
-        }while (current.getType() != Token.TokenType.NULL);
+            currentToken = this.getNextToken();
+            tokens.add(currentToken) ;
+        }while (currentToken.getType() != Token.TokenType.NULL);
         return tokens;
+    }
+
+    public List<String> getAllTokens() {
+        List<String> tokenStrings = new ArrayList<String>();
+        for (Token token: tokens) {
+            if(token.getType() != Token.TokenType.MULTIPLE_LINE_COMMENT && token.getType() != Token.TokenType.SINGLE_LINE_COMMENT){
+                tokenStrings.add(token.getString());
+            }
+        }
+        return tokenStrings;
     }
 
     public Token getNextToken() {
@@ -102,7 +115,7 @@ public class LexicalParser {
         readCharSkip();
         if(directRecognized.containsKey(current)) {//先判断出可以直接识别的token
             token.setType(values[directRecognized.get(current)]);
-            token.printValue();
+            //token.printValue();
             return token;
         }
         else if(current == '/') {//判断是除号还是多行注释还是单行注释
@@ -217,7 +230,7 @@ public class LexicalParser {
             }
         }
 
-        token.printValue();
+        //token.printValue();
         return token;
     }
 
