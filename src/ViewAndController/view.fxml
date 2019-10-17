@@ -16,13 +16,13 @@
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="473.0" prefWidth="380.0">
                  <children>
                      <Button fx:id="open" layoutX="34.0" layoutY="26.0" mnemonicParsing="false" onAction="#onActionOpenFile" text="Open" />
-                     <Button fx:id="execute" layoutX="34.0" layoutY="416.0" mnemonicParsing="false" onAction="#onActionExecute" text="Execute" />
-                     <TextArea fx:id="input" layoutX="10.0" layoutY="90.0" prefHeight="300.0" prefWidth="354.0" />
+                     <Button fx:id="execute" layoutX="163.0" layoutY="26.0" mnemonicParsing="false" onAction="#onActionExecute" text="Execute" />
+                     <TextArea fx:id="input" layoutX="10.0" layoutY="65.0" prefHeight="394.0" prefWidth="354.0" />
                  </children>
               </AnchorPane>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="473.0" prefWidth="380.0">
                  <children>
-                     <TextArea fx:id="output" layoutX="9.0" layoutY="90.0" prefHeight="300.0" prefWidth="354.0" />
+                     <TextArea fx:id="output" layoutX="9.0" layoutY="65.0" prefHeight="394.0" prefWidth="354.0" />
                      <Label layoutX="39.0" layoutY="35.0" text="Output" />
                  </children>
               </AnchorPane>

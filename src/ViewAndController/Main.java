@@ -17,7 +17,7 @@ public class Main extends Application {
         mainStage = primaryStage;
         root = FXMLLoader.load(getClass().getResource("view.fxml"));
 
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("CMMInterpreter");
         primaryStage.setScene(new Scene(root));
 
         primaryStage.show();
