@@ -68,13 +68,14 @@ public class Controller {
             System.out.println("");
             System.out.println(parse.Bs.size());
             System.out.println("token:"+parse.token);
+            String output_text = "";
             for(int i=0;i<parse.fours.size();i++) {
                 System.out.print(i+":   ");
-                parse.fours.get(i).print();
+                output_text += parse.fours.get(i).get_four_str() + "\n";
             }
             System.out.println("下一条指令地址："+ FourYuan.no);
             //todo 将需要输出的内容输出到output中
-            output.setText("输出内容");
+            output.setText(output_text);
         }
     }
 

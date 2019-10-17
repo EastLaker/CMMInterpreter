@@ -13,4 +13,8 @@ public class FourYuan {
 	public void print() {
 		System.out.println("("+this.oprator+","+this.op1+","+this.op2+","+this.des+")");
 	}
+
+	public String get_four_str() {
+		return "("+this.oprator+","+this.op1+","+this.op2+","+this.des+")";
+	}
 }
