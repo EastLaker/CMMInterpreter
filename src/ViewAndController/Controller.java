@@ -2,6 +2,7 @@ package ViewAndController;
 
 import Parser.Parser;
 import Parser.FourYuan;
+import Parser.E;
 import Parser.LexicalParser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -42,6 +43,8 @@ public class Controller {
         if(text==null||"".equals(text.trim())){
 
         }else{
+            FourYuan.no = 0;
+            E.reg = 0;
             Parser parse = new Parser();///////分析实例
             LexicalParser lexicalParser = new LexicalParser();
             lexicalParser.setSourceCode(input.getText());

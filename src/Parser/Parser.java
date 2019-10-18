@@ -29,7 +29,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 	public Stack<A> As = new Stack<A>();
 	public Stack<O> Os = new Stack<O>();
 	public List<FourYuan> fours = new ArrayList<FourYuan>();
-	public  void parserE() {///////////词法分析程序
+	public void parserE() {///////////词法分析程序
 		states.push(0);/////将0状态入栈
 		//token = tokens[cur];////
 		//cur++;/////模拟读入
