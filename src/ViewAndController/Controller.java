@@ -2,7 +2,6 @@ package ViewAndController;
 
 import Parser.Parser;
 import Parser.FourYuan;
-import Parser.E;
 import Parser.LexicalParser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,8 +15,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.lang.String;
 import java.util.List;
-
-public class Controller {
+import Parser.*
+;public class Controller {
     @FXML
     private Button open;
     @FXML
@@ -43,8 +42,11 @@ public class Controller {
         if(text==null||"".equals(text.trim())){
 
         }else{
-            FourYuan.no = 0;
-            E.reg = 0;
+        	Parser.errors.clear();////错误信息在每次开始之前清空
+        	Parser.Wordlist.clear();////单词表清空
+        	FourYuan.no = 0;///////四元式序号从0开始申请
+        	E.reg=0;///////中间变量从0开始申请
+        	Word.des_start = 0x0;//////单词表从0开始申请
             Parser parse = new Parser();///////分析实例
             LexicalParser lexicalParser = new LexicalParser();
             lexicalParser.setSourceCode(input.getText());
@@ -75,17 +77,32 @@ public class Controller {
             for(int i=0;i<parse.fours.size();i++) {
                 output_text += i + " " + parse.fours.get(i).get_four_str() + "\n";
             }
+            output_text += "单词表：\n";
+            for(int j=0;j<parse.fours.size();j++) {
+            	parse.fours.get(j).Exec();///////TODO  四元式的顺序执行
+            }
+            for(int j=0;j<parse.Wordlist.size();j++) {
+            	output_text += parse.Wordlist.get(j).name+"\t"+parse.Wordlist.get(j).type+"\t"+parse.Wordlist.get(j).des+"\t"+parse.Wordlist.get(j).value+"\n";
+            }
             System.out.println("下一条指令地址："+ FourYuan.no);
             //todo 将需要输出的内容输出到output中
+            for(int t=0;t<Parser.errors.size();t++) {
+            	output_text += t+": "+Parser.errors.get(t);
+            }
             output.setText(output_text);
         }
     }
 
     private static Frame frame;
-    public void onActionOpenFile(ActionEvent actionEvent){
-        FileDialog fileDialog = new FileDialog(frame,"test file",FileDialog.LOAD);
-        fileDialog.setVisible(true);
-        String str_file = fileDialog.getDirectory() + fileDialog.getFile();
+    @SuppressWarnings("deprecation")
+	public void onActionOpenFile(ActionEvent actionEvent){
+//        FileDialog fileDialog = new FileDialog(frame,"test file",FileDialog.LOAD);
+//       if(!fileDialog.isShowing())
+//        	fileDialog.show();
+//        XThread thread = new XThread();
+//        thread.run();
+        String str_file = "/Users/lifangzheng/Desktop/sourceproject.txt";
+//        String str_file = fileDialog.getDirectory() + fileDialog.getFile();
         File file = new File(str_file);
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -102,4 +119,16 @@ public class Controller {
             System.exit(1);
         }
     }
+}
+class XThread implements Runnable{
+String str_file;
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		 FileDialog fileDialog = new FileDialog(new Frame(),"test file",FileDialog.LOAD);
+	        if(!fileDialog.isShowing())
+	        	fileDialog.setVisible(true);
+	        this.str_file = fileDialog.getDirectory() + fileDialog.getFile();
+	}
+	
 }
