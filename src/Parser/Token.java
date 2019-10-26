@@ -94,6 +94,16 @@ public class Token {
     private int intValue;//整型值
     private double realValue;//实数值
 
+    private int line_no;
+
+    public int getLine_no(){
+        return line_no;
+    }
+
+    public void setLine_no(int line_no) {
+        this.line_no = line_no;
+    }
+
     public TokenType getType () {
         return type;
     }

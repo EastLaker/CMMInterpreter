@@ -16,6 +16,9 @@ public class LexicalParser {
     private BufferedReader reader;
     private StringBuilder builder = new StringBuilder();
     private char current;
+    private int currentLine;
+    private Map<Integer, Integer> lines;
+
     private static final Map<Character,Integer> directRecognized = new HashMap<Character,Integer>();
 
     private static final HashMap<String,Integer> reserveWords = new HashMap<>();
@@ -32,6 +35,7 @@ public class LexicalParser {
     public LexicalParser (String path) {
         this.path = path;
         this.getSourceCode();
+        currentLine = 0;
         parse();
     }
 
@@ -64,9 +68,13 @@ public class LexicalParser {
         try {
             reader = new BufferedReader(new FileReader(file));
             StringBuilder builder = new StringBuilder();
+            lines = new HashMap<Integer, Integer>();
+            int counter = 0;
             while (reader.ready()) {
                 builder.append(reader.readLine());
                 builder.append('\n');
+                lines.put(counter, builder.length());
+                counter += 1;
             }
             sourceCode = builder.toString();
         }
@@ -106,7 +114,12 @@ public class LexicalParser {
     }
 
     public Token getNextToken() {
+        while (pointer >= lines.get(currentLine)){
+            currentLine +=1;
+        }
+
         Token token = new Token();
+        token.setLine_no(currentLine);
         token.setType(Token.TokenType.NULL);
 
         if(current == '\u0003') {
