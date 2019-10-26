@@ -2,20 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/myWindow/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/myWindow/mainWindow.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/myWindow/mainWindow.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cmm/META-INF/cmm.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmm.iml" beforeDir="false" afterPath="$PROJECT_DIR$/cmm.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/cmm/META-INF/cmm.kotlin_module" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cmm/META-INF/cmm.kotlin_module" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/cmm/Main.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/cmm/Parser/FourYuan.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cmm/Parser/FourYuan.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/cmm/Parser/Parser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cmm/Parser/Parser.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/cmm/ViewAndController/Controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cmm/ViewAndController/Controller.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/cmm/ViewAndController/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cmm/ViewAndController/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cmm/ViewAndController/view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cmm/ViewAndController/view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cmm/sourceproject(1).txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cmm/sourceproject.cmm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cmm/test.cmm" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cmm/test.cmm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Parser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ViewAndController/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ViewAndController/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/cmm/lexical/Token$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cmm/lexical/Token$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/cmm/lexical/Token.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cmm/lexical/Token.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lexical/Token.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lexical/Token.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -97,6 +97,7 @@
     <option name="STATE" value="0" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="GoToFile.includeJavaFiles" value="false" />
@@ -107,14 +108,17 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="dynamic.classpath" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/richtextfx-fat-0.10.2.jar!/" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
     <property name="recentsLimit" value="5" />
     <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.importing" />
   </component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="window" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\SourceCode\IdeaProject\cmm\src\sample" />
     </key>
@@ -150,6 +154,34 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="HyperlinkDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="window.demo.hyperlink.HyperlinkDemo" />
+      <module name="cmm" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="window.demo.hyperlink.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="JavaKeywordsDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="window.demo.JavaKeywordsDemo" />
+      <module name="cmm" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="window.demo.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Main" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="ViewAndController.Main" />
       <module name="cmm" />
@@ -166,13 +198,41 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Parser" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Parser.Parser" />
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Window.Main" />
       <module name="cmm" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="Parser.*" />
+          <option name="PATTERN" value="Window.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="OverrideBehaviorDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="window.demo.OverrideBehaviorDemo" />
+      <module name="cmm" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="window.demo.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ShowLineDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="window.demo.ShowLineDemo" />
+      <module name="cmm" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="window.demo.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -219,7 +279,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Parser" />
+        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.JavaKeywordsDemo" />
+        <item itemvalue="Application.HyperlinkDemo" />
+        <item itemvalue="Application.OverrideBehaviorDemo" />
+        <item itemvalue="Application.ShowLineDemo" />
       </list>
     </recent_temporary>
   </component>
@@ -239,7 +303,11 @@
       <workItem from="1571278381474" duration="115000" />
       <workItem from="1571307926333" duration="7271000" />
       <workItem from="1571323084107" duration="3326000" />
-      <workItem from="1571353685909" duration="2939000" />
+      <workItem from="1571353685909" duration="3893000" />
+      <workItem from="1571388495134" duration="7000" />
+      <workItem from="1571389965423" duration="1708000" />
+      <workItem from="1571456722536" duration="464000" />
+      <workItem from="1571983143579" duration="26519000" />
     </task>
     <servers />
   </component>
@@ -262,6 +330,27 @@
   <component name="VcsManagerConfiguration">
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/myWindow/mainWindow.java</url>
+          <line>72</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/myWindow/mainWindow.java</url>
+          <line>129</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/myWindow/mainWindow.java</url>
+          <line>168</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
