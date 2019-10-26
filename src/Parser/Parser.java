@@ -14,6 +14,8 @@ public class Parser {//////////////////识别完成token读到的应该是;
 	//2)E->E+E
 	//3)E->(E)
 	//4)E->id
+	public static List<Word> Wordlist = new ArrayList<Word>();
+	public static List<String> errors = new ArrayList<String>();
 	public List<String> parsers = new ArrayList<String>();
 	public List<String>  tokens = new ArrayList<String>();/////用于存放词法分析的结果   测试
 	public String token = null;//读入的词
@@ -29,7 +31,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 	public Stack<A> As = new Stack<A>();
 	public Stack<O> Os = new Stack<O>();
 	public List<FourYuan> fours = new ArrayList<FourYuan>();
-	public void parserE() {///////////词法分析程序
+	public  void parserE() {///////////词法分析程序
 		states.push(0);/////将0状态入栈
 		//token = tokens[cur];////
 		//cur++;/////模拟读入
@@ -326,6 +328,21 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			else 
 				System.out.println("缺少（");
 		}
+		else if(token.contentEquals("int")||token.contentEquals("float")) {
+			///TODO  建立单词表
+			String type = token;
+			token = tokens.get(cur++);
+			if(token.matches(m_id)) {
+				Word word = new Word();
+				word.type = type;
+				word.des = Word.des_start+"";
+				Word.des_start+=4;
+				word.name = token;
+				token = tokens.get(cur++);
+				Wordlist.add(word);
+			    T(type);
+			}
+		}
 		else if(token.matches(m_id)) {//赋值语句
 			parsers.add("S->a;");
 			String des = token;
@@ -341,13 +358,31 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				four.des = des;
 				fours.add(four);
 				FourYuan.no++;
-				token = tokens.get(cur);
-				cur++;
+				token = tokens.get(cur++);
 				}
 			}
 		}
 	}
-
+void T(String type) {
+	///TODO   声明语句
+	if(token.contentEquals(";")) {
+		token = tokens.get(cur++);
+		return;
+	}
+	else if(token.contentEquals(",")) {
+		token = tokens.get(cur++);
+		if(token.matches(m_id)) {
+			Word word = new Word();
+			word.type = type;
+			word.des = Word.des_start+"";
+			Word.des_start+=4;
+			word.name = token;
+			Wordlist.add(word);
+			token = tokens.get(cur++);
+			T(type);
+		}
+	}
+}
 	void parserB() {
 		States.push(0);
 		boolean b = true;
