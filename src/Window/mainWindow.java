@@ -12,9 +12,12 @@ import Parser.Parser;
 import Parser.LexicalParser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.DirectoryChooser;
@@ -51,6 +54,9 @@ public class mainWindow {
     private TextFlow output;
 
     private CodeArea codeArea;
+    private final Node rootIcon = new ImageView(
+            new Image(getClass().getResourceAsStream("folder.png"))
+    );
 
     @FXML
         // This method is called by the FXMLLoader when initialization is complete
@@ -67,12 +73,14 @@ public class mainWindow {
         try {
             File file = directoryChooser.showDialog(frame);
             String path = file.getPath();//选择的文件夹路径
-            TreeItem<String> treeRootItem = new TreeItem<>(path);
+            TreeItem<String> treeRootItem = new TreeItem<>(path, rootIcon);
             folderView.setRoot(treeRootItem);
+            treeRootItem.setExpanded(true);
             File[] file_list = file.listFiles();
             for (int i = 0; i < file_list.length; i++) {
                 System.out.println(file_list[i].getName());
-
+                TreeItem<String> item = new TreeItem<> (file_list[i].getName());
+                treeRootItem.getChildren().add(item);
             }
 
         } finally {
