@@ -211,6 +211,7 @@ public class mainWindow {
             //todo 将需要输出的内容输出到output中
             Text t = new Text();
             t.setText(output_text.toString());
+            output.getChildren().clear();
             output.getChildren().addAll(t);
         }
     }

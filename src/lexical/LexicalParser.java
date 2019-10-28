@@ -1,5 +1,7 @@
 package lexical;
 
+import lexical.Token;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -114,7 +116,7 @@ public class LexicalParser {
     }
 
     public Token getNextToken() {
-        while(pointer >= lines.get(currentLine)){
+        while (pointer >= lines.get(currentLine)){
             currentLine +=1;
         }
 
@@ -262,6 +264,7 @@ public class LexicalParser {
                 }
             }
             else {
+                System.out.println("行："+token.getLine_no()+"	错误提示：可能缺少 { ");
 
             }
         }
