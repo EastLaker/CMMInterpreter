@@ -1,4 +1,4 @@
-package src.lexical;
+package lexical;
 
 import lexical.Token;
 
@@ -262,6 +262,10 @@ public class LexicalParser {
                     token.setType(Token.TokenType.IDENTIFIER);
                     token.setStringValue(value);
                 }
+            }
+            else {
+                System.out.println("行："+token.getLine_no()+"	错误提示：可能缺少 { ");
+
             }
         }
 
