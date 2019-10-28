@@ -5,16 +5,16 @@
  */
 package Window;
 
-
 import Window.U;
-import static Window.Test.ROOT_FILE;
 import java.io.File;
 import java.util.function.Function;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TreeItem;
+import javax.swing.filechooser.FileSystemView;
 
 
 public class FileTreeItem extends TreeItem<String> {
+    public static File ROOT_FILE = FileSystemView.getFileSystemView().getRoots()[0];
 
     //判断树节点是否被初始化，没有初始化为真
     private boolean notInitialized = true;
