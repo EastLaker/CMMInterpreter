@@ -360,11 +360,30 @@ public class Parser {//////////////////识别完成token读到的应该是;
 
 	private void addWord(String type) {
 		if (token.matches(m_id)) {
+			String name = token;
 			Word word = cf.newWordFromType(type);
 			word.des = Word.des_start + "";
 			Word.des_start += 4;
 			putWordIn(word);
 			token = tokens.get(cur++);
+			if(token.equals("[")) {
+				token = tokens.get(cur++);
+				int size = Integer.parseInt(token);///数组大小
+				Word word0 = ClassFactory.Wordlist.get(name);
+				ClassFactory.Wordlist.remove(name);
+				ClassFactory.Wordlist.put(name+"["+0+"]",word0);
+					for(int i=1;i<=size-1;i++){
+						Word word1 = cf.newWordFromType(type);
+						word1.des = Word.des_start+"";
+						Word.des_start += 4;
+						ClassFactory.Wordlist.put(name+"["+i+"]",word1);
+					}
+				token = tokens.get(cur++);
+				if (!token.equals("]")) {
+					//todo 缺少右括号
+				}
+				else token = tokens.get(cur++);
+			}
 			T(type);
 		}
 	}

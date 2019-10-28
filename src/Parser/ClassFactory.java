@@ -17,6 +17,7 @@ public class ClassFactory {
     public enum TYPE{
         INT,  //识别的声明类型 int
         FLOAT, //识别float
+        INT_,
     }
 
     public  Word newWordFromValue(String str){

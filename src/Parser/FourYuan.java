@@ -103,8 +103,8 @@ public class FourYuan {
 	}
 
 	private void con_jmp(String op) {
-		int op1_val=0;
-		int op2_val=0;
+		int op1_val=-1;
+		int op2_val=-1;
 		boolean o1=false,o2=false;
 		if(regexPat(this.op1)== TokenType.CONST){
 			op1_val = Integer.parseInt(this.op1);
