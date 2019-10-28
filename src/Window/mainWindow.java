@@ -59,6 +59,8 @@ public class mainWindow {
     private TextFlow output;
 
     private CodeArea codeArea;
+
+    private String opened_folder;
     public static int j=0;
     private final Node rootIcon = new ImageView(
             new Image(getClass().getResourceAsStream("folder.png"))
@@ -78,7 +80,7 @@ public class mainWindow {
         directoryChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
         try {
             File file = directoryChooser.showDialog(frame);
-            String path = file.getPath();//选择的文件夹路径
+            opened_folder = file.getPath().substring(0,file.getPath().length()-file.getName().length());//选择的文件夹路径
             FileTreeItem fileTreeItem = new FileTreeItem(file, f -> {
                 File[] allFiles = f.listFiles();
                 File[] directorFiles = f.listFiles(File::isDirectory);
@@ -127,7 +129,7 @@ public class mainWindow {
                 }
             });
             folderView.setRoot(fileTreeItem);
-
+            fileTreeItem.setExpanded(true);
         } finally {
 
         }
@@ -221,7 +223,10 @@ public class mainWindow {
             return getTreeItemPath(treeItem.getParent()) + "/" +treeItem.getValue();
         }
         else {
-            return treeItem.getValue();
+            StringBuilder builder = new StringBuilder();
+            builder.append(opened_folder);
+            builder.append(treeItem.getValue());
+            return builder.toString();
         }
     }
 }
