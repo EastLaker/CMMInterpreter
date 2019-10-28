@@ -1,7 +1,9 @@
 package Parser;
 
 public class E {
-public String des;
-public static int reg = 0;///////每次申请一个寄存器会+1
-
+    public String des;
+    public static int reg = 0;///////每次申请一个寄存器会+1
+    public static String getReg() {
+        return "reg" + reg++;
+    }
 }

@@ -35,7 +35,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-
+import java.util.Set;
+import Parser.ClassFactory;
+import Parser.Word;
 public class mainWindow {
 
     @FXML
@@ -54,6 +56,7 @@ public class mainWindow {
     private TextFlow output;
 
     private CodeArea codeArea;
+    public static int j=0;
     private final Node rootIcon = new ImageView(
             new Image(getClass().getResourceAsStream("folder.png"))
     );
@@ -137,7 +140,10 @@ public class mainWindow {
 
         }else{
             FourYuan.no = 0;
+            Parser.errors.clear();
             E.reg = 0;
+            ClassFactory.Wordlist.clear();
+            Word.des_start = 0x0;
             Parser parse = new Parser();///////分析实例
             LexicalParser lexicalParser = new LexicalParser();
             lexicalParser.setSourceCode(text);
@@ -149,29 +155,20 @@ public class mainWindow {
             parse.token = parse.tokens.get(parse.cur++);////读入第一个单词
             parse.L();
             ////测试
-            System.out.println("算术表达式栈顶的存放位置："+parse.Es.peek().des);
-            System.out.println("识别出算术表达式的数量："+parse.symbols.size());
-            System.out.println("算术表达式状态栈栈顶：（正确时应该为1）"+parse.states.peek());
-            System.out.println("栈顶逻辑表达式需要回填的真出口链:");
-            for(int i=0;i<parse.Bs.peek().truelist.size();i++) {
-                System.out.print(parse.Bs.peek().truelist.get(i)+"   ");
-            }
-            System.out.println("");
-            System.out.println("需要回填的假出口链：");
-            for(int i=0;i<parse.Bs.peek().falselist.size();i++) {
-                System.out.print(parse.Bs.peek().falselist.get(i)+"   ");
-            }
-            System.out.println("");
-            System.out.println(parse.Bs.size());
-            System.out.println("token:"+parse.token);
-            String output_text = "";
+            StringBuilder output_text = new StringBuilder();
             for(int i=0;i<parse.fours.size();i++) {
-                output_text += i + " " + parse.fours.get(i).get_four_str() + "\n";
+                output_text.append(i + " " + parse.fours.get(i).get_four_str() + "\n");
+            }
+            for(;j<parse.fours.size();j++)
+                parse.fours.get(j).Exec();
+            Set<String> words = ClassFactory.Wordlist.keySet();
+            for(String word : words) {
+                output_text.append(word+"\t"+ ClassFactory.Wordlist.get(word).type+"\t"+ ClassFactory.Wordlist.get(word).des+"\t"+ ClassFactory.Wordlist.get(word).getValue()+"\n");
             }
             System.out.println("下一条指令地址："+ FourYuan.no);
             //todo 将需要输出的内容输出到output中
             Text t = new Text();
-            t.setText(output_text);
+            t.setText(output_text.toString());
             output.getChildren().addAll(t);
         }
     }
