@@ -2,25 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Window/FileTreeItem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Window/Test.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Window/U.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cmm/Parser/E.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cmm/Parser/E.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cmm/Parser/FourYuan.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cmm/Parser/FourYuan.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cmm/Parser/Parser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cmm/Parser/Parser.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cmm/ViewAndController/Controller.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cmm/ViewAndController/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cmm/ViewAndController/view.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cmm/lexical/LexicalParser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cmm/lexical/LexicalParser.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Window/mainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Window/mainWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lexical/LexicalParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lexical/LexicalParser.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CoverageViewManager">
+    <option name="myElementSize" value="204" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -109,6 +101,7 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="dynamic.classpath" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/richtextfx-fat-0.10.2.jar!/" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -324,7 +317,7 @@
       <workItem from="1571983143579" duration="38202000" />
       <workItem from="1572082581431" duration="78000" />
       <workItem from="1572082698959" duration="511000" />
-      <workItem from="1572247809864" duration="8180000" />
+      <workItem from="1572247809864" duration="12007000" />
     </task>
     <servers />
   </component>
@@ -353,12 +346,12 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Window/mainWindow.java</url>
-          <line>137</line>
+          <line>173</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Window/mainWindow.java</url>
-          <line>157</line>
+          <line>193</line>
           <option name="timeStamp" value="12" />
         </line-breakpoint>
       </breakpoints>
@@ -367,5 +360,10 @@
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="FILTER_TARGETS" value="false" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/CMMInterpreter$Main__1_.ic" NAME="Main (1) Coverage Results" MODIFIED="1572262917647" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>Window.*</FILTER>
+    </SUITE>
   </component>
 </project>

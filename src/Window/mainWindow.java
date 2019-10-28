@@ -10,7 +10,10 @@ import Parser.E;
 import Parser.FourYuan;
 import Parser.Parser;
 import Parser.LexicalParser;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -18,6 +21,7 @@ import javafx.scene.control.*;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.DirectoryChooser;
@@ -75,7 +79,6 @@ public class mainWindow {
         try {
             File file = directoryChooser.showDialog(frame);
             String path = file.getPath();//选择的文件夹路径
-            //TreeItem<String> treeRootItem = new TreeItem<>(path, rootIcon);
             FileTreeItem fileTreeItem = new FileTreeItem(file, f -> {
                 File[] allFiles = f.listFiles();
                 File[] directorFiles = f.listFiles(File::isDirectory);
@@ -83,14 +86,47 @@ public class mainWindow {
                 //list.removeAll(Arrays.asList(directorFiles));
                 return list.toArray(new File[list.size()]);
             });
+//            folderView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+//                @Override
+//                public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+//                    TreeItem<String> currentSelectItem = (TreeItem<String>) newValue;
+//                    if (currentSelectItem != null&& currentSelectItem.getValue().matches("(.*.txt)|(.*.cmm)")) {
+//                        System.out.println("selection(" + ((TreeItem<String>) newValue).getValue() + ") change");
+//                    }
+//                }
+//            });
+            folderView.setOnMouseClicked(new EventHandler<MouseEvent>()
+            {
+                @Override
+                public void handle(MouseEvent mouseEvent)
+                {
+                    if(mouseEvent.getClickCount() == 2)
+                    {
+                        TreeItem<String> item = folderView.getSelectionModel().getSelectedItem();
+                        //System.out.println("Selected Text : " + item.getValue());
+                        if (item.getValue().matches("(.*.txt)|(.*.cmm)|(.*.c)")) {
+                            try {
+                                String path1 = getTreeItemPath(item);
+                                File file1 = new File(path1);
+                                BufferedReader reader = new BufferedReader(new FileReader(file1));
+                                StringBuilder builder = new StringBuilder();
+                                while (reader.ready()) {
+                                    builder.append(reader.readLine());
+                                    builder.append('\n');
+                                }
+                                String sourceCode = builder.toString();
+                                codeArea.clear();
+                                codeArea.replaceText(0, 0, sourceCode);
+                            }
+                            catch (IOException e) {
+                                e.printStackTrace();
+                                System.exit(1);
+                            }
+                        }
+                    }
+                }
+            });
             folderView.setRoot(fileTreeItem);
-            //treeRootItem.setExpanded(true);
-//            File[] file_list = file.listFiles();
-//            for (int i = 0; i < file_list.length; i++) {
-//                System.out.println(file_list[i].getName());
-//                TreeItem<String> item = new TreeItem<> (file_list[i].getName());
-//                treeRootItem.getChildren().add(item);
-//            }
 
         } finally {
 
@@ -176,6 +212,15 @@ public class mainWindow {
             Text t = new Text();
             t.setText(output_text.toString());
             output.getChildren().addAll(t);
+        }
+    }
+
+    public String getTreeItemPath(TreeItem<String> treeItem){
+        if(treeItem.getParent()!=null) {
+            return getTreeItemPath(treeItem.getParent()) + "/" +treeItem.getValue();
+        }
+        else {
+            return treeItem.getValue();
         }
     }
 }
