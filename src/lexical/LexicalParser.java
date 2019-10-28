@@ -114,7 +114,7 @@ public class LexicalParser {
     }
 
     public Token getNextToken() {
-        while (pointer >= lines.get(currentLine)){
+        while(pointer >= lines.get(currentLine)){
             currentLine +=1;
         }
 
@@ -260,6 +260,9 @@ public class LexicalParser {
                     token.setType(Token.TokenType.IDENTIFIER);
                     token.setStringValue(value);
                 }
+            }
+            else {
+
             }
         }
 

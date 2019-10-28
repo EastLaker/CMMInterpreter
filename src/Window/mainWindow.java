@@ -33,9 +33,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
+
 import Parser.ClassFactory;
 import Parser.Word;
 public class mainWindow {
@@ -64,7 +63,7 @@ public class mainWindow {
     @FXML
         // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
-        codeTabs.getTabs().add(codeTabBuilder("new file", ""));
+        codeTabs.getTabs().add(codeTabBuilder("编辑区", ""));
 
     }
 
@@ -76,15 +75,22 @@ public class mainWindow {
         try {
             File file = directoryChooser.showDialog(frame);
             String path = file.getPath();//选择的文件夹路径
-            TreeItem<String> treeRootItem = new TreeItem<>(path, rootIcon);
-            folderView.setRoot(treeRootItem);
-            treeRootItem.setExpanded(true);
-            File[] file_list = file.listFiles();
-            for (int i = 0; i < file_list.length; i++) {
-                System.out.println(file_list[i].getName());
-                TreeItem<String> item = new TreeItem<> (file_list[i].getName());
-                treeRootItem.getChildren().add(item);
-            }
+            //TreeItem<String> treeRootItem = new TreeItem<>(path, rootIcon);
+            FileTreeItem fileTreeItem = new FileTreeItem(file, f -> {
+                File[] allFiles = f.listFiles();
+                File[] directorFiles = f.listFiles(File::isDirectory);
+                List<File> list = new ArrayList<>(Arrays.asList(allFiles));
+                //list.removeAll(Arrays.asList(directorFiles));
+                return list.toArray(new File[list.size()]);
+            });
+            folderView.setRoot(fileTreeItem);
+            //treeRootItem.setExpanded(true);
+//            File[] file_list = file.listFiles();
+//            for (int i = 0; i < file_list.length; i++) {
+//                System.out.println(file_list[i].getName());
+//                TreeItem<String> item = new TreeItem<> (file_list[i].getName());
+//                treeRootItem.getChildren().add(item);
+//            }
 
         } finally {
 
