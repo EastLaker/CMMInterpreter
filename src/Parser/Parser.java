@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+
 import Parser.LexicalParser;
 public class Parser {//////////////////识别完成token读到的应该是;
 //语法分析    识别算术表达式   规约规则⬇️
@@ -14,7 +15,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 	//2)E->E+E
 	//3)E->(E)
 	//4)E->id
-
+	public static List<Word> Wordlist = new ArrayList<Word>();
 	public static List<String> errors = new ArrayList<String>();
 	public List<String> parsers = new ArrayList<String>();
 	public List<String>  tokens = new ArrayList<String>();/////用于存放词法分析的结果   测试
@@ -30,10 +31,8 @@ public class Parser {//////////////////识别完成token读到的应该是;
 	public Stack<B> Bs = new Stack<B>();
 	public Stack<A> As = new Stack<A>();
 	public Stack<O> Os = new Stack<O>();
+	public Token line_token = new Token();
 	public List<FourYuan> fours = new ArrayList<FourYuan>();
-
-	ClassFactory cf = new ClassFactory();
-
 	public  void parserE() {///////////词法分析程序
 		states.push(0);/////将0状态入栈
 		//token = tokens[cur];////
@@ -52,6 +51,14 @@ public class Parser {//////////////////识别完成token读到的应该是;
         			symbols.push("(");
         			token = tokens.get(cur++);
         		}
+        		else if(token.equals("}")){
+        			String str = "行："+line_token.getLine_no()+"	错误提示：可能缺少 { ";
+        			System.out.println(str);
+				}
+        		else {
+					String str = "行："+line_token.getLine_no()+"	错误提示：这是无效输入！";
+					System.out.println(str);
+				}
         		break;
         	case 1:
         		if(token.equals("+")) {
@@ -141,7 +148,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
         				states.pop();/////语法动作，符号栈出栈三次，状态栈出栈三次
         			}
         			E e = new E();
-        			e.des = E.getReg();
+        			e.des = "reg"+E.reg;E.reg++;
         			symbols.pop();/////出栈E
         			String op2 = Es.pop().des;///////获得源操作数2
         			String op = symbols.pop();//////出栈运算符+
@@ -178,7 +185,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
         				states.pop();
         			}
         			E e = new E();
-        			e.des = E.getReg();
+        			e.des = "reg"+E.reg;E.reg++;
         			symbols.pop();
         			String op2 = Es.pop().des;
         			String op = symbols.pop();
@@ -335,7 +342,16 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			///TODO  建立单词表
 			String type = token;
 			token = tokens.get(cur++);
-			addWord(type);
+			if(token.matches(m_id)) {
+				Word word = new Word();
+				word.type = type;
+				word.des = Word.des_start+"";
+				Word.des_start+=4;
+				word.name = token;
+				token = tokens.get(cur++);
+				Wordlist.add(word);
+			    T(type);
+			}
 		}
 		else if(token.matches(m_id)) {//赋值语句
 			parsers.add("S->a;");
@@ -357,27 +373,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			}
 		}
 	}
-
-	private void addWord(String type) {
-		if (token.matches(m_id)) {
-			Word word = cf.newWordFromType(type);
-			word.des = Word.des_start + "";
-			Word.des_start += 4;
-			putWordIn(word);
-			token = tokens.get(cur++);
-			T(type);
-		}
-	}
-
-	private void putWordIn(Word word) {
-		if (ClassFactory.Wordlist.containsKey(token)) {
-			errors.add("same variable exception");
-		} else {
-			ClassFactory.Wordlist.put(token, word);
-		}
-	}
-
-	void T(String type) {
+void T(String type) {
 	///TODO   声明语句
 	if(token.contentEquals(";")) {
 		token = tokens.get(cur++);
@@ -385,7 +381,16 @@ public class Parser {//////////////////识别完成token读到的应该是;
 	}
 	else if(token.contentEquals(",")) {
 		token = tokens.get(cur++);
-		addWord(type);
+		if(token.matches(m_id)) {
+			Word word = new Word();
+			word.type = type;
+			word.des = Word.des_start+"";
+			Word.des_start+=4;
+			word.name = token;
+			Wordlist.add(word);
+			token = tokens.get(cur++);
+			T(type);
+		}
 	}
 }
 	void parserB() {
@@ -641,16 +646,28 @@ public class Parser {//////////////////识别完成token读到的应该是;
 						Symbols.push("&&");
 						token = tokens.get(cur++);
 					}
-
+//					else if (token.equals("||")){
+//						States.push(10);
+//						Symbols.push("||");
+//						token = tokens[cur++];
+//					}
 					else if (token.equals(")")||token.equals(";")||token.contentEquals("||")){
 						parsers.add("B->AB");
 						for (int i=0;i<2;i++){
 							Symbols.pop();
 							States.pop();
 						}
-
+//						E e = new E();
+//						e.des = symbols.pop();
+//						Es.push(e);
 						Symbols.push("B");
-
+						/*
+						 * B->AB    B->B1&&B2
+						 * 地址回填B1.truelist 回填B2.startstat
+						 * B.truelist = B2.truelist
+						 * B.falselist = merge(B1.falselist,B2.falselist)
+						 * B.startStat = B1.startStat
+						 */
 						B boo = new B();
 						B b2 = Bs.pop();//////B2
 						B b1 = Bs.pop();//////B1
