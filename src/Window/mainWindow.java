@@ -33,6 +33,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -145,7 +146,7 @@ public class mainWindow {
             Parser.errors.clear();
             E.reg = 0;
             ClassFactory.Wordlist.clear();
-            Word.des_start = 0x0;
+            Word.setDes_start(0x0);
             Parser parse = new Parser();///////分析实例
             LexicalParser lexicalParser = new LexicalParser();
             lexicalParser.setSourceCode(text);

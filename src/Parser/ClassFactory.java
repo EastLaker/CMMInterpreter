@@ -17,15 +17,16 @@ public class ClassFactory {
     public enum TYPE{
         INT,  //识别的声明类型 int
         FLOAT, //识别float
-        INT_,
     }
 
     public  Word newWordFromValue(String str){
         switch (getTypeFromNum(str)){
             case INT:
-                return new Word<Integer>(TYPE.INT);
+                int i = Integer.parseInt(str);
+                return new Word<>(TYPE.INT, i);
             case FLOAT:
-                return new Word<Float>(TYPE.FLOAT);
+                float f = Float.parseFloat(str);
+                return new Word<>(TYPE.FLOAT, f);
             default:
                 throw new IllegalArgumentException("can not match type");
         }

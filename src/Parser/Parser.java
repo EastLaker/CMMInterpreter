@@ -8,6 +8,9 @@ import java.util.Stack;
 
 
 import Parser.LexicalParser;
+/**
+ * @author lfz
+ */
 public class Parser {//////////////////识别完成token读到的应该是;
 //语法分析    识别算术表达式   规约规则⬇️
 	//0）S->E+E
@@ -22,6 +25,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 	public String token = null;//读入的词
 	public int cur = 0;///用于遍历词法分析的词
 	public String m_id = "^[A-Za-z_][A-Za-z0-9_]*$";
+	public String positive_int = "^[1-9]*$";
 	public String m_int = "^[+/-]?[0-9]*$";
 	public Stack<Integer> states = new Stack<Integer>();/////状态栈------用于赋值表达式的检测
 	public Stack<String> symbols = new Stack<String>();/////符号栈----------用于赋值表达式的检测
@@ -414,29 +418,68 @@ public class Parser {//////////////////识别完成token读到的应该是;
 		if (token.matches(m_id)) {
 			String name = token;
 			Word word = cf.newWordFromType(type);
-			word.des = Word.des_start + "";
-			Word.des_start += 4;
+			word.des = Word.getDes();
 			putWordIn(word);
 			token = tokens.get(cur++);
-			if(token.equals("[")) {
+			if("[".equals(token)) {
 				token = tokens.get(cur++);
-				int size = Integer.parseInt(token);///数组大小
-				Word word0 = ClassFactory.Wordlist.get(name);
-				ClassFactory.Wordlist.remove(name);
-				ClassFactory.Wordlist.put(name+"["+0+"]",word0);
-					for(int i=1;i<=size-1;i++){
-						Word word1 = cf.newWordFromType(type);
-						word1.des = Word.des_start+"";
-						Word.des_start += 4;
-						ClassFactory.Wordlist.put(name+"["+i+"]",word1);
-					}
-				token = tokens.get(cur++);
-				if (!token.equals("]")) {
+				boolean isInitialized = true;
+				if(token.matches(positive_int)){
+					isInitialized = false;
+					///数组大小
+					int size = Integer.parseInt(token);
+					arrayDeclared(type, name, size);
+					token = tokens.get(cur++);
+				}
+
+				if (!"]".equals(token)) {
 					//todo 缺少右括号
 				}
 				else token = tokens.get(cur++);
+
+				if(isInitialized){
+					//模拟读入 "=" 不做处理 有无都可
+					if("=".equals(token)) token = tokens.get(cur++);
+
+					if("{".equals(token)){
+						int size = 0;
+						do{
+							token = tokens.get(cur++);
+							if(size==0){
+								Word word0 = cf.newWordFromValue(token);
+								word0.des = word.des;
+								ClassFactory.Wordlist.remove(name);
+								ClassFactory.Wordlist.put(name+"[0]",word0);
+							}else{
+								Word iter = cf.newWordFromValue(token);
+								iter.des = Word.getDes();
+								ClassFactory.Wordlist.put(name+"["+size+"]",iter);
+							}
+							size++;
+							token = tokens.get(cur++);
+						}while(",".equals(token));
+						//假如没有用,分割  错误应该是没有匹配到 "}";
+
+						if(!"}".equals(token)){
+							//todo 错误匹配 数组赋值表达式没有终结符.
+						}else{
+							token = tokens.get(cur++);
+						}
+					}
+				}
 			}
 			T(type);
+		}
+	}
+
+	private void arrayDeclared(String type, String name, int size) {
+		Word word0 = ClassFactory.Wordlist.get(name);
+		ClassFactory.Wordlist.remove(name);
+		ClassFactory.Wordlist.put(name+"[0]",word0);
+		for(int i=1;i<=size-1;i++) {
+			Word word1 = cf.newWordFromType(type);
+			word1.des = Word.getDes();
+			ClassFactory.Wordlist.put(name + "[" + i + "]", word1);
 		}
 	}
 
