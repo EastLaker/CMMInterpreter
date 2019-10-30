@@ -19,31 +19,19 @@ public class ClassFactory {
         FLOAT, //识别float
     }
 
-    public  Word newWordFromValue(String str){
-        switch (getTypeFromNum(str)){
-            case INT:
-                int i = Integer.parseInt(str);
-                return new Word<>(TYPE.INT, i);
-            case FLOAT:
-                float f = Float.parseFloat(str);
-                return new Word<>(TYPE.FLOAT, f);
-            default:
-                throw new IllegalArgumentException("can not match type");
-        }
-    }
-
-    public  Word newWordFromType(String str){
+    public Word newWordFromType(String str){
         switch (getTypeFromType(str)){
             case INT:
-                return new Word<Integer>(TYPE.INT);
+                return new Word<>(TYPE.INT, 0);
             case FLOAT:
-                return new Word<Float>(TYPE.FLOAT);
+                return new Word<>(TYPE.FLOAT, 0.0f);
             default:
                 throw new IllegalArgumentException("can not match type");
         }
     }
 
         public void setWordValue(Word word,String str) {
+        //todo 当word中为int时， str为float时可能有异常发生.
             switch (getTypeFromNum(str)) {
                 case INT:
                     word.setValue(Integer.parseInt(str));

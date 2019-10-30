@@ -24,7 +24,7 @@ public class Word<T> {
         return des+"";
     }
 
-    public void setValue(Object value) {
+    public void setValue(T value) {
         this.value = (T) value;
     }
 
@@ -42,17 +42,7 @@ public class Word<T> {
     /////转换问题：string与int，float等等转换
 
 
-    public Object getValue() {
-        if (value == null) {
-            switch (type) {
-                case FLOAT:
-                    setValue(0.0f);
-                    break;
-                case INT:
-                    setValue(0);
-                    break;
-            }
-        }
+    public T getValue() {
         return value;
     }
 }

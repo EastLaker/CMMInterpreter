@@ -6,6 +6,7 @@ import Window.mainWindow;
  * @author knight
  */
 public class FourYuan {
+	//todo when : int+float = float, no exception
 
 	public static int no = 0;/////指令序列
 
@@ -76,10 +77,10 @@ public class FourYuan {
 						if (temp.getValue() != null) {
 							word.setValue(temp.getValue());
 						} else {
-							Parser.errors.add("assigning from a uninitialized variable");
+							Parser.errors.add("assigning from a uninitialized variable\n");
 						}
 					} else {
-						Parser.errors.add("assigning from a undeclared variable");
+						Parser.errors.add("assigning from a undeclared variable\n");
 					}
 				}
 			} else {
