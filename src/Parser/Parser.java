@@ -426,7 +426,6 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			///赋值吗？
 			T(type);
 		}
-
 	}
 
 	private void is_Array(String type, String name, String start_des) {
@@ -484,7 +483,6 @@ public class Parser {//////////////////识别完成token读到的应该是;
 					}
 				}
 			}
-//			is_Array(type, name);
 		}
 	}
 

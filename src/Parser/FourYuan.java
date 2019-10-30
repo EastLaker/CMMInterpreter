@@ -71,7 +71,7 @@ public class FourYuan {
 					//todo value间的转换会出bug吗
 					word.setValue(ClassFactory.Registers.get(op1).getValue());
 				} else if (regexPat(this.op1) == TokenType.VARIABLE) {
-					Word temp = ClassFactory.Wordlist.getOrDefault(variPat, null);
+					Word temp = ClassFactory.Wordlist.getOrDefault(op1, null);
 					if (temp != null) {
 						if (temp.getValue() != null) {
 							word.setValue(temp.getValue());
