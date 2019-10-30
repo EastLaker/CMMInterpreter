@@ -168,7 +168,7 @@ public class mainWindow {
             output_text.append("单词表结构：\n");
             output_text.append("变量名\t变量类型\t变量地址\t变量值\n");
             for(String word : words) {
-                output_text.append(word+"\t"+ ClassFactory.Wordlist.get(word).type+"\t"+ ClassFactory.Wordlist.get(word).des+"\t"+ ClassFactory.Wordlist.get(word).getValue()+"\n");
+                output_text.append(word+"\t"+ ClassFactory.Wordlist.get(word).type+"\t"+ ClassFactory.Wordlist.get(word).getDes()+"\t"+ ClassFactory.Wordlist.get(word).getValue()+"\n");
             }
             for(int i=0;i<Parser.errors.size();i++)
                 output_text.append(Parser.errors.get(i));

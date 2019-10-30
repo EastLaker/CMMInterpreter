@@ -2,12 +2,8 @@ package Parser;
 
 import java.awt.FileDialog;
 import java.awt.Frame;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
-import java.util.TreeSet;
+import java.util.*;
 
-import Parser.LexicalParser;
 /**
  * @author lfz
  */
@@ -419,12 +415,12 @@ public class Parser {//////////////////识别完成token读到的应该是;
 		if (token.matches(m_id)) {
 			String name = token;
 			Word word = cf.newWordFromType(type);
-			word.des = Word.getDes();
+			word.setDes(Word.getDes_start());
 			boolean isAdded = putWordIn(word);
 			//  if括弧的范围对不对？
 			token = tokens.get(cur++);
 			if(isAdded){
-				is_Array(type, name, word.des);
+				is_Array(type, name, word.getDes());
 				///是数组吗？
 				to_assign(name);
 				///赋值吗？
@@ -433,7 +429,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 		}
 	}
 
-	private void is_Array(String type, String name, String start_des) {
+	private void is_Array(String type, String name, int start_des) {
 		if ("[".equals(token)) {
 			token = tokens.get(cur++);
 			//数组是否以={}的形式初始化.
@@ -443,15 +439,22 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				///数组大小
 				int size = Integer.parseInt(token);
 
-				Word word0 = cf.newWordFromType(type);
-				word0.des = start_des;
+				Word array = cf.newArrayFromType(type, size);
+				array.setDes(start_des);
+				Word.getDes_start(size-1);
 				ClassFactory.Wordlist.remove(name);
-				ClassFactory.Wordlist.put(name+"[0]",word0);
-				for(int i=1;i<=size-1;i++) {
-					Word word1 = cf.newWordFromType(type);
-					word1.des = Word.getDes();
-					ClassFactory.Wordlist.put(name + "[" + i + "]", word1);
-				}
+				ClassFactory.Wordlist.put(name,array);
+
+//				Word word0 = cf.newWordFromType(type);
+//				word0.setDes(start_des);
+//				ClassFactory.Wordlist.remove(name);
+//				ClassFactory.Wordlist.put(name+"[0]",word0);
+//				for(int i=1;i<=size-1;i++) {
+//					Word word1 = cf.newWordFromType(type);
+//					word1.setDes(Word.getDes_start());
+//					ClassFactory.Wordlist.put(name + "[" + i + "]", word1);
+//				}
+
 				token = tokens.get(cur++);
 			}
 
@@ -467,10 +470,13 @@ public class Parser {//////////////////识别完成token读到的应该是;
 					int size = 0;
 					do {
 						token = tokens.get(cur++);
+						LinkedList<String> linkedList = new LinkedList<>();
+						linkedList.add(token);
+
 						if (size == 0) {
 							parserE();
 							Word word0 = cf.newWordFromType(type);
-							word0.des = start_des;
+							word0.setDes(start_des);
 							ClassFactory.Wordlist.remove(name);
 							ClassFactory.Wordlist.put(name + "[0]", word0);
 							FourYuan four = new FourYuan();
@@ -482,7 +488,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 						} else {
 							parserE();
 							Word iter = cf.newWordFromType(type);
-							iter.des = Word.getDes();
+							iter.setDes(Word.getDes_start());
 							ClassFactory.Wordlist.put(name + "[" + size + "]", iter);
 							FourYuan four = new FourYuan();
 							four.oprator = "=";
