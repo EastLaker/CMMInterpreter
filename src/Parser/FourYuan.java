@@ -62,7 +62,7 @@ public class FourYuan {
 			/////TODO 直接跳转
 			mainWindow.j = Integer.parseInt(des) - 1;
 		} else if (this.oprator.contentEquals("=")) {
-			Word word = ClassFactory.Wordlist.getOrDefault(this.des, null);
+			Word word = ClassFactory.Wordlist.getOrDefault(this.des, null);////查询hash表
 			if (word != null) {
 				if (regexPat(this.op1) == TokenType.CONST) {
 					//todo 类型判断 .
@@ -76,10 +76,10 @@ public class FourYuan {
 						if (temp.getValue() != null) {
 							word.setValue(temp.getValue());
 						} else {
-							Parser.errors.add("assigning from a uninitialized variable");
+							Parser.errors.add("assigning from a uninitialized variable\n");
 						}
 					} else {
-						Parser.errors.add("assigning from a undeclared variable");
+						Parser.errors.add("assigning from a undeclared variable\n");
 					}
 				}
 			} else {

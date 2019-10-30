@@ -76,7 +76,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
         			token = tokens.get(cur);
         			cur++;
         		}
-        		else if(token.equals(";")||token.equals(",")) {
+        		else if(token.equals(";")||token.equals(",")||token.equals("}")) {
         			b = false;/////识别表达式语句结束
         			////退出识别表达式
         			/////token==;
@@ -111,7 +111,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
         		break;
         	case 3:
         		if(token.contentEquals("+")||token.equals("*")||token.contentEquals(")")||token.equals(";")||
-				token.equals(",")){
+				token.equals(",")||token.equals("}")){
         			parsers.add("E->id");
         			E e = new E();
         			e.des=symbols.pop();//出栈一个id
@@ -170,7 +170,8 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				}
         		break;
         	case 7:
-        		if(token.equals("+")||token.equals(")")||token.equals(";")||token.equals(",")){
+        		if(token.equals("+")||token.equals(")")||token.equals(";")||token.equals(",")||
+				token.equals("}")){
         			//r1规约   
         			parsers.add("E->E+E");
         			for(int i=0;i<3;i++) {
@@ -209,7 +210,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
         		break;
         	case 8:
         		if(token.equals("+")||token.contentEquals("*")||token.equals(")")||token.contentEquals(";")
-				||token.equals(",")) {
+				||token.equals(",")||token.equals("}")) {
         			//r2规约
         			parsers.add("E->E*E");
         			for(int i=0;i<3;i++) {
@@ -242,7 +243,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
         		break;
         	case 9:
         		if(token.equals("+")||token.contentEquals("*")||token.equals(")")||token.contentEquals(";")||
-				token.equals(",")) {
+				token.equals(",")||token.equals("}")) {
         			//r3规约
         			parsers.add("E->(E)");
         			for(int i=0;i<3;i++) {
@@ -463,17 +464,31 @@ public class Parser {//////////////////识别完成token读到的应该是;
 					do {
 						token = tokens.get(cur++);
 						if (size == 0) {
-							Word word0 = cf.newWordFromValue(token);
+							parserE();
+							Word word0 = cf.newWordFromValue(0+"");////todo 改动初值为0
 							word0.des = start_des;
 							ClassFactory.Wordlist.remove(name);
 							ClassFactory.Wordlist.put(name + "[0]", word0);
+							FourYuan four = new FourYuan();
+							four.oprator = "=";
+							four.des = name+"[0]";
+							four.op1 = Es.peek().des;
+							fours.add(four);
+							FourYuan.no++;
 						} else {
-							Word iter = cf.newWordFromValue(token);
+							parserE();
+							Word iter = cf.newWordFromValue(0+"");///todo 改动初值为0
 							iter.des = Word.getDes();
 							ClassFactory.Wordlist.put(name + "[" + size + "]", iter);
+							FourYuan four = new FourYuan();
+							four.oprator = "=";
+							four.des = name+ "["+ size + "]";
+							four.op1 = Es.peek().des;
+							fours.add(four);
+							FourYuan.no++;
 						}
 						size++;
-						token = tokens.get(cur++);
+					//	token = tokens.get(cur++);
 					} while (",".equals(token));
 					//假如没有用,分割  错误应该是没有匹配到 "}";
 
