@@ -163,8 +163,8 @@ public class mainWindow {
             for(int i=0;i<parse.fours.size();i++) {
                 output_text.append(i + " " + parse.fours.get(i).get_four_str() + "\n");
             }
-            for(;j<parse.fours.size();j++)
-                parse.fours.get(j).Exec();
+//            for(;j<parse.fours.size();j++)
+//                parse.fours.get(j).Exec();
             Set<String> words = ClassFactory.Wordlist.keySet();
             output_text.append("单词表结构：\n");
             output_text.append("变量名\t变量类型\t变量地址\t变量值\n");
