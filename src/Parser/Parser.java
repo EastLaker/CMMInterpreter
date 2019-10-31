@@ -259,6 +259,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			four.op2 = Es.peek().des;
 			E e = new E();
 			e.des = E.getReg();
+			Es.push(e);
 			four.des = e.des;
 			fours.add(four);
 			FourYuan.no++;
