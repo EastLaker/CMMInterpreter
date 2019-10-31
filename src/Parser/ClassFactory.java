@@ -31,7 +31,7 @@ public class ClassFactory {
         }
     }
 
-    public Word newArrayFromType(String str, int length){
+    public ArrayType newArrayFromType(String str, int length){
         switch (getTypeFromType(str)){
             case INT:
                 return new ArrayType<>(new Integer[length],TYPE.INT);

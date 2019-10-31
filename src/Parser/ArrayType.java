@@ -8,14 +8,15 @@ package Parser;
  */
 public class ArrayType<T> extends Word<T> {
     private T[] value;
-    private int length;
 
     public ArrayType(T[] array, ClassFactory.TYPE type){
         value = array;
         this.length = array.length;
         this.type = type;
     }
-
+    public void SetArray(T[] array){
+        this.value = array;
+    }
     public static int getDesStart(int length) {
         return Word.getDes_start(length*4);
     }
@@ -32,6 +33,6 @@ public class ArrayType<T> extends Word<T> {
 
     private void checkIndexOutOfBound(int index) {
         if (index < 0 && index > length - 1)
-            throw new IndexOutOfBoundsException();
+            throw new IndexOutOfBoundsException();/////todo   报错处理
     }
 }
