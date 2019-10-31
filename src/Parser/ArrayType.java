@@ -17,9 +17,6 @@ public class ArrayType<T> extends Word<T> {
     public void SetArray(T[] array){
         this.value = array;
     }
-    public static int getDesStart(int length) {
-        return Word.getDes_start(length*4);
-    }
 
     public T getValue(int index){
         checkIndexOutOfBound(index);
