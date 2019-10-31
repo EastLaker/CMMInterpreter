@@ -37,9 +37,9 @@ public class ClassFactory {
 
     public ArrayType newArrayFromArray(Object[] arr, String type){
         switch (getTypeFromType(type)){
-            case INT_ARRAY:
+            case INT:
                 return new ArrayType(Arrays.copyOf(arr,arr.length,Integer[].class),TYPE.INT_ARRAY);
-            case FLOAT_ARRAY:
+            case FLOAT:
                 return new ArrayType(Arrays.copyOf(arr,arr.length,Float[].class),TYPE.FLOAT_ARRAY);
             default:
                 //todo 添加错误处理
@@ -50,9 +50,9 @@ public class ClassFactory {
 
     public ArrayType newArrayFromType(String str, int length){
         switch (getTypeFromType(str)){
-            case INT_ARRAY:
+            case INT:
                 return new ArrayType<>(new Integer[length],TYPE.INT_ARRAY);
-            case FLOAT_ARRAY:
+            case FLOAT:
                 return new ArrayType<>(new Float[length],TYPE.FLOAT_ARRAY);
             default:
                 throw new IllegalArgumentException("can not match type");
