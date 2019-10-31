@@ -1,5 +1,7 @@
 package Parser;
 
+import javax.lang.model.element.NestingKind;
+import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -10,6 +12,7 @@ import java.util.HashMap;
 public class ClassFactory {
     public static HashMap<String,Word> Wordlist = new HashMap<>();
     public static HashMap<String,Register> Registers = new HashMap<>();
+    public static HashMap<Integer,Word> MemoryMap = new HashMap<>();
 
     private String _int = "^[+/-]?[0-9]*$";
     private String _float = "[0-9]+\\.?[0-9]+";
@@ -32,11 +35,23 @@ public class ClassFactory {
         }
     }
 
-    public Word newArrayFromType(String str, int length){
+    public ArrayType newArrayFromArray(Object[] arr, String type){
+        switch (getTypeFromType(type)){
+            case INT_ARRAY:
+                return new ArrayType(Arrays.copyOf(arr,arr.length,Integer[].class),TYPE.INT_ARRAY);
+            case FLOAT_ARRAY:
+                return new ArrayType(Arrays.copyOf(arr,arr.length,Float[].class),TYPE.FLOAT_ARRAY);
+            default:
+                //todo 添加错误处理
+                return null;
+        }
+    }
+
+    public ArrayType newArrayFromType(String str, int length){
         switch (getTypeFromType(str)){
-            case INT:
+            case INT_ARRAY:
                 return new ArrayType<>(new Integer[length],TYPE.INT_ARRAY);
-            case FLOAT:
+            case FLOAT_ARRAY:
                 return new ArrayType<>(new Float[length],TYPE.FLOAT_ARRAY);
             default:
                 throw new IllegalArgumentException("can not match type");

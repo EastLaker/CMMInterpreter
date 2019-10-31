@@ -430,86 +430,71 @@ public class Parser {//////////////////识别完成token读到的应该是;
 	}
 
 	private void is_Array(String type, String name, int start_des) {
+		int size = 0;//数组大小
 		if ("[".equals(token)) {
 			token = tokens.get(cur++);
 			//数组是否以={}的形式初始化.
-			boolean isInitialized = true;
+			boolean length_determined = false;////数组长度没有确定
 			if (token.matches(positive_int)) {
-				isInitialized = false;
-				///数组大小
-				int size = Integer.parseInt(token);
-
-				Word array = cf.newArrayFromType(type, size);
+				///token有两种情况 1是常数，那么数组长度确定（size确定，length determined为true）
+				//2是]直接跳出这一层if
+				length_determined = true;/////数组长度确定
+				size = Integer.parseInt(token);////数组长度确定
+				///////初始化一个word
+				ArrayType array = cf.newArrayFromType(type, size);
 				array.setDes(start_des);
-				Word.getDes_start(size-1);
+
+				Word.getDes_start(size - 1);
 				ClassFactory.Wordlist.remove(name);
-				ClassFactory.Wordlist.put(name,array);
 
-//				Word word0 = cf.newWordFromType(type);
-//				word0.setDes(start_des);
-//				ClassFactory.Wordlist.remove(name);
-//				ClassFactory.Wordlist.put(name+"[0]",word0);
-//				for(int i=1;i<=size-1;i++) {
-//					Word word1 = cf.newWordFromType(type);
-//					word1.setDes(Word.getDes_start());
-//					ClassFactory.Wordlist.put(name + "[" + i + "]", word1);
-//				}
-
+				ClassFactory.Wordlist.put(name, array);
 				token = tokens.get(cur++);
 			}
 
 			if (!"]".equals(token)) {
 				//todo 缺少右括号
 			} else token = tokens.get(cur++);
+			//模拟读入 "=" 不做处理 有无都可
+			if ("=".equals(token)) token = tokens.get(cur++);
+			if ("{".equals(token)) {/////数组需要初始化吗？
+				ArrayList<Integer> var_array = new ArrayList<>();////用于初始化单词表的数组
+				int j = 0;
+				token = tokens.get(cur++);
+				while (token.matches(m_int)) {
+					var_array.add(Integer.parseInt(token));
+					j++;
+					token = tokens.get(cur++);
 
-			if (isInitialized) {
-				//模拟读入 "=" 不做处理 有无都可
-				if ("=".equals(token)) token = tokens.get(cur++);
-
-				if ("{".equals(token)) {
-					int size = 0;
-					do {
+					if (",".equals(token))
 						token = tokens.get(cur++);
-						LinkedList<String> linkedList = new LinkedList<>();
-						linkedList.add(token);
+					else break;
+				}
+				//todo  将越界检测移到while中会更安全
+				if (length_determined) {
+					if (j > size)
+						errors.add("数组赋值越界 \n");
+					else if (j < size)
+						for (; j < size; j++)
+							var_array.add(0);////多余元素用0补足
+				}
 
-						if (size == 0) {
-							parserE();
-							Word word0 = cf.newWordFromType(type);
-							word0.setDes(start_des);
-							ClassFactory.Wordlist.remove(name);
-							ClassFactory.Wordlist.put(name + "[0]", word0);
-							FourYuan four = new FourYuan();
-							four.oprator = "=";
-							four.des = name+"[0]";
-							four.op1 = Es.peek().des;
-							fours.add(four);
-							FourYuan.no++;
-						} else {
-							parserE();
-							Word iter = cf.newWordFromType(type);
-							iter.setDes(Word.getDes_start());
-							ClassFactory.Wordlist.put(name + "[" + size + "]", iter);
-							FourYuan four = new FourYuan();
-							four.oprator = "=";
-							four.des = name+ "["+ size + "]";
-							four.op1 = Es.peek().des;
-							fours.add(four);
-							FourYuan.no++;
-						}
-						size++;
-					} while (",".equals(token));
-					//假如没有用,分割  错误应该是没有匹配到 "}";
+				ArrayType arrayType = cf.newArrayFromArray(var_array.toArray(), type);
 
-					if (!"}".equals(token)) {
-						//todo 错误匹配 数组赋值表达式没有终结符.
-					} else {
-						token = tokens.get(cur++);
-					}
+				if (!length_determined)
+					Word.getDes_start(j - 1);
+				arrayType.setDes(start_des);
+				ClassFactory.Wordlist.remove(name);
+				ClassFactory.Wordlist.put(name, arrayType);
+
+				if (!"}".equals(token)) {
+					//todo 错误匹配 数组赋值表达式没有终结符.
+				} else {
+					token = tokens.get(cur++);
 				}
 			}
 		}
 	}
+
 
 	private void to_assign(String name) {
 		if("=".equals(token)){
@@ -946,42 +931,5 @@ public class Parser {//////////////////识别完成token读到的应该是;
 		}
 	}
 
-	private static Frame frame;
-	public static void main(String[] args) {///////////////////TODO主函数
-		// TODO Auto-generated method stub
-		Parser parse = new Parser();///////分析实例
-		FileDialog fileDialog = new FileDialog(frame,"test file",FileDialog.LOAD);
-		fileDialog.setVisible(true);
-		String str_file = fileDialog.getDirectory() + fileDialog.getFile();
-		//建立一个LexicalParser对象，构造函数的参数为代码文件的地址
-		LexicalParser lexicalParser = new LexicalParser(str_file);
-		//使用getAllTokens()方法获取Tokens,返回一个包含了识别出的Tokens的ArrayList
-		List<String> tokens = lexicalParser.getAllTokens();
-		for (String token: tokens) {
-			parse.tokens.add(token);
-		}
-		parse.token = parse.tokens.get(parse.cur++);////读入第一个单词
-		parse.L();
-		////测试
-		System.out.println("算术表达式栈顶的存放位置："+parse.Es.peek().des);
-		System.out.println("识别出算术表达式的数量："+parse.symbols.size());
-		System.out.println("算术表达式状态栈栈顶：（正确时应该为1）"+parse.states.peek());
-		System.out.println("栈顶逻辑表达式需要回填的真出口链:");
-		for(int i=0;i<parse.Bs.peek().truelist.size();i++) {
-		System.out.print(parse.Bs.peek().truelist.get(i)+"   ");
-		}
-		System.out.println("");
-		System.out.println("需要回填的假出口链：");
-		for(int i=0;i<parse.Bs.peek().falselist.size();i++) {
-			System.out.print(parse.Bs.peek().falselist.get(i)+"   ");
-		}
-		System.out.println("");
-		System.out.println(parse.Bs.size());
-		System.out.println("token:"+parse.token);
-		for(int i=0;i<parse.fours.size();i++) {
-			System.out.print(i+":   ");
-			parse.fours.get(i).print();
-		}
-		System.out.println("下一条指令地址："+FourYuan.no);
-	}
+
 }

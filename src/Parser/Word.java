@@ -6,6 +6,7 @@ package Parser;
  */
 public class Word<T> {
     //地址0x.....
+    public int length;
     private int des;
     //类型   int float ......
     public ClassFactory.TYPE type;
