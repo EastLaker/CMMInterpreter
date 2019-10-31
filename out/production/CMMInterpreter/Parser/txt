@@ -1,14 +1,14 @@
-
 package Parser;
 
-
+import java.awt.FileDialog;
+import java.awt.Frame;
 import java.util.*;
 
 /**
  * @author lfz
  */
 public class Parser {//////////////////识别完成token读到的应该是;
-	//语法分析    识别算术表达式   规约规则⬇️
+//语法分析    识别算术表达式   规约规则⬇️
 	//0）S->E+E
 	//1) E->E+E
 	//2)E->E+E
@@ -40,207 +40,207 @@ public class Parser {//////////////////识别完成token读到的应该是;
 		//token = tokens[cur];////
 		//cur++;/////模拟读入
 		boolean b = true;
-		while(b) {
-			switch (states.peek()){
-				case 0:
+        while(b) {
+        	switch (states.peek()){
+        	case 0:
 				case 2:
 					if(token.matches(m_id)||token.matches(m_int)) {
-						states.push(3);////状态栈入栈
+        			states.push(3);////状态栈入栈
 						element_of_array();
 						token = tokens.get(cur++);
-					}
-					else if(token.equals("(")) {
-						states.push(2);
-						symbols.push("(");
-						token = tokens.get(cur++);
-					}
-					else if(token.equals(")")){
-						errors.add("行：in"+line_token.getLine_no()+"	错误提示：可能缺少 ( ");
-					}
-					else {
-						errors.add("行：in"+line_token.getLine_no()+"	错误提示：这是无效输入！");
-					}
-					break;
-				case 1:
-					if(token.equals("+")) {
-						states.push(4);
-						symbols.push("+");
-						token = tokens.get(cur++);
-					}
-					else if(token.equals("*")) {
-						states.push(5);
-						symbols.push("*");
-						token = tokens.get(cur++);
-					}
-					else if(token.equals(";")||token.equals(",")||token.equals("}")||token.equals("]")) {
-						b = false;/////识别表达式语句结束
-						////退出识别表达式
-						/////token==;
-					}
-					else if(token.equals(")")){
-						errors.add("行："+line_token.getLine_no()+"	错误提示：可能缺少 ( ");
-					}
-					else if(token.equals("(")){
-						errors.add("行："+line_token.getLine_no()+"	错误提示：可能缺少 ) ");
-					}
-					else {
-						errors.add("行："+line_token.getLine_no()+"	错误提示：这是无效输入！");
-					}
-					break;
+        		}
+        		else if(token.equals("(")) {
+        			states.push(2);
+        			symbols.push("(");
+        			token = tokens.get(cur++);
+        		}
+        		else if(token.equals(")")){
+        			errors.add("行：in"+line_token.getLine_no()+"	错误提示：可能缺少 ( ");
+				}
+        		else {
+					errors.add("行：in"+line_token.getLine_no()+"	错误提示：这是无效输入！");
+				}
+        		break;
+        	case 1:
+        		if(token.equals("+")) {
+        			states.push(4);
+        			symbols.push("+");
+        			token = tokens.get(cur++);
+        		}
+        		else if(token.equals("*")) {
+        			states.push(5);
+        			symbols.push("*");
+        			token = tokens.get(cur++);
+        		}
+        		else if(token.equals(";")||token.equals(",")||token.equals("}")||token.equals("]")) {
+        			b = false;/////识别表达式语句结束
+        			////退出识别表达式
+        			/////token==;
+        		}
+				else if(token.equals(")")){
+					errors.add("行："+line_token.getLine_no()+"	错误提示：可能缺少 ( ");
+				}
+				else if(token.equals("(")){
+					errors.add("行："+line_token.getLine_no()+"	错误提示：可能缺少 ) ");
+				}
+				else {
+					errors.add("行："+line_token.getLine_no()+"	错误提示：这是无效输入！");
+				}
+        		break;
 				case 3:
-					if(token.contentEquals("+")||token.equals("*")||token.contentEquals(")")||token.equals(";")||
-							token.equals(",")||token.equals("}")||token.equals("]")){
-						parsers.add("E->id");
-						E e = new E();
-						e.des = symbols.pop();//出栈一个id
-						Es.push(e);
-						states.pop();//出栈
-						symbols.push("E");
-						states_push();
-					}
-					else	{
-						System.out.println("行：in"+line_token.getLine_no()+"	错误提示：这是无效输入！");
-					}
-					break;
-				case 4:
-				case 5:
-					if(token.matches(m_id)||token.matches(m_int)) {
-						states.push(3);
-						element_of_array();
-						token = tokens.get(cur++);
-					}
-					else if(token.contentEquals("(")) {
-						states.push(2);
-						symbols.push("(");
-						token = tokens.get(cur++);
-					}
-					else if(token.equals(")")){
-						System.out.println("行：in"+line_token.getLine_no()+"	错误提示：可能缺少 ( ");
-					}
-					else {
-						System.out.println("行：in"+line_token.getLine_no()+"	错误提示：这是无效输入！");
-					}
-					break;
-				case 6:
-					if(token.contentEquals("+")) {
-						states.push(4);
-						symbols.push("+");
-						token = tokens.get(cur);
-						cur++;
-					}
-					else if(token.contentEquals("*")) {
-						states.push(5);
-						symbols.push("*");
-						token = tokens.get(cur);
-						cur++;
-					}
-					else if(token.equals(")")) {
-						states.push(9);
-						symbols.push(")");
-						token = tokens.get(cur);
-						cur++;
-					}
-					else if(token.equals("(")){
-						System.out.println("行：in"+line_token.getLine_no()+"	错误提示：可能缺少 ) ");
-					}
-					else {
-						System.out.println("行：in"+line_token.getLine_no()+"	错误提示：这是无效输入！");
-					}
-					break;
-				case 7:
-					if(token.equals("+")||token.equals(")")||token.equals(";")||token.equals(",")||
-							token.equals("}")||token.equals("]")){
-						//r1规约
-						parsers.add("E->E+E");
-						for(int i=0;i<3;i++) {
-							states.pop();/////语法动作，符号栈出栈三次，状态栈出栈三次
-						}
-						E e = new E();
-						e.des = E.getReg();
-						symbols.pop();/////出栈E
-						String op2 = Es.pop().des;///////获得源操作数2
-						String op = symbols.pop();//////出栈运算符+
-						symbols.pop();/////出栈E
-						String op1 = Es.pop().des;
-						FourYuan four = new FourYuan();
-						four.des = e.des;
-						four.op1 = op1;
-						four.op2 = op2;
-						four.oprator = op;
-						FourYuan.no++;////指令序号加一
-						fours.add(four);
-						Es.push(e);
-						symbols.push("E");
-						states_push();
-					}
-					else if(token.contentEquals("*")) {
-						states.push(5);
-						symbols.push("*");
-						token = tokens.get(cur);
-						cur++;
-					}
-					else if(token.equals("(")){
-						System.out.println("行：in"+line_token.getLine_no()+"	错误提示：可能缺少 ) ");
-					}
-					else {
-						System.out.println("行：in"+line_token.getLine_no()+"	错误提示：这是无效输入！");
-					}
-					break;
-				case 8:
-					if(token.equals("+")||token.contentEquals("*")||token.equals(")")||token.contentEquals(";")
-							||token.equals(",")||token.equals("}")||token.equals("]")) {
-						//r2规约
-						parsers.add("E->E*E");
-						for(int i=0;i<3;i++) {
-							states.pop();
-						}
-						E e = new E();
-						e.des = E.getReg();
-						symbols.pop();
-						String op2 = Es.pop().des;
-						String op = symbols.pop();
-						symbols.pop();
-						String op1 = Es.pop().des;
-						Es.push(e);
-						symbols.push("E");///将规约得到的E入栈
-						FourYuan four = new FourYuan();
-						four.oprator = op;
-						four.op1 = op1;
-						four.op2 = op2;
-						four.des = e.des;
-						fours.add(four);
-						FourYuan.no++;///
-						states_push();
-					}
-					else if(token.equals("(")){
-						System.out.println("行：in"+line_token.getLine_no()+"	错误提示：可能缺少 ) ");
-					}
-					else {
-						System.out.println("行：in"+line_token.getLine_no()+"	错误提示：这是无效输入！");
-					}
-					break;
-				case 9:
-					if(token.equals("+")||token.contentEquals("*")||token.equals(")")||token.contentEquals(";")||
-							token.equals(",")||token.equals("}")||token.equals("]")) {
-						//r3规约
-						parsers.add("E->(E)");
-						for(int i=0;i<3;i++) {
-							states.pop();
-							symbols.pop();
-						}
-						symbols.push("E");///将规约得到的E入栈
-						states_push();
-					}
-					else if(token.equals("(")){
-						System.out.println("行：in"+line_token.getLine_no()+"	错误提示：可能缺少 ) ");
-					}
-					else {
-						System.out.println("行：in"+line_token.getLine_no()+"	错误提示：这是无效输入！");
-					}
-					break;
-			}
+        		if(token.contentEquals("+")||token.equals("*")||token.contentEquals(")")||token.equals(";")||
+				token.equals(",")||token.equals("}")||token.equals("]")){
+        			parsers.add("E->id");
+        			E e = new E();
+        			e.des = symbols.pop();//出栈一个id
+        			Es.push(e);
+        			states.pop();//出栈
+        			symbols.push("E");
+					states_push();
+				}
+        		else	{
+					System.out.println("行：in"+line_token.getLine_no()+"	错误提示：这是无效输入！");
+				}
+        		break;
+        	case 4:
+        	case 5:
+        		if(token.matches(m_id)||token.matches(m_int)) {
+        			states.push(3);
+        			element_of_array();
+        			token = tokens.get(cur++);
+        		}
+        		else if(token.contentEquals("(")) {
+        			states.push(2);
+        			symbols.push("(");
+        			token = tokens.get(cur++);
+        		}
+				else if(token.equals(")")){
+					System.out.println("行：in"+line_token.getLine_no()+"	错误提示：可能缺少 ( ");
+				}
+				else {
+					System.out.println("行：in"+line_token.getLine_no()+"	错误提示：这是无效输入！");
+				}
+        		break;
+        	case 6:
+        		if(token.contentEquals("+")) {
+        			states.push(4);
+        			symbols.push("+");
+        			token = tokens.get(cur);
+        			cur++;
+        		}
+        		else if(token.contentEquals("*")) {
+        			states.push(5);
+        			symbols.push("*");
+        			token = tokens.get(cur);
+        			cur++;
+        		}
+        		else if(token.equals(")")) {
+        			states.push(9);
+        			symbols.push(")");
+        			token = tokens.get(cur);
+        			cur++;
+        		}
+				else if(token.equals("(")){
+					System.out.println("行：in"+line_token.getLine_no()+"	错误提示：可能缺少 ) ");
+				}
+				else {
+					System.out.println("行：in"+line_token.getLine_no()+"	错误提示：这是无效输入！");
+				}
+        		break;
+        	case 7:
+        		if(token.equals("+")||token.equals(")")||token.equals(";")||token.equals(",")||
+				token.equals("}")||token.equals("]")){
+        			//r1规约
+        			parsers.add("E->E+E");
+        			for(int i=0;i<3;i++) {
+        				states.pop();/////语法动作，符号栈出栈三次，状态栈出栈三次
+        			}
+        			E e = new E();
+        			e.des = E.getReg();
+        			symbols.pop();/////出栈E
+        			String op2 = Es.pop().des;///////获得源操作数2
+        			String op = symbols.pop();//////出栈运算符+
+        			symbols.pop();/////出栈E
+        			String op1 = Es.pop().des;
+        			FourYuan four = new FourYuan();
+        			four.des = e.des;
+        			four.op1 = op1;
+        			four.op2 = op2;
+        			four.oprator = op;
+        			FourYuan.no++;////指令序号加一
+        			fours.add(four);
+        			Es.push(e);
+        			symbols.push("E");
+					states_push();
+				}
+        		else if(token.contentEquals("*")) {
+        			states.push(5);
+        			symbols.push("*");
+        			token = tokens.get(cur);
+        			cur++;
+        		}
+				else if(token.equals("(")){
+					System.out.println("行：in"+line_token.getLine_no()+"	错误提示：可能缺少 ) ");
+				}
+				else {
+					System.out.println("行：in"+line_token.getLine_no()+"	错误提示：这是无效输入！");
+				}
+        		break;
+        	case 8:
+        		if(token.equals("+")||token.contentEquals("*")||token.equals(")")||token.contentEquals(";")
+				||token.equals(",")||token.equals("}")||token.equals("]")) {
+        			//r2规约
+        			parsers.add("E->E*E");
+        			for(int i=0;i<3;i++) {
+        				states.pop();
+        			}
+        			E e = new E();
+        			e.des = E.getReg();
+        			symbols.pop();
+        			String op2 = Es.pop().des;
+        			String op = symbols.pop();
+        			symbols.pop();
+        			String op1 = Es.pop().des;
+        			Es.push(e);
+        			symbols.push("E");///将规约得到的E入栈
+        			FourYuan four = new FourYuan();
+        			four.oprator = op;
+        			four.op1 = op1;
+        			four.op2 = op2;
+        			four.des = e.des;
+        			fours.add(four);
+        			FourYuan.no++;///
+					states_push();
+				}
+				else if(token.equals("(")){
+					System.out.println("行：in"+line_token.getLine_no()+"	错误提示：可能缺少 ) ");
+				}
+				else {
+					System.out.println("行：in"+line_token.getLine_no()+"	错误提示：这是无效输入！");
+				}
+        		break;
+        	case 9:
+        		if(token.equals("+")||token.contentEquals("*")||token.equals(")")||token.contentEquals(";")||
+				token.equals(",")||token.equals("}")||token.equals("]")) {
+        			//r3规约
+        			parsers.add("E->(E)");
+        			for(int i=0;i<3;i++) {
+        				states.pop();
+        				symbols.pop();
+        			}
+        			symbols.push("E");///将规约得到的E入栈
+					states_push();
+				}
+				else if(token.equals("(")){
+					System.out.println("行：in"+line_token.getLine_no()+"	错误提示：可能缺少 ) ");
+				}
+				else {
+					System.out.println("行：in"+line_token.getLine_no()+"	错误提示：这是无效输入！");
+				}
+        		break;
+        	}
 
-		}
+        }
 	}
 
 	private void element_of_array() {
@@ -268,7 +268,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 		if(is_element_of_array)
 			symbols.push(reg_);
 		else
-			symbols.push(token);
+            symbols.push(token);
 	}
 
 	private void states_push() {
@@ -307,54 +307,54 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			parsers.add("S->{L}");
 			token = tokens.get(cur++);
 			L();
-			if(token.contentEquals("}")) {
-				token = tokens.get(cur++);
-			}
+	        if(token.contentEquals("}")) {
+	        	token = tokens.get(cur++);
+	        }
 		}
 		else if(token.contentEquals("if")) {////if语句识别
 			parsers.add("S->if语句");
 			token = tokens.get(cur++);//读入
 			if(token.contentEquals("(")) {
 				token=tokens.get(cur++);
-				////识别逻辑表达式B();
+			    ////识别逻辑表达式B();
 				//TODO 识别逻辑表达式
 				parserB();///////////栈顶一个B，真出口链，假出口链回填
-				if(token.equals(")")) {
-					token = tokens.get(cur++);
-					B b = Bs.peek();
-					for(int i=0;i<b.truelist.size();i++)
-						fours.get(b.truelist.get(i)).des = FourYuan.no+"";////回填真出口
-					S();/////if只有一条语句
-					/*
-					 * {}|a;|if语句|while语句
-					 */
-					if(token.equals("else")) {
-						token = tokens.get(cur++);
-						for(int t=0;t<b.falselist.size();t++) {//////回填假出口
-							fours.get(b.falselist.get(t)).des = FourYuan.no+1+"";
-						}
-						int stru = FourYuan.no;
-						FourYuan four = new FourYuan();
-						four.op1 = "_";
-						four.op2 = "_";
-						four.oprator = "JMP";
-						four.des = null;
-						FourYuan.no++;
-						fours.add(four);
-						////TODO 回填真出口
-						S();
-						fours.get(stru).des = FourYuan.no+"";
-						//	token = tokens[cur++];
-					}
-					else {//////不带else
-						////回填假出口
-						for(int j=0;j<b.falselist.size();j++)
-							fours.get(b.falselist.get(j)).des = FourYuan.no+"";
-					}
-				}
-				else {
-					System.out.println("缺少）");
-				}
+			    if(token.equals(")")) {
+			    	token = tokens.get(cur++);
+			    	B b = Bs.peek();
+			    	for(int i=0;i<b.truelist.size();i++)
+			    		fours.get(b.truelist.get(i)).des = FourYuan.no+"";////回填真出口
+			    	S();/////if只有一条语句
+			    	/*
+			    	 * {}|a;|if语句|while语句
+			    	 */
+			    	if(token.equals("else")) {
+			    		token = tokens.get(cur++);
+			    		for(int t=0;t<b.falselist.size();t++) {//////回填假出口
+			    			fours.get(b.falselist.get(t)).des = FourYuan.no+1+"";
+			    		}
+			    		int stru = FourYuan.no;
+			    		FourYuan four = new FourYuan();
+			    		four.op1 = "_";
+			    		four.op2 = "_";
+			    		four.oprator = "JMP";
+			    		four.des = null;
+			    		FourYuan.no++;
+			    		fours.add(four);
+			    		////TODO 回填真出口
+			    		S();
+			    		fours.get(stru).des = FourYuan.no+"";
+			    	//	token = tokens[cur++];
+			    	}
+			    	else {//////不带else
+			    		////回填假出口
+			    		for(int j=0;j<b.falselist.size();j++)
+			    			fours.get(b.falselist.get(j)).des = FourYuan.no+"";
+			    	}
+			    }
+			    else {
+			    	System.out.println("缺少）");
+			    }
 			}
 			else {
 				System.out.println("(");
@@ -420,19 +420,19 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			}
 			if(token.contentEquals("=")) {
 				token = tokens.get(cur++);
-				parserE();
-				if(token.contentEquals(";")) {
-					if(!is_element_of_array){
-						four.oprator = "=";
-						four.op1 = Es.peek().des;
-						four.op2 = "_";
-						four.des = des;}
-					else{
-						four.des = Es.peek().des;
-					}
-					fours.add(four);
-					FourYuan.no++;
-					token = tokens.get(cur++);
+			parserE();
+			if(token.contentEquals(";")) {
+				if(!is_element_of_array){
+				four.oprator = "=";
+				four.op1 = Es.peek().des;
+				four.op2 = "_";
+				four.des = des;}
+				else{
+					four.des = Es.peek().des;
+				}
+				fours.add(four);
+				FourYuan.no++;
+				token = tokens.get(cur++);
 				}
 			}
 		}
@@ -515,7 +515,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 							fours.add(fourYuan);
 							FourYuan.no++;
 						}
-					////多余元素用0补足
+							////多余元素用0补足
 				}
 				ArrayType arrayType = cf.newArrayFromArray(new Integer[length_determined ? size : j], type);
 				if (!length_determined)
@@ -561,16 +561,16 @@ public class Parser {//////////////////识别完成token读到的应该是;
 	}
 
 	void T(String type) {
-		///TODO   声明语句
-		if(token.contentEquals(";")) {
-			token = tokens.get(cur++);
-			return;
-		}
-		else if(token.contentEquals(",")) {
-			token = tokens.get(cur++);
-			addWord(type);
-		}
+	///TODO   声明语句
+	if(token.contentEquals(";")) {
+		token = tokens.get(cur++);
+		return;
 	}
+	else if(token.contentEquals(",")) {
+		token = tokens.get(cur++);
+		addWord(type);
+	}
+}
 	void parserB() {/////布尔表达式
 		States.push(0);
 		boolean b = true;
@@ -647,28 +647,28 @@ public class Parser {//////////////////识别完成token读到的应该是;
 							States.pop();
 						}
 						B boo = new B();
-						boo.op2 = Symbols.pop();
-						boo.op = Symbols.pop();
-						boo.op1 = Symbols.pop();
-						boo.truelist.add(FourYuan.no);
-						boo.falselist.add(FourYuan.no+1);
-						boo.startStat = FourYuan.no;
-						Bs.push(boo);
-						FourYuan four1 = new FourYuan();
-						four1.op1 = boo.op1;
-						four1.op2 = boo.op2;
-						four1.oprator = "J"+boo.op;
-						four1.des = null;
-						fours.add(four1);
-						FourYuan.no++;
-						FourYuan four2 = new FourYuan();
-						four2.op1 = "_";
-						four2.op2 = "_";
-						four2.oprator = "JMP";
-						four2.des = null;
-						FourYuan.no++;
-						fours.add(four2);
-						Symbols.push("B");
+					    boo.op2 = Symbols.pop();
+					    boo.op = Symbols.pop();
+					    boo.op1 = Symbols.pop();
+					    boo.truelist.add(FourYuan.no);
+					    boo.falselist.add(FourYuan.no+1);
+					    boo.startStat = FourYuan.no;
+					    Bs.push(boo);
+					    FourYuan four1 = new FourYuan();
+					    four1.op1 = boo.op1;
+					    four1.op2 = boo.op2;
+					    four1.oprator = "J"+boo.op;
+					    four1.des = null;
+					    fours.add(four1);
+					    FourYuan.no++;
+					    FourYuan four2 = new FourYuan();
+					    four2.op1 = "_";
+					    four2.op2 = "_";
+					    four2.oprator = "JMP";
+					    four2.des = null;
+					    FourYuan.no++;
+					    fours.add(four2);
+					    Symbols.push("B");
 						push_States_B();
 					}
 					else if(token.contentEquals("(")){
@@ -894,7 +894,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 						States.push(10);
 						Symbols.push("||");
 						token = tokens.get(cur);
-						cur++;
+					cur++;
 					}
 					else if (token.equals(")")||token.equals(";")){
 						parsers.add("B->OB");

@@ -14,7 +14,8 @@ public class ArrayType<T> extends Word<T> {
         this.length = array.length;
         this.type = type;
     }
-    public void SetArray(T[] array){
+
+    public void setArray(T[] array){
         this.value = array;
     }
 

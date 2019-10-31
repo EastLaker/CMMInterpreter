@@ -1,6 +1,4 @@
 package Parser;
-
-
 /**
  * @author knight
  */

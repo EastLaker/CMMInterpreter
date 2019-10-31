@@ -23,6 +23,7 @@ public class FourYuan {
 		CONST,
 		REGISTER,
 		VARIABLE,
+		POSITIVE_INT,
 	}
 
 	private enum OPERATOR{
@@ -39,6 +40,7 @@ public class FourYuan {
 	private String constant = "^[+/-]?[0-9]*$|[0-9]+\\.?[0-9]+";
 	private String regPat = "reg";
 	private String variPat = "^[A-Za-z_][A-Za-z0-9_]*$";
+	private String positiveInt = "^[1-9]\\d*$";
 
 
 
@@ -53,8 +55,97 @@ public class FourYuan {
 		if (this.oprator.contentEquals("+")) {
 			Register[] registers = makeOpsRegister();
 			registerOperation(registers[0], registers[1], OPERATOR.ADD);
+		} else if (this.oprator.contentEquals("$")) {
+			try {
+				ArrayType array = (ArrayType) ClassFactory.Wordlist.getOrDefault(this.op1, null);
 
-		}else if (this.oprator.contentEquals("*")) {
+				if(array==null){
+					//todo 如何实现中断下面的分析? 已catch exception
+					Parser.errors.add("未定义的数组标识符");
+				}
+
+				//todo 怎样停下程序？当返回-1;
+				int offSet = getIndex(this.op2);
+
+				int value = 0;
+				switch (regexPat(this.des)) {
+					case CONST:
+						value = Integer.parseInt(this.des);
+						break;
+					case REGISTER:
+						Register reg = ClassFactory.Registers.getOrDefault(this.des, null);
+						if (reg != null) {
+							//todo 类型判断  现在全部实现为int类型
+							value = (int) reg.getValue();
+						} else {
+							Parser.errors.add("无法为数组进行非法赋值");
+						}
+						break;
+					case VARIABLE:
+						Word word = ClassFactory.Wordlist.getOrDefault(this.des, null);
+						if (word != null) {
+							Object o = word.getValue();
+							if (o != null) {
+								value = (int) o;
+							} else {
+								Parser.errors.add("未初始化的标识符");
+							}
+						} else {
+							Parser.errors.add("未定义的标识符");
+						}
+						break;
+					default:
+						Parser.errors.add("无法解析赋值对象");
+				}
+				//todo 类型check
+				array.setValue(offSet, value);
+
+			} catch (ClassCastException e) {
+				Parser.errors.add(this.op1 + " 并不是数组类型");
+			} catch (IllegalArgumentException e) {
+				Parser.errors.add(this.op2 + " 是非法的数组下标");
+			}catch (NullPointerException e){}
+		} else if (this.oprator.contentEquals("&")) {
+			try {
+				ArrayType array = (ArrayType) ClassFactory.Wordlist.getOrDefault(this.op1, null);
+
+				if(array==null){
+					//todo 如何实现中断下面的分析?
+					Parser.errors.add("未定义的数组标识符");
+				}
+
+				int offSet = getIndex(this.op2);
+				//类型check 和 隐式类型转换
+				Object value = array.getValue(offSet);
+				switch (regexPat(this.des)) {
+					case REGISTER:
+						Register reg = ClassFactory.Registers.getOrDefault(this.des, null);
+						if (reg != null) {
+							//todo 类型判断  现在全部实现为int类型
+							reg.setValue(value);
+						} else {
+							Parser.errors.add("无法为数组进行非法赋值");
+						}
+						break;
+					case VARIABLE:
+						Word word = ClassFactory.Wordlist.getOrDefault(this.des, null);
+						if (word != null) {
+							word.setValue(value);
+						} else {
+							Parser.errors.add("未定义的标识符");
+						}
+						break;
+					default:
+						Parser.errors.add("无法解析赋值对象");
+				}
+
+			} catch (ClassCastException e) {
+				Parser.errors.add(this.op1 + " 并不是数组类型");
+			} catch (IllegalArgumentException e) {
+				Parser.errors.add(this.op2 + " 是非法的数组下标");
+			}catch (NullPointerException e){}
+
+		} else if (this.oprator.contentEquals("*")) {
 			Register[] registers = makeOpsRegister();
 			registerOperation(registers[0], registers[1], OPERATOR.PLUS);
 
@@ -86,21 +177,54 @@ public class FourYuan {
 			} else {
 				Parser.errors.add("未声明标志符" + this.des + "\n");
 			}
-		}
-		else if (this.oprator.contentEquals("J<"))
+		} else if (this.oprator.contentEquals("J<"))
 			con_jmp("<");
 
-		else if(this.oprator.contentEquals("J>"))
+		else if (this.oprator.contentEquals("J>"))
 			con_jmp(">");
 
-		else if(this.oprator.equals("J<="))
+		else if (this.oprator.equals("J<="))
 			con_jmp("<=");
-		else if(this.oprator.equals("J>="))
+		else if (this.oprator.equals("J>="))
 			con_jmp(">=");
-		else if(this.oprator.equals("J=="))
+		else if (this.oprator.equals("J=="))
 			con_jmp("==");
-		else if(this.oprator.equals("J!="))
+		else if (this.oprator.equals("J!="))
 			con_jmp("!=");
+	}
+
+	private int getIndex(String op2) {
+		switch (regexPat(op2)) {
+			case POSITIVE_INT:
+				return Integer.parseInt(op2);
+			case REGISTER:
+				Register r = ClassFactory.Registers.getOrDefault(op2, null);
+				//寄存器不存在getvalue 没有值的情况
+				if (r != null)
+					return (int) r.getValue();
+				else {
+					Parser.errors.add("数组下标的格式错误");
+					return -1;
+				}
+				//todo 如果此寄存器存的值是float or  则需要更改错误处理
+			case VARIABLE:
+				Word word = ClassFactory.Wordlist.getOrDefault(op2, null);
+				if (word != null) {
+					Object v = word.getValue();
+					if (v != null) {
+						return (int) v;
+					} else {
+						//todo 中断程序继续执行
+						Parser.errors.add("未初始化的标识符");
+						return -1;
+					}
+				} else {
+					Parser.errors.add("未定义的标识符");
+					return -1;
+				}
+			default:
+				return -1;
+		}
 	}
 
 	private void con_jmp(String op) {
@@ -259,9 +383,10 @@ public class FourYuan {
 			return TokenType.CONST;
 		else if (str.matches(variPat))
 			return TokenType.VARIABLE;
+		else if(str.matches(positiveInt))
+			return TokenType.POSITIVE_INT;
 		throw new IllegalArgumentException("no regex match");
 	}
-
 
 
 	private int getTypeNum(String str) {
@@ -272,4 +397,5 @@ public class FourYuan {
 		}
 		throw new IllegalArgumentException("can not match type");
 	}
+
 }

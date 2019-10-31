@@ -47,6 +47,7 @@ public class ClassFactory {
         }
     }
 
+
     public ArrayType newArrayFromType(String str, int length){
         switch (getTypeFromType(str)){
             case INT:
