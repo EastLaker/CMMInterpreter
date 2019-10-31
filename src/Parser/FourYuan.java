@@ -40,7 +40,7 @@ public class FourYuan {
 	private String constant = "^[+/-]?[0-9]*$|[0-9]+\\.?[0-9]+";
 	private String regPat = "reg";
 	private String variPat = "^[A-Za-z_][A-Za-z0-9_]*$";
-	private String positiveInt = "^[1-9]\\d*$";
+	private String positiveInt = "^(0|[1-9][0-9]*)$";
 
 
 
@@ -104,7 +104,9 @@ public class FourYuan {
 				Parser.errors.add(this.op1 + " 并不是数组类型");
 			} catch (IllegalArgumentException e) {
 				Parser.errors.add(this.op2 + " 是非法的数组下标");
-			}catch (NullPointerException e){}
+			}catch (NullPointerException e){
+				System.out.println(e.getMessage());
+			}
 		} else if (this.oprator.contentEquals("&")) {
 			try {
 				ArrayType array = (ArrayType) ClassFactory.Wordlist.getOrDefault(this.op1, null);
@@ -119,13 +121,8 @@ public class FourYuan {
 				Object value = array.getValue(offSet);
 				switch (regexPat(this.des)) {
 					case REGISTER:
-						Register reg = ClassFactory.Registers.getOrDefault(this.des, null);
-						if (reg != null) {
-							//todo 类型判断  现在全部实现为int类型
-							reg.setValue(value);
-						} else {
-							Parser.errors.add("无法为数组进行非法赋值");
-						}
+						Register reg = cf.newRegister(value.toString());
+						ClassFactory.Registers.put(this.des,reg);
 						break;
 					case VARIABLE:
 						Word word = ClassFactory.Wordlist.getOrDefault(this.des, null);
@@ -194,7 +191,7 @@ public class FourYuan {
 	}
 
 	private int getIndex(String op2) {
-		switch (regexPat(op2)) {
+		switch (regexPatForIndex(op2)) {
 			case POSITIVE_INT:
 				return Integer.parseInt(op2);
 			case REGISTER:
@@ -379,14 +376,23 @@ public class FourYuan {
 	public  TokenType regexPat(String str) {
 		if (str.indexOf(regPat)==0)
 			return TokenType.REGISTER;
-		else if (str.matches(constant))
-			return TokenType.CONST;
 		else if (str.matches(variPat))
 			return TokenType.VARIABLE;
-		else if(str.matches(positiveInt))
-			return TokenType.POSITIVE_INT;
+		else if (str.matches(constant))
+			return TokenType.CONST;
 		throw new IllegalArgumentException("no regex match");
 	}
+
+	public  TokenType regexPatForIndex(String str) {
+		if (str.indexOf(regPat)==0)
+			return TokenType.REGISTER;
+		else if(str.matches(positiveInt))
+			return TokenType.POSITIVE_INT;
+		else if (str.matches(variPat))
+			return TokenType.VARIABLE;
+		throw new IllegalArgumentException("no regex match");
+	}
+
 
 
 	private int getTypeNum(String str) {
