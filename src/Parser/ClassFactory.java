@@ -18,6 +18,7 @@ public class ClassFactory {
         INT,  //识别的声明类型 int
         FLOAT, //识别float
         INT_ARRAY,
+        FLOAT_ARRAY,
     }
 
     public Word newWordFromType(String str){
@@ -34,9 +35,9 @@ public class ClassFactory {
     public Word newArrayFromType(String str, int length){
         switch (getTypeFromType(str)){
             case INT:
-                return new ArrayType<>(new Integer[length],TYPE.INT);
+                return new ArrayType<>(new Integer[length],TYPE.INT_ARRAY);
             case FLOAT:
-                return new ArrayType<>(new Float[length],TYPE.FLOAT);
+                return new ArrayType<>(new Float[length],TYPE.FLOAT_ARRAY);
             default:
                 throw new IllegalArgumentException("can not match type");
         }
