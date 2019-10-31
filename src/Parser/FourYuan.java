@@ -172,7 +172,7 @@ public class FourYuan {
 					}
 				}
 			} else {
-				Parser.errors.add("未声明标志符" + this.des + "\n");
+				Parser.errors.add("未声明标志符-------" + this.des + "\n");
 			}
 		} else if (this.oprator.contentEquals("J<"))
 			con_jmp("<");
@@ -227,30 +227,9 @@ public class FourYuan {
 	private void con_jmp(String op) {
 		int op1_val=-1;
 		int op2_val=-1;
-		boolean o1=false,o2=false;
-		if(regexPat(this.op1)== TokenType.CONST){
-			op1_val = Integer.parseInt(this.op1);
-			o1=true;///op1获得值
-		}
-		if(regexPat(this.op2)== TokenType.CONST){
-			op2_val = Integer.parseInt(this.op2);
-			o2=true;///op2获得值
-		}
-		/////TODO 选择跳转
-		if(!o1){   ////o1还没有赋值 todo 给op1_val赋值
-		Word op1 = ClassFactory.Wordlist.getOrDefault(this.op1, null);
-		if (op1 == null)
-			Parser.errors.add("未声明的标志符" + this.op1 + "\n");
-		else
-			op1_val = (int) op1.getValue();
-		}
-		if(!o2) {
-			Word op2 = ClassFactory.Wordlist.getOrDefault(this.op2, null);
-			if (op2 == null)
-				Parser.errors.add("未声明的标志符" + this.op2 + "\n");
-			else
-				op2_val = (int) op2.getValue();
-		}
+		Register [] registers = makeOpsRegister();
+		op1_val = (Integer)registers[0].getValue();
+		op2_val = (Integer)registers[1].getValue();
 		switch (op){
 			case "<":
 				if(op1_val<op2_val)
