@@ -169,10 +169,14 @@ public class mainWindow {
             output_text.append("单词表结构：\n");
             output_text.append("变量名\t变量类型\t变量地址\t变量值\n");
             for(String word : words) {
-                output_text.append(word+"\t"+ ClassFactory.Wordlist.get(word).type+"\t"+ ClassFactory.Wordlist.get(word).getDes()+"\t"+ ClassFactory.Wordlist.get(word).getValue()+"\n");
                 if(ClassFactory.Wordlist.get(word) instanceof ArrayType){
-               output_text.append(word + "数组长度" + ClassFactory.Wordlist.get(word).length + "\n");
+                    for(int i=0;i<ClassFactory.Wordlist.get(word).length;i++)
+                    output_text.append(word + "[" + i +"]\t" + ClassFactory.Wordlist.get(word).type +"\t" + (ClassFactory.Wordlist.get(word).getDes()+i*4) + "\t"
+                    +((ArrayType) ClassFactory.Wordlist.get(word)).getValue(i)+"\n");
                 }
+                else
+                output_text.append(word+"\t"+ ClassFactory.Wordlist.get(word).type+"\t"+ ClassFactory.Wordlist.get(word).getDes()+"\t"+ ClassFactory.Wordlist.get(word).getValue()+"\n");
+
             }
 
             for(int i=0;i<Parser.errors.size();i++)
