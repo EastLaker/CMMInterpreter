@@ -19,7 +19,7 @@ public class FourYuan {
 	private final int FLOAT = 1;
 	private final int INT = 0;
 
-	private enum TokenType {
+	public enum TokenType {
 		CONST,
 		REGISTER,
 		VARIABLE,
@@ -252,7 +252,7 @@ public class FourYuan {
 		return "(" + this.oprator + "," + this.op1 + "," + this.op2 + "," + this.des + ")";
 	}
 
-	private TokenType regexPat(String str) {
+	public  TokenType regexPat(String str) {
 		if (str.indexOf(regPat)==0)
 			return TokenType.REGISTER;
 		else if (str.matches(constant))

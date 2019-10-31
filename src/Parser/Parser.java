@@ -458,7 +458,8 @@ public class Parser {//////////////////识别完成token读到的应该是;
 					ArrayList <Integer> var_array = new ArrayList<>();////用于初始化单词表的数组
 					int j = 0;
 					token = tokens.get(cur++);
-					while(token.matches(m_int)){
+					while(token.matches(m_int)||token.matches(m_id)){
+						////赋值问题
 						int var = Integer.parseInt(token);
 						var_array.add(var);
 						token = tokens.get(cur++);
