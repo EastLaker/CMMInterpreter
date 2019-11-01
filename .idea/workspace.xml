@@ -106,6 +106,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+<<<<<<< HEAD
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -129,6 +130,9 @@
     <option name="width" value="1200" />
     <option name="height" value="640" />
   </component>
+=======
+  <component name="ProjectId" id="1T0aaN2UtJGIODMNYYOQzxmNI2f" />
+>>>>>>> fb286a965f91110449dd183b92b1c910c4e3edc2
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />

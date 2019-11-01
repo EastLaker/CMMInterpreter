@@ -7,6 +7,7 @@ package Window;
 
 
 import Parser.*;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -18,6 +19,8 @@ import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
@@ -37,11 +40,17 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 
+import java.time.Duration;
+
 import java.util.*;
+import java.lang.*;
 
 import Parser.ClassFactory;
 import Parser.Word;
 import Parser.ArrayType;
+import org.fxmisc.richtext.model.StyleSpans;
+import org.fxmisc.richtext.model.StyleSpansBuilder;
+import org.reactfx.Subscription;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -100,7 +109,7 @@ public class mainWindow {
     private String opened_folder;
     public static int j=0;
     private final Node rootIcon = new ImageView(
-            new Image(getClass().getResourceAsStream("folder.png"))
+        new Image(getClass().getResourceAsStream("folder.png"))
     );
 
     @FXML
@@ -108,7 +117,6 @@ public class mainWindow {
     void initialize() {
 
         codeTabs.getTabs().add(codeTabBuilder("编辑区", ""));
-
     }
 
     private static Stage frame;
@@ -144,7 +152,6 @@ public class mainWindow {
                     if(mouseEvent.getClickCount() == 2)
                     {
                         TreeItem<String> item = folderView.getSelectionModel().getSelectedItem();
-                        //System.out.println("Selected Text : " + item.getValue());
                         if (item.getValue().matches("(.*.txt)|(.*.cmm)|(.*.c)")) {
                             try {
                                 String path1 = getTreeItemPath(item);
@@ -208,11 +215,42 @@ public class mainWindow {
         tab.setClosable(true);
         codeArea = new CodeArea();
         codeArea.replaceText(0, 0, content);
-        codeArea.getText();
+        codeArea.setStyle("-fx-font-family:'Consolas'");
+
         // add line numbers to the left of area
         codeArea.setParagraphGraphicFactory(LineNumberFactory.get(codeArea));
+
+        // recompute the syntax highlighting 500 ms after user stops editing area
+        Subscription cleanupWhenNoLongerNeedIt = codeArea
+
+                // plain changes = ignore style changes that are emitted when syntax highlighting is reapplied
+                // multi plain changes = save computation by not rerunning the code multiple times
+                //   when making multiple changes (e.g. renaming a method at multiple parts in file)
+                .multiPlainChanges()
+
+                // do not emit an event until 500 ms have passed since the last emission of previous stream
+                .successionEnds(Duration.ofMillis(500))
+
+                // run the following code block when previous stream emits an event
+                .subscribe(ignore -> codeArea.setStyleSpans(0, computeHighlighting(codeArea.getText())));
+
+        // when no longer need syntax highlighting and wish to clean up memory leaks
+        // run: `cleanupWhenNoLongerNeedIt.unsubscribe();`
+        final Pattern whiteSpace = Pattern.compile( "^\\s+" );
+        codeArea.addEventHandler( KeyEvent.KEY_PRESSED, KE ->
+        {
+            if ( KE.getCode() == KeyCode.ENTER ) {
+                int caretPosition = codeArea.getCaretPosition();
+                int currentParagraph = codeArea.getCurrentParagraph();
+                Matcher m0 = whiteSpace.matcher( codeArea.getParagraph( currentParagraph-1 ).getSegments().get( 0 ) );
+                if ( m0.find() ) Platform.runLater( () -> codeArea.insertText( caretPosition, m0.group() ) );
+            }
+        });
+
         tab.setContent(new VirtualizedScrollPane<>(codeArea));
-        //tab.getStyle
+        String css = getClass().getResource("java-keywords.css").toExternalForm();
+        codeArea.getStylesheets().add(css);
+
         return tab;
     }
 
@@ -290,5 +328,28 @@ public class mainWindow {
             builder.append(treeItem.getValue());
             return builder.toString();
         }
+    }
+
+    private static StyleSpans<Collection<String>> computeHighlighting(String text) {
+        Matcher matcher = PATTERN.matcher(text);
+        int lastKwEnd = 0;
+        StyleSpansBuilder<Collection<String>> spansBuilder
+                = new StyleSpansBuilder<>();
+        while(matcher.find()) {
+            String styleClass =
+                    matcher.group("KEYWORD") != null ? "keyword" :
+                    matcher.group("PAREN") != null ? "paren" :
+                    matcher.group("BRACE") != null ? "brace" :
+                    matcher.group("BRACKET") != null ? "bracket" :
+                    matcher.group("SEMICOLON") != null ? "semicolon" :
+                    matcher.group("STRING") != null ? "string" :
+                    matcher.group("COMMENT") != null ? "comment" :
+                    null; /* never happens */ assert styleClass != null;
+            spansBuilder.add(Collections.emptyList(), matcher.start() - lastKwEnd);
+            spansBuilder.add(Collections.singleton(styleClass), matcher.end() - matcher.start());
+            lastKwEnd = matcher.end();
+        }
+        spansBuilder.add(Collections.emptyList(), text.length() - lastKwEnd);
+        return spansBuilder.create();
     }
 }
