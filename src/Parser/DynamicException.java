@@ -62,6 +62,7 @@ public class DynamicException {
         }
     }
 
+
     public class mismatchOperatorException extends Exception implements dynamicException{
         @Override
         public void errorInfo() {
@@ -77,6 +78,7 @@ public class DynamicException {
     }
 
     public class defaultException extends RuntimeException implements dynamicException{
+
         private String mes;
 
         public defaultException(String mes){

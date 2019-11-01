@@ -4,6 +4,7 @@ import Parser.Parser;
 import lexical.Token;
 
 import java.io.*;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,7 +21,8 @@ public class LexicalParser {
     private StringBuilder builder = new StringBuilder();
     private char current;
     private int currentLine;
-    private Map<Integer, Integer> lines;
+
+    private Map<Integer, Integer> lines = new HashMap<Integer, Integer>();
 
     private static final Map<Character,Integer> directRecognized = new HashMap<Character,Integer>();
 
@@ -72,7 +74,8 @@ public class LexicalParser {
             reader = new BufferedReader(new FileReader(file));
             StringBuilder builder = new StringBuilder();
             lines = new HashMap<Integer, Integer>();
-            int counter = 0;
+
+            int counter = 1;
             while (reader.ready()) {
                 builder.append(reader.readLine());
                 builder.append('\n');
@@ -91,14 +94,35 @@ public class LexicalParser {
         return sourceCode;
     }
 
-    public void setSourceCode(String sourceCode) {
+
+    public void setSourceCode(String sourceCode){
         this.sourceCode = sourceCode;
+        try {
+            reader = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(sourceCode.getBytes(Charset.forName("utf8"))), Charset.forName("utf8")));
+            StringBuilder builder = new StringBuilder();
+            lines = new HashMap<Integer, Integer>();
+            int counter = 1;
+            while (reader.ready()) {
+                builder.append(reader.readLine());
+                builder.append('\n');
+                lines.put(counter, builder.length());
+                counter += 1;
+            }
+            //sourceCode = builder.toString();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+
         parse();
     }
 
     public List<Token> parse() {
         tokens = new ArrayList<Token>();
         Token currentToken;
+
+        currentLine = 1;
         do {
             currentToken = this.getNextToken();
             tokens.add(currentToken) ;
@@ -106,173 +130,146 @@ public class LexicalParser {
         return tokens;
     }
 
-    public List<String> getAllTokens() {
-        List<String> tokenStrings = new ArrayList<String>();
+    public List<Token> getAllTokens() {
+        List<Token> tokenStrings = new ArrayList<Token>();
         for (Token token: tokens) {
             if(token.getType() != Token.TokenType.MULTIPLE_LINE_COMMENT && token.getType() != Token.TokenType.SINGLE_LINE_COMMENT){
-                tokenStrings.add(token.getString());
+                tokenStrings.add(token);
+
             }
         }
         return tokenStrings;
     }
 
     public Token getNextToken() {
-        while (pointer >= lines.get(currentLine)){
-            currentLine +=1;
+        while (pointer >= lines.get(currentLine)) {
+            currentLine += 1;
         }
 
         Token token = new Token();
         token.setLine_no(currentLine);
         token.setType(Token.TokenType.NULL);
 
-        if(current == '\u0003') {
+        if (current == '\u0003') {
             return token;
         }
         readCharSkip();
-        if(directRecognized.containsKey(current)) {//先判断出可以直接识别的token
+        if (directRecognized.containsKey(current)) {//先判断出可以直接识别的token
             token.setType(values[directRecognized.get(current)]);
             //token.printValue();
             return token;
-        }
-        else if(current == '/') {//判断是除号还是多行注释还是单行注释
+        } else if (current == '/') {//判断是除号还是多行注释还是单行注释
             readCharSkip();
-            if(current == '*') {    //多行注释
+            if (current == '*') {    //多行注释
                 while (true) {
                     readCharSkip();
-                    if(current =='*') {
+                    if (current == '*') {
                         readCharSkip();
-                        if(current == '/') {
+                        if (current == '/') {
                             token.setType(Token.TokenType.MULTIPLE_LINE_COMMENT);
                             break;
                         }
                     }
                 }
-            }
-            else if(current == '/') {   //单行注释
+            } else if (current == '/') {   //单行注释
                 readLineEnd();
                 token.setType(Token.TokenType.SINGLE_LINE_COMMENT);
-            }
-            else {      //除号
+            } else {      //除号
                 token.setType(Token.TokenType.DIVIDE);
             }
-        }
-        else if(current == '=') {   //判断赋值还是相等
+        } else if (current == '=') {   //判断赋值还是相等
             readChar();
-            if(current == '=') {
+            if (current == '=') {
                 token.setType(Token.TokenType.EQUAL);
-            }
-            else {
+            } else {
                 token.setType(Token.TokenType.ASSIGN);
                 pointer--;
             }
-        }
-        else if(current == '<') {//判断小于还是小于等于
+        } else if (current == '<') {//判断小于还是小于等于
             readChar();
-            if(current =='=') {
+            if (current == '=') {
                 token.setType(Token.TokenType.LESS_EQUAL);
-            }
-            else {
+            } else {
                 token.setType(Token.TokenType.LESS);
                 pointer--;
             }
-        }
-        else if(current == '>') {//判断小于还是不等于
+        } else if (current == '>') {//判断小于还是不等于
             readChar();
-            if(current =='=') {
+            if (current == '=') {
                 token.setType(Token.TokenType.MORE_EQUAL);
-            }
-            else {
+            } else {
                 token.setType(Token.TokenType.MORE);
                 pointer--;
             }
-        }
-        else if(current == '!') {//判断是否是!=
+        } else if (current == '!') {//判断是否是!=
             readChar();
-            if(current =='=') {
+            if (current == '=') {
                 token.setType(Token.TokenType.NOT_EQUAL);
-            }
-            else {
+            } else {
                 pointer--;
                 current = sourceCode.charAt(pointer);
             }
-        }
-        else if(current == '|') {//判断是否是 ||
+        } else if (current == '|') {//判断是否是 ||
             readChar();
-            if(current =='|') {
+            if (current == '|') {
                 token.setType(Token.TokenType.OR);
-            }
-            else {
+            } else {
                 pointer--;
                 current = sourceCode.charAt(pointer);
             }
-        }
-        else if(current == '&') {//判断是否是 &&
+        } else if (current == '&') {//判断是否是 &&
             readChar();
-            if(current =='&') {
+            if (current == '&') {
                 token.setType(Token.TokenType.AND);
-            }
-            else {
+            } else {
                 pointer--;
                 current = sourceCode.charAt(pointer);
             }
-        }
-        else {
-            if(current>='0'&&current<='9') {//说明接下来是一个数字字面量,判断它是整数还是实数
+        } else {
+            if (current >= '0' && current <= '9') {//说明接下来是一个数字字面量,判断它是整数还是实数
                 boolean isReal = false;
                 while (true) {
-                    if((current>='0'&&current<='9')||current=='.') {
+                    if ((current >= '0' && current <= '9') || current == '.') {
                         builder.append(current);
                         if (current == '.') {
                             isReal = true;
                         }
                         readChar();
-                    }
-                    else {
+                    } else {
                         pointer--;
                         break;
                     }
                 }
                 String value = builder.toString();
-                builder.delete(0,builder.length());
-                if(isReal) {
+                builder.delete(0, builder.length());
+                if (isReal) {
                     token.setType(Token.TokenType.REAL_LITERAL);
                     token.setRealValue(Double.parseDouble(value));
-                }
-                else {
+                } else {
                     token.setType(Token.TokenType.INT_LITERAL);
                     token.setIntValue(Integer.parseInt(value));
                 }
-            }
-            else if((current>='A'&&current<='Z')||(current>='a'&&current<='z')){//说明接下来是一个标识符或者关键字
+            } else if ((current >= 'A' && current <= 'Z') || (current >= 'a' && current <= 'z')) {//说明接下来是一个标识符或者关键字
                 while (true) {  //将单词存入builder
-                    if((current>='A'&&current<='Z')||(current>='a'&&current<='z')||(current>='0'&&current<='9')||current == '_') {
+                    if ((current >= 'A' && current <= 'Z') || (current >= 'a' && current <= 'z') || (current >= '0' && current <= '9') || current == '_') {
                         builder.append(current);
                         readChar();
-                    }
-                    else {
+                    } else {
                         pointer--;
                         break;
                     }
                 }
                 String value = builder.toString();
-                builder.delete(0,builder.length());
-                if(reserveWords.containsKey(value)) {   //关键字
+                builder.delete(0, builder.length());
+                if (reserveWords.containsKey(value)) {   //关键字
                     token.setType(values[reserveWords.get(value)]);
-                }
-                else {  //标识符
+                } else {  //标识符
                     token.setType(Token.TokenType.IDENTIFIER);
                     token.setStringValue(value);
                 }
             }
-            else {
-                Parser.errors.add("行："+token.getLine_no()+"非法字符"+token.getString());
-
-            }
-
+            //token.printValue();
         }
-
-
-        //token.printValue();
         return token;
     }
 

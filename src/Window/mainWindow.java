@@ -12,29 +12,73 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 
+import javafx.event.EventHandler;
+
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
+import lexical.LexicalParser;
+import lexical.Token;
 import org.fxmisc.flowless.VirtualizedScrollPane;
 import org.fxmisc.richtext.CodeArea;
 import org.fxmisc.richtext.LineNumberFactory;
-
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.Set;
+
+import java.util.*;
+
+import Parser.ClassFactory;
+import Parser.Word;
+import Parser.ArrayType;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class mainWindow {
+
+    private static final String[] KEYWORDS = new String[] {
+            "abstract", "assert", "boolean", "break", "byte",
+            "case", "catch", "char", "class", "const",
+            "continue", "default", "do", "double", "else",
+            "enum", "extends", "final", "finally", "float",
+            "for", "goto", "if", "implements", "import",
+            "instanceof", "int", "interface", "long", "native",
+            "new", "package", "private", "protected", "public",
+            "return", "short", "static", "strictfp", "super",
+            "switch", "synchronized", "this", "throw", "throws",
+            "transient", "try", "void", "volatile", "while"
+    };
+
+    private static final String KEYWORD_PATTERN = "\\b(" + String.join("|", KEYWORDS) + ")\\b";
+    private static final String PAREN_PATTERN = "\\(|\\)";
+    private static final String BRACE_PATTERN = "\\{|\\}";
+    private static final String BRACKET_PATTERN = "\\[|\\]";
+    private static final String SEMICOLON_PATTERN = "\\;";
+    private static final String STRING_PATTERN = "\"([^\"\\\\]|\\\\.)*\"";
+    private static final String COMMENT_PATTERN = "//[^\n]*" + "|" + "/\\*(.|\\R)*?\\*/";
+
+    private static final Pattern PATTERN = Pattern.compile(
+            "(?<KEYWORD>" + KEYWORD_PATTERN + ")"
+                    + "|(?<PAREN>" + PAREN_PATTERN + ")"
+                    + "|(?<BRACE>" + BRACE_PATTERN + ")"
+                    + "|(?<BRACKET>" + BRACKET_PATTERN + ")"
+                    + "|(?<SEMICOLON>" + SEMICOLON_PATTERN + ")"
+                    + "|(?<STRING>" + STRING_PATTERN + ")"
+                    + "|(?<COMMENT>" + COMMENT_PATTERN + ")"
+    );
+
 
     @FXML
     private TreeView<String> folderView;
@@ -52,6 +96,8 @@ public class mainWindow {
     private TextFlow output;
 
     private CodeArea codeArea;
+
+    private String opened_folder;
     public static int j=0;
     private final Node rootIcon = new ImageView(
             new Image(getClass().getResourceAsStream("folder.png"))
@@ -60,7 +106,8 @@ public class mainWindow {
     @FXML
         // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
-        codeTabs.getTabs().add(codeTabBuilder("new file", ""));
+
+        codeTabs.getTabs().add(codeTabBuilder("编辑区", ""));
 
     }
 
@@ -71,17 +118,57 @@ public class mainWindow {
         directoryChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
         try {
             File file = directoryChooser.showDialog(frame);
-            String path = file.getPath();//选择的文件夹路径
-            TreeItem<String> treeRootItem = new TreeItem<>(path, rootIcon);
-            folderView.setRoot(treeRootItem);
-            treeRootItem.setExpanded(true);
-            File[] file_list = file.listFiles();
-            for (int i = 0; i < file_list.length; i++) {
-                System.out.println(file_list[i].getName());
-                TreeItem<String> item = new TreeItem<> (file_list[i].getName());
-                treeRootItem.getChildren().add(item);
-            }
 
+            opened_folder = file.getPath().substring(0,file.getPath().length()-file.getName().length());//选择的文件夹路径
+            FileTreeItem fileTreeItem = new FileTreeItem(file, f -> {
+                File[] allFiles = f.listFiles();
+                File[] directorFiles = f.listFiles(File::isDirectory);
+                List<File> list = new ArrayList<>(Arrays.asList(allFiles));
+                //list.removeAll(Arrays.asList(directorFiles));
+                return list.toArray(new File[list.size()]);
+            });
+//            folderView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+//                @Override
+//                public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+//                    TreeItem<String> currentSelectItem = (TreeItem<String>) newValue;
+//                    if (currentSelectItem != null&& currentSelectItem.getValue().matches("(.*.txt)|(.*.cmm)")) {
+//                        System.out.println("selection(" + ((TreeItem<String>) newValue).getValue() + ") change");
+//                    }
+//                }
+//            });
+            folderView.setOnMouseClicked(new EventHandler<MouseEvent>()
+            {
+                @Override
+                public void handle(MouseEvent mouseEvent)
+                {
+                    if(mouseEvent.getClickCount() == 2)
+                    {
+                        TreeItem<String> item = folderView.getSelectionModel().getSelectedItem();
+                        //System.out.println("Selected Text : " + item.getValue());
+                        if (item.getValue().matches("(.*.txt)|(.*.cmm)|(.*.c)")) {
+                            try {
+                                String path1 = getTreeItemPath(item);
+                                File file1 = new File(path1);
+                                BufferedReader reader = new BufferedReader(new FileReader(file1));
+                                StringBuilder builder = new StringBuilder();
+                                while (reader.ready()) {
+                                    builder.append(reader.readLine());
+                                    builder.append('\n');
+                                }
+                                String sourceCode = builder.toString();
+                                codeArea.clear();
+                                codeArea.replaceText(0, 0, sourceCode);
+                            }
+                            catch (IOException e) {
+                                e.printStackTrace();
+                                System.exit(1);
+                            }
+                        }
+                    }
+                }
+            });
+            folderView.setRoot(fileTreeItem);
+            fileTreeItem.setExpanded(true);
         } finally {
 
         }
@@ -125,7 +212,7 @@ public class mainWindow {
         // add line numbers to the left of area
         codeArea.setParagraphGraphicFactory(LineNumberFactory.get(codeArea));
         tab.setContent(new VirtualizedScrollPane<>(codeArea));
-
+        //tab.getStyle
         return tab;
     }
 
@@ -146,8 +233,9 @@ public class mainWindow {
             LexicalParser lexicalParser = new LexicalParser();
             lexicalParser.setSourceCode(text);
             //使用getAllTokens()方法获取Tokens,返回一个包含了识别出的Tokens的ArrayList
-            List<String> tokens1 = lexicalParser.getAllTokens();
-            for (String token: tokens1) {
+
+            List<Token> tokens1 = lexicalParser.getAllTokens();
+            for (Token token: tokens1) {
                 parse.tokens.add(token);
             }
             parse.token = parse.tokens.get(parse.cur++);////读入第一个单词
@@ -177,7 +265,8 @@ public class mainWindow {
                     }
                 }
                 else
-                output_text.append(word+"\t"+ ClassFactory.Wordlist.get(word).type+"\t"+ ClassFactory.Wordlist.get(word).getDes()+"\t"+ ClassFactory.Wordlist.get(word).getValue()+"\n");
+
+                    output_text.append(word+"\t"+ ClassFactory.Wordlist.get(word).type+"\t"+ ClassFactory.Wordlist.get(word).getDes()+"\t"+ ClassFactory.Wordlist.get(word).getValue()+"\n");
 
             }
 
@@ -188,6 +277,18 @@ public class mainWindow {
             Text t = new Text();
             t.setText(output_text.toString());
             output.getChildren().addAll(t);
+        }
+    }
+
+    public String getTreeItemPath(TreeItem<String> treeItem){
+        if(treeItem.getParent()!=null) {
+            return getTreeItemPath(treeItem.getParent()) + "/" +treeItem.getValue();
+        }
+        else {
+            StringBuilder builder = new StringBuilder();
+            builder.append(opened_folder);
+            builder.append(treeItem.getValue());
+            return builder.toString();
         }
     }
 }

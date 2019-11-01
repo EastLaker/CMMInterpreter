@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="d8c7da12-6345-4cfd-9467-87b8bae9d084" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/$PRODUCT_WORKSPACE_FILE$" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Parser/SemanticAnalysis.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Parser/WordList.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Window/FileTreeItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Window/U.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/richtextfx_fat_0_10_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/richtextfx_fat_0_10_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMMInterpreter.iml" beforeDir="false" afterPath="$PROJECT_DIR$/CMMInterpreter.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmm.iml" beforeDir="false" afterPath="$PROJECT_DIR$/cmm.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/A.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/ArrayType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/B.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/ClassFactory$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/ClassFactory$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/ClassFactory$TYPE.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/ClassFactory$TYPE.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/ClassFactory.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/ClassFactory.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/DynamicException$classCastException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/DynamicException$defaultException.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/DynamicException$defaultException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/DynamicException$dynamicException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/DynamicException$mismatchOperatorException.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/DynamicException$mismatchOperatorException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/DynamicException$noArrayException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/DynamicException$numberFormatException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/DynamicException$outOfArrayBoundException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/DynamicException$stopMachineException.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/DynamicException$stopMachineException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/DynamicException$unInitializedIdentifierException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/DynamicException$undeclaredIdentifierException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/DynamicException.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/DynamicException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/E.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/FourYuan$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/FourYuan$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/FourYuan$OPERATOR.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/FourYuan$OPERATOR.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/FourYuan$TokenType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/FourYuan$TokenType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/FourYuan.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/FourYuan.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/LexicalParser.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/O.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/Parser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/Parser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/Register.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/Register.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/Token$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/Token$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/Token$TokenType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/Token.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/Word.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Window/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Window/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Window/folder.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Window/folder.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Window/mainWindow.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Window/mainWindow.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Window/mainWindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Window/mainWindow.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/fouryuan.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/lexical/LexicalParser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/lexical/LexicalParser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/lexical/Token$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/lexical/Token$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/lexical/Token$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/lexical/Token$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/lexical/Token$TokenType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/lexical/Token$TokenType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/lexical/Token.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/lexical/Token.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/lexical/draft.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/lexical/draft.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/sourceCode_1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/sourceCode_1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/sourceCode_2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/sourceCode_2.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/test.cmm" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/test.cmm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/cmm/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/cmm/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/cmm/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/cmm/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/cmm/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/cmm/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/cmm/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/cmm/Window/folder.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/cmm/Window/mainWindow.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/cmm/fouryuan.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/cmm/lexical/draft.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/cmm/sourceCode_1.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/cmm/sourceCode_2.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/cmm/src/Window/folder.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/cmm/src/Window/mainWindow.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/cmm/src/fouryuan.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/cmm/src/lexical/draft.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/cmm/src/sourceCode_1.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/cmm/src/sourceCode_2.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/cmm/src/test.cmm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/cmm/test.cmm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/richtextfx-fat-0.10.2.jar" beforeDir="false" afterPath="$PROJECT_DIR$/richtextfx-fat-0.10.2.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/A.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/A.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/B.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/B.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/ClassFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/ClassFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/DynamicException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/DynamicException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/E.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/E.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/FourYuan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/FourYuan.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/LexicalParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/LexicalParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/O.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/O.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Parser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/Register.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Register.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/Word.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Word.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Window/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Window/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Window/folder.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/Window/folder.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Window/mainWindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/Window/mainWindow.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Window/mainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Window/mainWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lexical/LexicalParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lexical/LexicalParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lexical/Token.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lexical/Token.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lexical/draft.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/lexical/draft.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sourceCode_1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/sourceCode_1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sourceCode_2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/sourceCode_2.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test.cmm" beforeDir="false" afterPath="$PROJECT_DIR$/src/test.cmm" afterDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/out/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="testRunner" value="GRADLE" />
+    <option name="delegatedBuild" value="true" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Window/FileTreeItem.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Window/folder.png">
+          <provider selected="true" editor-type-id="images" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Window/Main.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Window/mainWindow.fxml">
+          <provider selected="true" editor-type-id="text-editor" />
+          <provider editor-type-id="JavaFX-Scene-Builder" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Window/mainWindow.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2520">
+              <caret line="299" selection-start-line="299" selection-end-line="299" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/lexical/draft.txt">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/lexical/LexicalParser.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="350">
+              <caret line="271" column="9" lean-forward="true" selection-start-line="271" selection-start-column="9" selection-end-line="271" selection-end-column="9" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/lexical/Token.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-136">
+              <caret line="98" selection-start-line="98" selection-end-line="98" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Parser/LexicalParser.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="390">
+              <caret line="286" selection-start-line="286" selection-end-line="286" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/Window/mainWindow.java" />
+        <option value="$PROJECT_DIR$/src/lexical/Token.java" />
+        <option value="$PROJECT_DIR$/src/Parser/LexicalParser.java" />
+        <option value="$PROJECT_DIR$/src/lexical/LexicalParser.java" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-2664" />
+    <option name="y" value="-185" />
+    <option name="width" value="1200" />
+    <option name="height" value="640" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="CMMInterpreter" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CMMInterpreter" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CMMInterpreter" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CMMInterpreter" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CMMInterpreter" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CMMInterpreter" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="lexical" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CMMInterpreter" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CMMInterpreter" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Parser" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CMMInterpreter" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CMMInterpreter" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Window" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d8c7da12-6345-4cfd-9467-87b8bae9d084" name="Default Changelist" comment="" />
+      <created>1572610847282</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1572610847282</updated>
+      <workItem from="1572610852484" duration="351000" />
+      <workItem from="1572611224505" duration="246000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="598000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-2567" y="-178" width="2062" height="1126" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19011976" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Capture Tool" order="2" />
+      <window_info id="Image Layers" order="3" />
+      <window_info id="Designer" order="4" />
+      <window_info id="UI Designer" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32997987" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="8" />
+      <window_info anchor="bottom" id="Terminal" order="9" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="11" />
+      <window_info anchor="bottom" id="Messages" order="12" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Database" order="4" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info anchor="right" id="Maven" order="6" />
+      <window_info anchor="right" id="Capture Analysis" order="7" />
+      <window_info anchor="right" id="Palette&#9;" order="8" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/Window/folder.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Window/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Window/FileTreeItem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Window/mainWindow.fxml">
+      <provider selected="true" editor-type-id="text-editor" />
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Window/mainWindow.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2520">
+          <caret line="299" selection-start-line="299" selection-end-line="299" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lexical/draft.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Parser/LexicalParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="286" selection-start-line="286" selection-end-line="286" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lexical/Token.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-136">
+          <caret line="98" selection-start-line="98" selection-end-line="98" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lexical/LexicalParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="350">
+          <caret line="271" column="9" lean-forward="true" selection-start-line="271" selection-start-column="9" selection-end-line="271" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

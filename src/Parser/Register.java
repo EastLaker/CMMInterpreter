@@ -19,6 +19,7 @@ public class Register<T> {
         this.value = value;
     }
 
+
     public T getValue() {
         return value;
     }

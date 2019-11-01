@@ -7,7 +7,7 @@
     <inspection_tool class="ControlFlowStatementWithoutBraces" enabled="false" level="INFORMATION" enabled_by_default="false" />
     <inspection_tool class="Duplicates" enabled="true" level="WEAK WARNING" enabled_by_default="true">
       <Java>
-        <minSize>146</minSize>
+        <minSize>240</minSize>
         <isEnabled>true</isEnabled>
       </Java>
     </inspection_tool>

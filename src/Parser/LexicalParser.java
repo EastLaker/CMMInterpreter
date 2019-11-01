@@ -284,8 +284,6 @@ public class LexicalParser {
                 }
             }
         }
-
-        //token.printValue();
         return token;
     }
 

@@ -1,9 +1,8 @@
 package Parser;
 
 import Window.mainWindow;
-import sun.management.snmp.jvminstr.JvmThreadInstanceEntryImpl;
-
 import java.awt.geom.FlatteningPathIterator;
+
 
 /**
  * @author knight
@@ -45,6 +44,7 @@ public class FourYuan {
 	private String regPat = "reg";
 	private String variPat = "^[A-Za-z_][A-Za-z0-9_]*$";
 	private String positiveInt = "^(0|[1-9][0-9]*)$";
+
 	//实现运算的autocast  避免运算过程中出现异常
 
 	///TODO   加法运算
@@ -109,6 +109,7 @@ public class FourYuan {
 				Register[] registers = makeOpsRegister(this.op1, this.op2);
 				Register register = registerOperation(registers[0], registers[1], OPERATOR.PLUS);
 				ClassFactory.Registers.put(this.des, register);
+
 				/////TODO 乘法运算
 			} else if (this.oprator.contentEquals("JMP")) {
 				/////TODO 直接跳转
@@ -128,6 +129,7 @@ public class FourYuan {
 						cf.setWordValue(word, temp.getValue(), temp.type);
 						break;
 				}
+
 			} else if (this.oprator.contentEquals("J<"))
 				con_jmp("<");
 
@@ -145,6 +147,7 @@ public class FourYuan {
 		} catch (DynamicException.undeclaredIdentifierException e) {
 			e.errorInfo();
 		} catch (DynamicException.unInitializedIdentifierException e) {
+
 			e.errorInfo();
 		} catch (DynamicException.noArrayException e) {
 			e.errorInfo();
@@ -154,6 +157,7 @@ public class FourYuan {
 			e.errorInfo();
 		} catch (DynamicException.numberFormatException e) {
 			e.errorInfo();
+
 		} catch (DynamicException.defaultException e) {
 			e.errorInfo();
 		}
@@ -163,6 +167,7 @@ public class FourYuan {
 	private int getIndex(String str) throws DynamicException.defaultException,
 			DynamicException.undeclaredIdentifierException, DynamicException.unInitializedIdentifierException,
 			DynamicException.mismatchOperatorException, DynamicException.numberFormatException {
+
 		switch (regexPatForIndex(str)) {
 			case POSITIVE_INT:
 				return Integer.parseInt(str);
@@ -180,6 +185,7 @@ public class FourYuan {
 					return (int) word.getValue();
 				}
 				throw new DynamicException().new numberFormatException();
+
 			default:
 				return -1;
 		}
@@ -217,6 +223,7 @@ public class FourYuan {
 				break;
 			case "!=":
 				if (Math.abs(sub) >= 1e-6)
+
 					mainWindow.j = Integer.parseInt(this.des) - 1;
 				break;
 		}
@@ -255,6 +262,7 @@ public class FourYuan {
 
 	//暂时没有考虑溢出
 	private Register registerOperation(Register r_op1, Register r_op2, OPERATOR o) {
+
 		switch (o){
 			case ADD:
 				if (r_op1.getType() == ClassFactory.TYPE.FLOAT && r_op2.getType() == ClassFactory.TYPE.FLOAT) {
@@ -300,6 +308,7 @@ public class FourYuan {
 				}
 		}
 		throw new DynamicException().new defaultException("找不到匹配的操作符");
+
 	}
 
 

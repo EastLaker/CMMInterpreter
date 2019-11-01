@@ -15,6 +15,7 @@ public class ClassFactory {
     private String _int = "^[+/-]?[0-9]*$";
     private String _float = "(([+])?[0-9]\\d*\\.?\\d*)|((-)?[0-9]\\d*\\.?\\d*)";
 
+
     public enum TYPE{
         INT,  //识别的声明类型 int
         FLOAT, //识别float
@@ -47,6 +48,7 @@ public class ClassFactory {
 
 
     public ArrayType newArrayFromType(String str, int length) throws DynamicException.defaultException {
+
         switch (getTypeFromType(str)){
             case INT:
                 return new ArrayType<>(new Integer[length],TYPE.INT_ARRAY);
@@ -150,12 +152,12 @@ public class ClassFactory {
 
     //可以做成不区分大小写
     public static TYPE getTypeFromType(String str) throws DynamicException.defaultException {
+
         if("int".equals(str)){
             return TYPE.INT;
         }else if("float".equals(str)){
             return TYPE.FLOAT;
         }
         throw new DynamicException().new defaultException("无法解析的数据类型");
-
     }
 }
