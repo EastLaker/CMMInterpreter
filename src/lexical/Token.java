@@ -41,6 +41,7 @@ public class Token {
         R_ANGLE_BRACKET,//25
         L_SQUARE_BRACKET,//26
         R_SQUARE_BRACKET,//27
+        END,
 
         //字面量
         INT_LITERAL,//28
@@ -84,13 +85,15 @@ public class Token {
         put(TokenType.R_SQUARE_BRACKET, "]");
         put(TokenType.SINGLE_LINE_COMMENT, "");
         put(TokenType.MULTIPLE_LINE_COMMENT, "");
-        put(TokenType.NULL, "");
+        put(TokenType.NULL, "#");
+        put(TokenType.END,"#");
     }};
 
     private TokenType type;//token类型
     private String stringValue;//字符串值
     private int intValue;//整型值
     private double realValue;//实数值
+
     private int line_no;
 
     public int getLine_no(){

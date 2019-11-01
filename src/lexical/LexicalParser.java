@@ -1,8 +1,7 @@
 package lexical;
 
-import lexical.Token;
-
 import java.io.*;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,7 +18,7 @@ public class LexicalParser {
     private StringBuilder builder = new StringBuilder();
     private char current;
     private int currentLine;
-    private Map<Integer, Integer> lines;
+    private Map<Integer, Integer> lines = new HashMap<Integer, Integer>();
 
     private static final Map<Character,Integer> directRecognized = new HashMap<Character,Integer>();
 
@@ -71,7 +70,7 @@ public class LexicalParser {
             reader = new BufferedReader(new FileReader(file));
             StringBuilder builder = new StringBuilder();
             lines = new HashMap<Integer, Integer>();
-            int counter = 0;
+            int counter = 1;
             while (reader.ready()) {
                 builder.append(reader.readLine());
                 builder.append('\n');
@@ -90,14 +89,33 @@ public class LexicalParser {
         return sourceCode;
     }
 
-    public void setSourceCode(String sourceCode) {
+    public void setSourceCode(String sourceCode){
         this.sourceCode = sourceCode;
+        try {
+            reader = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(sourceCode.getBytes(Charset.forName("utf8"))), Charset.forName("utf8")));
+            StringBuilder builder = new StringBuilder();
+            lines = new HashMap<Integer, Integer>();
+            int counter = 1;
+            while (reader.ready()) {
+                builder.append(reader.readLine());
+                builder.append('\n');
+                lines.put(counter, builder.length());
+                counter += 1;
+            }
+            //sourceCode = builder.toString();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+
         parse();
     }
 
     public List<Token> parse() {
         tokens = new ArrayList<Token>();
         Token currentToken;
+        currentLine = 1;
         do {
             currentToken = this.getNextToken();
             tokens.add(currentToken) ;
@@ -262,10 +280,6 @@ public class LexicalParser {
                     token.setType(Token.TokenType.IDENTIFIER);
                     token.setStringValue(value);
                 }
-            }
-            else {
-                System.out.println("行："+token.getLine_no()+"	错误提示：可能缺少 { ");
-
             }
         }
 
