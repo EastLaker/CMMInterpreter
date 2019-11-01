@@ -3,13 +3,21 @@
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/LexicalParser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/cmm/Window/mainWindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cmm/Window/mainWindow.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/cmm/sourceCode_1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cmm/sourceCode_1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/cmm/sourceCode_2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cmm/sourceCode_2.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Parser/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Parser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Registe.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Token.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/SemanticAnalysis.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/SemanticAnalysis.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/WordList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/WordList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Window/FileTreeItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Window/FileTreeItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Window/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Window/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Window/U.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Window/U.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Window/mainWindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/Window/mainWindow.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Window/mainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Window/mainWindow.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lexical/LexicalParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lexical/LexicalParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lexical/Token.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lexical/Token.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sourceCode_1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/sourceCode_1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sourceCode_2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/sourceCode_2.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -153,13 +161,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="HyperlinkDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="window.demo.hyperlink.HyperlinkDemo" />
+    <configuration name="JavaKeywordsAsyncDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="windowdemo.JavaKeywordsAsyncDemo" />
       <module name="cmm" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="window.demo.hyperlink.*" />
+          <option name="PATTERN" value="windowdemo.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -167,13 +175,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="JavaKeywordsDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="window.demo.JavaKeywordsDemo" />
+    <configuration name="LineIndicatorDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="windowdemo.lineindicator.LineIndicatorDemo" />
       <module name="cmm" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="window.demo.*" />
+          <option name="PATTERN" value="windowdemo.lineindicator.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -225,13 +233,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ShowLineDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="window.demo.ShowLineDemo" />
+    <configuration name="ManualHighlightingDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="windowdemo.ManualHighlightingDemo" />
       <module name="cmm" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="window.demo.*" />
+          <option name="PATTERN" value="windowdemo.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -239,13 +247,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Window.Test" />
+    <configuration name="MultiCaretAndSelectionDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="windowdemo.MultiCaretAndSelectionDemo" />
       <module name="cmm" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="Window.*" />
+          <option name="PATTERN" value="windowdemo.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -293,10 +301,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main (1)" />
-        <item itemvalue="Application.Test" />
-        <item itemvalue="Application.Main" />
-        <item itemvalue="Application.JavaKeywordsDemo" />
-        <item itemvalue="Application.HyperlinkDemo" />
+        <item itemvalue="Application.LineIndicatorDemo" />
+        <item itemvalue="Application.MultiCaretAndSelectionDemo" />
+        <item itemvalue="Application.ManualHighlightingDemo" />
+        <item itemvalue="Application.JavaKeywordsAsyncDemo" />
       </list>
     </recent_temporary>
   </component>
@@ -355,7 +363,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Window/mainWindow.java</url>
-          <line>173</line>
+          <line>209</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>

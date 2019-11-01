@@ -23,10 +23,10 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import lexical.LexicalParser;
+import lexical.Token;
 import org.fxmisc.flowless.VirtualizedScrollPane;
 import org.fxmisc.richtext.CodeArea;
 import org.fxmisc.richtext.LineNumberFactory;
-
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -39,7 +39,41 @@ import Parser.ClassFactory;
 import Parser.Word;
 import Parser.ArrayType;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class mainWindow {
+
+    private static final String[] KEYWORDS = new String[] {
+            "abstract", "assert", "boolean", "break", "byte",
+            "case", "catch", "char", "class", "const",
+            "continue", "default", "do", "double", "else",
+            "enum", "extends", "final", "finally", "float",
+            "for", "goto", "if", "implements", "import",
+            "instanceof", "int", "interface", "long", "native",
+            "new", "package", "private", "protected", "public",
+            "return", "short", "static", "strictfp", "super",
+            "switch", "synchronized", "this", "throw", "throws",
+            "transient", "try", "void", "volatile", "while"
+    };
+
+    private static final String KEYWORD_PATTERN = "\\b(" + String.join("|", KEYWORDS) + ")\\b";
+    private static final String PAREN_PATTERN = "\\(|\\)";
+    private static final String BRACE_PATTERN = "\\{|\\}";
+    private static final String BRACKET_PATTERN = "\\[|\\]";
+    private static final String SEMICOLON_PATTERN = "\\;";
+    private static final String STRING_PATTERN = "\"([^\"\\\\]|\\\\.)*\"";
+    private static final String COMMENT_PATTERN = "//[^\n]*" + "|" + "/\\*(.|\\R)*?\\*/";
+
+    private static final Pattern PATTERN = Pattern.compile(
+            "(?<KEYWORD>" + KEYWORD_PATTERN + ")"
+                    + "|(?<PAREN>" + PAREN_PATTERN + ")"
+                    + "|(?<BRACE>" + BRACE_PATTERN + ")"
+                    + "|(?<BRACKET>" + BRACKET_PATTERN + ")"
+                    + "|(?<SEMICOLON>" + SEMICOLON_PATTERN + ")"
+                    + "|(?<STRING>" + STRING_PATTERN + ")"
+                    + "|(?<COMMENT>" + COMMENT_PATTERN + ")"
+    );
 
     @FXML
     private TreeView<String> folderView;
@@ -170,7 +204,9 @@ public class mainWindow {
         codeArea.getText();
         // add line numbers to the left of area
         codeArea.setParagraphGraphicFactory(LineNumberFactory.get(codeArea));
+
         tab.setContent(new VirtualizedScrollPane<>(codeArea));
+        //tab.getStyle
 
         return tab;
     }
@@ -192,8 +228,8 @@ public class mainWindow {
             LexicalParser lexicalParser = new LexicalParser();
             lexicalParser.setSourceCode(text);
             //使用getAllTokens()方法获取Tokens,返回一个包含了识别出的Tokens的ArrayList
-            List<String> tokens1 = lexicalParser.getAllTokens();
-            for (String token: tokens1) {
+            List<Token> tokens1 = lexicalParser.getAllTokens();
+            for (Token token: tokens1) {
                 parse.tokens.add(token);
             }
             parse.token = parse.tokens.get(parse.cur++);////读入第一个单词

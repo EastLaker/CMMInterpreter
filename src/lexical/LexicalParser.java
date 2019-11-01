@@ -123,11 +123,11 @@ public class LexicalParser {
         return tokens;
     }
 
-    public List<String> getAllTokens() {
-        List<String> tokenStrings = new ArrayList<String>();
+    public List<Token> getAllTokens() {
+        List<Token> tokenStrings = new ArrayList<Token>();
         for (Token token: tokens) {
             if(token.getType() != Token.TokenType.MULTIPLE_LINE_COMMENT && token.getType() != Token.TokenType.SINGLE_LINE_COMMENT){
-                tokenStrings.add(token.getString());
+                tokenStrings.add(token);
             }
         }
         return tokenStrings;
