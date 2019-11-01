@@ -1,5 +1,6 @@
 package lexical;
 
+import Parser.Parser;
 import lexical.Token;
 
 import java.io.*;
@@ -264,10 +265,12 @@ public class LexicalParser {
                 }
             }
             else {
-                System.out.println("行："+token.getLine_no()+"	错误提示：可能缺少 { ");
+                Parser.errors.add("行："+token.getLine_no()+"非法字符"+token.getString());
 
             }
+
         }
+
 
         //token.printValue();
         return token;

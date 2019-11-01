@@ -22,6 +22,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 	public String m_id = "^[A-Za-z_][A-Za-z0-9_]*$";
 	public String positive_int = "^[1-9]*$";
 	public String m_int = "^[+/-]?[0-9]*$";
+	public String m_float = "[0-9]+\\.?[0-9]+";
 	public Stack<Integer> states = new Stack<Integer>();/////状态栈------用于赋值表达式的检测
 	public Stack<String> symbols = new Stack<String>();/////符号栈----------用于赋值表达式的检测
 	public Stack<Integer> States = new Stack<Integer>();
@@ -44,7 +45,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			switch (states.peek()){
 				case 0:
 				case 2:
-					if(token.matches(m_id)||token.matches(m_int)) {
+					if(token.matches(m_id)||token.matches(m_int)||token.matches(m_float)) {
 						states.push(3);////状态栈入栈
 						element_of_array_E();
 						token = tokens.get(cur++);
@@ -109,7 +110,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 					break;
 				case 4:
 				case 5:
-					if(token.matches(m_id)||token.matches(m_int)) {
+					if(token.matches(m_id)||token.matches(m_int)||token.matches(m_float)) {
 						states.push(3);
 						element_of_array_E();
 						token = tokens.get(cur++);
@@ -599,7 +600,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 		while(b) {
 			switch (States.peek()){
 				case 0:
-					if(token.matches(m_id)||token.matches(m_int)){
+					if(token.matches(m_id)||token.matches(m_int)||token.matches(m_float)){
 						States.push(1);
 						parserE();
 						Symbols.push(Es.peek().des);
@@ -645,7 +646,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 					}
 					break;
 				case 2:
-					if (token.matches(m_id)||token.matches(m_int)){
+					if (token.matches(m_id)||token.matches(m_int)||token.matches(m_float)){
 						States.push(3);
 						parserE();
 						Symbols.push(Es.peek().des);
@@ -705,7 +706,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				case 5:
 				case 7:
 				case 8:
-					if (token.matches(m_id)||token.matches(m_int)){
+					if (token.matches(m_id)||token.matches(m_int)||token.matches(m_float)){
 						States.push(1);
 						parserE();
 						Symbols.push(Es.peek().des);
@@ -762,7 +763,8 @@ public class Parser {//////////////////识别完成token读到的应该是;
 					}
 					break;
 				case 9:
-					if (token.equals("(")||token.equals("!")||token.matches(m_id)||token.matches(m_int)){
+					if (token.equals("(")||token.equals("!")||token.matches(m_id)||token.matches(m_int)||
+					token.matches(m_float)){
 						parsers.add("A->B&&");
 						for (int i=0;i<2;i++){
 							Symbols.pop();
