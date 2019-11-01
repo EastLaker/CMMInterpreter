@@ -15,9 +15,6 @@ public class ArrayType<T> extends Word<T> {
         this.type = type;
     }
 
-    public void setArray(T[] array){
-        this.value = array;
-    }
 
     public T getValue(int index) throws DynamicException.outOfArrayBoundException {
         if (index < 0 || index > length - 1)

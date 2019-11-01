@@ -120,7 +120,6 @@ public class FourYuan {
 							value = checkAndGetValueFromWord(this.op1).toString();
 							break;
 					}
-
 				cf.setWordValue(word, value);
 			} else if (this.oprator.contentEquals("J<"))
 				con_jmp("<");
@@ -148,15 +147,13 @@ public class FourYuan {
 			e.errorInfo();
 		} catch (DynamicException.defaultException e) {
 			e.errorInfo();
-		}finally {
-			throw new DynamicException().new stopMachineException();
 		}
 	}
 
 
 	private int getIndex(String str) throws DynamicException.defaultException,
 			DynamicException.undeclaredIdentifierException, DynamicException.unInitializedIdentifierException,
-			Parser.DynamicException.mismatchOperatorException {
+			DynamicException.mismatchOperatorException {
 		switch (regexPatForIndex(str)) {
 			case POSITIVE_INT:
 				return Integer.parseInt(str);
@@ -175,25 +172,12 @@ public class FourYuan {
 	private void con_jmp(String op) throws DynamicException.undeclaredIdentifierException,
 			DynamicException.unInitializedIdentifierException, DynamicException.defaultException,
 			DynamicException.mismatchOperatorException {
-		int op1_val = -1;
-		int op2_val = -1;
-		boolean o1 = false, o2 = false;
-		if (regexPat(this.op1) == TokenType.CONST) {
-			op1_val = Integer.parseInt(this.op1);
-			o1 = true;///op1获得值
-		}
-		if (regexPat(this.op2) == TokenType.CONST) {
-			op2_val = Integer.parseInt(this.op2);
-			o2 = true;///op2获得值
-		}
-		/////TODO 选择跳转
-		if (!o1) {   ////o1还没有赋值 todo 给op1_val赋值
-			op1_val = (int) checkAndGetValueFromWord(this.op1);
-		}
-		if (!o2) {
-			op2_val = (int) checkAndGetValueFromWord(this.op2);
-		}
-		switch (op) {
+
+		Register [] registers = makeOpsRegister();
+
+		int op1_val = (Integer)registers[0].getValue();
+		int op2_val = (Integer)registers[1].getValue();
+		switch (op){
 			case "<":
 				if (op1_val < op2_val)
 					mainWindow.j = Integer.parseInt(this.des) - 1;
@@ -372,8 +356,8 @@ public class FourYuan {
 
 	private Object checkAndGetValueFromWord(String str) throws DynamicException.undeclaredIdentifierException
 			, DynamicException.unInitializedIdentifierException, DynamicException.mismatchOperatorException {
-		Word word = checkAndGetWord(str);
 
+		Word word = checkAndGetWord(str);
 		Object o = word.getValue();
 		if (o == null) {
 			throw new DynamicException().new unInitializedIdentifierException();
