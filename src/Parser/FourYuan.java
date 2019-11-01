@@ -71,6 +71,9 @@ public class FourYuan {
 						break;
 					case VARIABLE:
 						Word word = checkAndGetWord(this.des);
+						if(word.getValue()==null){
+							throw new DynamicException().new unInitializedIdentifierException();
+						}
 						cf.setArrayElementValue(array, offSet, word.getValue(), word.type);
 						break;
 					default:
@@ -96,6 +99,9 @@ public class FourYuan {
 						break;
 					case VARIABLE:
 						Word word = checkAndGetWord(this.des);
+						if(word.getValue()==null){
+							throw new DynamicException().new unInitializedIdentifierException();
+						}
 						if(type== ClassFactory.TYPE.INT_ARRAY){
 							cf.setWordValue(word, value, ClassFactory.TYPE.INT);
 						}else{
@@ -126,6 +132,9 @@ public class FourYuan {
 						break;
 					case VARIABLE:
 						Word temp = checkAndGetWord(this.op1);
+						if(temp.getValue()==null){
+							throw new DynamicException().new unInitializedIdentifierException();
+						}
 						cf.setWordValue(word, temp.getValue(), temp.type);
 						break;
 				}
@@ -192,7 +201,7 @@ public class FourYuan {
 	}
 
 	private void con_jmp(String op) throws DynamicException.undeclaredIdentifierException,
-			DynamicException.unInitializedIdentifierException, DynamicException.defaultException,
+			 DynamicException.defaultException,
 			DynamicException.mismatchOperatorException {
 
 		Register[] registers = makeOpsRegister(this.op1, this.op2);
@@ -360,17 +369,6 @@ public class FourYuan {
 		}
 
 		return (ArrayType) wordTemp;
-	}
-
-	private Object checkAndGetValueFromWord(String str) throws DynamicException.undeclaredIdentifierException
-			, DynamicException.unInitializedIdentifierException, DynamicException.mismatchOperatorException {
-
-		Word word = checkAndGetWord(str);
-		Object o = word.getValue();
-		if (o == null) {
-			throw new DynamicException().new unInitializedIdentifierException();
-		}
-		return o;
 	}
 
 	private Word checkAndGetWord(String str) throws DynamicException.undeclaredIdentifierException, DynamicException.mismatchOperatorException {

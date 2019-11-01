@@ -37,9 +37,9 @@ public class ClassFactory {
     public ArrayType newArrayFromArray(Object[] arr, String type) throws DynamicException.defaultException {
         switch (getTypeFromType(type)){
             case INT:
-                return new ArrayType(Arrays.copyOf(arr,arr.length,Integer[].class),TYPE.INT_ARRAY);
+                return new ArrayType<>(Arrays.copyOf(arr,arr.length,Integer[].class),TYPE.INT_ARRAY);
             case FLOAT:
-                return new ArrayType(Arrays.copyOf(arr,arr.length,Float[].class),TYPE.FLOAT_ARRAY);
+                return new ArrayType<>(Arrays.copyOf(arr,arr.length,Float[].class),TYPE.FLOAT_ARRAY);
             default:
                 //todo 添加错误处理
                 return null;
@@ -64,6 +64,11 @@ public class ClassFactory {
         //todo 当word中为int时， str为float时可能有异常发生.
         switch (type) {
             case INT:
+                if(word.type==TYPE.FLOAT){
+                    float f = (float)(int)value;
+                    word.setValue(f);
+                    break;
+                }
                 word.setValue(value);
                 break;
             case FLOAT:
@@ -82,7 +87,11 @@ public class ClassFactory {
         //todo 当word中为int时， str为float时可能有异常发生.
         switch (getTypeFromNum(str)) {
             case INT:
-                word.setValue(Integer.parseInt(str));
+                if(word.type==TYPE.FLOAT){
+                    word.setValue(Float.parseFloat(str));
+                }else{
+                    word.setValue(Integer.parseInt(str));
+                }
                 break;
             case FLOAT:
                 if (word.type == TYPE.INT) {
@@ -99,7 +108,11 @@ public class ClassFactory {
             throws DynamicException.outOfArrayBoundException, DynamicException.numberFormatException {
         switch (getTypeFromNum(str)){
             case INT:
-                array.setValue(index, Integer.parseInt(str));
+                if(array.type==TYPE.FLOAT_ARRAY){
+                    array.setValue(index, Float.parseFloat(str));
+                }else{
+                    array.setValue(index, Integer.parseInt(str));
+                }
                 break;
             case FLOAT:
                 if(array.type==TYPE.INT_ARRAY){
@@ -128,13 +141,9 @@ public class ClassFactory {
     public Register newRegister(String str) throws DynamicException.defaultException {
         switch (getTypeFromNum(str)) {
             case INT:
-                Register<Integer> r_int = new Register<Integer>(TYPE.INT);
-                r_int.setValue(Integer.parseInt(str));
-                return r_int;
+                return new Register<>(TYPE.INT, Integer.parseInt(str));
             case FLOAT:
-                Register<Float> r_float =  new Register<Float>(TYPE.FLOAT);
-                r_float.setValue(Float.parseFloat(str));
-                return r_float;
+                return new Register<>(TYPE.FLOAT, Float.parseFloat(str));
             default:
                 throw new DynamicException().new defaultException("无法解析的数据类型");
         }

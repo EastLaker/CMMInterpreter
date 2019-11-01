@@ -23,7 +23,10 @@ public class Parser {//////////////////识别完成token读到的应该是;
 	public int cur = 0;///用于遍历词法分析的词
 	public String m_id = "^[A-Za-z_][A-Za-z0-9_]*$";
 	public String positive_int = "^[1-9]*$";
-	public String m_int = "^[+/-]?[0-9]*$";
+	public String m_int = "(([+])?[0-9]\\d*\\.?\\d*)|((-)?[0-9]\\d*\\.?\\d*)";
+//	public String m_int = "^[+/-]?[0-9]*$";
+	public String m_int_float = "(([+])?[0-9]\\d*\\.?\\d*)|((-)?[0-9]\\d*\\.?\\d*)";
+	//todo 无用的m_float
 	public String m_float = "[0-9]+\\.?[0-9]+";
 	public Stack<Integer> states = new Stack<Integer>();/////状态栈------用于赋值表达式的检测
 	public Stack<String> symbols = new Stack<String>();/////符号栈----------用于赋值表达式的检测
@@ -553,10 +556,10 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			//模拟读入 "=" 不做处理 有无都可
 			if ("=".equals(token.getString())) token = tokens.get(cur++);
 			if ("{".equals(token.getString())) {/////数组需要初始化吗？
-				ArrayList<Integer> var_array = new ArrayList<>();////用于初始化单词表的数组
+				ArrayList<Number> var_array = new ArrayList<>();////用于初始化单词表的数组
 				int j = 0;
 				token = tokens.get(cur++);
-				while (token.getString().matches(m_int)||token.getString().matches(m_id)) {
+				while (token.getString().matches(m_int_float)||token.getString().matches(m_id)) {
 					parserE();
 					FourYuan four = new FourYuan();
 					four.oprator = "$";
@@ -587,7 +590,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 						}
 					////多余元素用0补足
 				}
-				ArrayType arrayType = cf.newArrayFromArray(new Integer[length_determined ? size : j], type);
+				ArrayType arrayType = cf.newArrayFromArray(new Number[length_determined ? size : j], type);
 				if (!length_determined)
 					Word.getDes_start(j - 1);
 				arrayType.setDes(start_des);
