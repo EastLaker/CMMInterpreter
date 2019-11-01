@@ -785,7 +785,8 @@ public class Parser {//////////////////识别完成token读到的应该是;
 					}
 					break;
 				case 10:
-					if (token.equals("(")||token.equals("!")||token.matches(m_id)||token.matches(m_int)){
+					if (token.equals("(")||token.equals("!")||token.matches(m_id)||token.matches(m_int)||
+					token.matches(m_float)){
 						parsers.add("O->B||");
 						for (int i=0;i<2;i++){
 							Symbols.pop();
