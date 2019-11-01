@@ -51,236 +51,179 @@ public class FourYuan {
 	///TODO    在单词表中找到第二个操作数（按照op2的名）
 	///TODO    运算
 	///TODO    保存到寄存器
-	public void Exec() {
-		if (this.oprator.contentEquals("+")) {
-			Register[] registers = makeOpsRegister();
-			registerOperation(registers[0], registers[1], OPERATOR.ADD);
-		} else if (this.oprator.contentEquals("$")) {
-			try {
-				ArrayType array = (ArrayType) ClassFactory.Wordlist.getOrDefault(this.op1, null);
-
-				if(array==null){
-					//todo 如何实现中断下面的分析? 已catch exception
-					Parser.errors.add("未定义的数组标识符");
-				}
-
-				//todo 怎样停下程序？当返回-1;
-				int offSet = getIndex(this.op2);
-
-				int value = 0;
-				switch (regexPat(this.des)) {
-					case CONST:
-						value = Integer.parseInt(this.des);
-						break;
-					case REGISTER:
-						Register reg = ClassFactory.Registers.getOrDefault(this.des, null);
-						if (reg != null) {
-							//todo 类型判断  现在全部实现为int类型
+	public void Exec() throws DynamicException.stopMachineException {
+		try{
+			if (this.oprator.contentEquals("+")) {
+					Register[] registers = makeOpsRegister();
+					registerOperation(registers[0], registers[1], OPERATOR.ADD);
+			} else if (this.oprator.contentEquals("$")) {
+					ArrayType array = checkAndGetArrayFromHash(this.op1);
+					//todo 怎样停下程序？当返回-1;
+					int offSet = getIndex(this.op2);
+					int value;
+					switch (regexPat(this.des)) {
+						case CONST:
+							value = Integer.parseInt(this.des);
+							break;
+						case REGISTER:
+							Register reg = checkAndGetRegister(this.des);
 							value = (int) reg.getValue();
-						} else {
-							Parser.errors.add("无法为数组进行非法赋值");
-						}
-						break;
-					case VARIABLE:
-						Word word = ClassFactory.Wordlist.getOrDefault(this.des, null);
-						if (word != null) {
-							Object o = word.getValue();
-							if (o != null) {
-								value = (int) o;
-							} else {
-								Parser.errors.add("未初始化的标识符");
-							}
-						} else {
-							Parser.errors.add("未定义的标识符");
-						}
-						break;
-					default:
-						Parser.errors.add("无法解析赋值对象");
-				}
-				//todo 类型check
-				array.setValue(offSet, value);
-
-			} catch (ClassCastException e) {
-				Parser.errors.add(this.op1 + " 并不是数组类型");
-			} catch (IllegalArgumentException e) {
-				Parser.errors.add(this.op2 + " 是非法的数组下标");
-			}catch (NullPointerException e){
-				System.out.println(e.getMessage());
-			}
-		} else if (this.oprator.contentEquals("&")) {
-			try {
-				ArrayType array = (ArrayType) ClassFactory.Wordlist.getOrDefault(this.op1, null);
-
-				if(array==null){
-					//todo 如何实现中断下面的分析?
-					Parser.errors.add("未定义的数组标识符");
-				}
-
-				int offSet = getIndex(this.op2);
-				//类型check 和 隐式类型转换
-				Object value = array.getValue(offSet);
-				switch (regexPat(this.des)) {
-					case REGISTER:
-						Register reg = cf.newRegister(value.toString());
-						ClassFactory.Registers.put(this.des,reg);
-						break;
-					case VARIABLE:
-						Word word = ClassFactory.Wordlist.getOrDefault(this.des, null);
-						if (word != null) {
-							word.setValue(value);
-						} else {
-							Parser.errors.add("未定义的标识符");
-						}
-						break;
-					default:
-						Parser.errors.add("无法解析赋值对象");
-				}
-
-			} catch (ClassCastException e) {
-				Parser.errors.add(this.op1 + " 并不是数组类型");
-			} catch (IllegalArgumentException e) {
-				Parser.errors.add(this.op2 + " 是非法的数组下标");
-			}catch (NullPointerException e){}
-
-		} else if (this.oprator.contentEquals("*")) {
-			Register[] registers = makeOpsRegister();
-			registerOperation(registers[0], registers[1], OPERATOR.PLUS);
-
-			/////TODO 乘法运算
-		} else if (this.oprator.contentEquals("JMP")) {
-			/////TODO 直接跳转
-			mainWindow.j = Integer.parseInt(des) - 1;
-		} else if (this.oprator.contentEquals("=")) {
-			Word word = ClassFactory.Wordlist.getOrDefault(this.des, null);
-			if (word != null) {
-				if (regexPat(this.op1) == TokenType.CONST) {
-					//todo 类型判断 .
-					cf.setWordValue(word, this.op1);
-				} else if (regexPat(this.op1) == TokenType.REGISTER) {
-					//todo value间的转换会出bug吗
-					word.setValue(ClassFactory.Registers.get(op1).getValue());
-				} else if (regexPat(this.op1) == TokenType.VARIABLE) {
-					Word temp = ClassFactory.Wordlist.getOrDefault(op1, null);
-					if (temp != null) {
-						if (temp.getValue() != null) {
-							word.setValue(temp.getValue());
-						} else {
-							Parser.errors.add("assigning from a uninitialized variable\n");
-						}
-					} else {
-						Parser.errors.add("assigning from a undeclared variable\n");
+							break;
+						case VARIABLE:
+							Object o = checkAndGetValueFromWord(this.des);
+							value = (int) o;
+							break;
+						default:
+							throw new DynamicException().new defaultException("无法解析的符号");
 					}
-				}
-			} else {
-				Parser.errors.add("未声明标志符" + this.des + "\n");
-			}
-		} else if (this.oprator.contentEquals("J<"))
-			con_jmp("<");
+					//todo 类型check
+					array.setValue(offSet, value);
 
-		else if (this.oprator.contentEquals("J>"))
-			con_jmp(">");
+			} else if (this.oprator.contentEquals("&")) {
+					ArrayType array = checkAndGetArrayFromHash(this.op1);
 
-		else if (this.oprator.equals("J<="))
-			con_jmp("<=");
-		else if (this.oprator.equals("J>="))
-			con_jmp(">=");
-		else if (this.oprator.equals("J=="))
-			con_jmp("==");
-		else if (this.oprator.equals("J!="))
-			con_jmp("!=");
+					int offSet = getIndex(this.op2);
+					//类型check 和 隐式类型转换
+					Object value = array.getValue(offSet);
+					switch (regexPat(this.des)) {
+						case REGISTER:
+							Register reg = cf.newRegister(value.toString());
+							ClassFactory.Registers.put(this.des, reg);
+							break;
+						case VARIABLE:
+							Word word = checkAndGetWord(this.des);
+							cf.setWordValue(word,value.toString());
+							break;
+						default:
+							throw new DynamicException().new defaultException("无法解析的目标地址");
+					}
+
+			} else if (this.oprator.contentEquals("*")) {
+					Register[] registers = makeOpsRegister();
+					registerOperation(registers[0], registers[1], OPERATOR.PLUS);
+
+				/////TODO 乘法运算
+			} else if (this.oprator.contentEquals("JMP")) {
+				/////TODO 直接跳转
+				mainWindow.j = Integer.parseInt(des) - 1;
+			} else if (this.oprator.contentEquals("=")) {
+				String value = "";
+					Word word = checkAndGetWord(this.des);
+					switch (regexPat(this.op1)) {
+						case CONST:
+							value = this.op1;
+							break;
+						case REGISTER:
+							value = checkAndGetRegister(this.op1).getValue().toString();
+							break;
+						case VARIABLE:
+							value = checkAndGetValueFromWord(this.op1).toString();
+							break;
+					}
+
+				cf.setWordValue(word, value);
+			} else if (this.oprator.contentEquals("J<"))
+				con_jmp("<");
+
+			else if (this.oprator.contentEquals("J>"))
+				con_jmp(">");
+
+			else if (this.oprator.equals("J<="))
+				con_jmp("<=");
+			else if (this.oprator.equals("J>="))
+				con_jmp(">=");
+			else if (this.oprator.equals("J=="))
+				con_jmp("==");
+			else if (this.oprator.equals("J!="))
+				con_jmp("!=");
+		} catch (DynamicException.undeclaredIdentifierException e) {
+			e.errorInfo();
+		}  catch (DynamicException.unInitializedIdentifierException e) {
+			e.errorInfo();
+		} catch (DynamicException.noArrayException e) {
+			e.errorInfo();
+		} catch (DynamicException.outOfArrayBoundException e) {
+			e.errorInfo();
+		} catch (DynamicException.mismatchOperatorException e) {
+			e.errorInfo();
+		} catch (DynamicException.defaultException e) {
+			e.errorInfo();
+		}finally {
+			throw new DynamicException().new stopMachineException();
+		}
 	}
 
-	private int getIndex(String op2) {
-		switch (regexPatForIndex(op2)) {
+
+	private int getIndex(String str) throws DynamicException.defaultException,
+			DynamicException.undeclaredIdentifierException, DynamicException.unInitializedIdentifierException,
+			Parser.DynamicException.mismatchOperatorException {
+		switch (regexPatForIndex(str)) {
 			case POSITIVE_INT:
-				return Integer.parseInt(op2);
+				return Integer.parseInt(str);
 			case REGISTER:
-				Register r = ClassFactory.Registers.getOrDefault(op2, null);
-				//寄存器不存在getvalue 没有值的情况
-				if (r != null)
-					return (int) r.getValue();
-				else {
-					Parser.errors.add("数组下标的格式错误");
-					return -1;
-				}
+				Register r = checkAndGetRegister(str);
+				return (int) r.getValue();
 				//todo 如果此寄存器存的值是float or  则需要更改错误处理
 			case VARIABLE:
-				Word word = ClassFactory.Wordlist.getOrDefault(op2, null);
-				if (word != null) {
-					Object v = word.getValue();
-					if (v != null) {
-						return (int) v;
-					} else {
-						//todo 中断程序继续执行
-						Parser.errors.add("未初始化的标识符");
-						return -1;
-					}
-				} else {
-					Parser.errors.add("未定义的标识符");
-					return -1;
-				}
+				Object v = checkAndGetValueFromWord(str);
+				return (int) v;
 			default:
 				return -1;
 		}
 	}
 
-	private void con_jmp(String op) {
-		int op1_val=-1;
-		int op2_val=-1;
-		boolean o1=false,o2=false;
-		if(regexPat(this.op1)== TokenType.CONST){
+	private void con_jmp(String op) throws DynamicException.undeclaredIdentifierException,
+			DynamicException.unInitializedIdentifierException, DynamicException.defaultException,
+			DynamicException.mismatchOperatorException {
+		int op1_val = -1;
+		int op2_val = -1;
+		boolean o1 = false, o2 = false;
+		if (regexPat(this.op1) == TokenType.CONST) {
 			op1_val = Integer.parseInt(this.op1);
-			o1=true;///op1获得值
+			o1 = true;///op1获得值
 		}
-		if(regexPat(this.op2)== TokenType.CONST){
+		if (regexPat(this.op2) == TokenType.CONST) {
 			op2_val = Integer.parseInt(this.op2);
-			o2=true;///op2获得值
+			o2 = true;///op2获得值
 		}
 		/////TODO 选择跳转
-		if(!o1){   ////o1还没有赋值 todo 给op1_val赋值
-		Word op1 = ClassFactory.Wordlist.getOrDefault(this.op1, null);
-		if (op1 == null)
-			Parser.errors.add("未声明的标志符" + this.op1 + "\n");
-		else
-			op1_val = (int) op1.getValue();
+		if (!o1) {   ////o1还没有赋值 todo 给op1_val赋值
+			op1_val = (int) checkAndGetValueFromWord(this.op1);
 		}
-		if(!o2) {
-			Word op2 = ClassFactory.Wordlist.getOrDefault(this.op2, null);
-			if (op2 == null)
-				Parser.errors.add("未声明的标志符" + this.op2 + "\n");
-			else
-				op2_val = (int) op2.getValue();
+		if (!o2) {
+			op2_val = (int) checkAndGetValueFromWord(this.op2);
 		}
-		switch (op){
+		switch (op) {
 			case "<":
-				if(op1_val<op2_val)
-					mainWindow.j = Integer.parseInt(this.des) -1;
+				if (op1_val < op2_val)
+					mainWindow.j = Integer.parseInt(this.des) - 1;
 				break;
 			case ">":
-				if(op1_val>op2_val)
-					mainWindow.j = Integer.parseInt(this.des) -1;
+				if (op1_val > op2_val)
+					mainWindow.j = Integer.parseInt(this.des) - 1;
 				break;
 			case "<=":
-				if(op1_val<=op2_val)
-					mainWindow.j = Integer.parseInt(this.des)-1;
+				if (op1_val <= op2_val)
+					mainWindow.j = Integer.parseInt(this.des) - 1;
 				break;
 			case ">=":
-				if(op1_val>=op2_val)
-					mainWindow.j = Integer.parseInt(this.des) -1;
+				if (op1_val >= op2_val)
+					mainWindow.j = Integer.parseInt(this.des) - 1;
 				break;
 			case "==":
-				if(op1_val==op2_val)
-					mainWindow.j = Integer.parseInt(this.des) -1;
+				if (op1_val == op2_val)
+					mainWindow.j = Integer.parseInt(this.des) - 1;
 				break;
 			case "!=":
-				if(op1_val!=op2_val)
-					mainWindow.j = Integer.parseInt(this.des) -1;
-					break;
-
+				if (op1_val != op2_val)
+					mainWindow.j = Integer.parseInt(this.des) - 1;
+				break;
 		}
 	}
 
-	private Register[] makeOpsRegister() {
+	private Register[] makeOpsRegister() throws DynamicException.defaultException
+			, DynamicException.undeclaredIdentifierException, DynamicException.unInitializedIdentifierException,
+			DynamicException.mismatchOperatorException {
 		Register[] registers = new Register[2];
 		if (regexPat(this.op1) == TokenType.CONST) {
 			registers[0] = cf.newRegister(this.op1);
@@ -289,10 +232,11 @@ public class FourYuan {
 			String str = ClassFactory.Registers.get(this.op1).getValue().toString();
 			registers[0] = cf.newRegister(str);
 		} else if (regexPat(this.op1) == TokenType.VARIABLE) {
-			String str = ClassFactory.Wordlist.get(this.op1).getValue().toString();
+			Object o = checkAndGetValueFromWord(this.op1);
+			String str = o.toString();
 			registers[0] = cf.newRegister(str);
 		}else{
-			throw new IllegalArgumentException("no regex match");
+			throw new DynamicException().new defaultException("无法解析的符号");
 		}
 
 		if (regexPat(this.op2) == TokenType.CONST) {
@@ -302,10 +246,11 @@ public class FourYuan {
 			String str = ClassFactory.Registers.get(this.op2).getValue().toString();
 			registers[1] = cf.newRegister(str);
 		} else if (regexPat(this.op2) == TokenType.VARIABLE) {
-			String str = ClassFactory.Wordlist.get(this.op2).getValue().toString();
+			Object o = checkAndGetValueFromWord(this.op2);
+			String str = o.toString();
 			registers[1] = cf.newRegister(str);
 		}else{
-			throw new IllegalArgumentException("no regex match");
+			throw new DynamicException().new defaultException("无法解析的操作符");
 		}
 
 		return registers;
@@ -373,35 +318,79 @@ public class FourYuan {
 		return "(" + this.oprator + "," + this.op1 + "," + this.op2 + "," + this.des + ")";
 	}
 
-	public  TokenType regexPat(String str) {
+	public  TokenType regexPat(String str) throws DynamicException.defaultException {
 		if (str.indexOf(regPat)==0)
 			return TokenType.REGISTER;
 		else if (str.matches(variPat))
 			return TokenType.VARIABLE;
 		else if (str.matches(constant))
 			return TokenType.CONST;
-		throw new IllegalArgumentException("no regex match");
+		throw new DynamicException().new defaultException("无法解析的操作符");
 	}
 
-	public  TokenType regexPatForIndex(String str) {
+	public  TokenType regexPatForIndex(String str) throws DynamicException.defaultException {
 		if (str.indexOf(regPat)==0)
 			return TokenType.REGISTER;
 		else if(str.matches(positiveInt))
 			return TokenType.POSITIVE_INT;
 		else if (str.matches(variPat))
 			return TokenType.VARIABLE;
-		throw new IllegalArgumentException("no regex match");
+		throw new DynamicException().new defaultException("无法解析的操作符");
 	}
 
-
-
-	private int getTypeNum(String str) {
+	private int getTypeNum(String str) throws DynamicException.defaultException {
 		if (str.matches(_int)) {
 			return INT;
 		} else if (str.matches(_float)) {
 			return FLOAT;
 		}
-		throw new IllegalArgumentException("can not match type");
+		throw new DynamicException().new defaultException("无法解析的数学表达式");
+
 	}
+
+	private Register checkAndGetRegister(String des) throws DynamicException.defaultException {
+		Register reg = ClassFactory.Registers.getOrDefault(des, null);
+		if (reg == null) {
+			throw new DynamicException().new defaultException("找不到寄存器");
+		}
+		return reg;
+	}
+
+	private ArrayType checkAndGetArrayFromHash(String str) throws DynamicException.noArrayException {
+		Word wordTemp = ClassFactory.Wordlist.getOrDefault(str, null);
+
+		if (wordTemp == null) {
+			throw new DynamicException().new noArrayException();
+		}
+
+		if (wordTemp.getClass() != ArrayType.class) {
+			throw new DynamicException().new noArrayException();
+		}
+
+		return (ArrayType) wordTemp;
+	}
+
+	private Object checkAndGetValueFromWord(String str) throws DynamicException.undeclaredIdentifierException
+			, DynamicException.unInitializedIdentifierException, DynamicException.mismatchOperatorException {
+		Word word = checkAndGetWord(str);
+
+		Object o = word.getValue();
+		if (o == null) {
+			throw new DynamicException().new unInitializedIdentifierException();
+		}
+		return o;
+	}
+
+	private Word checkAndGetWord(String str) throws DynamicException.undeclaredIdentifierException, DynamicException.mismatchOperatorException {
+		Word word = ClassFactory.Wordlist.getOrDefault(str, null);
+		if (word == null) {
+			throw new DynamicException().new undeclaredIdentifierException();
+		}
+		if (word.getClass() != Word.class) {
+			throw new DynamicException().new mismatchOperatorException();
+		}
+		return word;
+	}
+
 
 }

@@ -1,6 +1,5 @@
 package Parser;
 
-import javax.lang.model.element.NestingKind;
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -73,7 +72,7 @@ public class ClassFactory {
             }
         }
 
-    public Register newRegister(String str) {
+    public Register newRegister(String str) throws DynamicException.defaultException {
         switch (getTypeFromNum(str)) {
             case INT:
                 Register<Integer> r_int = new Register<Integer>(TYPE.INT);
@@ -84,7 +83,7 @@ public class ClassFactory {
                 r_float.setValue(Float.parseFloat(str));
                 return r_float;
             default:
-                throw new IllegalArgumentException("can not match type");
+                throw new DynamicException().new defaultException("无法解析的数据类型");
         }
     }
 

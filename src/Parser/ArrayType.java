@@ -19,18 +19,16 @@ public class ArrayType<T> extends Word<T> {
         this.value = array;
     }
 
-    public T getValue(int index){
-        checkIndexOutOfBound(index);
+    public T getValue(int index) throws DynamicException.outOfArrayBoundException {
+        if (index < 0 || index > length - 1)
+            throw new DynamicException().new outOfArrayBoundException();/////todo   报错处理
         return value[index];
     }
 
-    public void setValue(int index, T v){
-        checkIndexOutOfBound(index);
+    public void setValue(int index, T v) throws DynamicException.outOfArrayBoundException {
+        if (index < 0 || index > length - 1)
+            throw new DynamicException().new outOfArrayBoundException();/////todo   报错处理
         value[index] = v;
     }
 
-    private void checkIndexOutOfBound(int index) {
-        if (index < 0 && index > length - 1)
-            throw new IndexOutOfBoundsException();/////todo   报错处理
-    }
 }

@@ -6,11 +6,7 @@
 package Window;
 
 
-import Parser.E;
-import Parser.FourYuan;
-import Parser.Parser;
-import Parser.ArrayType;
-import Parser.LexicalParser;
+import Parser.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -38,8 +34,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
-import Parser.ClassFactory;
-import Parser.Word;
+
 public class mainWindow {
 
     @FXML
@@ -163,16 +158,24 @@ public class mainWindow {
             for(int i=0;i<parse.fours.size();i++) {
                 output_text.append(i + " " + parse.fours.get(i).get_four_str() + "\n");
             }
-            for(;j<parse.fours.size();j++)
-                parse.fours.get(j).Exec();
+            try{
+                for(;j<parse.fours.size();j++)
+                    parse.fours.get(j).Exec();
+            } catch (DynamicException.stopMachineException e) {
+                //todo  已退出for循环  还需要添加的工作？
+            }
+
             Set<String> words = ClassFactory.Wordlist.keySet();
             output_text.append("单词表结构：\n");
             output_text.append("变量名\t变量类型\t变量地址\t变量值\n");
             for(String word : words) {
-                if(ClassFactory.Wordlist.get(word) instanceof ArrayType){
-                    for(int i=0;i<ClassFactory.Wordlist.get(word).length;i++)
-                    output_text.append(word + "[" + i +"]\t" + ClassFactory.Wordlist.get(word).type +"\t" + (ClassFactory.Wordlist.get(word).getDes()+i*4) + "\t"
-                    +((ArrayType) ClassFactory.Wordlist.get(word)).getValue(i)+"\n");
+                if(ClassFactory.Wordlist.get(word) instanceof ArrayType) {
+                    for (int i = 0; i < ClassFactory.Wordlist.get(word).length; i++) {
+                        try{
+                            output_text.append(word + "[" + i + "]\t" + ClassFactory.Wordlist.get(word).type + "\t" + (ClassFactory.Wordlist.get(word).getDes() + i * 4) + "\t"
+                                    + ((ArrayType) ClassFactory.Wordlist.get(word)).getValue(i) + "\n");
+                        }catch (Exception e){}
+                    }
                 }
                 else
                 output_text.append(word+"\t"+ ClassFactory.Wordlist.get(word).type+"\t"+ ClassFactory.Wordlist.get(word).getDes()+"\t"+ ClassFactory.Wordlist.get(word).getValue()+"\n");
