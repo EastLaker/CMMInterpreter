@@ -1,6 +1,9 @@
 package Parser;
 
 import Window.mainWindow;
+import sun.management.snmp.jvminstr.JvmThreadInstanceEntryImpl;
+
+import java.awt.geom.FlatteningPathIterator;
 
 /**
  * @author knight
@@ -26,18 +29,19 @@ public class FourYuan {
 		POSITIVE_INT,
 	}
 
-	private enum OPERATOR{
+	private enum OPERATOR {
 		PLUS,
 		ADD,
+		SUB,
 	}
 
 	ClassFactory cf = new ClassFactory();
 
 	//识别正则表达式.
 	private String _int = "^[+/-]?[0-9]*$";
-	private String _float = "[0-9]+\\.?[0-9]+";
+	private String _float = "(([+])?[0-9]\\d*\\.?\\d*)|((-)?[0-9]\\d*\\.?\\d*)";
 
-	private String constant = "^[+/-]?[0-9]*$|[0-9]+\\.?[0-9]+";
+	private String constant = "(([+])?[0-9]\\d*\\.?\\d*)|((-)?[0-9]\\d*\\.?\\d*)";
 	private String regPat = "reg";
 	private String variPat = "^[A-Za-z_][A-Za-z0-9_]*$";
 	private String positiveInt = "^(0|[1-9][0-9]*)$";
@@ -49,75 +53,81 @@ public class FourYuan {
 	///TODO    运算
 	///TODO    保存到寄存器
 	public void Exec() throws DynamicException.stopMachineException {
-		try{
+		try {
 			if (this.oprator.contentEquals("+")) {
-					Register[] registers = makeOpsRegister();
-					registerOperation(registers[0], registers[1], OPERATOR.ADD);
+				Register[] registers = makeOpsRegister(this.op1, this.op2);
+				Register register = registerOperation(registers[0], registers[1], OPERATOR.ADD);
+				ClassFactory.Registers.put(this.des, register);
 			} else if (this.oprator.contentEquals("$")) {
-					ArrayType array = checkAndGetArrayFromHash(this.op1);
-					//todo 怎样停下程序？当返回-1;
-					int offSet = getIndex(this.op2);
-					int value;
-					switch (regexPat(this.des)) {
-						case CONST:
-							value = Integer.parseInt(this.des);
-							break;
-						case REGISTER:
-							Register reg = checkAndGetRegister(this.des);
-							value = (int) reg.getValue();
-							break;
-						case VARIABLE:
-							Object o = checkAndGetValueFromWord(this.des);
-							value = (int) o;
-							break;
-						default:
-							throw new DynamicException().new defaultException("无法解析的符号");
-					}
-					//todo 类型check
-					array.setValue(offSet, value);
-
+				ArrayType array = checkAndGetArrayFromHash(this.op1);
+				int offSet = getIndex(this.op2);
+				switch (regexPat(this.des)) {
+					case CONST:
+						cf.setArrayElementValue(array, offSet, this.des);
+						break;
+					case REGISTER:
+						Register reg = checkAndGetRegister(this.des);
+						cf.setArrayElementValue(array, offSet, reg.getValue(), reg.getType());
+						break;
+					case VARIABLE:
+						Word word = checkAndGetWord(this.des);
+						cf.setArrayElementValue(array, offSet, word.getValue(), word.type);
+						break;
+					default:
+						throw new DynamicException().new defaultException("无法解析的符号");
+				}
+				//todo 类型check
 			} else if (this.oprator.contentEquals("&")) {
-					ArrayType array = checkAndGetArrayFromHash(this.op1);
+				ArrayType array = checkAndGetArrayFromHash(this.op1);
 
-					int offSet = getIndex(this.op2);
-					//类型check 和 隐式类型转换
-					Object value = array.getValue(offSet);
-					switch (regexPat(this.des)) {
-						case REGISTER:
-							Register reg = cf.newRegister(value.toString());
-							ClassFactory.Registers.put(this.des, reg);
-							break;
-						case VARIABLE:
-							Word word = checkAndGetWord(this.des);
-							cf.setWordValue(word,value.toString());
-							break;
-						default:
-							throw new DynamicException().new defaultException("无法解析的目标地址");
-					}
-
+				int offSet = getIndex(this.op2);
+				//类型check 和 隐式类型转换
+				Object value = array.getValue(offSet);
+				ClassFactory.TYPE type = array.type;
+				switch (regexPat(this.des)) {
+					case REGISTER:
+						Register reg;
+						if(type== ClassFactory.TYPE.INT_ARRAY){
+							reg = new Register<>(ClassFactory.TYPE.INT, (int)value);
+						}else{
+							reg = new Register<>(ClassFactory.TYPE.FLOAT, (float)value);
+						}
+						ClassFactory.Registers.put(this.des, reg);
+						break;
+					case VARIABLE:
+						Word word = checkAndGetWord(this.des);
+						if(type== ClassFactory.TYPE.INT_ARRAY){
+							cf.setWordValue(word, value, ClassFactory.TYPE.INT);
+						}else{
+							cf.setWordValue(word, value, ClassFactory.TYPE.FLOAT);
+						}
+						break;
+					default:
+						throw new DynamicException().new defaultException("无法解析的目标地址");
+				}
 			} else if (this.oprator.contentEquals("*")) {
-					Register[] registers = makeOpsRegister();
-					registerOperation(registers[0], registers[1], OPERATOR.PLUS);
-
+				Register[] registers = makeOpsRegister(this.op1, this.op2);
+				Register register = registerOperation(registers[0], registers[1], OPERATOR.PLUS);
+				ClassFactory.Registers.put(this.des, register);
 				/////TODO 乘法运算
 			} else if (this.oprator.contentEquals("JMP")) {
 				/////TODO 直接跳转
 				mainWindow.j = Integer.parseInt(des) - 1;
 			} else if (this.oprator.contentEquals("=")) {
-				String value = "";
-					Word word = checkAndGetWord(this.des);
-					switch (regexPat(this.op1)) {
-						case CONST:
-							value = this.op1;
-							break;
-						case REGISTER:
-							value = checkAndGetRegister(this.op1).getValue().toString();
-							break;
-						case VARIABLE:
-							value = checkAndGetValueFromWord(this.op1).toString();
-							break;
-					}
-				cf.setWordValue(word, value);
+				Word word = checkAndGetWord(this.des);
+				switch (regexPat(this.op1)) {
+					case CONST:
+						cf.setWordValue(word, this.op1);
+						break;
+					case REGISTER:
+						Register register = checkAndGetRegister(this.op1);
+						cf.setWordValue(word, register.getValue(), register.getType());
+						break;
+					case VARIABLE:
+						Word temp = checkAndGetWord(this.op1);
+						cf.setWordValue(word, temp.getValue(), temp.type);
+						break;
+				}
 			} else if (this.oprator.contentEquals("J<"))
 				con_jmp("<");
 
@@ -134,13 +144,15 @@ public class FourYuan {
 				con_jmp("!=");
 		} catch (DynamicException.undeclaredIdentifierException e) {
 			e.errorInfo();
-		}  catch (DynamicException.unInitializedIdentifierException e) {
+		} catch (DynamicException.unInitializedIdentifierException e) {
 			e.errorInfo();
 		} catch (DynamicException.noArrayException e) {
 			e.errorInfo();
 		} catch (DynamicException.outOfArrayBoundException e) {
 			e.errorInfo();
 		} catch (DynamicException.mismatchOperatorException e) {
+			e.errorInfo();
+		} catch (DynamicException.numberFormatException e) {
 			e.errorInfo();
 		} catch (DynamicException.defaultException e) {
 			e.errorInfo();
@@ -150,17 +162,24 @@ public class FourYuan {
 
 	private int getIndex(String str) throws DynamicException.defaultException,
 			DynamicException.undeclaredIdentifierException, DynamicException.unInitializedIdentifierException,
-			DynamicException.mismatchOperatorException {
+			DynamicException.mismatchOperatorException, DynamicException.numberFormatException {
 		switch (regexPatForIndex(str)) {
 			case POSITIVE_INT:
 				return Integer.parseInt(str);
 			case REGISTER:
 				Register r = checkAndGetRegister(str);
-				return (int) r.getValue();
-				//todo 如果此寄存器存的值是float or  则需要更改错误处理
+				//todo  寄存器放数组吗？
+				if(r.getType()== ClassFactory.TYPE.INT){
+					return (int) r.getValue();
+				}
+				throw new DynamicException().new numberFormatException();
+			//todo 如果此寄存器存的值是float or  则需要更改错误处理
 			case VARIABLE:
-				Object v = checkAndGetValueFromWord(str);
-				return (int) v;
+				Word word = checkAndGetWord(str);
+				if(word.type== ClassFactory.TYPE.INT) {
+					return (int) word.getValue();
+				}
+				throw new DynamicException().new numberFormatException();
 			default:
 				return -1;
 		}
@@ -170,124 +189,117 @@ public class FourYuan {
 			DynamicException.unInitializedIdentifierException, DynamicException.defaultException,
 			DynamicException.mismatchOperatorException {
 
-		Register [] registers = makeOpsRegister();
+		Register[] registers = makeOpsRegister(this.op1, this.op2);
 
-		int op1_val = (Integer)registers[0].getValue();
-		int op2_val = (Integer)registers[1].getValue();
-		switch (op){
+		//(int)
+		float sub = (float) registerOperation(registers[0], registers[1], OPERATOR.SUB).getValue();
+
+		switch (op) {
 			case "<":
-				if (op1_val < op2_val)
+				if (sub < 0)
 					mainWindow.j = Integer.parseInt(this.des) - 1;
 				break;
 			case ">":
-				if (op1_val > op2_val)
+				if (sub > 0)
 					mainWindow.j = Integer.parseInt(this.des) - 1;
 				break;
 			case "<=":
-				if (op1_val <= op2_val)
+				if (sub <= 0)
 					mainWindow.j = Integer.parseInt(this.des) - 1;
 				break;
 			case ">=":
-				if (op1_val >= op2_val)
+				if (sub >= 0)
 					mainWindow.j = Integer.parseInt(this.des) - 1;
 				break;
 			case "==":
-				if (op1_val == op2_val)
+				if (Math.abs(sub) < 1e-7)
 					mainWindow.j = Integer.parseInt(this.des) - 1;
 				break;
 			case "!=":
-				if (op1_val != op2_val)
+				if (Math.abs(sub) >= 1e-6)
 					mainWindow.j = Integer.parseInt(this.des) - 1;
 				break;
 		}
 	}
 
-	private Register[] makeOpsRegister() throws DynamicException.defaultException
-			, DynamicException.undeclaredIdentifierException, DynamicException.unInitializedIdentifierException,
+	private Register[] makeOpsRegister(String op1, String op2) throws DynamicException.defaultException
+			, DynamicException.undeclaredIdentifierException,
 			DynamicException.mismatchOperatorException {
 		Register[] registers = new Register[2];
-		if (regexPat(this.op1) == TokenType.CONST) {
-			registers[0] = cf.newRegister(this.op1);
-		} else if (regexPat(this.op1) == TokenType.REGISTER) {
+		if (regexPat(op1) == TokenType.CONST) {
+			registers[0] = cf.newRegister(op1);
+		} else if (regexPat(op1) == TokenType.REGISTER) {
 			//todo 能不能直接get?  registers 未初始化完好;
-			String str = ClassFactory.Registers.get(this.op1).getValue().toString();
-			registers[0] = cf.newRegister(str);
-		} else if (regexPat(this.op1) == TokenType.VARIABLE) {
-			Object o = checkAndGetValueFromWord(this.op1);
-			String str = o.toString();
-			registers[0] = cf.newRegister(str);
-		}else{
+			registers[0] = checkAndGetRegister(op1);
+		} else if (regexPat(op1) == TokenType.VARIABLE) {
+			Word word = checkAndGetWord(op1);
+			registers[0] = new Register<>(word.type,word.getValue());
+		} else {
 			throw new DynamicException().new defaultException("无法解析的符号");
 		}
 
-		if (regexPat(this.op2) == TokenType.CONST) {
-			registers[1] = cf.newRegister(this.op2);
-		} else if (regexPat(this.op2) == TokenType.REGISTER) {
+		if (regexPat(op2) == TokenType.CONST) {
+			registers[1] = cf.newRegister(op2);
+		} else if (regexPat(op2) == TokenType.REGISTER) {
 			//todo 能不能直接get?  registers 未初始化完好;
-			String str = ClassFactory.Registers.get(this.op2).getValue().toString();
-			registers[1] = cf.newRegister(str);
-		} else if (regexPat(this.op2) == TokenType.VARIABLE) {
-			Object o = checkAndGetValueFromWord(this.op2);
-			String str = o.toString();
-			registers[1] = cf.newRegister(str);
-		}else{
+			registers[1] = checkAndGetRegister(op2);
+		} else if (regexPat(op2) == TokenType.VARIABLE) {
+			Word word = checkAndGetWord(op2);
+			registers[1] = new Register<>(word.type, word.getValue());
+		} else {
 			throw new DynamicException().new defaultException("无法解析的操作符");
 		}
-
 		return registers;
 	}
 
+
 	//暂时没有考虑溢出
-	private void registerOperation(Register r_op1, Register r_op2, OPERATOR o) {
+	private Register registerOperation(Register r_op1, Register r_op2, OPERATOR o) {
 		switch (o){
 			case ADD:
 				if (r_op1.getType() == ClassFactory.TYPE.FLOAT && r_op2.getType() == ClassFactory.TYPE.FLOAT) {
 					float temp = (float) r_op1.getValue() + (float)r_op2.getValue();
-					Register<Float> register = new Register<Float>(ClassFactory.TYPE.FLOAT);
-					register.setValue(temp);
-					ClassFactory.Registers.put(this.des,register);
+					return new Register<>(ClassFactory.TYPE.FLOAT, temp);
 				} else if(r_op1.getType() == ClassFactory.TYPE.INT && r_op2.getType() == ClassFactory.TYPE.FLOAT){
 					float temp = (int) r_op1.getValue() + (float) r_op2.getValue();
-					Register<Float> register = new Register<Float>(ClassFactory.TYPE.FLOAT);
-					register.setValue(temp);
-					ClassFactory.Registers.put(this.des,register);
+					return new Register<>(ClassFactory.TYPE.FLOAT, temp);
 				}else if(r_op1.getType() == ClassFactory.TYPE.FLOAT && r_op2.getType() == ClassFactory.TYPE.INT){
 					float temp = (float) r_op1.getValue() + (int) r_op2.getValue();
-					Register<Float> register = new Register<Float>(ClassFactory.TYPE.FLOAT);
-					register.setValue(temp);
-					ClassFactory.Registers.put(this.des,register);
+					return new Register<>(ClassFactory.TYPE.FLOAT, temp);
 				}else{
 					int temp = (int) r_op1.getValue() + (int) r_op2.getValue();
-					Register<Integer> register = new Register<Integer>(ClassFactory.TYPE.FLOAT);
-					register.setValue(temp);
-					ClassFactory.Registers.put(this.des,register);
+					return new Register<>(ClassFactory.TYPE.INT, temp);
 				}
-				break;
 			case PLUS:
 				if (r_op1.getType() == ClassFactory.TYPE.FLOAT && r_op2.getType() == ClassFactory.TYPE.FLOAT) {
 					float temp = (float) r_op1.getValue() * (float)r_op2.getValue();
-					Register<Float> register = new Register<Float>(ClassFactory.TYPE.FLOAT);
-					register.setValue(temp);
-					ClassFactory.Registers.put(this.des,register);
+					return new Register<>(ClassFactory.TYPE.FLOAT, temp);
 				} else if(r_op1.getType() == ClassFactory.TYPE.INT && r_op2.getType() == ClassFactory.TYPE.FLOAT){
 					float temp = (int) r_op1.getValue() * (float) r_op2.getValue();
-					Register<Float> register = new Register<Float>(ClassFactory.TYPE.FLOAT);
-					register.setValue(temp);
-					ClassFactory.Registers.put(this.des,register);
+					return new Register<>(ClassFactory.TYPE.FLOAT, temp);
 				}else if(r_op1.getType() == ClassFactory.TYPE.FLOAT && r_op2.getType() == ClassFactory.TYPE.INT){
 					float temp = (float) r_op1.getValue() * (int) r_op2.getValue();
-					Register<Float> register = new Register<Float>(ClassFactory.TYPE.FLOAT);
-					register.setValue(temp);
-					ClassFactory.Registers.put(this.des,register);
+					return new Register<>(ClassFactory.TYPE.FLOAT, temp);
 				}else{
 					int temp = (int) r_op1.getValue() * (int) r_op2.getValue();
-					Register<Integer> register = new Register<Integer>(ClassFactory.TYPE.FLOAT);
-					register.setValue(temp);
-					ClassFactory.Registers.put(this.des,register);
+					return new Register<>(ClassFactory.TYPE.INT, temp);
 				}
-				break;
+			case SUB:
+				if (r_op1.getType() == ClassFactory.TYPE.FLOAT && r_op2.getType() == ClassFactory.TYPE.FLOAT) {
+					float temp = (float) r_op1.getValue() - (float)r_op2.getValue();
+					return new Register<>(ClassFactory.TYPE.FLOAT, temp);
+				} else if(r_op1.getType() == ClassFactory.TYPE.INT && r_op2.getType() == ClassFactory.TYPE.FLOAT){
+					float temp = (int) r_op1.getValue() - (float) r_op2.getValue();
+					return new Register<>(ClassFactory.TYPE.FLOAT, temp);
+				}else if(r_op1.getType() == ClassFactory.TYPE.FLOAT && r_op2.getType() == ClassFactory.TYPE.INT){
+					float temp = (float) r_op1.getValue() - (int) r_op2.getValue();
+					return new Register<>(ClassFactory.TYPE.FLOAT, temp);
+				}else{
+					int temp = (int) r_op1.getValue() - (int) r_op2.getValue();
+					return new Register<>(ClassFactory.TYPE.INT, temp);
+				}
 		}
-
+		throw new DynamicException().new defaultException("找不到匹配的操作符");
 	}
 
 
@@ -317,16 +329,6 @@ public class FourYuan {
 		else if (str.matches(variPat))
 			return TokenType.VARIABLE;
 		throw new DynamicException().new defaultException("无法解析的操作符");
-	}
-
-	private int getTypeNum(String str) throws DynamicException.defaultException {
-		if (str.matches(_int)) {
-			return INT;
-		} else if (str.matches(_float)) {
-			return FLOAT;
-		}
-		throw new DynamicException().new defaultException("无法解析的数学表达式");
-
 	}
 
 	private Register checkAndGetRegister(String des) throws DynamicException.defaultException {
