@@ -67,7 +67,7 @@ public class mainWindow {
             "new", "package", "private", "protected", "public",
             "return", "short", "static", "strictfp", "super",
             "switch", "synchronized", "this", "throw", "throws",
-            "transient", "try", "void", "volatile", "while"
+            "transient", "try", "void", "volatile", "while", "write", "read"
     };
 
     private static final String KEYWORD_PATTERN = "\\b(" + String.join("|", KEYWORDS) + ")\\b";
@@ -248,7 +248,7 @@ public class mainWindow {
         });
 
         tab.setContent(new VirtualizedScrollPane<>(codeArea));
-        String css = getClass().getResource("java-keywords.css").toExternalForm();
+        String css = getClass().getResource("light.css").toExternalForm();
         codeArea.getStylesheets().add(css);
 
         return tab;

@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="d8c7da12-6345-4cfd-9467-87b8bae9d084" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmm.iml" beforeDir="false" afterPath="$PROJECT_DIR$/cmm.iml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
+=======
+    <list default="true" id="80ff6d31-cffd-4d1a-9318-f2517c5c4ce6" name="Default Changelist" comment="" />
+>>>>>>> 8151e0794ebbfa9989f9d1022d81c1866e2a49da
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,6 +136,7 @@
   </component>
 =======
   <component name="ProjectId" id="1T0aaN2UtJGIODMNYYOQzxmNI2f" />
+<<<<<<< HEAD
 >>>>>>> fb286a965f91110449dd183b92b1c910c4e3edc2
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -158,6 +163,8 @@
       </pane>
     </panes>
   </component>
+=======
+>>>>>>> 8151e0794ebbfa9989f9d1022d81c1866e2a49da
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -204,6 +211,7 @@
       <created>1572610847282</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
+<<<<<<< HEAD
       <updated>1572610847282</updated>
       <workItem from="1572610852484" duration="351000" />
       <workItem from="1572611224505" duration="5211000" />
@@ -247,10 +255,33 @@
       <window_info anchor="right" id="Palette&#9;" order="8" />
     </layout>
   </component>
+=======
+      <updated>1572599528636</updated>
+      <workItem from="1572599529973" duration="1598000" />
+      <workItem from="1572610225222" duration="261000" />
+      <workItem from="1572615593969" duration="628000" />
+    </task>
+    <servers />
+  </component>
+>>>>>>> 8151e0794ebbfa9989f9d1022d81c1866e2a49da
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
+<<<<<<< HEAD
+=======
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+>>>>>>> 8151e0794ebbfa9989f9d1022d81c1866e2a49da
     <option name="RECENT_FILTERS">
       <map>
         <entry key="Branch">
@@ -270,6 +301,7 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
+<<<<<<< HEAD
           <url>file://$PROJECT_DIR$/src/Parser/ClassFactory.java</url>
           <line>88</line>
           <properties />
@@ -346,6 +378,11 @@
           <line>69</line>
           <properties />
           <option name="timeStamp" value="20" />
+=======
+          <url>file://$PROJECT_DIR$/src/Window/mainWindow.java</url>
+          <line>304</line>
+          <option name="timeStamp" value="1" />
+>>>>>>> 8151e0794ebbfa9989f9d1022d81c1866e2a49da
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
