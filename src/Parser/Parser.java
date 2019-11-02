@@ -51,7 +51,8 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				case 0:
 				case 2:
 
-					if(token.getString().matches(m_id)||token.getString().matches(m_int)||token.getString().matches(m_float)) {
+					if(token.getString().matches(m_id)||token.getString().matches(m_int_float)||token.getString().matches(m_float)||
+					token.getString().matches(m_int)) {
 						states.push(3);////状态栈入栈
 						element_of_array_E();
 						token = tokens.get(cur++);
@@ -123,7 +124,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				case 4:
 				case 5:
 
-					if(token.getString().matches(m_id)||token.getString().matches(m_int)||token.getString().matches(m_float)) {
+					if(token.getString().matches(m_id)||token.getString().matches(m_int_float)||token.getString().matches(m_int)||token.getString().matches(m_float)) {
 						states.push(3);
 						element_of_array_E();
 						token = tokens.get(cur++);
@@ -294,7 +295,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 	private void element_of_array_E() {
 		String reg_ = null;
 		boolean is_element_of_array = false;
-		if(tokens.get(cur).equals("[")){
+		if(tokens.get(cur).getString().equals("[")){
 			/////是一个数组元素
 			is_element_of_array = true;
 
@@ -342,7 +343,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 	public void L() {
 
 		if(token.getString().contentEquals("{")||token.getString().equals("if")||token.getString().contentEquals("while")||token.getString().matches(m_id)||
-		token.getString().matches(m_float)||token.getString().matches(m_int)) {
+		token.getString().matches(m_int_float)||token.getString().matches(m_float)||token.getString().matches(m_int)) {
 			parsers.add("L->SL");
 			S();
 			L();
@@ -496,7 +497,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			}
 
 		}
-		else if(token.getString().matches(m_int)||token.getString().matches(m_float)){
+		else if(token.getString().matches(m_int_float)||token.getString().matches(m_int)||token.getString().matches(m_float)){
 			String s = token.getString();
 			int no = token.getLine_no();
 			token = tokens.get(cur++);
@@ -654,7 +655,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			switch (States.peek()){
 				case 0:
 
-					if(token.getString().matches(m_id)||token.getString().matches(m_int)||token.getString().matches(m_float)){
+					if(token.getString().matches(m_id)||token.getString().matches(m_int_float)||token.getString().matches(m_int)||token.getString().matches(m_float)){
 						States.push(1);
 						parserE();
 						Symbols.push(Es.peek().des);
@@ -704,7 +705,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 					}
 					break;
 				case 2:
-					if (token.getString().matches(m_id)||token.getString().matches(m_int)||token.getString().matches(m_float)){
+					if (token.getString().matches(m_id)||token.getString().matches(m_int_float)||token.getString().matches(m_int)||token.getString().matches(m_float)){
 						States.push(3);
 						parserE();
 						Symbols.push(Es.peek().des);
@@ -767,7 +768,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				case 7:
 				case 8:
 
-					if (token.getString().matches(m_id)||token.getString().matches(m_int)||token.getString().matches(m_float)){
+					if (token.getString().matches(m_id)||token.getString().matches(m_int_float)||token.getString().matches(m_int)||token.getString().matches(m_float)){
 						States.push(1);
 						parserE();
 						Symbols.push(Es.peek().des);
@@ -830,7 +831,8 @@ public class Parser {//////////////////识别完成token读到的应该是;
 					}
 					break;
 				case 9:
-					if (token.getString().equals("(")||token.getString().equals("!")||token.getString().matches(m_id)||token.getString().matches(m_int)
+					if (token.getString().equals("(")||token.getString().equals("!")||token.getString().matches(m_id)||
+							token.getString().matches(m_int_float)||token.getString().matches(m_int)
 					||token.getString().matches(m_float)){
 						parsers.add("A->B&&");
 						for (int i=0;i<2;i++){
@@ -853,7 +855,8 @@ public class Parser {//////////////////识别完成token读到的应该是;
 					}
 					break;
 				case 10:
-					if (token.getString().equals("(")||token.getString().equals("!")||token.getString().matches(m_id)||token.getString().matches(m_int)
+					if (token.getString().equals("(")||token.getString().equals("!")||token.getString().matches(m_id)||
+							token.getString().matches(m_int_float)||token.getString().matches(m_int)
 					||token.getString().matches(m_float)){
 						parsers.add("O->B||");
 						for (int i=0;i<2;i++){
@@ -903,7 +906,8 @@ public class Parser {//////////////////识别完成token读到的应该是;
 					}
 					break;
 				case 12:
-					if (token.getString().equals(")")||token.getString().equals("&&")||token.getString().equals("||")||token.getString().equals(";")){
+					if (token.getString().equals(")")||token.getString().equals("&&")||token.getString().equals("||")||
+							token.getString().equals(";")){
 						parsers.add("B->(B)");
 						for (int i=0;i<3;i++){
 							Symbols.pop();

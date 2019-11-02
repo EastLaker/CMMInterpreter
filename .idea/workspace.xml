@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
 <<<<<<< HEAD
     <list default="true" id="d8c7da12-6345-4cfd-9467-87b8bae9d084" name="Default Changelist" comment="">
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmm.iml" beforeDir="false" afterPath="$PROJECT_DIR$/cmm.iml" afterDir="false" />
     </list>
@@ -10,6 +11,12 @@
 =======
     <list default="true" id="80ff6d31-cffd-4d1a-9318-f2517c5c4ce6" name="Default Changelist" comment="" />
 >>>>>>> 8151e0794ebbfa9989f9d1022d81c1866e2a49da
+=======
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Parser.java" afterDir="false" />
+    </list>
+>>>>>>> 8d47fe88fdbc71c0812f7a163bab2cc5a096dcb3
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +26,7 @@
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
   </component>
+<<<<<<< HEAD
   <component name="FileEditorManager">
     <leaf>
       <file pinned="false" current-in-tab="false">
@@ -165,10 +173,18 @@
   </component>
 =======
 >>>>>>> 8151e0794ebbfa9989f9d1022d81c1866e2a49da
+=======
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1T1CIknXp63C6ZE8hm346G8qrto" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+>>>>>>> 8d47fe88fdbc71c0812f7a163bab2cc5a096dcb3
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -214,6 +230,7 @@
 <<<<<<< HEAD
       <updated>1572610847282</updated>
       <workItem from="1572610852484" duration="351000" />
+<<<<<<< HEAD
       <workItem from="1572611224505" duration="5211000" />
     </task>
     <servers />
@@ -264,24 +281,41 @@
     <servers />
   </component>
 >>>>>>> 8151e0794ebbfa9989f9d1022d81c1866e2a49da
+=======
+      <workItem from="1572611224505" duration="1004000" />
+      <workItem from="1572618147831" duration="603000" />
+    </task>
+    <servers />
+  </component>
+>>>>>>> 8d47fe88fdbc71c0812f7a163bab2cc5a096dcb3
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 8d47fe88fdbc71c0812f7a163bab2cc5a096dcb3
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
+<<<<<<< HEAD
             <State>
               <option name="COLUMN_ORDER" />
             </State>
+=======
+            <State />
+>>>>>>> 8d47fe88fdbc71c0812f7a163bab2cc5a096dcb3
           </value>
         </entry>
       </map>
     </option>
+<<<<<<< HEAD
 >>>>>>> 8151e0794ebbfa9989f9d1022d81c1866e2a49da
+=======
+>>>>>>> 8d47fe88fdbc71c0812f7a163bab2cc5a096dcb3
     <option name="RECENT_FILTERS">
       <map>
         <entry key="Branch">
@@ -297,6 +331,7 @@
       </map>
     </option>
   </component>
+<<<<<<< HEAD
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
@@ -585,4 +620,6 @@
       </provider>
     </entry>
   </component>
+=======
+>>>>>>> 8d47fe88fdbc71c0812f7a163bab2cc5a096dcb3
 </project>
