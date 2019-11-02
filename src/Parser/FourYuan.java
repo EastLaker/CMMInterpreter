@@ -58,7 +58,13 @@ public class FourYuan {
 				Register[] registers = makeOpsRegister(this.op1, this.op2);
 				Register register = registerOperation(registers[0], registers[1], OPERATOR.ADD);
 				ClassFactory.Registers.put(this.des, register);
-			} else if (this.oprator.contentEquals("$")) {
+			}
+			else if(this.oprator.contentEquals("-")){
+				Register[] registers = makeOpsRegister(this.op1,this.op2);
+				Register register = registerOperation(registers[0],registers[1],OPERATOR.SUB);
+				ClassFactory.Registers.put(this.des,register);
+			}
+			else if (this.oprator.contentEquals("$")) {
 				ArrayType array = checkAndGetArrayFromHash(this.op1);
 				int offSet = getIndex(this.op2);
 				switch (regexPat(this.des)) {
@@ -80,7 +86,8 @@ public class FourYuan {
 						throw new DynamicException().new defaultException("无法解析的符号");
 				}
 				//todo 类型check
-			} else if (this.oprator.contentEquals("&")) {
+			}
+			else if (this.oprator.contentEquals("&")) {
 				ArrayType array = checkAndGetArrayFromHash(this.op1);
 
 				int offSet = getIndex(this.op2);
@@ -111,16 +118,18 @@ public class FourYuan {
 					default:
 						throw new DynamicException().new defaultException("无法解析的目标地址");
 				}
-			} else if (this.oprator.contentEquals("*")) {
+			}
+			else if (this.oprator.contentEquals("*")) {
 				Register[] registers = makeOpsRegister(this.op1, this.op2);
 				Register register = registerOperation(registers[0], registers[1], OPERATOR.PLUS);
 				ClassFactory.Registers.put(this.des, register);
-
 				/////TODO 乘法运算
-			} else if (this.oprator.contentEquals("JMP")) {
+			}
+			else if (this.oprator.contentEquals("JMP")) {
 				/////TODO 直接跳转
 				mainWindow.j = Integer.parseInt(des) - 1;
-			} else if (this.oprator.contentEquals("=")) {
+			}
+			else if (this.oprator.contentEquals("=")) {
 				Word word = checkAndGetWord(this.des);
 				switch (regexPat(this.op1)) {
 					case CONST:
@@ -139,7 +148,8 @@ public class FourYuan {
 						break;
 				}
 
-			} else if (this.oprator.contentEquals("J<"))
+			}
+			else if (this.oprator.contentEquals("J<"))
 				con_jmp("<");
 
 			else if (this.oprator.contentEquals("J>"))
@@ -207,7 +217,14 @@ public class FourYuan {
 		Register[] registers = makeOpsRegister(this.op1, this.op2);
 
 		//(int)
-		float sub = (float) registerOperation(registers[0], registers[1], OPERATOR.SUB).getValue();
+		float sub;
+		if(registerOperation(registers[0],registers[1],OPERATOR.SUB).getValue() instanceof Integer){
+			int i  =  ((Integer) registerOperation(registers[0],registers[1],OPERATOR.SUB).getValue()).intValue();
+			sub = (float)i;
+
+		}
+		else
+		 sub = (float) registerOperation(registers[0], registers[1], OPERATOR.SUB).getValue();
 
 		switch (op) {
 			case "<":
@@ -312,7 +329,7 @@ public class FourYuan {
 					float temp = (float) r_op1.getValue() - (int) r_op2.getValue();
 					return new Register<>(ClassFactory.TYPE.FLOAT, temp);
 				}else{
-					float temp = (int) r_op1.getValue() - (int) r_op2.getValue();
+					int temp = (int) r_op1.getValue() - (int) r_op2.getValue();
 					return new Register<>(ClassFactory.TYPE.INT, temp);
 				}
 		}

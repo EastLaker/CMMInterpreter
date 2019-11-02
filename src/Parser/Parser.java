@@ -36,15 +36,12 @@ public class Parser {//////////////////识别完成token读到的应该是;
 	public Stack<B> Bs = new Stack<B>();
 	public Stack<A> As = new Stack<A>();
 	public Stack<O> Os = new Stack<O>();
-
 	public List<FourYuan> fours = new ArrayList<FourYuan>();
 
 	ClassFactory cf = new ClassFactory();
 
 	public  void parserE() {///////////词法分析程序
 		states.push(0);/////将0状态入栈
-		//token = tokens[cur];////
-		//cur++;/////模拟读入
 		boolean b = true;
 		while(b) {
 			switch (states.peek()){
@@ -72,15 +69,15 @@ public class Parser {//////////////////识别完成token读到的应该是;
 					}
 					break;
 				case 1:
-					if(token.getString().equals("+")) {
+					if(token.getString().contentEquals("+")||token.getString().contentEquals("-")) {
 						states.push(4);
-						symbols.push("+");
+						symbols.push(token.getString());
 						token = tokens.get(cur++);
 					}
 
-					else if(token.getString().equals("*")) {
+					else if(token.getString().equals("*")||token.getString().equals("/")) {
 						states.push(5);
-						symbols.push("*");
+						symbols.push(token.getString());
 						token = tokens.get(cur++);
 					}
 
@@ -103,7 +100,8 @@ public class Parser {//////////////////识别完成token读到的应该是;
 					}
 					break;
 				case 3:
-					if(token.getString().contentEquals("+")||token.getString().equals("*")||token.getString().contentEquals(")")||token.getString().equals(";")||
+					if(token.getString().contentEquals("+")||token.getString().equals("-")||token.getString().equals("*")||
+							token.getString().equals("/")||token.getString().contentEquals(")")||token.getString().equals(";")||
 							token.getString().equals(",")||token.getString().equals("}")||token.getString().equals("]")
 							||token.getString().equals("<")||token.getString().equals(">")||token.getString().equals(">=")||token.getString().equals("<=")||
 							token.getString().equals("==")||token.getString().equals("!=")){
@@ -147,25 +145,22 @@ public class Parser {//////////////////识别完成token读到的应该是;
 					break;
 				case 6:
 
-					if(token.getString().contentEquals("+")) {
+					if(token.getString().contentEquals("+")||token.getString().equals("-")) {
 						states.push(4);
-						symbols.push("+");
-						token = tokens.get(cur);
-						cur++;
+						symbols.push(token.getString());
+						token = tokens.get(cur++);
 					}
 
-					else if(token.getString().contentEquals("*")) {
+					else if(token.getString().contentEquals("*")||token.getString().equals("/")) {
 						states.push(5);
-						symbols.push("*");
-						token = tokens.get(cur);
-						cur++;
+						symbols.push(token.getString());
+						token = tokens.get(cur++);
 					}
 
 					else if(token.getString().equals(")")) {
 						states.push(9);
 						symbols.push(")");
-						token = tokens.get(cur);
-						cur++;
+						token = tokens.get(cur++);
 					}
 
 					else if(token.getString().equals("(")){
@@ -179,12 +174,12 @@ public class Parser {//////////////////识别完成token读到的应该是;
 					break;
 				case 7:
 
-					if(token.getString().equals("+")||token.getString().equals(")")||token.getString().equals(";")||token.getString().equals(",")||
+					if(token.getString().equals("+")||token.getString().equals("-")||token.getString().equals(")")||token.getString().equals(";")||token.getString().equals(",")||
 							token.getString().equals("}")||token.getString().equals("]")
 							||token.getString().equals("<")||token.getString().equals(">")||token.getString().equals(">=")||token.getString().equals("<=")||
 							token.getString().equals("==")||token.getString().equals("!=")){
 						//r1规约
-						parsers.add("E->E+E");
+						parsers.add("E->E+E/E-E");
 						for(int i=0;i<3;i++) {
 							states.pop();/////语法动作，符号栈出栈三次，状态栈出栈三次
 						}
@@ -192,7 +187,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 						e.des = E.getReg();
 						symbols.pop();/////出栈E
 						String op2 = Es.pop().des;///////获得源操作数2
-						String op = symbols.pop();//////出栈运算符+
+						String op = symbols.pop();//////出栈运算符+/-
 						symbols.pop();/////出栈E
 						String op1 = Es.pop().des;
 						FourYuan four = new FourYuan();
@@ -207,11 +202,10 @@ public class Parser {//////////////////识别完成token读到的应该是;
 						states_push();
 					}
 
-					else if(token.getString().contentEquals("*")) {
+					else if(token.getString().contentEquals("*")||token.getString().equals("/")) {
 						states.push(5);
-						symbols.push("*");
-						token = tokens.get(cur);
-						cur++;
+						symbols.push(token.getString());
+						token = tokens.get(cur++);
 					}
 
 					else if(token.getString().equals("(")){
@@ -225,12 +219,13 @@ public class Parser {//////////////////识别完成token读到的应该是;
 					break;
 				case 8:
 
-					if(token.getString().equals("+")||token.getString().contentEquals("*")||token.getString().equals(")")||token.getString().contentEquals(";")
+					if(token.getString().equals("+")||token.getString().equals("-")||token.getString().contentEquals("*")||
+							token.getString().equals("/")||token.getString().equals(")")||token.getString().contentEquals(";")
 							||token.getString().equals(",")||token.getString().equals("}")||token.getString().equals("]")
 							||token.getString().equals("<")||token.getString().equals(">")||token.getString().equals(">=")||token.getString().equals("<=")||
 							token.getString().equals("==")||token.getString().equals("!=")) {
 						//r2规约
-						parsers.add("E->E*E");
+						parsers.add("E->E*E /  E/E");
 						for(int i=0;i<3;i++) {
 							states.pop();
 						}
@@ -264,7 +259,8 @@ public class Parser {//////////////////识别完成token读到的应该是;
 					break;
 				case 9:
 
-					if(token.getString().equals("+")||token.getString().contentEquals("*")||token.getString().equals(")")||token.getString().contentEquals(";")||
+					if(token.getString().equals("+")||token.getString().equals("-")||token.getString().contentEquals("*")||
+							token.getString().contentEquals("/")||token.getString().equals(")")||token.getString().contentEquals(";")||
 							token.getString().equals(",")||token.getString().equals("}")||token.getString().equals("]")
 							||token.getString().equals("<")||token.getString().equals(">")||token.getString().equals(">=")||token.getString().equals("<=")||
 							token.getString().equals("==")||token.getString().equals("!=")) {
@@ -295,7 +291,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 	private void element_of_array_E() {
 		String reg_ = null;
 		boolean is_element_of_array = false;
-		if(tokens.get(cur).getString().equals("[")){
+		if(tokens.get(cur).getString().equals("[")){///预读一个单词
 			/////是一个数组元素
 			is_element_of_array = true;
 
@@ -303,6 +299,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			token = tokens.get(cur++);////此时token == [
 			token = tokens.get(cur++);
 			parserE();
+			///结束返回时token  == ]
 			FourYuan four = new FourYuan();
 			four.oprator = "&";
 			four.op1 = s;
@@ -318,7 +315,6 @@ public class Parser {//////////////////识别完成token读到的应该是;
 		if(is_element_of_array)
 			symbols.push(reg_);
 		else
-
 			symbols.push(token.getString());
 	}
 	private void states_push() {

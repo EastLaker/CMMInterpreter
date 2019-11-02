@@ -295,6 +295,7 @@ public class mainWindow {
             output_text.append("变量名\t变量类型\t变量地址\t变量值\n");
             for(String word : words) {
                 if(ClassFactory.Wordlist.get(word) instanceof ArrayType) {
+                    /////是个数组元素
                     for (int i = 0; i < ClassFactory.Wordlist.get(word).length; i++) {
                         try{
                             output_text.append(word + "[" + i + "]\t" + ClassFactory.Wordlist.get(word).type + "\t" + (ClassFactory.Wordlist.get(word).getDes() + i * 4) + "\t"
@@ -307,7 +308,6 @@ public class mainWindow {
                     output_text.append(word+"\t"+ ClassFactory.Wordlist.get(word).type+"\t"+ ClassFactory.Wordlist.get(word).getDes()+"\t"+ ClassFactory.Wordlist.get(word).getValue()+"\n");
 
             }
-
             for(int i=0;i<Parser.errors.size();i++)
                 output_text.append(Parser.errors.get(i));
             System.out.println("下一条指令地址："+ FourYuan.no);
