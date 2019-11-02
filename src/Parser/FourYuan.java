@@ -312,7 +312,7 @@ public class FourYuan {
 					float temp = (float) r_op1.getValue() - (int) r_op2.getValue();
 					return new Register<>(ClassFactory.TYPE.FLOAT, temp);
 				}else{
-					int temp = (int) r_op1.getValue() - (int) r_op2.getValue();
+					float temp = (int) r_op1.getValue() - (int) r_op2.getValue();
 					return new Register<>(ClassFactory.TYPE.INT, temp);
 				}
 		}
