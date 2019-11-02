@@ -81,9 +81,12 @@ public class Parser {//////////////////识别完成token读到的应该是;
 						token = tokens.get(cur++);
 					}
 
-					else if(token.getString().equals(";")||token.getString().equals(",")||token.getString().equals("}")||token.getString().equals("]")
+					else if(token.getString().equals(";")||token.getString().equals(",")||token.getString().equals("}")||token.getString().contentEquals("]")
 					||token.getString().equals("<")||token.getString().equals(">")||token.getString().equals(">=")||token.getString().equals("<=")||
 					token.getString().equals("==")||token.getString().equals("!=")||token.getString().equals(")")) {
+						for(int i = 0; i <2 ;i++)
+							states.pop();
+						symbols.pop();
 						b = false;/////识别表达式语句结束
 						////退出识别表达式
 						/////token==;
@@ -110,7 +113,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 						e.des = symbols.pop();//出栈一个id
 						Es.push(e);
 						states.pop();//出栈
-						symbols.push("E");
+						symbols.push(e.des);///////////////////////////////////////////////////////////////todo 修改
 						states_push();
 					}
 					else	{
@@ -185,11 +188,9 @@ public class Parser {//////////////////识别完成token读到的应该是;
 						}
 						E e = new E();
 						e.des = E.getReg();
-						symbols.pop();/////出栈E
-						String op2 = Es.pop().des;///////获得源操作数2
+						String op2 = symbols.pop();/////出栈E
 						String op = symbols.pop();//////出栈运算符+/-
-						symbols.pop();/////出栈E
-						String op1 = Es.pop().des;
+						String op1 = symbols.pop();/////出栈E
 						FourYuan four = new FourYuan();
 						four.des = e.des;
 						four.op1 = op1;
@@ -198,7 +199,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 						FourYuan.no++;////指令序号加一
 						fours.add(four);
 						Es.push(e);
-						symbols.push("E");
+						symbols.push(e.des);/////////////////////////////todo修改
 						states_push();
 					}
 
@@ -231,13 +232,11 @@ public class Parser {//////////////////识别完成token读到的应该是;
 						}
 						E e = new E();
 						e.des = E.getReg();
-						symbols.pop();
-						String op2 = Es.pop().des;
+						String op2 = symbols.pop();
 						String op = symbols.pop();
-						symbols.pop();
-						String op1 = Es.pop().des;
+						String op1 = symbols.pop();
 						Es.push(e);
-						symbols.push("E");///将规约得到的E入栈
+						symbols.push(e.des);////////////////////////////todo修改
 						FourYuan four = new FourYuan();
 						four.oprator = op;
 						four.op1 = op1;
@@ -268,9 +267,11 @@ public class Parser {//////////////////识别完成token读到的应该是;
 						parsers.add("E->(E)");
 						for(int i=0;i<3;i++) {
 							states.pop();
-							symbols.pop();
 						}
-						symbols.push("E");///将规约得到的E入栈
+						symbols.pop();
+						String s = symbols.pop();
+						symbols.pop();
+						symbols.push(s);///将规约得到的E入栈
 						states_push();
 					}
 
