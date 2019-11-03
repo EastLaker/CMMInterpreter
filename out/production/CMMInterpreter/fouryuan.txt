@@ -1,7 +1,4 @@
-int a = 1, b = 2, c = a +b;
-int arr_a[3];
-int arr_b[]={1+2,2*c,3};
-int arr_c[5]={0};
-int arr_d[1];
-arr_d[0] = a+b;
-a = arr_d[0];#
+int a[5];
+a[0] = 1;
+a[0+1] = 2;
+a[2] = 10+ a[1];#
