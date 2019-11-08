@@ -50,6 +50,9 @@ import org.reactfx.Subscription;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+
 public class mainWindow {
 
     private static final String[] KEYWORDS = new String[] {
