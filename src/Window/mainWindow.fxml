@@ -33,6 +33,8 @@
       <FlowPane layoutY="32.0" prefHeight="38.0" prefWidth="800.0" AnchorPane.topAnchor="32.0">
          <children>
             <Button mnemonicParsing="false" onAction="#onActionExecute" text="Run" />
+			<Button mnemonicParsing="false" onAction="#onUndo" text="undo" />
+            <Button mnemonicParsing="false" onAction="#onRedo" text="redo" />
          </children></FlowPane>
       <SplitPane dividerPositions="0.17418546365914786" layoutY="69.0" prefHeight="531.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="69.0">
         <items>

@@ -98,7 +98,7 @@ public class mainWindow {
     @FXML
     private TextFlow output;
 
-    private CodeArea codeArea;
+    private static CodeArea codeArea;
 
     private String opened_folder;
     public static int j=0;
@@ -341,5 +341,35 @@ public class mainWindow {
         }
         spansBuilder.add(Collections.emptyList(), text.length() - lastKwEnd);
         return spansBuilder.create();
+    }
+	
+    public void onUndo(){
+    	Robot robot;
+		try {
+			robot = new Robot();
+			keyPressWithCtrl(robot, java.awt.event.KeyEvent.VK_Z); 
+		} catch (AWTException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} //创建一个robot对象
+    }
+    
+    public void onRedo() {
+    	Robot robot;
+    	try {
+    		robot = new Robot();
+    		keyPressWithCtrl(robot, java.awt.event.KeyEvent.VK_Y);
+    	} catch (AWTException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	} //创建一个robot对象
+    }
+    
+    public static void keyPressWithCtrl(Robot r, int key) {
+    	codeArea.requestFocus();
+    	r.keyPress(java.awt.event.KeyEvent.VK_CONTROL);
+    	r.keyPress(key);   
+        r.keyRelease(key);  
+        r.keyRelease(java.awt.event.KeyEvent.VK_CONTROL);
     }
 }
