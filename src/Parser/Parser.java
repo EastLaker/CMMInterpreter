@@ -1,4 +1,3 @@
-
 package Parser;
 
 import lexical.Token;

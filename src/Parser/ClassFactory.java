@@ -1,5 +1,7 @@
 package Parser;
 
+import Utils.Regex;
+
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -146,9 +148,9 @@ public class ClassFactory {
     }
 
     public TYPE getTypeFromNum(String str) throws DynamicException.defaultException {
-        if (str.matches(_int)) {
+        if (str.matches(Regex._int)) {
             return ClassFactory.TYPE.INT;
-        } else if (str.matches(_float)) {
+        } else if (str.matches(Regex._float)) {
             return ClassFactory.TYPE.FLOAT;
         }
         throw new DynamicException().new defaultException("无法解析的数据类型");
@@ -157,7 +159,6 @@ public class ClassFactory {
 
     //可以做成不区分大小写
     public static TYPE getTypeFromType(String str) throws DynamicException.defaultException {
-
         if("int".equals(str)){
             return TYPE.INT;
         }else if("float".equals(str)){

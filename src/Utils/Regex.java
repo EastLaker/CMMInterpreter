@@ -21,4 +21,7 @@ public class Regex {
 
     //for integer.
     public static final String _int = "^[+/-]?[0-9]*$";
+
+    //
+    public static final String _float = "(([+])?[0-9]\\d*\\.?\\d*)|((-)?[0-9]\\d*\\.?\\d*)";
 }

@@ -1,8 +1,7 @@
 package Parser;
 
+import Utils.Regex;
 import Window.mainWindow;
-import java.awt.geom.FlatteningPathIterator;
-
 
 /**
  * @author knight
@@ -37,9 +36,6 @@ public class FourYuan {
 	ClassFactory cf = new ClassFactory();
 
 	//识别正则表达式.
-	private String _int = "^[+/-]?[0-9]*$";
-	private String _float = "(([+])?[0-9]\\d*\\.?\\d*)|((-)?[0-9]\\d*\\.?\\d*)";
-
 	//实现运算的autocast  避免运算过程中出现异常
 
 	///TODO   加法运算
@@ -342,21 +338,21 @@ public class FourYuan {
 	}
 
 	public  TokenType regexPat(String str) throws DynamicException.defaultException {
-		if (str.indexOf(regPat)==0)
+		if (str.indexOf(Regex.regPat)==0)
 			return TokenType.REGISTER;
-		else if (str.matches(variPat))
+		else if (str.matches(Regex.variPat))
 			return TokenType.VARIABLE;
-		else if (str.matches(constant))
+		else if (str.matches(Regex.constant))
 			return TokenType.CONST;
 		throw new DynamicException().new defaultException("无法解析的操作符");
 	}
 
 	public  TokenType regexPatForIndex(String str) throws DynamicException.defaultException {
-		if (str.indexOf(regPat)==0)
+		if (str.indexOf(Regex.regPat)==0)
 			return TokenType.REGISTER;
-		else if(str.matches(positiveInt))
+		else if(str.matches(Regex.positiveInt))
 			return TokenType.POSITIVE_INT;
-		else if (str.matches(variPat))
+		else if (str.matches(Regex.variPat))
 			return TokenType.VARIABLE;
 		throw new DynamicException().new defaultException("无法解析的操作符");
 	}
