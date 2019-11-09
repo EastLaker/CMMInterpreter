@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="80ff6d31-cffd-4d1a-9318-f2517c5c4ce6" name="Default Changelist" comment="" />
+    <list default="true" id="80ff6d31-cffd-4d1a-9318-f2517c5c4ce6" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Window/debug.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Window/FileTreeItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Window/FileTreeItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Window/U.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Window/U.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Window/folder.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Window/mainWindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/Window/mainWindow.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Window/mainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Window/mainWindow.java" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,6 +70,7 @@
       <workItem from="1572599529973" duration="1598000" />
       <workItem from="1572610225222" duration="261000" />
       <workItem from="1572615593969" duration="628000" />
+      <workItem from="1573286961021" duration="4625000" />
     </task>
     <servers />
   </component>
@@ -94,16 +103,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Window/mainWindow.java</url>
-          <line>304</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
