@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="345d5272-355d-4e7f-93fc-997d83df085f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/Parser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/Parser.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Window/mainWindow.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Window/mainWindow.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Parser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Window/mainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Window/mainWindow.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -91,6 +86,11 @@
       <workItem from="1573122084490" duration="1090000" />
       <workItem from="1573125649863" duration="121000" />
       <workItem from="1573125978211" duration="193000" />
+      <workItem from="1573173134310" duration="308000" />
+      <workItem from="1573192631919" duration="164000" />
+      <workItem from="1573221252636" duration="823000" />
+      <workItem from="1573224297478" duration="189000" />
+      <workItem from="1573284517407" duration="440000" />
     </task>
     <servers />
   </component>
