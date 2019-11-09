@@ -2,9 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="80ff6d31-cffd-4d1a-9318-f2517c5c4ce6" name="Default Changelist" comment="">
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Parser/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Parser.java" afterDir="false" />
+=======
+      <change afterPath="$PROJECT_DIR$/src/Window/debug.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Window/FileTreeItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Window/FileTreeItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Window/U.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Window/U.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Window/folder.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Window/mainWindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/Window/mainWindow.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Window/mainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Window/mainWindow.java" afterDir="false" />
+>>>>>>> f3789af310ef00dff7579ddd33f6e027370881f7
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -170,11 +180,15 @@
       <workItem from="1572599529973" duration="1598000" />
       <workItem from="1572610225222" duration="261000" />
       <workItem from="1572615593969" duration="628000" />
+<<<<<<< HEAD
       <workItem from="1572942230227" duration="762000" />
       <workItem from="1572969346766" duration="24000" />
       <workItem from="1573275044047" duration="1555000" />
       <workItem from="1573296909132" duration="60000" />
       <workItem from="1573297102484" duration="1685000" />
+=======
+      <workItem from="1573286961021" duration="4625000" />
+>>>>>>> f3789af310ef00dff7579ddd33f6e027370881f7
     </task>
     <servers />
   </component>
@@ -253,6 +267,7 @@
       </map>
     </option>
   </component>
+<<<<<<< HEAD
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
@@ -309,4 +324,6 @@
       </provider>
     </entry>
   </component>
+=======
+>>>>>>> f3789af310ef00dff7579ddd33f6e027370881f7
 </project>

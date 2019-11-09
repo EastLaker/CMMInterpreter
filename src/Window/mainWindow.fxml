@@ -14,13 +14,13 @@
           <Menu mnemonicParsing="false" text="File">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#onActionOpenFile" text="OpenFile" />
+                  <MenuItem mnemonicParsing="false" onAction="#onActionSaveFile" text="SaveFile" />
                   <MenuItem mnemonicParsing="false" onAction="#onActionOpenFolder" text="OpenFolder" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">
             <items>
               <MenuItem mnemonicParsing="false" text="Delete" />
-                  <MenuItem mnemonicParsing="false" text="Unspecified Action" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
@@ -32,7 +32,7 @@
       </MenuBar>
       <FlowPane layoutY="32.0" prefHeight="38.0" prefWidth="800.0" AnchorPane.topAnchor="32.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#onActionExecute" text="Run" />
+            <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#onActionExecute" text="Run" />
 			<Button mnemonicParsing="false" onAction="#onUndo" text="undo" />
             <Button mnemonicParsing="false" onAction="#onRedo" text="redo" />
          </children></FlowPane>
