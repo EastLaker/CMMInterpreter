@@ -1,6 +1,7 @@
 
 package Parser;
 
+import Utils.Regex;
 import lexical.Token;
 
 import java.util.*;
@@ -21,13 +22,6 @@ public class Parser {//////////////////识别完成token读到的应该是;
 	public List<Token>  tokens = new ArrayList<Token>();/////用于存放词法分析的结果   测试
 	public Token token = null;//读入的词
 	public int cur = 0;///用于遍历词法分析的词
-	public String m_id = "^[A-Za-z_][A-Za-z0-9_]*$";
-	public String positive_int = "^[1-9]*$";
-	public String m_int = "(([+])?[0-9]\\d*\\.?\\d*)|((-)?[0-9]\\d*\\.?\\d*)";
-//	public String m_int = "^[+/-]?[0-9]*$";
-	public String m_int_float = "(([+])?[0-9]\\d*\\.?\\d*)|((-)?[0-9]\\d*\\.?\\d*)";
-	//todo 无用的m_float
-	public String m_float = "[0-9]+\\.?[0-9]+";
 	public Stack<Integer> states = new Stack<Integer>();/////状态栈------用于赋值表达式的检测
 	public Stack<String> symbols = new Stack<String>();/////符号栈----------用于赋值表达式的检测
 	public Stack<Integer> States = new Stack<Integer>();
@@ -48,8 +42,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				case 0:
 				case 2:
 
-					if(token.getString().matches(m_id)||token.getString().matches(m_int_float)||token.getString().matches(m_float)||
-					token.getString().matches(m_int)) {
+					if(token.getString().matches(Regex.variPat)||token.getString().matches(Regex.constant)) {
 						states.push(3);////状态栈入栈
 						element_of_array_E();
 						token = tokens.get(cur++);
@@ -112,7 +105,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				case 4:
 				case 5:
 
-					if(token.getString().matches(m_id)||token.getString().matches(m_int_float)||token.getString().matches(m_int)||token.getString().matches(m_float)) {
+					if(token.getString().matches(Regex.variPat)||token.getString().matches(Regex.constant)) {
 						states.push(3);
 						element_of_array_E();
 						token = tokens.get(cur++);
@@ -262,7 +255,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 		boolean is_element_of_array = false;
 		if(tokens.get(cur).getString().equals("[")){///预读一个单词
 			/////是一个数组元素
-			if(!token.getString().matches(m_id)){
+			if(!token.getString().matches(Regex.variPat)){
 				error = true;
 				errors.add("line :" + token.getLine_no() + "错误数组基址 " + token.getString());
 				return;
@@ -312,8 +305,8 @@ public class Parser {//////////////////识别完成token读到的应该是;
 	//S->a;|{L}|if语句|while语句
 	public void L() {
 
-		if(token.getString().contentEquals("{")||token.getString().equals("if")||token.getString().contentEquals("while")||token.getString().matches(m_id)||
-		token.getString().matches(m_int_float)||token.getString().matches(m_float)||token.getString().matches(m_int)) {
+		if(token.getString().contentEquals("{")||token.getString().equals("if")||token.getString().contentEquals("while")||token.getString().matches(Regex.variPat)||
+		token.getString().matches(Regex.constant)) {
 			parsers.add("L->SL");
 			S();
 			L();
@@ -431,7 +424,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			token = tokens.get(cur++);
 			addWord(type);
 		}
-		else if(token.getString().matches(m_id)) {//赋值语句
+		else if(token.getString().matches(Regex.variPat)) {//赋值语句
 			FourYuan four = new FourYuan();
 			parsers.add("S->a;");
 			String des = token.getString();
@@ -470,7 +463,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			}
 
 		}
-		else if(token.getString().matches(m_int_float)||token.getString().matches(m_int)||token.getString().matches(m_float)){
+		else if(token.getString().matches(Regex.constant)){
 			String s = token.getString();
 			int no = token.getLine_no();
 			token = tokens.get(cur++);
@@ -484,7 +477,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 
 	private void addWord(String type) {
 
-		if (token.getString().matches(m_id)) {
+		if (token.getString().matches(Regex.variPat)) {
 			String name = token.getString();
 			Word word = cf.newWordFromType(type);
 			word.setDes(Word.getDes_start());
@@ -508,7 +501,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			token = tokens.get(cur++);
 			//数组是否以={}的形式初始化.
 			boolean length_determined = false;////数组长度没有确定
-			if (token.getString().matches(m_int)) {
+			if (token.getString().matches(Regex.positiveInt)) {
 				///token.getString()有两种情况 1是常数，那么数组长度确定（size确定，length determined为true）
 				//2是]直接跳出这一层if
 				length_determined = true;/////数组长度确定
@@ -533,7 +526,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				ArrayList<Number> var_array = new ArrayList<>();////用于初始化单词表的数组
 				int j = 0;
 				token = tokens.get(cur++);
-				while (token.getString().matches(m_int_float)||token.getString().matches(m_id)) {
+				while (token.getString().matches(Regex.constant)||token.getString().matches(Regex.regPat)) {
 					parserE();
 					FourYuan four = new FourYuan();
 					four.oprator = "$";
@@ -630,7 +623,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			switch (States.peek()){
 				case 0:
 
-					if(token.getString().matches(m_id)||token.getString().matches(m_int_float)||token.getString().matches(m_int)||token.getString().matches(m_float)){
+					if(token.getString().matches(Regex.variPat)||token.getString().matches(Regex.constant)){
 						States.push(1);
 						parserE();
 						Symbols.push(Es.peek().des);
@@ -680,7 +673,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 					}
 					break;
 				case 2:
-					if (token.getString().matches(m_id)||token.getString().matches(m_int_float)||token.getString().matches(m_int)||token.getString().matches(m_float)){
+					if (token.getString().matches(Regex.variPat)||token.getString().matches(Regex.constant)){
 						States.push(3);
 						parserE();
 						Symbols.push(Es.peek().des);
@@ -743,7 +736,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				case 7:
 				case 8:
 
-					if (token.getString().matches(m_id)||token.getString().matches(m_int_float)||token.getString().matches(m_int)||token.getString().matches(m_float)){
+					if (token.getString().matches(Regex.variPat)||token.getString().matches(Regex.constant)){
 						States.push(1);
 						parserE();
 						Symbols.push(Es.peek().des);
@@ -806,9 +799,8 @@ public class Parser {//////////////////识别完成token读到的应该是;
 					}
 					break;
 				case 9:
-					if (token.getString().equals("(")||token.getString().equals("!")||token.getString().matches(m_id)||
-							token.getString().matches(m_int_float)||token.getString().matches(m_int)
-					||token.getString().matches(m_float)){
+					if (token.getString().equals("(")||token.getString().equals("!")||token.getString().matches(Regex.variPat)||
+							token.getString().matches(Regex.constant)){
 						parsers.add("A->B&&");
 						for (int i=0;i<2;i++){
 							Symbols.pop();
@@ -830,9 +822,8 @@ public class Parser {//////////////////识别完成token读到的应该是;
 					}
 					break;
 				case 10:
-					if (token.getString().equals("(")||token.getString().equals("!")||token.getString().matches(m_id)||
-							token.getString().matches(m_int_float)||token.getString().matches(m_int)
-					||token.getString().matches(m_float)){
+					if (token.getString().equals("(")||token.getString().equals("!")||token.getString().matches(Regex.variPat)||
+							token.getString().matches(Regex.constant)){
 						parsers.add("O->B||");
 						for (int i=0;i<2;i++){
 							Symbols.pop();

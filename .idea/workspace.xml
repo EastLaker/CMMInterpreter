@@ -1,39 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="345d5272-355d-4e7f-93fc-997d83df085f" name="Default Changelist" comment="">
+    <list default="true" id="aeebe3ae-1de9-4d42-8a94-e906c6c92e08" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/sourceproject.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Utils/Regex.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sourceproject.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMMInterpreter.iml" beforeDir="false" afterPath="$PROJECT_DIR$/CMMInterpreter.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/META-INF/CMMInterpreter.kotlin_module" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/META-INF/CMMInterpreter.kotlin_module" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/ClassFactory$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/ClassFactory$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/ClassFactory$TYPE.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/ClassFactory$TYPE.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/ClassFactory.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/ClassFactory.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/FourYuan.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/FourYuan.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/fouryuan.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/fouryuan.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/ClassFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/ClassFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/FourYuan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/FourYuan.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Parser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fouryuan.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/fouryuan.txt" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="DefaultGradleProjectSettings">
-    <option name="testRunner" value="GRADLE" />
-    <option name="delegatedBuild" value="true" />
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="1T2wOjX5D1B98zPvfUNaIE1igdV" />
   <component name="PropertiesComponent">
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="aspect.path.notification.shown" value="true" />
-    <property name="extract.method.default.visibility" value="private" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="project.structure.last.edited" value="Project" />
-    <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="configurable.group.build" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -71,54 +70,17 @@
     <configuration />
   </component>
   <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="345d5272-355d-4e7f-93fc-997d83df085f" name="Default Changelist" comment="" />
-      <created>1572658860613</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1572658860613</updated>
-      <workItem from="1572658865591" duration="2581000" />
-      <workItem from="1572671479208" duration="14717000" />
-      <workItem from="1572699853720" duration="215000" />
-      <workItem from="1572706283333" duration="308000" />
-      <workItem from="1572850146565" duration="4426000" />
-      <workItem from="1573006667098" duration="476000" />
-      <workItem from="1573122084490" duration="1090000" />
-      <workItem from="1573125649863" duration="121000" />
-      <workItem from="1573125978211" duration="193000" />
-      <workItem from="1573173134310" duration="308000" />
-      <workItem from="1573192631919" duration="164000" />
-      <workItem from="1573221252636" duration="823000" />
-      <workItem from="1573224297478" duration="189000" />
-      <workItem from="1573284517407" duration="440000" />
-    </task>
     <servers />
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/lexical/LexicalParser.java</url>
-          <line>196</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

@@ -12,10 +12,6 @@ public class ClassFactory {
     public static HashMap<String,Word> Wordlist = new HashMap<>();
     public static HashMap<String,Register> Registers = new HashMap<>();
 
-    private String _int = "^[+/-]?[0-9]*$";
-    private String _float = "(([+])?[0-9]\\d*\\.?\\d*)|((-)?[0-9]\\d*\\.?\\d*)";
-
-
     public enum TYPE{
         INT,  //识别的声明类型 int
         FLOAT, //识别float
