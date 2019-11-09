@@ -17,6 +17,7 @@ import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.DirectoryChooser;
@@ -95,6 +96,9 @@ public class mainWindow {
     @FXML
     private TextFlow output;
 
+    @FXML
+    private AnchorPane rootAnchor;
+
     private static CodeArea codeArea;
 
     private String opened_folder_parent;
@@ -145,6 +149,8 @@ public class mainWindow {
                 }
             }
         });
+//        String rootcss = getClass().getResource("root.css").toExternalForm();
+//        rootAnchor.getStylesheets().add(rootcss);
     }
 
     private static Stage frame;
@@ -209,7 +215,7 @@ public class mainWindow {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save File");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CMM", "*.cmm"));
-        fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
+        fileChooser.setInitialDirectory(new File(opened_folder));
         try {
             File file = fileChooser.showSaveDialog(frame);
             //String path = file.getPath();//选择的文件夹路径
@@ -246,9 +252,10 @@ public class mainWindow {
         Tab tab = new Tab();
         tab.setText(title);
         tab.setClosable(true);
+//        tab.getStyleClass().add("green-theme");
         codeArea = new CodeArea();
         codeArea.replaceText(0, 0, content);
-        codeArea.setStyle("-fx-font-family:'Consolas'");
+        codeArea.setStyle("-fx-font-family:'Consolas';-fx-font-size:18");
 
         // add line numbers to the left of area
         codeArea.setParagraphGraphicFactory(LineNumberFactory.get(codeArea));
@@ -283,7 +290,6 @@ public class mainWindow {
         tab.setContent(new VirtualizedScrollPane<>(codeArea));
         String css = getClass().getResource("light.css").toExternalForm();
         codeArea.getStylesheets().add(css);
-
         return tab;
     }
 
