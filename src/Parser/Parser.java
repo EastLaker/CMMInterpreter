@@ -474,7 +474,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				}
 			}
 			else {
-				System.out.println("缺少）");
+				System.out.println("缺少) ");
 			}
 		}
 		else {
