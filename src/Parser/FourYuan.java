@@ -40,11 +40,6 @@ public class FourYuan {
 	private String _int = "^[+/-]?[0-9]*$";
 	private String _float = "(([+])?[0-9]\\d*\\.?\\d*)|((-)?[0-9]\\d*\\.?\\d*)";
 
-	private String constant = "(([+])?[0-9]\\d*\\.?\\d*)|((-)?[0-9]\\d*\\.?\\d*)";
-	private String regPat = "reg";
-	private String variPat = "^[A-Za-z_][A-Za-z0-9_]*$";
-	private String positiveInt = "^(0|[1-9][0-9]*)$";
-
 	//实现运算的autocast  避免运算过程中出现异常
 
 	///TODO   加法运算

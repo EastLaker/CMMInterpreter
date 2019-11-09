@@ -1,52 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="28c1ce0c-1eba-4387-8767-fff96660d4a4" name="Default Changelist" comment="">
+    <list default="true" id="9f7380dd-9116-4165-9639-2f3ed8de04cd" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMMInterpreter.iml" beforeDir="false" afterPath="$PROJECT_DIR$/CMMInterpreter.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/A.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/ArrayType.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/B.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/ClassFactory$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/ClassFactory$TYPE.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/ClassFactory.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/DynamicException$classCastException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/DynamicException$defaultException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/DynamicException$dynamicException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/DynamicException$mismatchOperatorException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/DynamicException$noArrayException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/DynamicException$numberFormatException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/DynamicException$outOfArrayBoundException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/DynamicException$stopMachineException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/DynamicException$unInitializedIdentifierException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/DynamicException$undeclaredIdentifierException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/DynamicException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/E.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/FourYuan$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/FourYuan$OPERATOR.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/FourYuan$TokenType.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/FourYuan.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/LexicalParser.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/O.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/Parser.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/Register.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/Token$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/Token$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/Token$TokenType.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/Token.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/Word.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/WordList.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Window/FileTreeItem.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Window/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Window/U.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Window/mainWindow$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Window/mainWindow.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/lexical/LexicalParser.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/lexical/Token$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/lexical/Token$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/lexical/Token$TokenType.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/lexical/Token.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/Parser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/Parser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Window/mainWindow.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Window/mainWindow.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/ClassFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/ClassFactory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Parser/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Parser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Window/mainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Window/mainWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fouryuan.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/fouryuan.txt" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -87,11 +50,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Parser/FourYuan.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="88">
-              <caret line="36" column="41" lean-forward="true" selection-start-line="36" selection-start-column="41" selection-end-line="36" selection-end-column="41" />
+            <state relative-caret-position="780">
+              <caret line="40" column="22" selection-start-line="40" selection-start-column="22" selection-end-line="40" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -108,8 +71,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Parser/Parser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="109">
-              <caret line="534" column="42" selection-start-line="534" selection-start-column="42" selection-end-line="534" selection-end-column="42" />
+            <state relative-caret-position="10160">
+              <caret line="510" column="42" selection-start-line="510" selection-start-column="42" selection-end-line="510" selection-end-column="42" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -135,11 +98,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Parser/ClassFactory.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="197">
-              <caret line="14" column="43" lean-forward="true" selection-start-line="14" selection-start-column="43" selection-end-line="14" selection-end-column="43" />
+            <state relative-caret-position="78">
+              <caret line="40" selection-start-line="40" selection-end-line="40" />
             </state>
           </provider>
         </entry>
@@ -152,11 +115,11 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/Parser/Parser.java" />
+        <option value="$PROJECT_DIR$/src/Parser/ClassFactory.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="240" />
     <option name="y" value="126" />
     <option name="width" value="1440" />
@@ -167,14 +130,17 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="CMMInterpreter" type="b2602c69:ProjectViewProjectNode" />
               <item name="CMMInterpreter" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CMMInterpreter" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CMMInterpreter" type="462c0819:PsiDirectoryNode" />
+              <item name=".idea" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="CMMInterpreter" type="b2602c69:ProjectViewProjectNode" />
@@ -202,17 +168,15 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="SDKs" />
-    <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../TSP" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -228,8 +192,6 @@
   </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="ALTERNATIVE_JRE_PATH" value="$PROJECT_DIR$/../../Java_Container/Java_version/java 1.8/jdk 1.8/bin" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="Window.Main" />
       <module name="CMMInterpreter" />
       <extension name="coverage">
@@ -253,28 +215,22 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="28c1ce0c-1eba-4387-8767-fff96660d4a4" name="Default Changelist" comment="" />
-      <created>1572832112690</created>
+      <changelist id="9f7380dd-9116-4165-9639-2f3ed8de04cd" name="Default Changelist" comment="" />
+      <created>1573192890605</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1572832112690</updated>
-      <workItem from="1572832121551" duration="117000" />
-      <workItem from="1572850184878" duration="1401000" />
-      <workItem from="1572879045598" duration="19000" />
-      <workItem from="1572879108790" duration="9000" />
-      <workItem from="1572949846173" duration="65000" />
-      <workItem from="1573178013061" duration="872000" />
+      <updated>1573192890605</updated>
+      <workItem from="1573192893006" duration="3634000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3370000" />
+    <option name="totallyTimeSpent" value="3781000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1295" height="695" extended-state="7" />
-    <editor active="true" />
+    <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.5132275" visible="true" weight="0.2061439" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.5132275" visible="true" weight="0.20937753" />
       <window_info id="Structure" order="1" sideWeight="0.48677248" side_tool="true" weight="0.2061439" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -283,17 +239,17 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3285968" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.499501" weight="0.32997987" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.2444668" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.499501" weight="0.23090586" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.61101246" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
-      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.499501" weight="0.32897383" />
+      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.499501" weight="0.3285968" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.500499" side_tool="true" weight="0.32997987" />
-      <window_info anchor="bottom" id="Messages" order="12" weight="0.32997987" />
+      <window_info anchor="bottom" id="Messages" order="12" weight="0.3285968" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -308,24 +264,27 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-field">
+          <url>file://$PROJECT_DIR$/src/Parser/ClassFactory.java</url>
+          <line>18</line>
+          <properties field="linkedLists" class="Parser.ClassFactory" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Parser/ClassFactory.java</url>
+          <line>40</line>
+          <properties />
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/fouryuan.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40">
-          <caret line="2" column="11" selection-start-line="2" selection-start-column="11" selection-end-line="2" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/../../Java_Container/Java_version/java 1.8/jdk 1.8/src.zip!/java/util/Vector.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-129">
-          <caret line="403" column="28" selection-start-line="403" selection-start-column="28" selection-end-line="403" selection-end-column="28" />
-          <folding>
-            <element signature="e#13546#13547#0" expanded="true" />
-            <element signature="e#13587#13588#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Parser/Word.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -348,10 +307,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Parser/FourYuan.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="780">
+          <caret line="40" column="22" selection-start-line="40" selection-start-column="22" selection-end-line="40" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Window/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Parser/Parser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="10160">
+          <caret line="510" column="42" selection-start-line="510" selection-start-column="42" selection-end-line="510" selection-end-column="42" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -369,104 +345,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Parser/Parser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="109">
-          <caret line="534" column="42" selection-start-line="534" selection-start-column="42" selection-end-line="534" selection-end-column="42" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Parser/ClassFactory.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="14" column="43" lean-forward="true" selection-start-line="14" selection-start-column="43" selection-end-line="14" selection-end-column="43" />
+        <state relative-caret-position="78">
+          <caret line="40" selection-start-line="40" selection-end-line="40" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Parser/FourYuan.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="36" column="41" lean-forward="true" selection-start-line="36" selection-start-column="41" selection-end-line="36" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-  </component>
-  <component name="masterDetails">
-    <states>
-      <state key="ArtifactsStructureConfigurable.UI">
-        <settings>
-          <artifact-editor />
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="FacetStructureConfigurable.UI">
-        <settings>
-          <last-edited>No facets are configured</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="GlobalLibrariesConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="JdkListConfigurable.UI">
-        <settings>
-          <last-edited>1.8</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ModuleStructureConfigurable.UI">
-        <settings>
-          <last-edited>CMMInterpreter</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectLibrariesConfigurable.UI">
-        <settings>
-          <last-edited>richtextfx-fat-0.10.2</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-    </states>
   </component>
 </project>
