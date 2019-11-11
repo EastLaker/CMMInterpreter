@@ -358,22 +358,23 @@ public class Parser {//////////////////识别完成token读到的应该是;
 						if (tokens.get(cur++).getString().equals("if")){////elseif分支
 							Elseif();
 						}
-						token = tokens.get(cur++);
-						for(int t=0;t<b.falselist.size();t++) {//////回填假出口
-							fours.get(b.falselist.get(t)).des = FourYuan.no+1+"";
+						else{
+							for(int t=0;t<b.falselist.size();t++) {//////回填假出口
+								fours.get(b.falselist.get(t)).des = FourYuan.no+1+"";
+							}
+							int stru = FourYuan.no;
+							FourYuan four = new FourYuan();
+							four.op1 = "_";
+							four.op2 = "_";
+							four.oprator = "JMP";
+							four.des = null;
+							FourYuan.no++;
+							fours.add(four);
+							////TODO 回填真出口
+							S();
+							fours.get(stru).des = FourYuan.no+"";
+							//	token = tokens[cur++];
 						}
-						int stru = FourYuan.no;
-						FourYuan four = new FourYuan();
-						four.op1 = "_";
-						four.op2 = "_";
-						four.oprator = "JMP";
-						four.des = null;
-						FourYuan.no++;
-						fours.add(four);
-						////TODO 回填真出口
-						S();
-						fours.get(stru).des = FourYuan.no+"";
-						//	token = tokens[cur++];
 					}
 					else {//////不带else
 						////回填假出口
@@ -500,20 +501,22 @@ public class Parser {//////////////////识别完成token读到的应该是;
 					if (tokens.get(cur++).getString().equals("if")){
 						Elseif();
 					}
-					for(int t=0;t<b.falselist.size();t++) {//////回填假出口
-						fours.get(b.falselist.get(t)).des = FourYuan.no+1+"";
+					else {
+						for(int t=0;t<b.falselist.size();t++) {//////回填假出口
+							fours.get(b.falselist.get(t)).des = FourYuan.no+1+"";
+						}
+						int stru = FourYuan.no;
+						FourYuan four = new FourYuan();
+						four.op1 = "_";
+						four.op2 = "_";
+						four.oprator = "JMP";
+						four.des = null;
+						FourYuan.no++;
+						fours.add(four);
+						////TODO 回填真出口
+						S();
+						fours.get(stru).des = FourYuan.no+"";
 					}
-					int stru = FourYuan.no;
-					FourYuan four = new FourYuan();
-					four.op1 = "_";
-					four.op2 = "_";
-					four.oprator = "JMP";
-					four.des = null;
-					FourYuan.no++;
-					fours.add(four);
-					////TODO 回填真出口
-					S();
-					fours.get(stru).des = FourYuan.no+"";
 				}
 				else {//////有elseif却没有else
 					System.out.println("缺少else语句！");
