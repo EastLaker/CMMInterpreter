@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f7d9c4c1-260f-4538-9797-8ddd6c6aedf4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Parser.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -17,11 +16,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Parser/Parser.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="61">
-              <caret line="499" column="4" selection-start-line="499" selection-start-column="4" selection-end-line="499" selection-end-column="4" />
+              <caret line="499" column="8" lean-forward="true" selection-start-line="499" selection-start-column="8" selection-end-line="499" selection-end-column="8" />
               <folding>
                 <element signature="e#11457#11596#1" />
                 <element signature="e#11458#11470#0" />
@@ -36,10 +35,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Window/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="589">
+            <state relative-caret-position="226">
               <caret line="40" column="1" selection-start-line="40" selection-start-column="1" selection-end-line="40" selection-end-column="1" />
             </state>
           </provider>
@@ -147,18 +146,17 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1573446041704</updated>
-      <workItem from="1573446051232" duration="556000" />
+      <workItem from="1573446051232" duration="971000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2331000" />
+    <option name="totallyTimeSpent" value="2746000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="23" width="1550" height="848" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19395973" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19395973" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -167,12 +165,12 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.15083799" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.15083799" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.21927375" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.21927375" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="10" weight="0.32960895" />
@@ -226,17 +224,10 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Window/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="589">
-          <caret line="40" column="1" selection-start-line="40" selection-start-column="1" selection-end-line="40" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Parser/Parser.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="61">
-          <caret line="499" column="4" selection-start-line="499" selection-start-column="4" selection-end-line="499" selection-end-column="4" />
+          <caret line="499" column="8" lean-forward="true" selection-start-line="499" selection-start-column="8" selection-end-line="499" selection-end-column="8" />
           <folding>
             <element signature="e#11457#11596#1" />
             <element signature="e#11458#11470#0" />
@@ -247,6 +238,13 @@
             <element signature="e#12836#13757#1" />
             <element signature="e#13837#14172#1" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Window/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="226">
+          <caret line="40" column="1" selection-start-line="40" selection-start-column="1" selection-end-line="40" selection-end-column="1" />
         </state>
       </provider>
     </entry>
