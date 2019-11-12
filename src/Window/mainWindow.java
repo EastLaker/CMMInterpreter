@@ -149,8 +149,7 @@ public class mainWindow {
                 }
             }
         });
-//        String rootcss = getClass().getResource("root.css").toExternalForm();
-//        rootAnchor.getStylesheets().add(rootcss);
+        output.setStyle("-fx-font-family:'Consolas';-fx-font-size:18");
     }
 
     private static Stage frame;

@@ -2,13 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="80ff6d31-cffd-4d1a-9318-f2517c5c4ce6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Window/debug.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Window/FileTreeItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Window/FileTreeItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Window/U.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Window/U.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Window/folder.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Window/cmm.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/Window/cmm.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Window/mainWindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/Window/mainWindow.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Window/mainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Window/mainWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lexical/LexicalParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lexical/LexicalParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lexical/Token.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lexical/Token.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,6 +17,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="MERGE" />
   </component>
   <component name="ProjectId" id="1T0aaN2UtJGIODMNYYOQzxmNI2f" />
   <component name="PropertiesComponent">
@@ -70,7 +70,8 @@
       <workItem from="1572599529973" duration="1598000" />
       <workItem from="1572610225222" duration="261000" />
       <workItem from="1572615593969" duration="628000" />
-      <workItem from="1573286961021" duration="4625000" />
+      <workItem from="1573286961021" duration="19157000" />
+      <workItem from="1573542754017" duration="1004000" />
     </task>
     <servers />
   </component>

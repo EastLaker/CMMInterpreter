@@ -46,14 +46,14 @@ public class LexicalParser {
         directRecognized.put('+',0);
         directRecognized.put('-',1);
         directRecognized.put('*',2);
-        directRecognized.put(';',20);
-        directRecognized.put(',',21);
-        directRecognized.put('(',22);
-        directRecognized.put(')',23);
-        directRecognized.put('{',24);
-        directRecognized.put('}',25);
-        directRecognized.put('[',26);
-        directRecognized.put(']',27);
+        directRecognized.put(';',21);
+        directRecognized.put(',',22);
+        directRecognized.put('(',23);
+        directRecognized.put(')',24);
+        directRecognized.put('{',25);
+        directRecognized.put('}',26);
+        directRecognized.put('[',27);
+        directRecognized.put(']',28);
 
         reserveWords.put("if",13);
         reserveWords.put("else",14);
@@ -62,6 +62,7 @@ public class LexicalParser {
         reserveWords.put("write",17);
         reserveWords.put("int",18);
         reserveWords.put("real",19);
+        reserveWords.put("string",20);
     }
 
     public void getSourceCode() {
@@ -280,6 +281,23 @@ public class LexicalParser {
                     token.setType(Token.TokenType.IDENTIFIER);
                     token.setStringValue(value);
                 }
+            }
+            else if(current=='"'){//说明接下来是一个字符串变量
+                readChar();
+                while (true) {  //将单词存入builder
+                    if(current !='"') {
+                        builder.append(current);
+                        readChar();
+                    }
+                    else {
+                        readChar();
+                        break;
+                    }
+                }
+                String value = builder.toString();
+                builder.delete(0,builder.length());
+                token.setType(Token.TokenType.STRING_LITERAL);
+                token.setStringValue(value);
             }
         }
 

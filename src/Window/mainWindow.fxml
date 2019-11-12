@@ -32,9 +32,13 @@
       </MenuBar>
       <FlowPane alignment="CENTER_LEFT" layoutY="32.0" prefHeight="38.0" prefWidth="800.0" prefWrapLength="0.0" styleClass="gray-theme" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="32.0">
          <children>
-            <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#onActionExecute" styleClass="green-theme" stylesheets="@root.css" text="Run" />
-			<Button mnemonicParsing="false" onAction="#onUndo" text="undo" />
-            <Button mnemonicParsing="false" onAction="#onRedo" text="redo" />
+            <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#onActionExecute" stylesheets="@root.css" text="Run">
+               <styleClass>
+                  <String fx:value="green-theme" />
+                  <String fx:value="btn-radius-large" />
+               </styleClass></Button>
+			<Button mnemonicParsing="false" onAction="#onUndo" styleClass="btn-radius-large" text="undo" />
+            <Button mnemonicParsing="false" onAction="#onRedo" styleClass="btn-radius-large" text="redo" />
          </children></FlowPane>
       <SplitPane dividerPositions="0.17418546365914786" layoutY="69.0" prefHeight="531.0" prefWidth="800.0" styleClass="green-theme" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="69.0">
         <items>
