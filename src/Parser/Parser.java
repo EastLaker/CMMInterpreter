@@ -1,7 +1,6 @@
-
 package Parser;
 
-
+import Utils.Regex;
 import lexical.Token;
 
 import java.util.*;
@@ -18,13 +17,10 @@ public class Parser {//////////////////识别完成token读到的应该是;
 	//4)E->id
 	public static List<String> errors = new ArrayList<String>();
 	public List<String> parsers = new ArrayList<String>();
+
 	public List<Token>  tokens = new ArrayList<Token>();/////用于存放词法分析的结果   测试
 	public Token token = null;//读入的词
 	public int cur = 0;///用于遍历词法分析的词
-	public String m_id = "^[A-Za-z_][A-Za-z0-9_]*$";
-	public String positive_int = "^[1-9]*$";
-	public String m_int = "^[+/-]?[0-9]*$";
-	public String m_float = "[0-9]+\\.?[0-9]+";
 	public Stack<Integer> states = new Stack<Integer>();/////状态栈------用于赋值表达式的检测
 	public Stack<String> symbols = new Stack<String>();/////符号栈----------用于赋值表达式的检测
 	public Stack<Integer> States = new Stack<Integer>();
@@ -33,68 +29,65 @@ public class Parser {//////////////////识别完成token读到的应该是;
 	public Stack<B> Bs = new Stack<B>();
 	public Stack<A> As = new Stack<A>();
 	public Stack<O> Os = new Stack<O>();
-	//public Token token = new Token();
 	public List<FourYuan> fours = new ArrayList<FourYuan>();
 	public boolean hadReturn = false;   // 用来函数体是否包含返回值,若类型为"void"则视为已有返回值
 
+    public boolean error = false;//////源程序无错
 	ClassFactory cf = new ClassFactory();
 
 	public  void parserE() {///////////词法分析程序
 		states.push(0);/////将0状态入栈
-		//token = tokens[cur];////
-		//cur++;/////模拟读入
 		boolean b = true;
 		while(b) {
 			switch (states.peek()){
 				case 0:
 				case 2:
-					if(token.getString().matches(m_id)||token.getString().matches(m_int)||token.getString().matches(m_float)) {
+
+					if(token.getString().matches(Regex.variPat)||token.getString().matches(Regex.constant)) {
 						states.push(3);////状态栈入栈
 						element_of_array_E();
 						token = tokens.get(cur++);
 					}
+
 					else if(token.getString().equals("(")) {
 						states.push(2);
 						symbols.push("(");
 						token = tokens.get(cur++);
 					}
-					else if(token.getString().equals(")")){
-						errors.add("行："+token.getLine_no()+"	错误提示：可能缺少 ( ");
-					}
-					else {
-						errors.add("行："+token.getLine_no()+"	错误提示：这是无效输入！");
-					}
+
+					else
+						b = error_parserE();
+
 					break;
 				case 1:
-					if(token.getString().equals("+")) {
+					if(token.getString().contentEquals("+")||token.getString().contentEquals("-")) {
 						states.push(4);
-						symbols.push("+");
+						symbols.push(token.getString());
 						token = tokens.get(cur++);
 					}
-					else if(token.getString().equals("*")) {
+
+					else if(token.getString().equals("*")||token.getString().equals("/")) {
 						states.push(5);
-						symbols.push("*");
+						symbols.push(token.getString());
 						token = tokens.get(cur++);
 					}
-					else if(token.getString().equals(";")||token.getString().equals(",")||token.getString().equals("}")||token.getString().equals("]")
-					||token.getString().equals("<")||token.getString().equals(">")||token.getString().equals(">=")||token.getString().equals("<=")||
-					token.getString().equals("==")||token.getString().equals("!=")||token.getString().equals(")")) {
+
+					else if(token.getString().contentEquals(";")||token.getString().contentEquals(",")||token.getString().contentEquals("}")||token.getString().contentEquals("]")
+					||token.getString().contentEquals("<")||token.getString().contentEquals(">")||token.getString().contentEquals(">=")||token.getString().contentEquals("<=")||
+					token.getString().contentEquals("==")||token.getString().contentEquals("!=")||token.getString().contentEquals(")")) {
+						for(int i = 0; i <2 ;i++)
+							states.pop();
+						symbols.pop();
 						b = false;/////识别表达式语句结束
 						////退出识别表达式
 						/////token==;
 					}
-					else if(token.getString().equals(")")){
-						errors.add("行："+token.getLine_no()+"	错误提示：可能缺少 ( ");
-					}
-					else if(token.getString().equals("(")){
-						errors.add("行："+token.getLine_no()+"	错误提示：可能缺少 ) ");
-					}
-					else {
-						errors.add("行："+token.getLine_no()+"	错误提示：这是无效输入！");
-					}
+					else
+                        b = error_parserE();
 					break;
 				case 3:
-					if(token.getString().contentEquals("+")||token.getString().equals("*")||token.getString().contentEquals(")")||token.getString().equals(";")||
+					if(token.getString().contentEquals("+")||token.getString().equals("-")||token.getString().equals("*")||
+							token.getString().equals("/")||token.getString().contentEquals(")")||token.getString().equals(";")||
 							token.getString().equals(",")||token.getString().equals("}")||token.getString().equals("]")
 							||token.getString().equals("<")||token.getString().equals(">")||token.getString().equals(">=")||token.getString().equals("<=")||
 							token.getString().equals("==")||token.getString().equals("!=")){
@@ -103,80 +96,70 @@ public class Parser {//////////////////识别完成token读到的应该是;
 						e.des = symbols.pop();//出栈一个id
 						Es.push(e);
 						states.pop();//出栈
-						symbols.push("E");
+						symbols.push(e.des);///////////////////////////////////////////////////////////////todo 修改
 						states_push();
 					}
-					else	{
-						errors.add("行："+token.getLine_no()+"	错误提示：这是无效输入！\n");
-						b = false;
-					}
+					else
+						b = error_parserE();
+
 					break;
 				case 4:
 				case 5:
-					if(token.getString().matches(m_id)||token.getString().matches(m_int)||token.getString().matches(m_float)) {
+
+					if(token.getString().matches(Regex.variPat)||token.getString().matches(Regex.constant)) {
 						states.push(3);
 						element_of_array_E();
 						token = tokens.get(cur++);
 					}
+
 					else if(token.getString().contentEquals("(")) {
 						states.push(2);
 						symbols.push("(");
 						token = tokens.get(cur++);
 					}
-					else if(token.getString().equals(")")){
-						errors.add("行："+token.getLine_no()+"	错误提示：可能缺少 ( \n");
-						b = false;
-					}
-					else {
-						System.out.println("行：in"+token.getLine_no()+"	错误提示：这是无效输入！\n");
-						b = false;
-					}
+
+				    else
+					    b  = error_parserE();
 					break;
 				case 6:
-					if(token.getString().contentEquals("+")) {
+
+					if(token.getString().contentEquals("+")||token.getString().equals("-")) {
 						states.push(4);
-						symbols.push("+");
-						token = tokens.get(cur);
-						cur++;
+						symbols.push(token.getString());
+						token = tokens.get(cur++);
 					}
-					else if(token.getString().contentEquals("*")) {
+
+					else if(token.getString().contentEquals("*")||token.getString().equals("/")) {
 						states.push(5);
-						symbols.push("*");
-						token = tokens.get(cur);
-						cur++;
+						symbols.push(token.getString());
+						token = tokens.get(cur++);
 					}
+
 					else if(token.getString().equals(")")) {
 						states.push(9);
 						symbols.push(")");
-						token = tokens.get(cur);
-						cur++;
+						token = tokens.get(cur++);
 					}
-					else if(token.getString().equals("(")){
-						errors.add("行："+token.getLine_no()+"	错误提示：可能缺少 ) ");
-						b = false;
-					}
-					else {
-						errors.add("行："+token.getLine_no()+"	错误提示：这是无效输入！");
-						b = false;
-					}
+
+					else
+						b = error_parserE();
 					break;
 				case 7:
-					if(token.getString().equals("+")||token.getString().equals(")")||token.getString().equals(";")||token.getString().equals(",")||
+
+					if(token.getString().equals("+")||token.getString().equals("-")||token.getString().equals(")")||token.getString().equals(";")||token.getString().equals(",")||
 							token.getString().equals("}")||token.getString().equals("]")
 							||token.getString().equals("<")||token.getString().equals(">")||token.getString().equals(">=")||token.getString().equals("<=")||
 							token.getString().equals("==")||token.getString().equals("!=")){
 						//r1规约
-						parsers.add("E->E+E");
+						parsers.add("E->E+E/E-E");
 						for(int i=0;i<3;i++) {
 							states.pop();/////语法动作，符号栈出栈三次，状态栈出栈三次
 						}
 						E e = new E();
 						e.des = E.getReg();
-						symbols.pop();/////出栈E
-						String op2 = Es.pop().des;///////获得源操作数2
-						String op = symbols.pop();//////出栈运算符+
-						symbols.pop();/////出栈E
-						String op1 = Es.pop().des;
+						String op2 = symbols.pop();/////出栈E
+						String op = symbols.pop();//////出栈运算符+/-
+						String op1 = symbols.pop();/////出栈E
 						FourYuan four = new FourYuan();
 						four.des = e.des;
 						four.op1 = op1;
@@ -185,43 +168,38 @@ public class Parser {//////////////////识别完成token读到的应该是;
 						FourYuan.no++;////指令序号加一
 						fours.add(four);
 						Es.push(e);
-						symbols.push("E");
+						symbols.push(e.des);/////////////////////////////todo修改
 						states_push();
 					}
-					else if(token.getString().contentEquals("*")) {
+
+					else if(token.getString().contentEquals("*")||token.getString().equals("/")) {
 						states.push(5);
-						symbols.push("*");
-						token = tokens.get(cur);
-						cur++;
+						symbols.push(token.getString());
+						token = tokens.get(cur++);
 					}
-					else if(token.getString().equals("(")){
-						errors.add("行：in"+token.getLine_no()+"	错误提示：可能缺少 ) ");
-						b = false;
-					}
-					else {
-						errors.add("行：in"+token.getLine_no()+"	错误提示：这是无效输入！");
-						b = false;
-					}
+
+					else
+						b = error_parserE();
 					break;
 				case 8:
-					if(token.getString().equals("+")||token.getString().contentEquals("*")||token.getString().equals(")")||token.getString().contentEquals(";")
+
+					if(token.getString().equals("+")||token.getString().equals("-")||token.getString().contentEquals("*")||
+							token.getString().equals("/")||token.getString().equals(")")||token.getString().contentEquals(";")
 							||token.getString().equals(",")||token.getString().equals("}")||token.getString().equals("]")
 							||token.getString().equals("<")||token.getString().equals(">")||token.getString().equals(">=")||token.getString().equals("<=")||
 							token.getString().equals("==")||token.getString().equals("!=")) {
 						//r2规约
-						parsers.add("E->E*E");
+						parsers.add("E->E*E /  E/E");
 						for(int i=0;i<3;i++) {
 							states.pop();
 						}
 						E e = new E();
 						e.des = E.getReg();
-						symbols.pop();
-						String op2 = Es.pop().des;
+						String op2 = symbols.pop();
 						String op = symbols.pop();
-						symbols.pop();
-						String op1 = Es.pop().des;
+						String op1 = symbols.pop();
 						Es.push(e);
-						symbols.push("E");///将规约得到的E入栈
+						symbols.push(e.des);////////////////////////////todo修改
 						FourYuan four = new FourYuan();
 						four.oprator = op;
 						four.op1 = op1;
@@ -231,17 +209,14 @@ public class Parser {//////////////////识别完成token读到的应该是;
 						FourYuan.no++;///
 						states_push();
 					}
-					else if(token.getString().equals("(")){
-						errors.add("行：in"+token.getLine_no()+"	错误提示：可能缺少 ) ");
-						b = false;
-					}
-					else {
-						errors.add("行：in"+token.getLine_no()+"	错误提示：这是无效输入！");
-						b = false;
-					}
+
+					else
+						b = error_parserE();
 					break;
 				case 9:
-					if(token.getString().equals("+")||token.getString().contentEquals("*")||token.getString().equals(")")||token.getString().contentEquals(";")||
+
+					if(token.getString().equals("+")||token.getString().equals("-")||token.getString().contentEquals("*")||
+							token.getString().contentEquals("/")||token.getString().equals(")")||token.getString().contentEquals(";")||
 							token.getString().equals(",")||token.getString().equals("}")||token.getString().equals("]")
 							||token.getString().equals("<")||token.getString().equals(">")||token.getString().equals(">=")||token.getString().equals("<=")||
 							token.getString().equals("==")||token.getString().equals("!=")) {
@@ -249,35 +224,50 @@ public class Parser {//////////////////识别完成token读到的应该是;
 						parsers.add("E->(E)");
 						for(int i=0;i<3;i++) {
 							states.pop();
-							symbols.pop();
 						}
-						symbols.push("E");///将规约得到的E入栈
+						symbols.pop();
+						String s = symbols.pop();
+						symbols.pop();
+						symbols.push(s);///将规约得到的E入栈
 						states_push();
 					}
-					else if(token.getString().equals("(")){
-						errors.add("行：in"+token.getLine_no()+"	错误提示：可能缺少 ) ");
-						b = false;
-					}
-					else {
-						errors.add("行：in"+token.getLine_no()+"	错误提示：这是无效输入！");
-						b = false;
-					}
+					else
+						b = error_parserE();
 					break;
 			}
 
 		}
 	}
 
+	private boolean error_parserE() {
+		boolean b;
+		error = true;//程序有错
+		b = false;
+		errors.add("line :" + token.getLine_no() + "  错误输入   "+token.getString());
+		while(!(token.getString().contentEquals(";")||token.getString().contentEquals(",")||token.getString().contentEquals("}")||token.getString().contentEquals("]")
+				||token.getString().contentEquals("<")||token.getString().contentEquals(">")||token.getString().contentEquals(">=")||token.getString().contentEquals("<=")||
+				token.getString().contentEquals("==")||token.getString().contentEquals("!=")||token.getString().contentEquals(")")))
+			token = tokens.get(cur++);///todo 退出本次语法分析程序
+		return b;
+	}
+
 	private void element_of_array_E() {
 		String reg_ = null;
 		boolean is_element_of_array = false;
-		if(tokens.get(cur).equals("[")){
+		if(tokens.get(cur).getString().equals("[")){///预读一个单词
 			/////是一个数组元素
+			if(!token.getString().matches(Regex.variPat)){
+				error = true;
+				errors.add("line :" + token.getLine_no() + "错误数组基址 " + token.getString());
+				return;
+			}
 			is_element_of_array = true;
+
 			String s = token.getString();  ////此时s token == id
 			token = tokens.get(cur++);////此时token == [
 			token = tokens.get(cur++);
 			parserE();
+			///结束返回时token  == ]
 			FourYuan four = new FourYuan();
 			four.oprator = "&";
 			four.op1 = s;
@@ -353,7 +343,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 
 	// 语法分析"全局变量声明"入口
 	private void Statement(String type) {
-		if (token.getString().matches(m_id)) {
+		if (token.getString().matches(Regex.variPat)) {
 			String name = token.getString();
 			////TODO 此处需判断该name是否为声明过的全局变量，若不是则加入单词表，若是则报错
 			token = tokens.get(cur++);
@@ -386,7 +376,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 
 	// 语法分析"函数"入口
 	private void Function(String type) {
-		if (token.getString().matches(m_id)) {
+		if (token.getString().matches(Regex.variPat)) {
 			String NAME = token.getString();    // NAME指代函数名称
 			token = tokens.get(cur + 1);    // token此时需指向"形参"的首个单词
 			cur += 2;
@@ -418,7 +408,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 		if (token.getString().contentEquals("int") || token.getString().contentEquals("float")) {
 			String type = token.getString();    // type此处为形参数据类型
 			token = tokens.get(cur++);
-			if (token.getString().matches(m_id)) {
+			if (token.getString().matches(Regex.variPat)) {
 				String parName = token.getString();
 				////TODO 函数名funcName,形参类型type,形参名parName,插入语义动作
 				token = tokens.get(cur++);
@@ -447,8 +437,8 @@ public class Parser {//////////////////识别完成token读到的应该是;
 
 		// 函数类型funcType，函数名funcName
 
-		if(token.getString().contentEquals("return")||token.getString().contentEquals("{")||token.getString().equals("if")||token.getString().contentEquals("while")||token.getString().matches(m_id)
-				||token.getString().matches(m_float)||token.getString().matches(m_int)) {
+		if(token.getString().contentEquals("return")||token.getString().contentEquals("{")||token.getString().equals("if")||token.getString().contentEquals("while")||token.getString().matches(Regex.variPat)
+				||token.getString().matches(Regex._float)||token.getString().matches(Regex._int)) {
 			parsers.add("L->SL");
 			S(funcType, funcName);
 			L(funcType, funcName);
@@ -489,7 +479,10 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				token = tokens.get(cur++);
 			}
 			else
-				errors.add("行 "+token.getLine_no()+ " :缺少}");
+			{
+				error = true;
+				errors.add("line :" + token.getLine_no() + "缺少}");
+			}
 		}/////复合语句
 		else if(token.getString().contentEquals("if")) {////if语句识别
 			parsers.add("S->if语句");
@@ -499,6 +492,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				////识别逻辑表达式B();
 				//TODO 识别逻辑表达式
 				parserB();///////////栈顶一个B，真出口链，假出口链回填
+
 				if(token.getString().equals(")")) {
 					token = tokens.get(cur++);
 					B b = Bs.peek();
@@ -508,6 +502,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 					/*
 					 * {}|a;|if语句|while语句
 					 */
+//<<<<<<< HEAD
 					if(token.getString().equals("else")) {////else分支
 						if (tokens.get(cur++).getString().equals("if")){////elseif分支
 							Elseif(funcType, funcName);
@@ -527,7 +522,14 @@ public class Parser {//////////////////识别完成token读到的应该是;
 							////TODO 回填真出口
 							S(funcType, funcName);
 							fours.get(stru).des = FourYuan.no+"";
-							//	token = tokens[cur++];
+//							//	token = tokens[cur++];
+//=======
+//
+//					if(token.getString().equals("else")) {
+//						token = tokens.get(cur++);
+//						for(int t=0;t<b.falselist.size();t++) {//////回填假出口
+//							fours.get(b.falselist.get(t)).des = FourYuan.no+1+"";
+//>>>>>>> 921d4a48adaf7297bc8214c07d8da258fcbfd569
 						}
 					}
 					else {//////不带else
@@ -556,6 +558,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				parserB();
 				//////逻辑表达式识别!
 				//TODO 识别逻辑表达式
+
 				if(")".equals(token.getString())) {
 					token = tokens.get(cur++);
 					B b = Bs.peek();
@@ -577,13 +580,14 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			else
 				System.out.println("缺少（");
 		}
+
 		else if(token.getString().contentEquals("int")||token.getString().contentEquals("float")) {
 			///TODO  建立单词表
 			String type = token.getString();
 			token = tokens.get(cur++);
 			addWord(type);
 		}
-		else if(token.getString().matches(m_id)) {
+		else if(token.getString().matches(Regex.variPat)) {
 
 			if (tokens.get(cur).getString().contentEquals("(")){  // 函数调用语句
 				String function = token.getString();  // "function"为函数名
@@ -647,7 +651,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			}
 
 		}
-		else if(token.getString().matches(m_int)||token.getString().matches(m_float)){
+		else if(token.getString().matches(Regex.constant)){
 			String s = token.getString();
 			int no = token.getLine_no();
 			token = tokens.get(cur++);
@@ -712,7 +716,8 @@ public class Parser {//////////////////识别完成token读到的应该是;
 	}
 
 	private void addWord(String type) {
-		if (token.getString().matches(m_id)) {
+
+		if (token.getString().matches(Regex.variPat)) {
 			String name = token.getString();
 			Word word = cf.newWordFromType(type);
 			word.setDes(Word.getDes_start());
@@ -731,11 +736,12 @@ public class Parser {//////////////////识别完成token读到的应该是;
 
 	private void is_Array(String type, String name, int start_des) {
 		int size = 0;//数组大小
+
 		if ("[".equals(token.getString())) {
 			token = tokens.get(cur++);
 			//数组是否以={}的形式初始化.
 			boolean length_determined = false;////数组长度没有确定
-			if (token.getString().matches(positive_int)) {
+			if (token.getString().matches(Regex.positiveInt)) {
 				///token.getString()有两种情况 1是常数，那么数组长度确定（size确定，length determined为true）
 				//2是]直接跳出这一层if
 				length_determined = true;/////数组长度确定
@@ -757,10 +763,10 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			//模拟读入 "=" 不做处理 有无都可
 			if ("=".equals(token.getString())) token = tokens.get(cur++);
 			if ("{".equals(token.getString())) {/////数组需要初始化吗？
-				ArrayList<Integer> var_array = new ArrayList<>();////用于初始化单词表的数组
+				ArrayList<Number> var_array = new ArrayList<>();////用于初始化单词表的数组
 				int j = 0;
 				token = tokens.get(cur++);
-				while (token.getString().matches(m_int)||token.getString().matches(m_id)) {
+				while (token.getString().matches(Regex.constant)||token.getString().matches(Regex.regPat)) {
 					parserE();
 					FourYuan four = new FourYuan();
 					four.oprator = "$";
@@ -770,6 +776,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 					fours.add(four);
 					FourYuan.no++;
 					j++;
+
 					if (",".equals(token.getString()))
 						token = tokens.get(cur++);
 					else break;
@@ -790,7 +797,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 						}
 					////多余元素用0补足
 				}
-				ArrayType arrayType = cf.newArrayFromArray(new Integer[length_determined ? size : j], type);
+				ArrayType arrayType = cf.newArrayFromArray(new Number[length_determined ? size : j], type);
 				if (!length_determined)
 					Word.getDes_start(j - 1);
 				arrayType.setDes(start_des);
@@ -808,6 +815,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 
 
 	private void to_assign(String name) {
+
 		if("=".equals(token.getString())){
 			//声明时赋值运算
 			FourYuan four = new FourYuan();
@@ -815,6 +823,8 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			four.des = name;
 			token = tokens.get(cur++);
 			parserE();
+			if(error)
+				return;
 			four.op1 = Es.peek().des;
 			four.op2 = "_";
 			FourYuan.no++;
@@ -824,6 +834,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 
 
 	private boolean putWordIn(Word word) {
+
 		if (ClassFactory.Wordlist.containsKey(token.getString())) {
 			errors.add("same variable exception");
 			return false;
@@ -835,6 +846,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 
 	void T(String type) {
 		///TODO   声明语句
+
 		if(token.getString().contentEquals(";")) {
 			token = tokens.get(cur++);
 			return;
@@ -850,21 +862,25 @@ public class Parser {//////////////////识别完成token读到的应该是;
 		while(b) {
 			switch (States.peek()){
 				case 0:
-					if(token.getString().matches(m_id)||token.getString().matches(m_int)||token.getString().matches(m_float)){
+
+					if(token.getString().matches(Regex.variPat)||token.getString().matches(Regex.constant)){
 						States.push(1);
 						parserE();
 						Symbols.push(Es.peek().des);
 					}
+
 					else if (token.getString().equals("(")){
 						States.push(4);
 						Symbols.push("(");
 						token = tokens.get(cur++);
 					}
+
 					else if(token.getString().equals("!")){
 						States.push(5);
 						Symbols.push("!");
 						token = tokens.get(cur++);
 					}
+
 					else if(token.getString().equals(")")){
 						System.out.println("行：in"+token.getLine_no()+"	错误提示：可能缺少 ( ");
 						break;
@@ -887,6 +903,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 						Symbols.push("B");
 						push_States_B();
 					}
+
 					else if(token.getString().equals("(")){
 						System.out.println("行：in"+token.getLine_no()+"	错误提示：可能缺少 ) ");
 						break;
@@ -896,11 +913,12 @@ public class Parser {//////////////////识别完成token读到的应该是;
 					}
 					break;
 				case 2:
-					if (token.getString().matches(m_id)||token.getString().matches(m_int)||token.getString().matches(m_float)){
+					if (token.getString().matches(Regex.variPat)||token.getString().matches(Regex.constant)){
 						States.push(3);
 						parserE();
 						Symbols.push(Es.peek().des);
 					}
+
 					else if (token.getString().contentEquals(")")){
 						System.out.println("行：in"+token.getLine_no()+"	错误提示：可能缺少 ( ");
 						break;
@@ -944,6 +962,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 						Symbols.push("B");
 						push_States_B();
 					}
+
 					else if(token.getString().contentEquals("(")){
 						System.out.println("行：in"+token.getLine_no()+"	错误提示：可能缺少 ) ");
 						break;
@@ -956,21 +975,25 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				case 5:
 				case 7:
 				case 8:
-					if (token.getString().matches(m_id)||token.getString().matches(m_int)||token.getString().matches(m_float)){
+
+					if (token.getString().matches(Regex.variPat)||token.getString().matches(Regex.constant)){
 						States.push(1);
 						parserE();
 						Symbols.push(Es.peek().des);
 					}
+
 					else if (token.getString().equals("(")){
 						States.push(4);
 						Symbols.push("(");
 						token = tokens.get(cur++);
 					}
+
 					else if (token.getString().equals("!")){
 						States.push(5);
 						Symbols.push("!");
 						token = tokens.get(cur++);
 					}
+
 					else if(token.getString().contentEquals(")")){
 						System.out.println("行：in"+token.getLine_no()+"	错误提示：可能缺少 ( ");
 						break;
@@ -985,11 +1008,13 @@ public class Parser {//////////////////识别完成token读到的应该是;
 						Symbols.push("&&");
 						token = tokens.get(cur++);
 					}
+
 					else if (token.getString().equals("||")){
 						States.push(10);
 						Symbols.push("||");
 						token = tokens.get(cur++);
 					}
+
 					else if (token.getString().equals(")")||token.getString().equals(";")){
 						System.out.println("B->!B");
 						for (int i=0;i<2;i++){
@@ -1004,6 +1029,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 						Symbols.push("B");
 						push_States_B();
 					}
+
 					else if(token.getString().equals("(")){
 						System.out.println("行：in"+token.getLine_no()+"	错误提示：可能缺少 ) ");
 						break;
@@ -1013,8 +1039,8 @@ public class Parser {//////////////////识别完成token读到的应该是;
 					}
 					break;
 				case 9:
-					if (token.getString().equals("(")||token.getString().equals("!")||token.getString().matches(m_id)||token.getString().matches(m_int)
-					||token.getString().matches(m_float)){
+					if (token.getString().equals("(")||token.getString().equals("!")||token.getString().matches(Regex.variPat)||
+							token.getString().matches(Regex.constant)){
 						parsers.add("A->B&&");
 						for (int i=0;i<2;i++){
 							Symbols.pop();
@@ -1026,6 +1052,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 						Symbols.push("A");
 						push_States_A();
 					}
+
 					else if(token.getString().equals(")")){
 						System.out.println("行：in"+token.getLine_no()+"	错误提示：可能缺少 ( ");
 						break;
@@ -1035,8 +1062,8 @@ public class Parser {//////////////////识别完成token读到的应该是;
 					}
 					break;
 				case 10:
-					if (token.getString().equals("(")||token.getString().equals("!")||token.getString().matches(m_id)||token.getString().matches(m_int)
-					||token.getString().matches(m_float)){
+					if (token.getString().equals("(")||token.getString().equals("!")||token.getString().matches(Regex.variPat)||
+							token.getString().matches(Regex.constant)){
 						parsers.add("O->B||");
 						for (int i=0;i<2;i++){
 							Symbols.pop();
@@ -1048,6 +1075,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 						Os.push(o);
 						push_States_O();
 					}
+
 					else if(token.getString().equals(")")){
 						System.out.println("行：in"+token.getLine_no()+"	错误提示：可能缺少 ( ");
 						break;
@@ -1062,16 +1090,19 @@ public class Parser {//////////////////识别完成token读到的应该是;
 						Symbols.push(")");
 						token = tokens.get(cur++);
 					}
+
 					else if (token.getString().equals("&&")){
 						States.push(9);
 						Symbols.push("&&");
 						token = tokens.get(cur++);
 					}
+
 					else if (token.getString().equals("||")){
 						States.push(10);
 						Symbols.push("||");
 						token = tokens.get(cur++);
 					}
+
 					else if(token.getString().equals("(")){
 						System.out.println("行：in"+token.getLine_no()+"	错误提示：可能缺少 ) 或者 ; ");
 						break;
@@ -1081,7 +1112,8 @@ public class Parser {//////////////////识别完成token读到的应该是;
 					}
 					break;
 				case 12:
-					if (token.getString().equals(")")||token.getString().equals("&&")||token.getString().equals("||")||token.getString().equals(";")){
+					if (token.getString().equals(")")||token.getString().equals("&&")||token.getString().equals("||")||
+							token.getString().equals(";")){
 						parsers.add("B->(B)");
 						for (int i=0;i<3;i++){
 							Symbols.pop();
@@ -1090,6 +1122,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 						Symbols.push("B");
 						push_States_B();
 					}
+
 					else if(token.getString().equals("(")){
 						System.out.println("行：in"+token.getLine_no()+"	错误提示：可能缺少 ) 或者 ;  ");
 						break;
@@ -1104,11 +1137,13 @@ public class Parser {//////////////////识别完成token读到的应该是;
 						Symbols.push("&&");
 						token = tokens.get(cur++);
 					}
+
 					else if (token.getString().equals("||")){
 						States.push(10);
 						Symbols.push("||");
 						token = tokens.get(cur++);
 					}
+
 					else if (token.getString().equals(";")||token.getString().contentEquals(")")){
 						b = false;/////识别表达式语句结束
 						////退出识别表达式
@@ -1131,6 +1166,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 						Symbols.push("&&");
 						token = tokens.get(cur++);
 					}
+
 					else if (token.getString().equals(")")||token.getString().equals(";")||token.getString().contentEquals("||")){
 						parsers.add("B->AB");
 						for (int i=0;i<2;i++){
@@ -1150,6 +1186,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 						Bs.push(boo);
 						push_States_B();
 					}
+
 					else if(token.getString().equals("(")){
 						System.out.println("行：in"+token.getLine_no()+"	错误提示：可能缺少 ) 或者 ;  ");
 						break;
@@ -1165,12 +1202,14 @@ public class Parser {//////////////////识别完成token读到的应该是;
 						token = tokens.get(cur);
 						cur++;
 					}
+
 					else if (token.getString().equals("||")){
 						States.push(10);
 						Symbols.push("||");
 						token = tokens.get(cur);
 						cur++;
 					}
+
 					else if (token.getString().equals(")")||token.getString().equals(";")){
 						parsers.add("B->OB");
 						for (int i=0;i<2;i++){
@@ -1190,6 +1229,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 						Bs.push(boo);
 						push_States_B();
 					}
+
 					else if(token.getString().equals("(")){
 						System.out.println("行：in"+token.getLine_no()+"	错误提示：可能缺少 ) 或者 ;  ");
 						break;

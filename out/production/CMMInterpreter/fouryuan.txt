@@ -1,0 +1,32 @@
+int a[5];//test 数组的声明
+a[0] = 1;
+a[1] = 2;
+a[2] = 2 * ( 3 + 4);
+a[3] = 10+ a[1];
+a[4] = a[1] + a[2] * a[3];//test 数组的初始化
+int b[3] = {a[0],1+2, 3*(a[1] + 2)};//test 数组声明时初始化
+int c , d = a[1] + b[2];//普通变量的声明  普通变量的声明并且初始化
+if(a[0]+a[2]*a[3]<a[0]+20)//test if语句 
+c = 51;
+else 
+c = 52;
+while(c<100)//test while 语句
+c = c + 1;
+int e = 1, f = 2;
+{e = e + f;
+f = f + e * f;}//test 复合语句的测试#
+    int aa = 0 , bb = 1, cc = 2;
+    while(aa<10)// test 多层嵌套结构
+    {
+        while(bb <5)
+    {
+        while(cc<3)
+        cc = cc + 1;
+        bb = bb + 1;
+        
+    }
+        aa = aa + 1;        
+    }
+int x ,y;
+y = x;//test 动态运行时错误 使用未初始化的变量
+# 

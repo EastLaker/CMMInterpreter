@@ -55,6 +55,14 @@ public class DynamicException {
         }
     }
 
+    public class numberFormatException extends Exception implements dynamicException{
+        @Override
+        public void errorInfo() {
+            addErrorInfo("在第"+ mainWindow.j+"条指令中，等式双方类型不支持赋值");
+        }
+    }
+
+
     public class mismatchOperatorException extends Exception implements dynamicException{
         @Override
         public void errorInfo() {
@@ -69,7 +77,8 @@ public class DynamicException {
         }
     }
 
-    public class defaultException extends Exception implements dynamicException{
+    public class defaultException extends RuntimeException implements dynamicException{
+
         private String mes;
 
         public defaultException(String mes){

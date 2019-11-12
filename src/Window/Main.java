@@ -29,19 +29,6 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-//    public void initLayout(){
-//        try{
-//            FXMLLoader loader = new FXMLLoader();
-//            loader.setLocation(Main.class.getResource("view.fxml"));
-//            executeWindow = loader.load();
-//            root.setCenter(executeWindow);
-//
-//            Controller controller = loader.getController();
-//            controller.setMain(this);
-//
-//        }catch (IOException e){e.printStackTrace();}
-//    }
-
     public Stage getPrimaryStage() {
         return mainStage;
     }
