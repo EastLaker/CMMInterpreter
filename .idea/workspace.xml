@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f7d9c4c1-260f-4538-9797-8ddd6c6aedf4" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Parser.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -14,32 +14,61 @@
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
   </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="-1384305355">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.open.time.0" value="1" />
+          <entry key="project.opened" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="java" value="105" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="JAVA" value="105" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Parser/Parser.java">
+        <entry file="file://$PROJECT_DIR$/src/Window/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="61">
-              <caret line="499" column="8" lean-forward="true" selection-start-line="499" selection-start-column="8" selection-end-line="499" selection-end-column="8" />
-              <folding>
-                <element signature="e#11457#11596#1" />
-                <element signature="e#11458#11470#0" />
-                <element signature="e#11612#11652#1" />
-                <element signature="e#11666#11701#1" />
-                <element signature="e#11751#12592#1" />
-                <element signature="e#12685#12792#1" />
-                <element signature="e#12836#13757#1" />
-                <element signature="e#13837#14172#1" />
-              </folding>
+            <state relative-caret-position="338">
+              <caret line="40" column="2" lean-forward="true" selection-start-line="40" selection-start-column="2" selection-end-line="40" selection-end-column="2" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Window/Main.java">
+        <entry file="file://$PROJECT_DIR$/src/Parser/Parser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="226">
-              <caret line="40" column="1" selection-start-line="40" selection-start-column="1" selection-end-line="40" selection-end-column="1" />
+            <state relative-caret-position="2156">
+              <caret line="588" column="25" selection-start-line="588" selection-start-column="25" selection-end-line="588" selection-end-column="25" />
+              <folding>
+                <element signature="method#parserE#0;class#Parser#0" />
+                <element signature="method#element_of_array_E#0;class#Parser#0" />
+                <element signature="method#states_push#0;class#Parser#0" />
+                <element signature="method#Program#0;class#Parser#0" />
+                <element signature="method#Block#0;class#Parser#0" />
+                <element signature="method#Statement#0;class#Parser#0" />
+                <element signature="method#Function#0;class#Parser#0" />
+                <element signature="method#Parameter#0;class#Parser#0" />
+                <element signature="method#addWord#0;class#Parser#0" />
+                <element signature="method#is_Array#0;class#Parser#0" />
+                <element signature="method#to_assign#0;class#Parser#0" />
+                <element signature="method#putWordIn#0;class#Parser#0" />
+                <element signature="method#T#0;class#Parser#0" />
+                <element signature="method#parserB#0;class#Parser#0" />
+                <element signature="method#push_States_O#0;class#Parser#0" />
+                <element signature="method#push_States_A#0;class#Parser#0" />
+                <element signature="method#push_States_B#0;class#Parser#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -56,18 +85,23 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-10" />
-    <option name="y" value="25" />
-    <option name="width" value="1940" />
-    <option name="height" value="1060" />
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="1" />
+    <option name="y" value="23" />
+    <option name="width" value="854" />
+    <option name="height" value="877" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -96,6 +130,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="AndroidView" />
+      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -103,6 +139,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -147,22 +184,25 @@
       <option name="presentableId" value="Default" />
       <updated>1573446041704</updated>
       <workItem from="1573446051232" duration="971000" />
+      <workItem from="1573540731974" duration="1039000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2746000" />
+    <option name="totallyTimeSpent" value="3785000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="23" width="1550" height="848" extended-state="6" />
+    <frame x="1" y="23" width="1149" height="877" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19395973" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24841915" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Capture Tool" order="4" />
       <window_info id="UI Designer" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Flutter Performance" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.15083799" />
@@ -170,12 +210,15 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.21927375" />
+      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.09299363" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="10" weight="0.32960895" />
-      <window_info anchor="bottom" id="Database Changes" order="11" />
+      <window_info anchor="bottom" id="Database Changes" order="11" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="12" />
+      <window_info anchor="right" id="Flutter Outline" />
+      <window_info anchor="right" id="Maven Projects" />
+      <window_info anchor="right" id="Flutter Inspector" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -223,28 +266,40 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Parser/Parser.java">
+    <entry file="file://$PROJECT_DIR$/src/Window/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="61">
-          <caret line="499" column="8" lean-forward="true" selection-start-line="499" selection-start-column="8" selection-end-line="499" selection-end-column="8" />
-          <folding>
-            <element signature="e#11457#11596#1" />
-            <element signature="e#11458#11470#0" />
-            <element signature="e#11612#11652#1" />
-            <element signature="e#11666#11701#1" />
-            <element signature="e#11751#12592#1" />
-            <element signature="e#12685#12792#1" />
-            <element signature="e#12836#13757#1" />
-            <element signature="e#13837#14172#1" />
-          </folding>
+        <state relative-caret-position="338">
+          <caret line="40" column="2" lean-forward="true" selection-start-line="40" selection-start-column="2" selection-end-line="40" selection-end-column="2" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Window/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/Parser/Parser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="40" column="1" selection-start-line="40" selection-start-column="1" selection-end-line="40" selection-end-column="1" />
+        <state relative-caret-position="2156">
+          <caret line="588" column="25" selection-start-line="588" selection-start-column="25" selection-end-line="588" selection-end-column="25" />
+          <folding>
+            <element signature="method#parserE#0;class#Parser#0" />
+            <element signature="method#element_of_array_E#0;class#Parser#0" />
+            <element signature="method#states_push#0;class#Parser#0" />
+            <element signature="method#Program#0;class#Parser#0" />
+            <element signature="method#Block#0;class#Parser#0" />
+            <element signature="method#Statement#0;class#Parser#0" />
+            <element signature="method#Function#0;class#Parser#0" />
+            <element signature="method#Parameter#0;class#Parser#0" />
+            <element signature="method#addWord#0;class#Parser#0" />
+            <element signature="method#is_Array#0;class#Parser#0" />
+            <element signature="method#to_assign#0;class#Parser#0" />
+            <element signature="method#putWordIn#0;class#Parser#0" />
+            <element signature="method#T#0;class#Parser#0" />
+            <element signature="method#parserB#0;class#Parser#0" />
+            <element signature="method#push_States_O#0;class#Parser#0" />
+            <element signature="method#push_States_A#0;class#Parser#0" />
+            <element signature="method#push_States_B#0;class#Parser#0" />
+          </folding>
         </state>
       </provider>
     </entry>
