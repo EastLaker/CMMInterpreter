@@ -309,6 +309,7 @@ public class mainWindow {
             LexicalParser lexicalParser = new LexicalParser();
             lexicalParser.setSourceCode(text);
             //使用getAllTokens()方法获取Tokens,返回一个包含了识别出的Tokens的ArrayList
+
             List<Token> tokens1 = lexicalParser.getAllTokens();
             for (Token token: tokens1) {
                 parse.tokens.add(token);
@@ -317,36 +318,44 @@ public class mainWindow {
             parse.L();
             ////测试
             StringBuilder output_text = new StringBuilder();
-            for(int i=0;i<parse.fours.size();i++) {
-                output_text.append(i + " " + parse.fours.get(i).get_four_str() + "\n");
+            if(parse.error){
+                output_text.append("程序存在语法错误：" + "\n");
+                for(int i = 0;i<Parser.errors.size();i++)
+                    output_text.append(Parser.errors.get(i)+"\n");
             }
-            try{
-                for(;j<parse.fours.size();j++)
-                    parse.fours.get(j).Exec();
-            } catch (DynamicException.stopMachineException e) {
-                //todo  已退出for循环  还需要添加的工作？
-            }
-
-            Set<String> words = ClassFactory.Wordlist.keySet();
-            output_text.append("单词表结构：\n");
-            output_text.append("变量名\t变量类型\t变量地址\t变量值\n");
-            for(String word : words) {
-                if(ClassFactory.Wordlist.get(word) instanceof ArrayType) {
-                    for (int i = 0; i < ClassFactory.Wordlist.get(word).length; i++) {
-                        try{
-                            output_text.append(word + "[" + i + "]\t" + ClassFactory.Wordlist.get(word).type + "\t" + (ClassFactory.Wordlist.get(word).getDes() + i * 4) + "\t"
-                                    + ((ArrayType) ClassFactory.Wordlist.get(word)).getValue(i) + "\n");
-                        }catch (Exception e){}
-                    }
+            else {
+                for (int i = 0; i < parse.fours.size(); i++) {
+                    output_text.append(i + " " + parse.fours.get(i).get_four_str() + "\n");
                 }
-                else
-                    output_text.append(word+"\t"+ ClassFactory.Wordlist.get(word).type+"\t"+ ClassFactory.Wordlist.get(word).getDes()+"\t"+ ClassFactory.Wordlist.get(word).getValue()+"\n");
+                try {
+                    for (; j < parse.fours.size(); j++)
+                        parse.fours.get(j).Exec();
+                } catch (DynamicException.stopMachineException e) {
+                    //todo  已退出for循环  还需要添加的工作？
+                }
 
+                Set<String> words = ClassFactory.Wordlist.keySet();
+                output_text.append("单词表结构：\n");
+                output_text.append("变量名\t变量类型\t变量地址\t变量值\n");
+                for (String word : words) {
+                    if (ClassFactory.Wordlist.get(word) instanceof ArrayType) {
+                        /////是个数组元素
+                        for (int i = 0; i < ClassFactory.Wordlist.get(word).length; i++) {
+                            try {
+                                output_text.append(word + "[" + i + "]\t" + ClassFactory.Wordlist.get(word).type + "\t" + (ClassFactory.Wordlist.get(word).getDes() + i * 4) + "\t"
+                                        + ((ArrayType) ClassFactory.Wordlist.get(word)).getValue(i) + "\n");
+                            } catch (Exception e) {
+                            }
+                        }
+                    } else
+
+                        output_text.append(word + "\t" + ClassFactory.Wordlist.get(word).type + "\t" + ClassFactory.Wordlist.get(word).getDes() + "\t" + ClassFactory.Wordlist.get(word).getValue() + "\n");
+
+                }
+                for (int i = 0; i < Parser.errors.size(); i++)
+                    output_text.append(Parser.errors.get(i));
+                System.out.println("下一条指令地址：" + FourYuan.no);
             }
-
-            for(int i=0;i<Parser.errors.size();i++)
-                output_text.append(Parser.errors.get(i));
-            System.out.println("下一条指令地址："+ FourYuan.no);
             //todo 将需要输出的内容输出到output中
             Text t = new Text();
             t.setText(output_text.toString());
