@@ -315,7 +315,7 @@ public class mainWindow {
                 parse.tokens.add(token);
             }
             parse.token = parse.tokens.get(parse.cur++);////读入第一个单词
-            parse.L();
+            parse.Program();
             ////测试
             StringBuilder output_text = new StringBuilder();
             for(int i=0;i<parse.fours.size();i++) {

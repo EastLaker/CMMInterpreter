@@ -433,6 +433,8 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			} else {
 				errors.add("行"+token.getLine_no()+ ": 形参命名错误");
 			}
+		} else if (token.getString().contentEquals(")")) {  // 没有形参
+			token = tokens.get(cur++);
 		} else {
 			errors.add("行"+token.getLine_no()+ ": 形参数据类型错误");
 		}
