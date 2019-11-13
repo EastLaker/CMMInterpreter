@@ -28,8 +28,6 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import lexical.LexicalParser;
-import lexical.Token;
 import org.fxmisc.flowless.VirtualizedScrollPane;
 import org.fxmisc.richtext.CodeArea;
 import org.fxmisc.richtext.LineNumberFactory;
@@ -54,7 +52,7 @@ import org.reactfx.Subscription;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+import lexical.*;
 public class mainWindow {
 
     private static final String[] KEYWORDS = new String[] {
@@ -261,6 +259,7 @@ public class mainWindow {
 
         }else{
             output.getChildren().clear();
+            Parser.Console.clear();
             mainWindow.j=0;
             FourYuan.no = 0;
             Parser.errors.clear();
@@ -315,7 +314,10 @@ public class mainWindow {
 
                 }
                 for (int i = 0; i < Parser.errors.size(); i++)
-                    output_text.append(Parser.errors.get(i));
+                    output_text.append(Parser.errors.get(i)+"\n");
+                output_text.append("控制台输出：\n");
+                for(int i = 0; i<Parser.Console.size() ; i++)
+                    output_text.append(Parser.Console.get(i)+"\n");
                 System.out.println("下一条指令地址：" + FourYuan.no);
             }
             //todo 将需要输出的内容输出到output中

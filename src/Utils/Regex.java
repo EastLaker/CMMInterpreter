@@ -22,12 +22,10 @@ public class Regex {
     //for integer.
     public static final String _int = "^[+/-]?[0-9]*$";
 
-<<<<<<< HEAD
-    //
-    public static final String _float = "(([+])?[0-9]\\d*\\.?\\d*)|((-)?[0-9]\\d*\\.?\\d*)";
-=======
     //for float  实数
     public static final String _float = "(([+])?[0-9]\\d*\\.?\\d*)|((-)?[0-9]\\d*\\.?\\d*)";
 
->>>>>>> 5867000786f07cffe52bb39983772ff96e32ef56
+    //for 字符串
+    public static final String _string = "^.*";
+
 }

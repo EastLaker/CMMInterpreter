@@ -31,29 +31,30 @@ public class Token {
         WRITE,//17
         INT,//18
         REAL,//19
+        STRING,//20
 
         //分隔符
-        SEMICOLON,//20
-        DOT,//21
-        L_BRACKET,//22
-        R_BRACKET,//23
-        L_ANGLE_BRACKET,//24
-        R_ANGLE_BRACKET,//25
-        L_SQUARE_BRACKET,//26
-        R_SQUARE_BRACKET,//27
-
+        SEMICOLON,//21
+        DOT,//22
+        L_BRACKET,//23
+        R_BRACKET,//24
+        L_ANGLE_BRACKET,//25
+        R_ANGLE_BRACKET,//26
+        L_SQUARE_BRACKET,//27
+        R_SQUARE_BRACKET,//28
         END,
 
         //字面量
-        INT_LITERAL,//28
-        REAL_LITERAL,//29
-        IDENTIFIER,//30
+        INT_LITERAL,//29
+        REAL_LITERAL,//30
+        STRING_LITERAL,//31
+        IDENTIFIER,//32
 
         //注释
-        SINGLE_LINE_COMMENT,//31
-        MULTIPLE_LINE_COMMENT,//32
+        SINGLE_LINE_COMMENT,//33
+        MULTIPLE_LINE_COMMENT,//34
 
-        NULL//33    空的token，说明已经到文件结尾
+        NULL//35    空的token，说明已经到文件结尾
     }
     private HashMap<TokenType, String> dict = new HashMap<TokenType, String>(){{
         put(TokenType.PLUS, "+");
@@ -76,6 +77,7 @@ public class Token {
         put(TokenType.WRITE, "write");
         put(TokenType.INT, "int");
         put(TokenType.REAL,  "real");
+        put(TokenType.STRING,  "string");
         put(TokenType.SEMICOLON, ";");
         put(TokenType.DOT, ",");
         put(TokenType.L_BRACKET, "(");
@@ -86,7 +88,6 @@ public class Token {
         put(TokenType.R_SQUARE_BRACKET, "]");
         put(TokenType.SINGLE_LINE_COMMENT, "");
         put(TokenType.MULTIPLE_LINE_COMMENT, "");
-
         put(TokenType.NULL, "#");
         put(TokenType.END,"#");
     }};
@@ -157,6 +158,8 @@ public class Token {
                 return String.valueOf(getIntValue());
             case REAL_LITERAL:
                 return String.valueOf(getRealValue());
+            case STRING_LITERAL:
+                return "^"+getStringValue();
             case IDENTIFIER:
                 return getStringValue();
             default:
