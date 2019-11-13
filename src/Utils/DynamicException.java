@@ -1,6 +1,7 @@
-package Parser;
+package Utils;
 
 import Window.mainWindow;
+import Parser.Parser;
 
 /**
  * @author knight
@@ -40,6 +41,13 @@ public class DynamicException {
         }
     }
 
+    public class redeclaredIdentifierException extends Exception implements dynamicException{
+        @Override
+        public void errorInfo() {
+            addErrorInfo("在第"+ mainWindow.j+"条指令中，该标识符已存在");
+        }
+    }
+
     public class unInitializedIdentifierException extends Exception implements dynamicException{
         @Override
         public void errorInfo() {
@@ -74,6 +82,28 @@ public class DynamicException {
         @Override
         public void errorInfo() {
             addErrorInfo("解释器停止工作");
+        }
+    }
+
+    public class dismatchFunctionParameter extends Exception implements dynamicException{
+        @Override
+        public void errorInfo() {
+            addErrorInfo("在第"+ mainWindow.j+"条指令中,函数调用中形参类型不匹配");
+        }
+    }
+
+    public class unequalFunctionParameters extends Exception implements dynamicException{
+        @Override
+        public void errorInfo(){
+            addErrorInfo("在第"+ mainWindow.j+"条指令中, 调用参数与声明时数量不匹配");
+        }
+    }
+
+    public class illegalArratSizeException extends Exception implements dynamicException{
+        @Override
+        public void errorInfo() {
+            addErrorInfo("在第"+ mainWindow.j+"条指令中, 数组的长度必须大于0");
+
         }
     }
 

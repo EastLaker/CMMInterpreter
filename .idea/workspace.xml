@@ -2,49 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f7d9c4c1-260f-4538-9797-8ddd6c6aedf4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/richtextfx_fat_0_10_21.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Parser/FunctionType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Parser/LexicalParser.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Parser/Token.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Utils/DataSturcture.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Utils/Regex.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/floatTest.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/fouryuan.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sourceproject.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ElementType/FunctionType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMMInterpreter.iml" beforeDir="false" afterPath="$PROJECT_DIR$/CMMInterpreter.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmm.iml" beforeDir="false" afterPath="$PROJECT_DIR$/cmm.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/SemanticAnalysis.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/richtextfx-fat-0.10.2.jar" beforeDir="false" afterPath="$PROJECT_DIR$/richtextfx-fat-0.10.2.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/A.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/A.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/B.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/B.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/Parser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/Parser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/ArrayType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ElementType/ArrayType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Parser/ClassFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/ClassFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/DynamicException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/DynamicException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/E.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/E.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/DynamicException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/DynamicException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Parser/FourYuan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/FourYuan.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/O.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/O.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/FunctionType.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Parser/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Parser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Register.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Register.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/SemanticAnalysis.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Word.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Word.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Window/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Window/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Window/cmm.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/Window/cmm.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Window/folder.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/Window/folder.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Window/mainWindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/Window/mainWindow.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/Register.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ElementType/Register.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/Word.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ElementType/Word.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utils/DataSturcture.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/DataSturcture.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utils/Regex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/Regex.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Window/mainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Window/mainWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lexical/LexicalParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lexical/LexicalParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lexical/Token.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lexical/Token.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lexical/draft.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/lexical/draft.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sourceCode_1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/sourceCode_1.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sourceCode_2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/sourceCode_2.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test.cmm" beforeDir="false" afterPath="$PROJECT_DIR$/src/test.cmm" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -58,22 +30,24 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="fxml" value="2" />
-          <entry key="java" value="8" />
+          <entry key="java" value="38" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="8" />
+          <entry key="JAVA" value="38" />
           <entry key="XML" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="fxml" value="1" />
+          <entry key="java" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
+          <entry key="JAVA" value="2" />
           <entry key="XML" value="1" />
         </counts>
       </usages-collector>
@@ -82,10 +56,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Parser/ClassFactory.java">
+        <entry file="file://$PROJECT_DIR$/src/Utils/DataSturcture.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1033">
-              <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+            <state relative-caret-position="150">
+              <caret line="14" column="35" lean-forward="true" selection-start-line="14" selection-start-column="35" selection-end-line="14" selection-end-column="35" />
             </state>
           </provider>
         </entry>
@@ -107,13 +81,13 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Window/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="23" column="65" selection-start-line="23" selection-start-column="55" selection-end-line="23" selection-end-column="65" />
+            <state relative-caret-position="228">
+              <caret line="23" column="65" selection-start-line="23" selection-start-column="65" selection-end-line="23" selection-end-column="65" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Window/mainWindow.fxml">
           <provider editor-type-id="JavaFX-Scene-Builder" />
           <provider selected="true" editor-type-id="text-editor">
@@ -126,17 +100,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Window/mainWindow.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="186">
-              <caret line="177" column="29" lean-forward="true" selection-start-line="177" selection-start-column="29" selection-end-line="177" selection-end-column="29" />
+            <state relative-caret-position="3407">
+              <caret line="308" column="12" selection-start-line="308" selection-start-column="12" selection-end-line="308" selection-end-column="12" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Parser/Parser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="116">
-              <caret line="441" column="33" lean-forward="true" selection-start-line="441" selection-start-column="33" selection-end-line="441" selection-end-column="33" />
+            <state relative-caret-position="229">
+              <caret line="759" column="16" selection-start-line="759" selection-start-column="16" selection-end-line="759" selection-end-column="16" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#298#306#0" expanded="true" />
@@ -147,10 +121,7 @@
                 <element signature="e#710#719#0" expanded="true" />
                 <element signature="e#764#772#0" expanded="true" />
                 <element signature="e#972#982#0" expanded="true" />
-                <element signature="method#error_parserE#0;class#Parser#0" />
-                <element signature="method#element_of_array_E#0;class#Parser#0" />
-                <element signature="method#states_push#0;class#Parser#0" />
-                <element signature="e#18466#18474#0" expanded="true" />
+                <element signature="e#18080#18088#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -172,7 +143,21 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ElementType/Word.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="14" column="19" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
+            </state>
+          </provider>
+        </entry>
+      </file>
     </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>非法的语句</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -180,9 +165,10 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/src/Window/mainWindow.fxml" />
+        <option value="$PROJECT_DIR$/src/ElementType/Word.java" />
         <option value="$PROJECT_DIR$/src/Window/mainWindow.java" />
         <option value="$PROJECT_DIR$/src/Parser/Parser.java" />
-        <option value="$PROJECT_DIR$/src/Window/mainWindow.fxml" />
       </list>
     </option>
   </component>
@@ -302,23 +288,22 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="179000" />
+    <option name="totallyTimeSpent" value="821000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="877" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4990619" visible="true" weight="0.19599427" />
-      <window_info id="Structure" order="1" sideWeight="0.50093806" side_tool="true" visible="true" weight="0.19599427" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4980695" visible="true" weight="0.19599427" />
+      <window_info id="Structure" order="1" sideWeight="0.5019305" side_tool="true" weight="0.19599427" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Capture Tool" order="4" />
       <window_info id="UI Designer" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info anchor="bottom" id="Flutter Performance" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3210191" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3210191" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -326,12 +311,10 @@
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.34012738" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" order="10" weight="0.32866243" />
+      <window_info anchor="bottom" id="Messages" order="10" visible="true" weight="0.32866243" />
       <window_info anchor="bottom" id="Database Changes" order="11" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="12" weight="0.3299363" />
-      <window_info anchor="right" id="Flutter Outline" />
-      <window_info anchor="right" id="Maven Projects" />
-      <window_info anchor="right" id="Flutter Inspector" />
+      <window_info anchor="bottom" id="Flutter Performance" order="13" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -342,6 +325,9 @@
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info anchor="right" id="Theme Preview" order="8" />
       <window_info anchor="right" id="RestServices" order="9" />
+      <window_info anchor="right" id="Flutter Inspector" order="10" />
+      <window_info anchor="right" id="Flutter Outline" order="11" />
+      <window_info anchor="right" id="Maven Projects" order="12" />
     </layout>
     <layout-to-restore>
       <window_info id="Designer" order="0" />
@@ -376,21 +362,95 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="9" weight="0.25" />
     </layout-to-restore>
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Parser/Parser.java</url>
+          <line>419</line>
+          <properties />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/Window/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="23" column="65" selection-start-line="23" selection-start-column="65" selection-end-line="23" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Window/mainWindow.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="41" selection-start-line="41" selection-end-line="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Utils/DataSturcture.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="14" column="35" lean-forward="true" selection-start-line="14" selection-start-column="35" selection-end-line="14" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Parser/ClassFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-988">
+          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ElementType/Word.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="14" column="19" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Window/mainWindow.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="177" column="29" lean-forward="true" selection-start-line="177" selection-start-column="29" selection-end-line="177" selection-end-column="29" />
+        <state relative-caret-position="3407">
+          <caret line="308" column="12" selection-start-line="308" selection-start-column="12" selection-end-line="308" selection-end-column="12" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Parser/Parser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="116">
-          <caret line="441" column="33" lean-forward="true" selection-start-line="441" selection-start-column="33" selection-end-line="441" selection-end-column="33" />
+        <state relative-caret-position="229">
+          <caret line="759" column="16" selection-start-line="759" selection-start-column="16" selection-end-line="759" selection-end-column="16" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#298#306#0" expanded="true" />
@@ -401,26 +461,8 @@
             <element signature="e#710#719#0" expanded="true" />
             <element signature="e#764#772#0" expanded="true" />
             <element signature="e#972#982#0" expanded="true" />
-            <element signature="method#error_parserE#0;class#Parser#0" />
-            <element signature="method#element_of_array_E#0;class#Parser#0" />
-            <element signature="method#states_push#0;class#Parser#0" />
-            <element signature="e#18466#18474#0" expanded="true" />
+            <element signature="e#18080#18088#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Window/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="23" column="65" selection-start-line="23" selection-start-column="55" selection-end-line="23" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Window/mainWindow.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="41" selection-start-line="41" selection-end-line="41" />
         </state>
       </provider>
     </entry>
