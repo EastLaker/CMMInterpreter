@@ -1,5 +1,8 @@
-package Parser;
+package ElementType;
 
+
+import Parser.ClassFactory;
+import Utils.DynamicException;
 
 /**
  * @author knight
@@ -8,6 +11,7 @@ package Parser;
  */
 public class ArrayType<T> extends Word<T> {
     private T[] value;
+    private int length;
 
     public ArrayType(T[] array, ClassFactory.TYPE type){
         value = array;
@@ -18,13 +22,13 @@ public class ArrayType<T> extends Word<T> {
 
     public T getValue(int index) throws DynamicException.outOfArrayBoundException {
         if (index < 0 || index > length - 1)
-            throw new DynamicException().new outOfArrayBoundException();/////todo   报错处理
+            throw new DynamicException().new outOfArrayBoundException();
         return value[index];
     }
 
     public void setValue(int index, T v) throws DynamicException.outOfArrayBoundException {
         if (index < 0 || index > length - 1)
-            throw new DynamicException().new outOfArrayBoundException();/////todo   报错处理
+            throw new DynamicException().new outOfArrayBoundException();
         value[index] = v;
     }
 

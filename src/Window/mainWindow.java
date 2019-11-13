@@ -7,6 +7,7 @@ package Window;
 
 
 import Parser.*;
+import Utils.DynamicException;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -46,8 +47,8 @@ import java.util.*;
 import java.lang.*;
 
 import Parser.ClassFactory;
-import Parser.Word;
-import Parser.ArrayType;
+import ElementType.Word;
+import ElementType.ArrayType;
 import org.fxmisc.richtext.model.StyleSpans;
 import org.fxmisc.richtext.model.StyleSpansBuilder;
 import org.reactfx.Subscription;

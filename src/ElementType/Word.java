@@ -1,17 +1,24 @@
-package Parser;
+package ElementType;
+
+import Parser.ClassFactory;
+
+import java.util.LinkedList;
+
 /**
  * @author knight
  */
 public class Word<T> {
-    //地址0x.....
-    public int length;
-    private int des;
-    //类型   int float ......
-    public ClassFactory.TYPE type;
-
+//todo word 的type的识别  可以用int/float.class去识别
     //数据段地址的起始位置，每次声明新的变量往上增长
     private static int des_start = 0x0;
+
+    private int des;
+    private String name;
+    public ClassFactory.TYPE type;
     private T value;
+    private T type1;
+
+    public Word(T type1){this.type1 = type1;}
 
     public Word(){}
 
@@ -22,6 +29,7 @@ public class Word<T> {
     public Word(ClassFactory.TYPE type, T value) {
         this.type = type;
         this.value = value;
+        LinkedList<Integer[]> linkedList = new LinkedList<>();
     }
 
 
@@ -53,9 +61,15 @@ public class Word<T> {
         this.value = value;
     }
 
-    /////转换问题：string与int，float等等转换
-
     public T getValue() {
         return value;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

@@ -1,9 +1,12 @@
 package Parser;
 
+import ElementType.ArrayType;
+import ElementType.Register;
+import ElementType.Word;
+import Utils.DynamicException;
 import Utils.Regex;
 
 import java.util.Arrays;
-import java.util.HashMap;
 
 /**
  * @author knight
@@ -11,8 +14,6 @@ import java.util.HashMap;
  * created
  */
 public class ClassFactory {
-    public static HashMap<String,Word> Wordlist = new HashMap<>();
-    public static HashMap<String,Register> Registers = new HashMap<>();
 
     public enum TYPE{
         INT,  //识别的声明类型 int
@@ -41,6 +42,17 @@ public class ClassFactory {
             default:
                 //todo 添加错误处理
                 return null;
+        }
+    }
+
+    public Word newWordFromStr(String num){
+        switch (getTypeFromNum(num)) {
+            case INT:
+                return new Word<>(TYPE.INT, Integer.parseInt(num));
+            case FLOAT:
+                return new Word<>(TYPE.FLOAT, Float.parseFloat(num));
+            default:
+                throw new IllegalArgumentException("can not match type");
         }
     }
 
@@ -121,6 +133,7 @@ public class ClassFactory {
         }
     }
 
+
     public void setArrayElementValue(ArrayType array, int index, Object value, TYPE type)
             throws DynamicException.outOfArrayBoundException, DynamicException.numberFormatException {
         switch (type){
@@ -136,7 +149,7 @@ public class ClassFactory {
         }
     }
 
-    public Register newRegister(String str) throws DynamicException.defaultException {
+    public Register newRegisterFromStr(String str) throws DynamicException.defaultException {
         switch (getTypeFromNum(str)) {
             case INT:
                 return new Register<>(TYPE.INT, Integer.parseInt(str));
@@ -154,7 +167,20 @@ public class ClassFactory {
             return ClassFactory.TYPE.FLOAT;
         }
         throw new DynamicException().new defaultException("无法解析的数据类型");
+    }
 
+    public TYPE getTypeFromStr(String str){
+        if("int".equals(str.toLowerCase())){
+            return TYPE.INT;
+        }else if("int_array".equals(str.toLowerCase())){
+            return TYPE.INT_ARRAY;
+        }else if("float".equals(str.toLowerCase())){
+            return TYPE.FLOAT;
+        }else if("float_array".equals(str.toLowerCase())){
+            return TYPE.FLOAT_ARRAY;
+        }else{
+            throw new DynamicException().new defaultException("无法解析的数据类型");
+        }
     }
 
     //可以做成不区分大小写
