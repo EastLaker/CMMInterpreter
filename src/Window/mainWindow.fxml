@@ -7,20 +7,20 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Window.mainWindow">
+<AnchorPane fx:id="rootAnchor" prefHeight="600.0" prefWidth="800.0" styleClass="gray-theme" stylesheets="@root.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Window.mainWindow">
    <children>
-      <MenuBar prefHeight="32.0" prefWidth="800.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <MenuBar prefHeight="32.0" prefWidth="800.0" styleClass="btn-radius-large" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#onActionOpenFile" text="OpenFile" />
+                  <MenuItem mnemonicParsing="false" onAction="#onActionSaveFile" text="SaveFile" />
                   <MenuItem mnemonicParsing="false" onAction="#onActionOpenFolder" text="OpenFolder" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">
             <items>
               <MenuItem mnemonicParsing="false" text="Delete" />
-                  <MenuItem mnemonicParsing="false" text="Unspecified Action" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
@@ -30,28 +30,34 @@
           </Menu>
         </menus>
       </MenuBar>
-      <FlowPane layoutY="32.0" prefHeight="38.0" prefWidth="800.0" AnchorPane.topAnchor="32.0">
+      <FlowPane alignment="CENTER_LEFT" layoutY="32.0" prefHeight="38.0" prefWidth="800.0" prefWrapLength="0.0" styleClass="gray-theme" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="32.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#onActionExecute" text="Run" />
+            <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#onActionExecute" stylesheets="@root.css" text="Run">
+               <styleClass>
+                  <String fx:value="green-theme" />
+                  <String fx:value="btn-radius-large" />
+               </styleClass></Button>
+			<Button mnemonicParsing="false" onAction="#onUndo" styleClass="btn-radius-large" text="undo" />
+            <Button mnemonicParsing="false" onAction="#onRedo" styleClass="btn-radius-large" text="redo" />
          </children></FlowPane>
-      <SplitPane dividerPositions="0.17418546365914786" layoutY="69.0" prefHeight="531.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="69.0">
+      <SplitPane dividerPositions="0.17418546365914786" layoutY="69.0" prefHeight="531.0" prefWidth="800.0" styleClass="green-theme" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="69.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <TreeView fx:id="folderView" prefHeight="526.0" prefWidth="132.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <TreeView fx:id="folderView" prefHeight="526.0" prefWidth="132.0" styleClass="green-theme" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children></AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
                   <SplitPane dividerPositions="0.7525252525252525" layoutX="7.0" layoutY="8.0" orientation="VERTICAL" prefHeight="598.0" prefWidth="655.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <items>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" styleClass="green-theme">
                            <children>
                               <TabPane fx:id="codeTabs" layoutX="6.0" prefHeight="446.0" prefWidth="654.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                            </children>
                         </AnchorPane>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="262.0" prefWidth="454.0">
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="262.0" prefWidth="454.0" styleClass="dark-theme">
                            <children>
-                              <ScrollPane prefHeight="126.0" prefWidth="653.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <ScrollPane prefHeight="126.0" prefWidth="653.0" style="-fx-background-color: green;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <content>
                                     <TextFlow fx:id="output" />
                                  </content>

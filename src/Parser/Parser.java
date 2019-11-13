@@ -33,7 +33,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 	public Stack<A> As = new Stack<A>();
 	public Stack<O> Os = new Stack<O>();
 	public List<FourYuan> fours = new ArrayList<FourYuan>();
-    public boolean error = false;//////源程序无错
+    public boolean error = false;//////源程序无错fs96
 	ClassFactory cf = new ClassFactory();
 
 	public  void parserE() {///////////词法分析程序
@@ -306,7 +306,6 @@ public class Parser {//////////////////识别完成token读到的应该是;
 	//L->SL|$
 	//S->a;|{L}|if语句|while语句
 	public void L() {
-
 		if(token.getString().contentEquals("{")||token.getString().equals("if")||token.getString().contentEquals("while")||token.getString().matches(Regex.variPat)||
 		token.getString().matches(Regex.constant)) {
 			parsers.add("L->SL");
