@@ -1,8 +1,9 @@
 .code-area {
     -fx-font-family:'Consolas';
     -fx-font-size:18;
+    -fx-background-color: rgb(43,43,43);
 }
 
 #codeArea .text {
-    -fx-fill: white;
+    -fx-fill: rgb(169,183,198);
 }

@@ -149,7 +149,6 @@ public class mainWindow {
                 }
             }
         });
-        output.setStyle("-fx-font-family:'Consolas';-fx-font-size:18");
     }
 
     private static Stage frame;
@@ -254,7 +253,8 @@ public class mainWindow {
 //        tab.getStyleClass().add("green-theme");
         codeArea = new CodeArea();
         codeArea.replaceText(0, 0, content);
-        codeArea.setStyle("-fx-font-family:'Consolas';-fx-font-size:18");
+        codeArea.setId("codeArea");
+        codeArea.getStylesheets().add(getClass().getResource("codeArea.css").toExternalForm());
 
         // add line numbers to the left of area
         codeArea.setParagraphGraphicFactory(LineNumberFactory.get(codeArea));
@@ -359,6 +359,7 @@ public class mainWindow {
             //todo 将需要输出的内容输出到output中
             Text t = new Text();
             t.setText(output_text.toString());
+            t.setStyle("-fx-fill: rgb(187,187,187)");
             output.getChildren().addAll(t);
         }
     }

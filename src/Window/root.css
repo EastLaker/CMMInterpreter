@@ -5,24 +5,18 @@
 
 /*按钮基础样式*/
 .btn-basic {
-   /*文本对齐方式*/
-   -fx-text-alignment: center;
-   /*合适高度*/
-   -fx-pref-height: 38px;
-   /*内边距*/
-   -fx-padding: 0 18px;
-   /*无边框*/
-   -fx-border-style: none;
-   /*鼠标样式*/
-   -fx-cursor: pointer;
+   -fx-background-insets: 0;
+   -fx-background-color: transparent;
 }
 
 /*鼠标覆盖按钮效果*/
 .btn-basic:hover {
-   /*粗体*/
-   -fx-font-weight: bold;
-   /*透明度*/
-   -fx-opacity: 0.8;
+   -fx-background-color: rgb(76,80,82);
+}
+
+/*鼠标点击按钮效果*/
+.btn-basic:pressed {
+   -fx-background-color: rgb(92,97,100);
 }
 
 /*边框正常弧度按钮*/
@@ -37,159 +31,68 @@
    -fx-background-radius: 50px;
 }
 
-/*默认主题*/
-.default-theme {
-   -fx-background-color: #fff;
-   -fx-border-color: rgb(230, 230, 230);
-   -fx-text-fill: rgb(110, 110, 110);
-}
-/*深灰色主题*/
-.dark-gray-theme {
-   -fx-background-color: rgb(58, 61, 73);
-}
 /*深色主题*/
 .dark-theme {
-   -fx-background-color: rgb(40, 43, 51);
+   -fx-background-color: rgb(60, 63, 65);
+   -fx-border-color: rgb(50,50,50);
 }
-
-/*绿色主题*/
-.green-theme {
-   -fx-background-color: #009688;
-   -fx-text-fill: #fff;
+.menu-button > .label,.menu-item > .label{
+	-fx-text-fill: rgb(187, 187, 187);
 }
-
-/*灰色主题*/
-.gray-theme {
-   -fx-background-color: rgb(210, 210, 210);
-   -fx-text-fill: #fff;
+.menu-bar > .container > .menu-button:showing{
+    -fx-background-color: rgb(75,110,175);
 }
-
-/*警告色主题*/
-.warning-theme {
-   -fx-background-color: rgb(254, 87, 34);
-   -fx-text-fill: #fff;
+.menu-bar > .container > .menu-button:hover{
+    -fx-background-color: rgb(75,110,175);
 }
-
-/*暖色主题*/
-.warm-theme {
-   -fx-background-color: rgb(254, 184, 0);
-   -fx-text-fill: #fff;
+.menu-item {
+	-fx-background-color: rgb(60, 63, 65);
+	-fx-text-fill: rgb(187, 187, 187);
 }
-
-/*蓝色主题*/
-.blue-theme {
-   -fx-background-color: rgb(30, 158, 255);
-   -fx-text-fill: #fff;
+.menu-item:focused {
+    -fx-background-color: rgb(75,110,175);
 }
-
-/*内容盒子样式，设置一下圆角和内边距*/
-.box {
-   -fx-border-color: rgb(162, 162, 162);
-   -fx-border-radius: 5px;
-   -fx-background-radius: 5px;
-   -fx-padding: 5 5 5 5;
+.tree-view {
+	-fx-background-color: rgb(50,50,50);
 }
-
-/*输入框样式*/
-.input-group {
-   /*对齐方式*/
-   -fx-text-alignment: left;
-   /*内容显示方式*/
-   -fx-content-display: inline-block;
-   /*合适高度*/
-   -fx-pref-height: 30px;
-   /*边框色*/
-   -fx-border-color: rgb(230, 230, 230);
-   /*提示文字颜色*/
-   -fx-prompt-text-fill: rgb(162, 162, 162);
-   /*输入文字颜色*/
-   -fx-text-fill: rgb(110, 110, 110);
-   /*边框圆角*/
-   -fx-border-radius: 2px;
-   -fx-background-radius: 2px;
-   /*内边距*/
-   -fx-padding: 5 5 5 5;
-   /*鼠标形状*/
-   -fx-cursor: pointer;
+.tree-cell {
+	-fx-background-color: rgb(60, 63, 65);
+	-fx-text-fill: rgb(187, 187, 187);
 }
-
-/*白色字体*/
-.font-white {
-   -fx-text-fill: #fff;
+.tree-view .corner {
+	-fx-background-color: transparent;
 }
-
-/*灰色字体*/
-.font-gray {
-   -fx-text-fill: rgb(110, 110, 110);
+.tree-cell .tree-disclosure-node .arrow {
+    -fx-background-color: rgb(173,173,173);
 }
-
-/*标题字体*/
-.font-title {
-   -fx-font-size: 18px;
-   -fx-font-weight: bold;
+.tab-pane > .tab-header-area > .tab-header-background {
+	-fx-background-color: rgb(60, 63, 65);
 }
-
-/*复选框样式*/
-.check-box .box {
-   -fx-background-color: #fff;
-   -fx-border-color: rgb(230, 230, 230);
-   -fx-border-radius: 3px;
+.tab {
+	-fx-background-color: rgb(78,82,84);
 }
-
-/*复选框选中后标记的颜色*/
-.check-box:selected .mark {
-   -fx-background-color: #fff;
+.tab:hover {
+	-fx-background-color: rgb(51,53,55);
+	-fx-color : #1a83e1;
 }
-
-/*复选框选中后背景色*/
-.check-box:selected .box {
-   -fx-background-color: rgb(95, 184, 120);
+.tab:selected {
+	-fx-text-fill: rgb(187, 187, 187);
 }
-
-/*单选按钮样式*/
-.radio-button .radio {
-   -fx-background-color: #fff;
-   -fx-border-color: rgb(230, 230, 230);
-   -fx-border-radius: 100;
+.scroll-bar {
+	-fx-background-color: transparent;
 }
-
-/*单选按钮中间点的颜色*/
-.radio-button:selected .dot {
-   -fx-background-color: #fff;
+.scroll-bar .thumb {
+    -fx-background-color: rgb(78,78,78);
 }
-
-/*单选按钮选中后背景色*/
-.radio-button:selected .radio {
-   -fx-background-color: rgb(95, 184, 120);
+.scroll-pane .corner {
+	-fx-background-color: transparent;
 }
-
-/*表格内容居中显示*/
-.table-view .table-column {
-   -fx-alignment: center;
+.split-pane *.split-pane-divider {
+	-fx-background-color: transparent;
+    -fx-padding: 1;
+} 
+.label{
+	-fx-text-fill: rgb(187,187,187);
+	-fx-font-family: 'consolas';
+	-fx-background-color: transparent;
 }
-
-/*左侧导航菜单按钮样式*/
-.menu-btn {
-   -fx-pref-width: 300px;
-   -fx-pref-height: 35px;
-   -fx-background-color: rgb(40, 43, 51);
-   -fx-text-fill: rgb(191, 192, 194);
-}
-
-/*左侧导航菜单按钮鼠标悬停效果*/
-.menu-btn:hover {
-   -fx-background-color: rgb(95, 184, 120);
-   -fx-text-fill: #fff;
-}
-
-/*风琴标题面板字体颜色*/
-.titled-pane {
-   -fx-text-fill: rgb(174, 175, 180);
-}
-
-/*风琴标题面板背景色*/
-.titled-pane > .title {
-   -fx-background-color: rgb(58, 61, 73);
-   -fx-padding: 30 10 10 10;
-}
-
