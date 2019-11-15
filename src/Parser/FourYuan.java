@@ -378,9 +378,7 @@ public class FourYuan {
 			e.errorInfo();
 		} catch (DynamicException.unequalFunctionParameters e) {
 			e.errorInfo();
-		} catch (DynamicException.classCastException e){
-			e.errorInfo();
-		}catch (DynamicException.illegalArratSizeException e){
+		} catch (DynamicException.illegalArratSizeException e){
 			e.errorInfo();
 		}
 	}
@@ -602,11 +600,6 @@ public class FourYuan {
 			throw new DynamicException().new defaultException("找不到寄存器");
 		}
 		return reg;
-	}
-
-
-	private FunctionType checkAndSearchFunction(){
-
 	}
 
 	private Word checkAndSearchField(String name) {
