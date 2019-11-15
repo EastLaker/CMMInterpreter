@@ -84,9 +84,6 @@
 .scroll-bar .thumb {
     -fx-background-color: rgb(78,78,78);
 }
-.scroll-pane .corner {
-	-fx-background-color: transparent;
-}
 .split-pane *.split-pane-divider {
 	-fx-background-color: transparent;
     -fx-padding: 1;

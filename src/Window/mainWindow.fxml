@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TreeView?>
@@ -58,11 +57,7 @@
                       </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="262.0" prefWidth="454.0" styleClass="dark-theme">
                            <children>
-                              <ScrollPane prefHeight="126.0" prefWidth="653.0" style="-fx-background-color: rgb(60,63,65);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <content>
-                                    <TextFlow fx:id="output" prefHeight="125.0" prefWidth="650.0" style="-fx-background-color: rgb(60,63,65);" />
-                                 </content>
-                              </ScrollPane>
+                              <TextFlow fx:id="output" prefHeight="125.0" prefWidth="650.0" style="-fx-background-color: rgb(60,63,65);" />
                            </children>
                       </AnchorPane>
                     </items>
