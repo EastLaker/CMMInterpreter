@@ -602,6 +602,14 @@ public class FourYuan {
 		return reg;
 	}
 
+<<<<<<< HEAD
+=======
+
+	private FunctionType checkAndSearchFunction(){
+		return null;
+	}
+
+>>>>>>> 03592be309d9ad351538f14e9b0163eba00c301a
 	private Word checkAndSearchField(String name) {
 		Word pick = Wordlist.getOrDefault(name,null);
 

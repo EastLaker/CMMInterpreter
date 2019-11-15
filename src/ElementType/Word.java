@@ -12,6 +12,7 @@ public class Word<T> {
     //数据段地址的起始位置，每次声明新的变量往上增长
     private static int des_start = 0x0;
 
+    public int length;
     private int des;
     private String name;
     public ClassFactory.TYPE type;
