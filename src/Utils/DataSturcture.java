@@ -12,6 +12,9 @@ import java.util.*;
  * created
  */
 public class DataSturcture {
+    public static Boolean inMain = false;
+    public static int Main = -1;
+
     public static HashMap<String, Word> Wordlist = new HashMap<>();
     public static HashMap<String, Register> Registers = new HashMap<>();
 

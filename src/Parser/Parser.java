@@ -438,9 +438,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 	// L->SL|$
 	// S->a;|{L}|if语句|while语句
 	public void L(String funcType, String funcName) {
-
 		// 函数类型funcType，函数名funcName
-
 		if(token.getString().contentEquals("return")||token.getString().contentEquals("{")||token.getString().equals("if")||token.getString().contentEquals("while")||token.getString().matches(Regex.variPat)
 				||token.getString().matches(Regex._float)||token.getString().matches(Regex._int)) {
 			parsers.add("L->SL");
@@ -457,12 +455,12 @@ public class Parser {//////////////////识别完成token读到的应该是;
 
 	// 语法分析"单个语句"入口
 	public void S(String funcType, String funcName) {
-
 		// return语句
 		if (token.getString().contentEquals("return")) {
-			if (!funcType.contentEquals("void")) {  // 类型为"int"或"float"，需要进一步读取返回值
-				token = tokens.get(cur++);
-				////TODO 读取后续返回值并存储
+			 // 类型为"int"或"float"，需要进一步读取返回值
+				if (!funcType.contentEquals("void")) {
+					token = tokens.get(cur++);
+				//TODO 读取后续返回值并存储
 				parserE();
 				hadReturn = true;
 			} else {
@@ -473,7 +471,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			} else {
 				errors.add("行"+token.getLine_no()+ ": 缺少';'");
 			}
-			////TODO 扫描完return语句后，应该停止该函数中后续所有的语义动作
+			//TODO 扫描完return语句后，应该停止该函数中后续所有的语义动作
 		}
 		// 复合语句
 		else if(token.getString().contentEquals("{")) {
@@ -488,17 +486,18 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				error = true;
 				errors.add("line :" + token.getLine_no() + "缺少}");
 			}
+
 		}
 		// if语句识别
+
 		else if(token.getString().contentEquals("if")) {
 			parsers.add("S->if语句");
 			token = tokens.get(cur++);//读入
 			if(token.getString().contentEquals("(")) {
 				token=tokens.get(cur++);
 				////识别逻辑表达式B();
-				//TODO 识别逻辑表达式
-				parserB();///////////栈顶一个B，真出口链，假出口链回填
-
+				///////////栈顶一个B，真出口链，假出口链回填
+				parserB();
 				if(token.getString().equals(")")) {
 					token = tokens.get(cur++);
 					B b = Bs.peek();
@@ -508,7 +507,6 @@ public class Parser {//////////////////识别完成token读到的应该是;
 					/*
 					 * {}|a;|if语句|while语句
 					 */
-//<<<<<<< HEAD
 					if(token.getString().equals("else")) {////else分支
 						token = tokens.get(cur++);
 						if (token.getString().equals("if")){////elseif分支
@@ -529,14 +527,6 @@ public class Parser {//////////////////识别完成token读到的应该是;
 							////TODO 回填真出口
 							S(funcType, funcName);
 							fours.get(stru).des = FourYuan.no+"";
-//							//	token = tokens[cur++];
-//=======
-//
-//					if(token.getString().equals("else")) {
-//						token = tokens.get(cur++);
-//						for(int t=0;t<b.falselist.size();t++) {//////回填假出口
-//							fours.get(b.falselist.get(t)).des = FourYuan.no+1+"";
-//>>>>>>> 921d4a48adaf7297bc8214c07d8da258fcbfd569
 						}
 					}
 					else {//////不带else
@@ -562,7 +552,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				int stru = FourYuan.no;
 				/*
 				生成跳转语句返回的地址
-			*/
+				*/
 				parserB();
 				//////逻辑表达式识别!
 				//TODO 识别逻辑表达式
@@ -680,9 +670,9 @@ public class Parser {//////////////////识别完成token读到的应该是;
 		token = tokens.get(cur++);//读入
 		if(token.getString().contentEquals("(")) {
 			token=tokens.get(cur++);
-			// 识别逻辑表达式B();
-			// TODO 识别逻辑表达式
-			parserB();// 栈顶一个B，真出口链，假出口链回填
+
+			//栈顶一个B，真出口链，假出口链回填
+			parserB();
 			if(token.getString().equals(")")) {
 				token = tokens.get(cur++);
 				B b = Bs.peek();
@@ -1035,7 +1025,8 @@ public class Parser {//////////////////识别完成token读到的应该是;
 						B boo = Bs.pop();
 						List list = boo.truelist;
 						boo.truelist = boo.falselist;
-						boo.falselist = list;////////真假出口交换
+						//真假出口交换
+						boo.falselist = list;
 						Bs.push(boo);
 						Symbols.push("B");
 						push_States_B();

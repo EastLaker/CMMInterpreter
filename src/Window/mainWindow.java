@@ -7,6 +7,7 @@ package Window;
 
 
 import Parser.*;
+import Utils.DataSturcture;
 import Utils.DynamicException;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -50,6 +51,7 @@ import java.awt.AWTException;
 import java.awt.Robot;
 
 import static Utils.DataSturcture.Wordlist;
+import static Utils.DataSturcture.inMain;
 
 public class mainWindow {
 
@@ -306,7 +308,9 @@ public class mainWindow {
             FourYuan.no = 0;
             Parser.errors.clear();
             E.reg = 0;
+            DataSturcture.Wordlist.clear();
             Wordlist.clear();
+
             Word.setDes_start(0x0);
             Parser parse = new Parser();///////分析实例
             LexicalParser lexicalParser = new LexicalParser();
@@ -331,11 +335,16 @@ public class mainWindow {
                     output_text.append(i + " " + parse.fours.get(i).get_four_str() + "\n");
                 }
                 try {
-                    for (; j < parse.fours.size(); j++)
+                    for (; j < parse.fours.size(); j++){
+                        if(j==DataSturcture.Main){
+                            inMain = true;
+                        }
                         parse.fours.get(j).Exec();
+                    }
                 } catch (DynamicException.stopMachineException e) {
                     //todo  已退出for循环  还需要添加的工作？
                 }
+
 
                 Set<String> words = Wordlist.keySet();
                 output_text.append("单词表结构：\n");
@@ -351,7 +360,6 @@ public class mainWindow {
                             }
                         }
                     } else
-
                         output_text.append(word + "\t" + Wordlist.get(word).type + "\t" + Wordlist.get(word).getDes() + "\t" + Wordlist.get(word).getValue() + "\n");
 
                 }
