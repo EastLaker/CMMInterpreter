@@ -6,6 +6,7 @@ import ElementType.Register;
 import ElementType.Word;
 import Utils.DynamicException;
 import Utils.Regex;
+import Window.Main;
 import Window.mainWindow;
 import java.util.Stack;
 
@@ -277,6 +278,10 @@ public class FourYuan {
 			else if(this.oprator.contentEquals("{")) {
 				//todo 形如( {,_ , _, des=name or null)
 				//todo  null 则不是函数  非null 要将formalParam的量push, 然后释放 remove All
+				if(!inMain) {
+					FunctionType func = getFunction(this.des);
+					mainWindow.j = func.getRet() - 1;
+				}
 				if (!"_".equals(this.des)) {
 					// 即调用main函数
 					if (TopFunction != null) {
@@ -602,14 +607,6 @@ public class FourYuan {
 		return reg;
 	}
 
-<<<<<<< HEAD
-=======
-
-	private FunctionType checkAndSearchFunction(){
-		return null;
-	}
-
->>>>>>> 03592be309d9ad351538f14e9b0163eba00c301a
 	private Word checkAndSearchField(String name) {
 		Word pick = Wordlist.getOrDefault(name,null);
 
@@ -675,6 +672,4 @@ public class FourYuan {
 			throw new DynamicException().new redeclaredIdentifierException();
 		}
 	}
-
-
 }
