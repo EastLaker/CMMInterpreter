@@ -261,7 +261,7 @@ public class FourYuan {
 				//todo 填入return dest,
 				//todo 跳转到函数语句.
 				//todo 返回值寄存器需要保存在哪里？
-
+ 
 				FunctionType function = getFunction(this.op2);
 				//判断参数数量
 				if(!function.checkNumOfParam()) {
@@ -318,6 +318,7 @@ public class FourYuan {
 				}else{
 					//普通的作用域释放
 					Top = TopFunction.pop();
+
 				}
 			}else if (this.oprator.contentEquals("JMP")) {
 				mainWindow.j = Integer.parseInt(des) - 1;
