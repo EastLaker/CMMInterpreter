@@ -1,4 +1,6 @@
-package Parser;
+package ElementType;
+
+import Parser.ClassFactory;
 
 /**
  * @author knight

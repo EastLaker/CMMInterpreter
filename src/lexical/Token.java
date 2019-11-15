@@ -1,3 +1,4 @@
+
 package lexical;
 
 import java.lang.String;
@@ -159,7 +160,6 @@ public class Token {
             case REAL_LITERAL:
                 return String.valueOf(getRealValue());
             case STRING_LITERAL:
-                return "^"+getStringValue();
             case IDENTIFIER:
                 return getStringValue();
             default:
@@ -167,3 +167,4 @@ public class Token {
         }
     }
 }
+

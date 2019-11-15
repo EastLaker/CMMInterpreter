@@ -7,52 +7,50 @@ package Window;
 
 
 import Parser.*;
+import Utils.DynamicException;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.*;
-
 import javafx.event.EventHandler;
 
-
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import lexical.LexicalParser;
+import lexical.Token;
 import org.fxmisc.flowless.VirtualizedScrollPane;
 import org.fxmisc.richtext.CodeArea;
 import org.fxmisc.richtext.LineNumberFactory;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
-
 import java.time.Duration;
-
 import java.util.*;
 import java.lang.*;
 
 import Parser.ClassFactory;
-import Parser.Word;
-import Parser.ArrayType;
+import ElementType.Word;
+import ElementType.ArrayType;
 import org.fxmisc.richtext.model.StyleSpans;
 import org.fxmisc.richtext.model.StyleSpansBuilder;
 import org.reactfx.Subscription;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import lexical.*;
+
+
+import java.awt.AWTException;
+import java.awt.Robot;
+
 public class mainWindow {
 
     private static final String[] KEYWORDS = new String[] {
@@ -86,7 +84,6 @@ public class mainWindow {
                     + "|(?<COMMENT>" + COMMENT_PATTERN + ")"
     );
 
-
     @FXML
     private TreeView<String> folderView;
 
@@ -102,38 +99,21 @@ public class mainWindow {
     @FXML
     private TextFlow output;
 
-    private CodeArea codeArea;
+    @FXML
+    private AnchorPane rootAnchor;
 
+    private static CodeArea codeArea;
+
+    private String opened_folder_parent;
     private String opened_folder;
+
     public static int j=0;
-    private final Node rootIcon = new ImageView(
-        new Image(getClass().getResourceAsStream("folder.png"))
-    );
 
     @FXML
         // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
-
         codeTabs.getTabs().add(codeTabBuilder("编辑区", ""));
-    }
-
-    private static Stage frame;
-    public void onActionOpenFolder(ActionEvent actionEvent){
-        DirectoryChooser directoryChooser = new DirectoryChooser();
-        directoryChooser.setTitle("Open Source Folder");
-        directoryChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
-        try {
-            File file = directoryChooser.showDialog(frame);
-
-            opened_folder = file.getPath().substring(0,file.getPath().length()-file.getName().length());//选择的文件夹路径
-            FileTreeItem fileTreeItem = new FileTreeItem(file, f -> {
-                File[] allFiles = f.listFiles();
-                File[] directorFiles = f.listFiles(File::isDirectory);
-                List<File> list = new ArrayList<>(Arrays.asList(allFiles));
-                //list.removeAll(Arrays.asList(directorFiles));
-                return list.toArray(new File[list.size()]);
-            });
-//            folderView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+//                folderView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
 //                @Override
 //                public void changed(ObservableValue observable, Object oldValue, Object newValue) {
 //                    TreeItem<String> currentSelectItem = (TreeItem<String>) newValue;
@@ -142,38 +122,63 @@ public class mainWindow {
 //                    }
 //                }
 //            });
-            folderView.setOnMouseClicked(new EventHandler<MouseEvent>()
+        folderView.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent mouseEvent)
             {
-                @Override
-                public void handle(MouseEvent mouseEvent)
+                if(mouseEvent.getClickCount() == 2)
                 {
-                    if(mouseEvent.getClickCount() == 2)
-                    {
-                        TreeItem<String> item = folderView.getSelectionModel().getSelectedItem();
-                        if (item.getValue().matches("(.*.txt)|(.*.cmm)|(.*.c)")) {
-                            try {
-                                String path1 = getTreeItemPath(item);
-                                File file1 = new File(path1);
-                                BufferedReader reader = new BufferedReader(new FileReader(file1));
-                                StringBuilder builder = new StringBuilder();
-                                while (reader.ready()) {
-                                    builder.append(reader.readLine());
-                                    builder.append('\n');
-                                }
-                                String sourceCode = builder.toString();
-                                codeArea.clear();
-                                codeArea.replaceText(0, 0, sourceCode);
+                    TreeItem<String> item = folderView.getSelectionModel().getSelectedItem();
+                    if (item.getValue().matches("(.*.txt)|(.*.cmm)|(.*.c)")) {
+                        try {
+                            String path1 = getTreeItemPath(item);
+                            File file1 = new File(path1);
+                            BufferedReader reader = new BufferedReader(new FileReader(file1));
+                            StringBuilder builder = new StringBuilder();
+                            while (reader.ready()) {
+                                builder.append(reader.readLine());
+                                builder.append('\n');
                             }
-                            catch (IOException e) {
-                                e.printStackTrace();
-                                System.exit(1);
-                            }
+                            String sourceCode = builder.toString();
+                            codeArea.clear();
+                            codeArea.replaceText(0, 0, sourceCode);
+                        }
+                        catch (IOException e) {
+                            e.printStackTrace();
+                            System.exit(1);
                         }
                     }
                 }
-            });
-            folderView.setRoot(fileTreeItem);
-            fileTreeItem.setExpanded(true);
+            }
+        });
+        output.setStyle("-fx-font-family:'Consolas';-fx-font-size:18");
+    }
+
+    private static Stage frame;
+
+    private void OpenFolder(File file){
+        FileTreeItem fileTreeItem = new FileTreeItem(file, f -> {
+            File[] allFiles = f.listFiles();
+            File[] directorFiles = f.listFiles(File::isDirectory);
+            List<File> list = new ArrayList<>(Arrays.asList(allFiles));
+            //list.removeAll(Arrays.asList(directorFiles));
+            return list.toArray(new File[list.size()]);
+        });
+
+        folderView.setRoot(fileTreeItem);
+        fileTreeItem.setExpanded(true);
+    }
+
+    public void onActionOpenFolder(ActionEvent actionEvent){
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setTitle("Open Source Folder");
+        directoryChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
+        try {
+            File file = directoryChooser.showDialog(frame);
+            opened_folder = file.getPath();
+            opened_folder_parent = file.getPath().substring(0,file.getPath().length()-file.getName().length());//选择的文件夹路径
+            OpenFolder(file);
         } finally {
 
         }
@@ -207,13 +212,52 @@ public class mainWindow {
         }
     }
 
+    public void onActionSaveFile(ActionEvent actionEvent){
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save File");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CMM", "*.cmm"));
+        fileChooser.setInitialDirectory(new File(opened_folder));
+        try {
+            File file = fileChooser.showSaveDialog(frame);
+            //String path = file.getPath();//选择的文件夹路径
+            String content = codeArea.getText();
+
+            FileOutputStream fileOutStream=null;
+            if(file!=null) {
+                try {
+                    fileOutStream = new FileOutputStream(file);
+                } catch (FileNotFoundException fe) {
+                    fe.printStackTrace();
+                }
+                try {
+                    fileOutStream.write(content.getBytes());
+                } catch (IOException ioe) {
+                    ioe.printStackTrace();
+                } finally {
+                    try {
+                        if (fileOutStream != null) {
+                            fileOutStream.close();
+                        }
+                    } catch (IOException ioe2) {
+                    }
+                }
+                File currentFolder = new File(opened_folder);
+                OpenFolder(currentFolder);
+            }
+        } finally {
+
+        }
+    }
+
     public Tab codeTabBuilder(String title, String content){
         Tab tab = new Tab();
         tab.setText(title);
         tab.setClosable(true);
+//        tab.getStyleClass().add("green-theme");
         codeArea = new CodeArea();
         codeArea.replaceText(0, 0, content);
-        codeArea.setStyle("-fx-font-family:'Consolas'");
+        codeArea.setStyle("-fx-font-family:'Consolas';-fx-font-size:18");
 
         // add line numbers to the left of area
         codeArea.setParagraphGraphicFactory(LineNumberFactory.get(codeArea));
@@ -248,7 +292,6 @@ public class mainWindow {
         tab.setContent(new VirtualizedScrollPane<>(codeArea));
         String css = getClass().getResource("light.css").toExternalForm();
         codeArea.getStylesheets().add(css);
-
         return tab;
     }
 
@@ -333,7 +376,7 @@ public class mainWindow {
         }
         else {
             StringBuilder builder = new StringBuilder();
-            builder.append(opened_folder);
+            builder.append(opened_folder_parent);
             builder.append(treeItem.getValue());
             return builder.toString();
         }
@@ -360,5 +403,35 @@ public class mainWindow {
         }
         spansBuilder.add(Collections.emptyList(), text.length() - lastKwEnd);
         return spansBuilder.create();
+    }
+	
+    public void onUndo(){
+    	Robot robot;
+		try {
+			robot = new Robot();
+			keyPressWithCtrl(robot, java.awt.event.KeyEvent.VK_Z); 
+		} catch (AWTException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} //创建一个robot对象
+    }
+    
+    public void onRedo() {
+    	Robot robot;
+    	try {
+    		robot = new Robot();
+    		keyPressWithCtrl(robot, java.awt.event.KeyEvent.VK_Y);
+    	} catch (AWTException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	} //创建一个robot对象
+    }
+    
+    public static void keyPressWithCtrl(Robot r, int key) {
+    	codeArea.requestFocus();
+    	r.keyPress(java.awt.event.KeyEvent.VK_CONTROL);
+    	r.keyPress(key);   
+        r.keyRelease(key);  
+        r.keyRelease(java.awt.event.KeyEvent.VK_CONTROL);
     }
 }

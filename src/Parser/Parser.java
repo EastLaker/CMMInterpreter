@@ -1,5 +1,8 @@
 package Parser;
 
+import ElementType.ArrayType;
+import ElementType.Word;
+import Utils.DataSturcture;
 import Utils.Regex;
 
 import java.util.*;
@@ -30,7 +33,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 	public Stack<A> As = new Stack<A>();
 	public Stack<O> Os = new Stack<O>();
 	public List<FourYuan> fours = new ArrayList<FourYuan>();
-    public boolean error = false;//////源程序无错
+    public boolean error = false;//////源程序无错fs96
 	ClassFactory cf = new ClassFactory();
 
 	public  void parserE() {///////////词法分析程序
@@ -309,7 +312,6 @@ public class Parser {//////////////////识别完成token读到的应该是;
 	//L->SL|$
 	//S->a;|{L}|if语句|while语句
 	public void L() {
-
 		if(token.getString().contentEquals("{")||token.getString().equals("if")||token.getString().contentEquals("while")||token.getString().matches(Regex.variPat)||
 		token.getString().matches(Regex.constant)) {
 			parsers.add("L->SL");
@@ -317,7 +319,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			L();
 		}
 
-		else if(token.getString().contentEquals("～")) {
+		else if(token.getString().contentEquals("$")) {
 			parsers.add("L->$");
 			parsers.add("识别结束！程序正确");
 			token = tokens.get(cur++);
@@ -515,7 +517,6 @@ public class Parser {//////////////////识别完成token读到的应该是;
 	}
 
 	private void addWord(String type) {
-
 		if (token.getString().matches(Regex.variPat)) {
 			String name = token.getString();
 			Word word = cf.newWordFromType(type);
@@ -550,9 +551,9 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				array.setDes(start_des);
 
 				Word.getDes_start(size - 1);
-				ClassFactory.Wordlist.remove(name);
+				DataSturcture.Wordlist.remove(name);
 
-				ClassFactory.Wordlist.put(name, array);
+				DataSturcture.Wordlist.put(name, array);
 				token = tokens.get(cur++);
 			}
 
@@ -600,8 +601,8 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				if (!length_determined)
 					Word.getDes_start(j - 1);
 				arrayType.setDes(start_des);
-				ClassFactory.Wordlist.remove(name);
-				ClassFactory.Wordlist.put(name, arrayType);
+				DataSturcture.Wordlist.remove(name);
+				DataSturcture.Wordlist.put(name, arrayType);
 
 				if (!"}".equals(token.getString())) {
 					//todo 错误匹配 数组赋值表达式没有终结符.
@@ -634,11 +635,11 @@ public class Parser {//////////////////识别完成token读到的应该是;
 
 	private boolean putWordIn(Word word) {
 
-		if (ClassFactory.Wordlist.containsKey(token.getString())) {
+		if (DataSturcture.Wordlist.containsKey(token.getString())) {
 			errors.add("same variable exception");
 			return false;
 		} else {
-			ClassFactory.Wordlist.put(token.getString(), word);
+			DataSturcture.Wordlist.put(token.getString(), word);
 			return true;
 		}
 	}
