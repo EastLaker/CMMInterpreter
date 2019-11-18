@@ -7,6 +7,7 @@ package Window;
 
 
 import Parser.*;
+import Utils.DataSturcture;
 import Utils.DynamicException;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -50,6 +51,9 @@ import java.util.regex.Pattern;
 
 import java.awt.AWTException;
 import java.awt.Robot;
+
+import static Utils.DataSturcture.Wordlist;
+import static Utils.DataSturcture.inMain;
 
 public class mainWindow {
 
@@ -307,7 +311,9 @@ public class mainWindow {
             FourYuan.no = 0;
             Parser.errors.clear();
             E.reg = 0;
-            ClassFactory.Wordlist.clear();
+            DataSturcture.Wordlist.clear();
+            Wordlist.clear();
+
             Word.setDes_start(0x0);
             Parser parse = new Parser();///////分析实例
             LexicalParser lexicalParser = new LexicalParser();
@@ -319,7 +325,7 @@ public class mainWindow {
                 parse.tokens.add(token);
             }
             parse.token = parse.tokens.get(parse.cur++);////读入第一个单词
-            parse.L();
+            parse.Program();
             ////测试
             StringBuilder output_text = new StringBuilder();
             if(parse.error){
@@ -332,28 +338,32 @@ public class mainWindow {
                     output_text.append(i + " " + parse.fours.get(i).get_four_str() + "\n");
                 }
                 try {
-                    for (; j < parse.fours.size(); j++)
+                    for (; j < parse.fours.size(); j++){
+                        if(j==DataSturcture.Main){
+                            inMain = true;
+                        }
                         parse.fours.get(j).Exec();
+                    }
                 } catch (DynamicException.stopMachineException e) {
                     //todo  已退出for循环  还需要添加的工作？
                 }
 
-                Set<String> words = ClassFactory.Wordlist.keySet();
+
+                Set<String> words = Wordlist.keySet();
                 output_text.append("单词表结构：\n");
                 output_text.append("变量名\t变量类型\t变量地址\t变量值\n");
                 for (String word : words) {
-                    if (ClassFactory.Wordlist.get(word) instanceof ArrayType) {
+                    if (Wordlist.get(word) instanceof ArrayType) {
                         /////是个数组元素
-                        for (int i = 0; i < ClassFactory.Wordlist.get(word).length; i++) {
+                        for (int i = 0; i < Wordlist.get(word).length; i++) {
                             try {
-                                output_text.append(word + "[" + i + "]\t" + ClassFactory.Wordlist.get(word).type + "\t" + (ClassFactory.Wordlist.get(word).getDes() + i * 4) + "\t"
-                                        + ((ArrayType) ClassFactory.Wordlist.get(word)).getValue(i) + "\n");
+                                output_text.append(word + "[" + i + "]\t" + Wordlist.get(word).type + "\t" + (Wordlist.get(word).getDes() + i * 4) + "\t"
+                                        + ((ArrayType) Wordlist.get(word)).getValue(i) + "\n");
                             } catch (Exception e) {
                             }
                         }
                     } else
-
-                        output_text.append(word + "\t" + ClassFactory.Wordlist.get(word).type + "\t" + ClassFactory.Wordlist.get(word).getDes() + "\t" + ClassFactory.Wordlist.get(word).getValue() + "\n");
+                        output_text.append(word + "\t" + Wordlist.get(word).type + "\t" + Wordlist.get(word).getDes() + "\t" + Wordlist.get(word).getValue() + "\n");
 
                 }
                 for (int i = 0; i < Parser.errors.size(); i++)

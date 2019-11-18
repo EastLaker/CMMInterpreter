@@ -56,7 +56,6 @@ public class ClassFactory {
         }
     }
 
-
     public ArrayType newArrayFromType(String str, int length) throws DynamicException.defaultException {
 
         switch (getTypeFromType(str)){
