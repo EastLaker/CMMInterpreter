@@ -26,7 +26,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 	public Token token = null;//读入的词
 	public int cur = 0;///用于遍历词法分析的词
 	public Stack<Integer> states = new Stack<Integer>();/////状态栈------用于赋值表达式的检测
-	public Stack<String> symbols = new Stack<String>();/////符号栈----------用于赋值表达式的检测
+	public Stack<String> symbols = new Stack<String>();/////符号栈------用于赋值表达式的检测
 	public Stack<Integer> States = new Stack<Integer>();
 	public Stack<String> Symbols = new Stack<String>();
 	public Stack<E> Es = new Stack<E>();
@@ -384,7 +384,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			String NAME = token.getString();    // NAME指代函数名称
 			token = tokens.get(cur + 1);    // token此时需指向"形参"的首个单词
 			cur += 2;
-			Parameter(NAME);    // 读取函数形餐
+			Parameter(NAME);    // 读取函数形参
 			if (token.getString().contentEquals("{")) { // 进入"函数体"部分
 				token = tokens.get(cur++);
 				hadReturn = type.contentEquals("void");
@@ -473,7 +473,8 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			}
 			//TODO 扫描完return语句后，应该停止该函数中后续所有的语义动作
 		}
-		else if(token.getString().contentEquals("{")) {//复合语句
+		// 复合语句
+		else if(token.getString().contentEquals("{")) {
 			parsers.add("S->{L}");
 			token = tokens.get(cur++);
 			L(funcType, funcName);
@@ -485,7 +486,10 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				error = true;
 				errors.add("line :" + token.getLine_no() + "缺少}");
 			}
-		}/////复合语句
+
+		}
+		// if语句识别
+
 		else if(token.getString().contentEquals("if")) {
 			parsers.add("S->if语句");
 			token = tokens.get(cur++);//读入
@@ -504,7 +508,8 @@ public class Parser {//////////////////识别完成token读到的应该是;
 					 * {}|a;|if语句|while语句
 					 */
 					if(token.getString().equals("else")) {////else分支
-						if (tokens.get(cur++).getString().equals("if")){////elseif分支
+						token = tokens.get(cur++);
+						if (token.getString().equals("if")){////elseif分支
 							Elseif(funcType, funcName);
 						}
 						else{
@@ -538,6 +543,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				System.out.println("(");
 			}
 		}
+		// while语句
 		else if("while".equals(token.getString())) {
 			parsers.add("S->while语句");
 			token = tokens.get(cur++);
@@ -572,16 +578,17 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			else
 				System.out.println("缺少（");
 		}
-
+		// 变量声明
 		else if(token.getString().contentEquals("int")||token.getString().contentEquals("float")) {
 			///TODO  建立单词表
 			String type = token.getString();
 			token = tokens.get(cur++);
 			addWord(type);
 		}
+		// 函数调用或赋值语句
 		else if(token.getString().matches(Regex.variPat)) {
-
-			if (tokens.get(cur).getString().contentEquals("(")){  // 函数调用语句
+			// 函数调用语句
+			if (tokens.get(cur).getString().contentEquals("(")){
 				String function = token.getString();  // "function"为函数名
 				token = tokens.get(cur++);
 				List<String> parameters = new ArrayList<String>();  // 形参表
@@ -603,7 +610,9 @@ public class Parser {//////////////////识别完成token读到的应该是;
 					else errors.add("行"+token.getLine_no()+ ": 缺少';'");
 				}
 				else errors.add("行"+token.getLine_no()+ ": 缺少')'");
-			} else {  // 赋值语句
+			}
+			// 赋值语句
+			else {
 				FourYuan four = new FourYuan();
 				parsers.add("S->a;");
 				String des = token.getString();
@@ -643,6 +652,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			}
 
 		}
+		// 常变量声明
 		else if(token.getString().matches(Regex.constant)){
 			String s = token.getString();
 			int no = token.getLine_no();
@@ -654,12 +664,13 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				token = tokens.get(cur++);
 		}
 	}
-
+	// 语法分析"else if"语句
 	private void Elseif(String funcType, String funcName){
 		parsers.add("S->else if语句");
 		token = tokens.get(cur++);//读入
 		if(token.getString().contentEquals("(")) {
 			token=tokens.get(cur++);
+
 			//栈顶一个B，真出口链，假出口链回填
 			parserB();
 			if(token.getString().equals(")")) {
@@ -673,7 +684,8 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				 */
 				//token = tokens.get(cur++);
 				if (token.getString().equals("else")){
-					if (tokens.get(cur++).getString().equals("if")){
+					token = tokens.get(cur++);
+					if (token.getString().equals("if")){
 						Elseif(funcType, funcName);
 					}
 					else {
@@ -692,9 +704,6 @@ public class Parser {//////////////////识别完成token读到的应该是;
 						S(funcType, funcName);
 						fours.get(stru).des = FourYuan.no+"";
 					}
-				}
-				else {//////有elseif却没有else
-					System.out.println("缺少else语句！");
 				}
 			}
 			else {
@@ -804,7 +813,6 @@ public class Parser {//////////////////识别完成token读到的应该是;
 		}
 	}
 
-
 	private void to_assign(String name) {
 
 		if("=".equals(token.getString())){
@@ -823,7 +831,6 @@ public class Parser {//////////////////识别完成token读到的应该是;
 		}
 	}
 
-
 	private boolean putWordIn(Word word) {
 
 		if (Wordlist.containsKey(token.getString())) {
@@ -835,6 +842,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 		}
 	}
 
+	//语句识别"声明语句"
 	void T(String type) {
 		///TODO   声明语句
 
@@ -847,7 +855,9 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			addWord(type);
 		}
 	}
-	void parserB() {/////布尔表达式
+
+	//语句识别"布尔表达式"
+	void parserB() {
 		States.push(0);
 		boolean b = true;
 		while(b) {
@@ -1233,6 +1243,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			}
 		}
 	}
+
 	private void push_States_O() {
 		switch(States.peek()) {
 			case 0:
