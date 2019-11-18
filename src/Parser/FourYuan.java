@@ -26,9 +26,6 @@ public class FourYuan {
 	public String op2;//第二个源操作数
 	public String des;//1⃣️存放中间变量（算术指令）2⃣️地址出口（跳转指令）
 
-	private final int FLOAT = 1;
-	private final int INT = 0;
-
 	public enum TokenType {
 		CONST,
 		REGISTER,
@@ -411,7 +408,6 @@ public class FourYuan {
 				throw new DynamicException().new numberFormatException();
 			default:
 				throw new DynamicException().new numberFormatException();
-
 		}
 	}
 
