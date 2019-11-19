@@ -6,11 +6,10 @@ import ElementType.Register;
 import ElementType.Word;
 import Utils.DynamicException;
 import Utils.Regex;
-import Window.Main;
 import Window.mainWindow;
 import java.util.Stack;
 
-import static Utils.DataSturcture.*;
+import static Utils.DataStructure.*;
 
 /**
  * @author knight

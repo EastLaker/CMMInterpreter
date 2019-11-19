@@ -7,7 +7,7 @@ package Window;
 
 
 import Parser.*;
-import Utils.DataSturcture;
+import Utils.DataStructure;
 import Utils.DynamicException;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -37,7 +37,6 @@ import java.time.Duration;
 import java.util.*;
 import java.lang.*;
 
-import Parser.ClassFactory;
 import ElementType.Word;
 import ElementType.ArrayType;
 import org.fxmisc.richtext.model.StyleSpans;
@@ -50,8 +49,8 @@ import java.util.regex.Pattern;
 import java.awt.AWTException;
 import java.awt.Robot;
 
-import static Utils.DataSturcture.Wordlist;
-import static Utils.DataSturcture.inMain;
+import static Utils.DataStructure.Wordlist;
+import static Utils.DataStructure.inMain;
 
 public class mainWindow {
 
@@ -308,7 +307,7 @@ public class mainWindow {
             FourYuan.no = 0;
             Parser.errors.clear();
             E.reg = 0;
-            DataSturcture.Wordlist.clear();
+            DataStructure.Wordlist.clear();
             Wordlist.clear();
 
             Word.setDes_start(0x0);
@@ -336,7 +335,7 @@ public class mainWindow {
                 }
                 try {
                     for (; j < parse.fours.size(); j++){
-                        if(j==DataSturcture.Main){
+                        if(j== DataStructure.Main){
                             inMain = true;
                         }
                         parse.fours.get(j).Exec();

@@ -7,7 +7,7 @@ import lexical.Token;
 
 import java.util.*;
 
-import static Utils.DataSturcture.*;
+import static Utils.DataStructure.*;
 
 /**
  * @author lfz
@@ -716,7 +716,6 @@ public class Parser {//////////////////识别完成token读到的应该是;
 	}
 
 	private void addWord(String type) {
-
 		if (token.getString().matches(Regex.variPat)) {
 			String name = token.getString();
 			Word word = cf.newWordFromType(type);
