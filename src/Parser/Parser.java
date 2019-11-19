@@ -2,13 +2,13 @@ package Parser;
 
 import ElementType.ArrayType;
 import ElementType.Word;
+import Utils.DataStructure;
 import Utils.Regex;
-import lexical.Token;
-
+import Window.mainWindow;
 import java.util.*;
 
+import lexical.*;
 import static Utils.DataStructure.*;
-
 /**
  * @author lfz
  */
@@ -21,6 +21,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 	//4)E->id
 	public static List<String> errors = new ArrayList<String>();
 	public List<String> parsers = new ArrayList<String>();
+	public static List<String> Console = new ArrayList<String>();
 
 	public List<Token>  tokens = new ArrayList<Token>();/////用于存放词法分析的结果   测试
 	public Token token = null;//读入的词
@@ -61,7 +62,6 @@ public class Parser {//////////////////识别完成token读到的应该是;
 
 					else
 						b = error_parserE();
-
 					break;
 				case 1:
 					if(token.getString().contentEquals("+")||token.getString().contentEquals("-")) {
@@ -78,7 +78,8 @@ public class Parser {//////////////////识别完成token读到的应该是;
 
 					else if(token.getString().contentEquals(";")||token.getString().contentEquals(",")||token.getString().contentEquals("}")||token.getString().contentEquals("]")
 					||token.getString().contentEquals("<")||token.getString().contentEquals(">")||token.getString().contentEquals(">=")||token.getString().contentEquals("<=")||
-					token.getString().contentEquals("==")||token.getString().contentEquals("!=")||token.getString().contentEquals(")")) {
+					token.getString().contentEquals("==")||token.getString().contentEquals("!=")||token.getString().contentEquals(")")
+					||token.getString().contentEquals("&&")||token.getString().contentEquals("||")) {
 						for(int i = 0; i <2 ;i++)
 							states.pop();
 						symbols.pop();
@@ -94,7 +95,8 @@ public class Parser {//////////////////识别完成token读到的应该是;
 							token.getString().equals("/")||token.getString().contentEquals(")")||token.getString().equals(";")||
 							token.getString().equals(",")||token.getString().equals("}")||token.getString().equals("]")
 							||token.getString().equals("<")||token.getString().equals(">")||token.getString().equals(">=")||token.getString().equals("<=")||
-							token.getString().equals("==")||token.getString().equals("!=")){
+							token.getString().equals("==")||token.getString().equals("!=")||token.getString().contentEquals("&&")||
+					token.getString().contentEquals("||")){
 						parsers.add("E->id");
 						E e = new E();
 						e.des = symbols.pop();//出栈一个id
@@ -153,7 +155,8 @@ public class Parser {//////////////////识别完成token读到的应该是;
 					if(token.getString().equals("+")||token.getString().equals("-")||token.getString().equals(")")||token.getString().equals(";")||token.getString().equals(",")||
 							token.getString().equals("}")||token.getString().equals("]")
 							||token.getString().equals("<")||token.getString().equals(">")||token.getString().equals(">=")||token.getString().equals("<=")||
-							token.getString().equals("==")||token.getString().equals("!=")){
+							token.getString().equals("==")||token.getString().equals("!=")
+					||token.getString().contentEquals("&&")||token.getString().contentEquals("||")){
 						//r1规约
 						parsers.add("E->E+E/E-E");
 						for(int i=0;i<3;i++) {
@@ -191,7 +194,8 @@ public class Parser {//////////////////识别完成token读到的应该是;
 							token.getString().equals("/")||token.getString().equals(")")||token.getString().contentEquals(";")
 							||token.getString().equals(",")||token.getString().equals("}")||token.getString().equals("]")
 							||token.getString().equals("<")||token.getString().equals(">")||token.getString().equals(">=")||token.getString().equals("<=")||
-							token.getString().equals("==")||token.getString().equals("!=")) {
+							token.getString().equals("==")||token.getString().equals("!=")
+					||token.getString().contentEquals("&&")||token.getString().contentEquals("||")) {
 						//r2规约
 						parsers.add("E->E*E /  E/E");
 						for(int i=0;i<3;i++) {
@@ -223,7 +227,8 @@ public class Parser {//////////////////识别完成token读到的应该是;
 							token.getString().contentEquals("/")||token.getString().equals(")")||token.getString().contentEquals(";")||
 							token.getString().equals(",")||token.getString().equals("}")||token.getString().equals("]")
 							||token.getString().equals("<")||token.getString().equals(">")||token.getString().equals(">=")||token.getString().equals("<=")||
-							token.getString().equals("==")||token.getString().equals("!=")) {
+							token.getString().equals("==")||token.getString().equals("!=")
+					||token.getString().contentEquals("&&")||token.getString().contentEquals("||")) {
 						//r3规约
 						parsers.add("E->(E)");
 						for(int i=0;i<3;i++) {
@@ -250,7 +255,8 @@ public class Parser {//////////////////识别完成token读到的应该是;
 		errors.add("line :" + token.getLine_no() + "  错误输入   "+token.getString());
 		while(!(token.getString().contentEquals(";")||token.getString().contentEquals(",")||token.getString().contentEquals("}")||token.getString().contentEquals("]")
 				||token.getString().contentEquals("<")||token.getString().contentEquals(">")||token.getString().contentEquals(">=")||token.getString().contentEquals("<=")||
-				token.getString().contentEquals("==")||token.getString().contentEquals("!=")||token.getString().contentEquals(")")))
+				token.getString().contentEquals("==")||token.getString().contentEquals("!=")||token.getString().contentEquals(")")
+		||token.getString().contentEquals("&&")||token.getString().contentEquals("||")))
 			token = tokens.get(cur++);///todo 退出本次语法分析程序
 		return b;
 	}
@@ -307,6 +313,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 	}
 
 
+
 	// 语法分析"程序"入口
 	// Program -> Block Program | #
 	public void Program() {
@@ -318,6 +325,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 		else if(token.getString().contentEquals("#")) {
 			parsers.add("Program -> #");
 			parsers.add("识别结束！程序正确");
+			token = tokens.get(cur++);
 		}
 		else {
 			errors.add("行"+token.getLine_no()+ ": 非法的语句开始");
@@ -381,15 +389,40 @@ public class Parser {//////////////////识别完成token读到的应该是;
 	// 语法分析"函数"入口
 	private void Function(String type) {
 		if (token.getString().matches(Regex.variPat)) {
-			String NAME = token.getString();    // NAME指代函数名称
+			String NAME = token.getString();// NAME指代函数名称
+			if(NAME.contentEquals("main"))
+				DataStructure.Main = FourYuan.no;
+			int no_df_statement = FourYuan.no;
+			FourYuan fourYuan = new FourYuan();
+			fourYuan.oprator = "df";
+			fourYuan.op1 = type;
+			fourYuan.op2 = NAME;
+			fourYuan.des = null;
+			fours.add(fourYuan);
+			FourYuan.no++;
 			token = tokens.get(cur + 1);    // token此时需指向"形参"的首个单词
 			cur += 2;
 			Parameter(NAME);    // 读取函数形参
 			if (token.getString().contentEquals("{")) { // 进入"函数体"部分
+				fours.get(no_df_statement).des = FourYuan.no + "";
+				FourYuan fourYuan1 = new FourYuan();
+				fourYuan1.oprator = "{";
+				fourYuan1.op1 = "_";
+				fourYuan1.op2 = "_";
+				fourYuan1.des = NAME;
+				fours.add(fourYuan1);
+				FourYuan.no++;
 				token = tokens.get(cur++);
 				hadReturn = type.contentEquals("void");
 				L(type, NAME);
 				if (token.getString().contentEquals("}")) {
+					FourYuan fourYuan2 = new FourYuan();
+					fourYuan2.oprator = "}";
+					fourYuan2.op1 = "_";
+					fourYuan2.op2 = "_";
+					fourYuan2.des = NAME;
+					fours.add(fourYuan2);
+					FourYuan.no++;
 					if (!hadReturn) {
 						errors.add("行"+token.getLine_no()+ ": 函数缺少返回值");
 					}
@@ -416,6 +449,13 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				String parName = token.getString();
 				////TODO 函数名funcName,形参类型type,形参名parName,插入语义动作
 				token = tokens.get(cur++);
+				FourYuan fourYuan = new FourYuan();
+				fourYuan.oprator = "dp";
+				fourYuan.op1 = type;
+				fourYuan.op2 = "_";
+				fourYuan.des = funcName;
+				fours.add(fourYuan);
+				FourYuan.no++;
 				if (token.getString().contentEquals(",")) {  // 继续读取下一个形参
 					token = tokens.get(cur++);
 					Parameter(funcName);
@@ -462,8 +502,12 @@ public class Parser {//////////////////识别完成token读到的应该是;
 					token = tokens.get(cur++);
 				//TODO 读取后续返回值并存储
 				parserE();
-				hadReturn = true;
+				DataStructure.rax.setValue(Es.peek().des);
+					Ret_addr();
+					hadReturn = true;
 			} else {
+					DataStructure.rax.setValue(null);
+					Ret_addr();
 				token = tokens.get(cur++);
 			}
 			if (token.getString().contentEquals(";")){
@@ -475,10 +519,24 @@ public class Parser {//////////////////识别完成token读到的应该是;
 		}
 		// 复合语句
 		else if(token.getString().contentEquals("{")) {
+			FourYuan fourYuan = new FourYuan();
+			fourYuan.op1 = "_";
+			fourYuan.op2 = "_";
+			fourYuan.des = null;
+			fourYuan.oprator = "{";
+			fours.add(fourYuan);
+			FourYuan.no++;
 			parsers.add("S->{L}");
 			token = tokens.get(cur++);
 			L(funcType, funcName);
 			if(token.getString().contentEquals("}")) {
+				FourYuan fourYuan1 = new FourYuan();
+				fourYuan1.oprator = "}";
+				fourYuan1.op1 = "_";
+				fourYuan1.op2 = "_";
+				fourYuan1.des = null;
+				fours.add(fourYuan1);
+				FourYuan.no++;
 				token = tokens.get(cur++);
 			}
 			else
@@ -486,11 +544,41 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				error = true;
 				errors.add("line :" + token.getLine_no() + "缺少}");
 			}
+		}/////复合语句
+		else if(token.getString().contentEquals("write")){
+			token = tokens.get(cur++);
+			if(token.getString().contentEquals("(")){
+				token = tokens.get(cur++);
+				if(token.getString().matches(Regex._string)){
+					Console.add(token.getString().substring(1));
+					token = tokens.get(cur++);
+					if(token.getString().contentEquals(")")){
+					    System.out.println("识别右括号");
+						token = tokens.get(cur++);
+						if(token.getString().contentEquals(";"))
+							token = tokens.get(cur++);
+					}
+				}
+				else if(token.getString().matches(Regex.variPat)){
+					parserE();
+					FourYuan four = new FourYuan();
+					four.oprator = "WRI";
+					four.op1 = null;
+					four.op2 = null;
+					four.des = Es.peek().des;
+					fours.add(four);
+					FourYuan.no++;
+					if(token.getString().contentEquals(")")){
+						token = tokens.get(cur++);
+						if(token.getString().contentEquals(";"))
+							token = tokens.get(cur++);
+					}
+				}
 
+
+			}
 		}
-		// if语句识别
-
-		else if(token.getString().contentEquals("if")) {
+		else if(token.getString().contentEquals("if")) {////if语句识别
 			parsers.add("S->if语句");
 			token = tokens.get(cur++);//读入
 			if(token.getString().contentEquals("(")) {
@@ -531,8 +619,11 @@ public class Parser {//////////////////识别完成token读到的应该是;
 					}
 					else {//////不带else
 						////回填假出口
-						for(int j=0;j<b.falselist.size();j++)
-							fours.get(b.falselist.get(j)).des = FourYuan.no+"";
+						while(fours.get(b.falselist.get(0)).des == null ) {
+							for (int j = 0; j < b.falselist.size(); j++)
+								fours.get(b.falselist.get(j)).des = FourYuan.no + "";
+							b = Bs.pop();
+						}
 					}
 				}
 				else {
@@ -583,24 +674,45 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			///TODO  建立单词表
 			String type = token.getString();
 			token = tokens.get(cur++);
-			addWord(type);
+			addWord1(type);
 		}
 		// 函数调用或赋值语句
 		else if(token.getString().matches(Regex.variPat)) {
 			// 函数调用语句
 			if (tokens.get(cur).getString().contentEquals("(")){
 				String function = token.getString();  // "function"为函数名
-				token = tokens.get(cur++);
+				token = tokens.get(cur++);////此时token应该为左括号
 				List<String> parameters = new ArrayList<String>();  // 形参表
 				do {
 
 					token = tokens.get(cur++);
+					parserE();
 					if (!token.getString().contentEquals(")")) {
-						parameters.add(token.getString());  // token加入形参
+						parameters.add(Es.peek().des);  // token加入形参
 					}
 
 					token = tokens.get(cur++);
 				} while (token.getString().contentEquals(","));
+				///此时token应该为右括号
+				///生成跳转语句
+				for(String parameter : parameters){
+					FourYuan fourYuan = new FourYuan();
+					fourYuan.oprator = "sp";
+					fourYuan.op1 = parameter;
+					fourYuan.op2 = "_";
+					fourYuan.des = function;
+					fours.add(fourYuan);
+					FourYuan.no++;
+
+				}
+				FourYuan four = new FourYuan();
+				four.oprator = "cal";
+				four.op2 = function;
+				four.op1 = "_";
+				four.des = "_";
+				fours.add(four);
+				FourYuan.no++;
+				DataStructure.Ret = mainWindow.j + 1;
 				if (token.getString().contentEquals(")")) {
 					token = tokens.get(cur++);
 					if (token.getString().contentEquals(";")) {
@@ -664,6 +776,17 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				token = tokens.get(cur++);
 		}
 	}
+
+	private void Ret_addr() {
+		FourYuan four = new FourYuan();
+		four.oprator = "JMP";
+		four.op1 = "_";
+		four.op2 = "_";
+		four.des = DataStructure.Ret + "";
+		FourYuan.no++;
+		fours.add(four);
+	}
+
 	// 语法分析"else if"语句
 	private void Elseif(String funcType, String funcName){
 		parsers.add("S->else if语句");
@@ -675,7 +798,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			parserB();
 			if(token.getString().equals(")")) {
 				token = tokens.get(cur++);
-				B b = Bs.peek();
+				B b = Bs.pop();
 				for(int i=0;i<b.truelist.size();i++)
 					fours.get(b.truelist.get(i)).des = FourYuan.no+"";////回填真出口
 				S(funcType, funcName);/////if只有一条语句
@@ -689,8 +812,10 @@ public class Parser {//////////////////识别完成token读到的应该是;
 						Elseif(funcType, funcName);
 					}
 					else {
-						for(int t=0;t<b.falselist.size();t++) {//////回填假出口
-							fours.get(b.falselist.get(t)).des = FourYuan.no+1+"";
+						while(fours.get(b.falselist.get(0)).des==null){////////没有回填假出口的指令
+							for(int t = 0;t<b.falselist.size();t++)
+								fours.get(b.falselist.get(t)).des = FourYuan.no+1+"";
+							b = Bs.pop();
 						}
 						int stru = FourYuan.no;
 						FourYuan four = new FourYuan();
@@ -732,7 +857,106 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			T(type);
 		}
 	}
-
+private void addWord1(String type){
+		String name = token.getString();///name 为变量名或数组名
+	    if(tokens.get(cur).getString().contentEquals("[")){//////预读一个字符为[  是个数组的声明
+	    	token = tokens.get(cur++);///此时token 应该为[
+			if(token.getString().contentEquals("[")){
+				boolean length_determined = false;
+				int size = 0;
+				token = tokens.get(cur++);
+				int no_of_declare_statement = FourYuan.no;/////声明这个赋值语句的序号
+				if(token.getString().matches(Regex.positiveInt)){
+					length_determined = true;
+					size = Integer.parseInt(token.getString());
+					FourYuan fourYuan = new FourYuan();
+					fourYuan.oprator = "da";
+					fourYuan.op1 = size+"";
+					fourYuan.op2 = type;
+					fourYuan.des = name;
+					fours.add(fourYuan);
+					FourYuan.no++;
+					token = tokens.get(cur++);
+				}
+				else if(token.getString().contentEquals("]")){
+					FourYuan fourYuan = new FourYuan();
+					fourYuan.oprator = "da";
+					fourYuan.op1 = null;
+					fourYuan.op2 = type;
+					fourYuan.des = name;
+					fours.add(fourYuan);
+					FourYuan.no++;
+				}
+				if(!"]".contentEquals(token.getString())){
+					error = true;
+					errors.add("line :" +token.getLine_no()+"   缺少]\n");
+					return;
+				}
+				else token = tokens.get(cur++);
+				if(token.getString().contentEquals("=")){//////数组元素需要初始化
+					token = tokens.get(cur++);
+					if((token.getString().matches(Regex.constant)||token.getString().matches(Regex.variPat))&&length_determined){
+						parserE();
+						for(int i = 0;i<size;i++){
+							FourYuan fourYuan = new FourYuan();
+							fourYuan.oprator = "$";
+							fourYuan.des = Es.peek().des;
+							fourYuan.op1 = name;
+							fourYuan.op2 = i + "";
+						}
+					}
+					else if(token.getString().contentEquals("{")){
+						int j = 0;
+						token = tokens.get(cur++);///////////////////////////////////////////////////////////////
+						while(token.getString().matches(Regex.variPat)||token.getString().matches(Regex.constant)){
+							parserE();
+							FourYuan fourYuan = new FourYuan();
+							fourYuan.oprator = "$";
+							fourYuan.des = Es.peek().des;
+							fourYuan.op1 = name;
+							fourYuan.op1 = j + "";
+							fours.add(fourYuan);
+							FourYuan.no++;
+							j++;
+							if(token.getString().contentEquals(","))
+								token = tokens.get(cur++);
+							else break;
+						}
+						if(fours.get(no_of_declare_statement).oprator.contentEquals("da")&&!length_determined){
+							fours.get(no_of_declare_statement).op1 = j + "";/////回填声明数组大小
+						}
+					}
+				}
+			}
+		}
+	    else{
+	    	/////普通变量  不是数组
+			int no_of_dw_statement = FourYuan.no;
+			FourYuan fourYuan = new FourYuan();
+			fourYuan.oprator = "dw";
+			fourYuan.des = name;
+			fourYuan.op2 = type;
+			fourYuan.op1 = null;
+			fours.add(fourYuan);
+			FourYuan.no++;
+            token = tokens.get(cur++);
+            if(token.getString().contentEquals("=")){
+            	token = tokens.get(cur++);
+            	parserE();
+            	fours.get(no_of_dw_statement).op1 = Es.peek().des;
+			}
+            T1(type);
+		}
+}
+private void T1(String type){
+		if(token.getString().contentEquals(";")){
+			token = tokens.get(cur++);
+		}
+		else if(token.getString().contentEquals(",")){
+			token = tokens.get(cur++);
+			addWord1(type);
+		}
+}
 	private void is_Array(String type, String name, int start_des) {
 		int size = 0;//数组大小
 
@@ -750,6 +974,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				array.setDes(start_des);
 
 				Word.getDes_start(size - 1);
+
 				Wordlist.remove(name);
 
 				Wordlist.put(name, array);
@@ -765,7 +990,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				ArrayList<Number> var_array = new ArrayList<>();
 				int j = 0;
 				token = tokens.get(cur++);
-				while (token.getString().matches(Regex.constant)||token.getString().matches(Regex.regPat)) {
+				while (token.getString().matches(Regex.constant)||token.getString().matches(Regex.variPat)) {
 					parserE();
 					FourYuan four = new FourYuan();
 					four.oprator = "$";
