@@ -1,0 +1,28 @@
+#codeArea .keyword {
+    -fx-fill: rgb(204,120,50);
+    -fx-font-weight: bold;
+}
+#codeArea .semicolon {
+    -fx-font-weight: bold;
+}
+#codeArea .paren {
+    -fx-fill: rgb(190, 190, 190);
+    -fx-font-weight: bold;
+}
+#codeArea .bracket {
+    -fx-fill: #59bdcd;
+    -fx-font-weight: bold;
+}
+#codeArea .brace {
+    -fx-fill: teal;
+    -fx-font-weight: bold;
+}
+#codeArea .string {
+    -fx-fill: rgb(106,135,89);
+}
+#codeArea .comment {
+    -fx-fill: rgb(98,151,85);
+}
+#codeArea .paragraph-box:has-caret {
+    -fx-background-color: rgb(50,50,50);
+}

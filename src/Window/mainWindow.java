@@ -287,7 +287,7 @@ public class mainWindow {
         });
 
         tab.setContent(new VirtualizedScrollPane<>(codeArea));
-        String css = getClass().getResource("light.css").toExternalForm();
+        String css = getClass().getResource("dark.css").toExternalForm();
         codeArea.getStylesheets().add(css);
         return tab;
     }

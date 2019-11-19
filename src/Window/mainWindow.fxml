@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -11,7 +15,7 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane fx:id="rootAnchor" prefHeight="600.0" prefWidth="800.0" styleClass="gray-theme" stylesheets="@root.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Window.mainWindow">
+<AnchorPane fx:id="rootAnchor" prefHeight="600.0" prefWidth="800.0" styleClass="gray-theme" stylesheets="@root.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Window.mainWindow">
    <children>
       <MenuBar prefHeight="32.0" prefWidth="800.0" styleClass="dark-theme" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
@@ -20,11 +24,6 @@
               <MenuItem mnemonicParsing="false" onAction="#onActionOpenFile" text="OpenFile" />
                   <MenuItem mnemonicParsing="false" onAction="#onActionSaveFile" text="SaveFile" />
                   <MenuItem mnemonicParsing="false" onAction="#onActionOpenFolder" text="OpenFolder" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
@@ -55,9 +54,9 @@
                               <TabPane fx:id="codeTabs" layoutX="6.0" prefHeight="446.0" prefWidth="654.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                            </children>
                       </AnchorPane>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="262.0" prefWidth="454.0" styleClass="dark-theme">
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="262.0" prefWidth="454.0">
                            <children>
-                              <TextFlow fx:id="output" prefHeight="125.0" prefWidth="650.0" style="-fx-background-color: rgb(60,63,65);" />
+                              <TextFlow fx:id="output" prefHeight="129.0" prefWidth="654.0" style="-fx-background-color: rgb(60,63,65);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                            </children>
                       </AnchorPane>
                     </items>
