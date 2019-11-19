@@ -502,11 +502,20 @@ public class Parser {//////////////////识别完成token读到的应该是;
 					token = tokens.get(cur++);
 				//TODO 读取后续返回值并存储
 				parserE();
-				DataStructure.rax.setValue(Es.peek().des);
+				//todo
+					FourYuan fourYuan = new FourYuan();
+					fourYuan.oprator =  "=";
+					fourYuan.op1 = Es.peek().des;
+					fourYuan.op2 = "_";
+					fourYuan.des = "rax";
+					fours.add(fourYuan);
+					FourYuan.no++;
+	//			DataStructure.rax.setValue(Es.peek().des);
 					Ret_addr();
 					hadReturn = true;
 			} else {
-					DataStructure.rax.setValue(null);
+					//todo fix
+	//				DataStructure.rax.setValue(null);
 					Ret_addr();
 				token = tokens.get(cur++);
 			}

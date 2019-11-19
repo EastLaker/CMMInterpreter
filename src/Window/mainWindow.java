@@ -8,11 +8,7 @@ package Window;
 
 import Parser.*;
 import Utils.DataStructure;
-<<<<<<< HEAD
 import static Utils.DataStructure.*;
-=======
-
->>>>>>> 641633374c16634469f01a204cda883c36d5fd30
 import Utils.DynamicException;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -56,12 +52,6 @@ import java.util.regex.Pattern;
 import java.awt.AWTException;
 import java.awt.Robot;
 
-<<<<<<< HEAD
-
-=======
-import static Utils.DataStructure.Wordlist;
-import static Utils.DataStructure.inMain;
->>>>>>> 641633374c16634469f01a204cda883c36d5fd30
 
 public class mainWindow {
 
