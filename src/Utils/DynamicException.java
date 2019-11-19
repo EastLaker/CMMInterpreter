@@ -19,7 +19,6 @@ public class DynamicException {
         throw new stopMachineException();
     }
 
-
     public class noArrayException extends Exception implements dynamicException{
         @Override
         public void errorInfo(){

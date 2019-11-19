@@ -7,13 +7,11 @@ import ElementType.Word;
 import Utils.DataStructure;
 import Utils.DynamicException;
 import Utils.Regex;
-import Window.Main;
 import Window.mainWindow;
-import sun.security.pkcs11.wrapper.Functions;
-
-import java.util.Stack;
 
 import static Utils.DataStructure.*;
+import java.util.Stack;
+
 /**
  * @author knight
  */
@@ -27,9 +25,6 @@ public class FourYuan {
 	public String op1;//第一个源操作数
 	public String op2;//第二个源操作数
 	public String des;//1⃣️存放中间变量（算术指令）2⃣️地址出口（跳转指令）
-
-	private final int FLOAT = 1;
-	private final int INT = 0;
 
 	public enum TokenType {
 		CONST,
@@ -422,7 +417,6 @@ public class FourYuan {
 				throw new DynamicException().new numberFormatException();
 			default:
 				throw new DynamicException().new numberFormatException();
-
 		}
 	}
 

@@ -62,7 +62,6 @@ public class Parser {//////////////////识别完成token读到的应该是;
 
 					else
 						b = error_parserE();
-
 					break;
 				case 1:
 					if(token.getString().contentEquals("+")||token.getString().contentEquals("-")) {
@@ -842,7 +841,6 @@ public class Parser {//////////////////识别完成token读到的应该是;
 	}
 
 	private void addWord(String type) {
-
 		if (token.getString().matches(Regex.variPat)) {
 			String name = token.getString();
 			Word word = cf.newWordFromType(type);
@@ -988,8 +986,8 @@ private void T1(String type){
 			} else token = tokens.get(cur++);
 			//模拟读入 "=" 不做处理 有无都可
 			if ("=".equals(token.getString())) token = tokens.get(cur++);
-			if ("{".equals(token.getString())) {/////数组需要初始化吗？
-				ArrayList<Number> var_array = new ArrayList<>();////用于初始化单词表的数组
+			if ("{".equals(token.getString())) {
+				ArrayList<Number> var_array = new ArrayList<>();
 				int j = 0;
 				token = tokens.get(cur++);
 				while (token.getString().matches(Regex.constant)||token.getString().matches(Regex.variPat)) {
