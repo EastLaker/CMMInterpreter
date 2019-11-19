@@ -11,7 +11,7 @@ import java.util.*;
  * @date 2019/11/9 15:52
  * created
  */
-public class DataSturcture {
+public class DataStructure {
     public static Boolean inMain = false;
     public static int Main = -1;
 

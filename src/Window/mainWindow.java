@@ -7,6 +7,7 @@ package Window;
 
 
 import Parser.*;
+import Utils.DataStructure;
 import Utils.DataSturcture;
 import Utils.DynamicException;
 import javafx.application.Platform;
@@ -311,7 +312,7 @@ public class mainWindow {
             FourYuan.no = 0;
             Parser.errors.clear();
             E.reg = 0;
-            DataSturcture.Wordlist.clear();
+            DataStructure.Wordlist.clear();
             Wordlist.clear();
 
             Word.setDes_start(0x0);
@@ -339,7 +340,7 @@ public class mainWindow {
                 }
                 try {
                     for (; j < parse.fours.size(); j++){
-                        if(j==DataSturcture.Main){
+                        if(j==DataStructure.Main){
                             inMain = true;
                         }
                         parse.fours.get(j).Exec();

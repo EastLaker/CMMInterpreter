@@ -4,14 +4,16 @@ import ElementType.ArrayType;
 import ElementType.FunctionType;
 import ElementType.Register;
 import ElementType.Word;
+import Utils.DataStructure;
 import Utils.DynamicException;
 import Utils.Regex;
 import Window.Main;
 import Window.mainWindow;
+import sun.security.pkcs11.wrapper.Functions;
+
 import java.util.Stack;
 
-import static Utils.DataSturcture.*;
-
+import static Utils.DataStructure.*;
 /**
  * @author knight
  */
@@ -53,12 +55,12 @@ public class FourYuan {
 			if (this.oprator.contentEquals("+")) {
 				Register[] registers = makeOpsRegister(this.op1, this.op2);
 				Register register = registerOperation(registers[0], registers[1], OPERATOR.ADD);
-				Registers.put(this.des, register);
+				DataStructure.Registers.put(this.des, register);
 			}
 			else if(this.oprator.contentEquals("-")){
 				Register[] registers = makeOpsRegister(this.op1,this.op2);
 				Register register = registerOperation(registers[0],registers[1],OPERATOR.SUB);
-				Registers.put(this.des,register);
+				DataStructure.Registers.put(this.des,register);
 			}
 			else if (this.oprator.contentEquals("$")) {
 				ArrayType array = checkAndSearchArray(this.op1);
@@ -83,7 +85,8 @@ public class FourYuan {
 						throw new DynamicException().new defaultException("无法解析的符号");
 				}
 				//todo 类型check
-			}else if (this.oprator.contentEquals("&")) {
+			}
+			else if (this.oprator.contentEquals("&")) {
 				ArrayType array = checkAndSearchArray(this.op1);
 
 				int offSet = getIndex(this.op2);
@@ -99,7 +102,7 @@ public class FourYuan {
 						}else{
 							reg = new Register<>(ClassFactory.TYPE.FLOAT, (float)value);
 						}
-						Registers.put(this.des, reg);
+						DataStructure.Registers.put(this.des, reg);
 						break;
 					case VARIABLE:
 						Word word = checkAndSearchWord(this.des);
@@ -116,8 +119,9 @@ public class FourYuan {
 			else if (this.oprator.contentEquals("*")) {
 				Register[] registers = makeOpsRegister(this.op1, this.op2);
 				Register register = registerOperation(registers[0], registers[1], OPERATOR.PLUS);
-				Registers.put(this.des, register);
-			}else if(this.oprator.contentEquals("dw")){
+				DataStructure.Registers.put(this.des, register);
+			}
+			else if(this.oprator.contentEquals("dw")){
 				//todo 形如(declare_word, value_or_null, type, name)
 				checkFieldIsExisted(this.des);
 				switch (cf.getTypeFromStr(this.op2)) {
@@ -168,7 +172,8 @@ public class FourYuan {
 					default:
 						throw new DynamicException().new defaultException("错误的声明四元式");
 				}
-			}else if(this.oprator.contentEquals("da")){
+			}
+			else if(this.oprator.contentEquals("da")){
 				//todo 形如(declare_array, length, type, name)  length null?
 				checkFieldIsExisted(this.des);
 
@@ -199,20 +204,23 @@ public class FourYuan {
 						default:
 							throw new DynamicException().new defaultException("四元式声明语句出错");
 				}
-			}else if(this.oprator.contentEquals("df")){
+			}
+			else if(this.oprator.contentEquals("df")){
 				//todo 形如(DeclardFunction_df, return type, name, function des);
 				checkDeclare(this.op2);
 				checkFunctionIsExisted(this.op2);
 				FunctionType function = new FunctionType(cf.getTypeFromStr(this.op1));
 				function.setEnterDes(Integer.parseInt(des));
 				Functions.put(this.op2, function);
-			}else if(this.oprator.contentEquals("dp")){
+			}
+			else if(this.oprator.contentEquals("dp")){
 				//todo 形如(DeclardParam_dp, Param_Type ,_ ,function name );
 				FunctionType func = getFunction(this.des);
 				//在function 中new 一个word
 				func.addParam(cf.getTypeFromStr(this.op1));
 
-			}else if(this.oprator.contentEquals("sp")){
+			}
+			else if(this.oprator.contentEquals("sp")){
 				//todo 将形参添加到formalParam.
 				//todo 形如(sp, des=reg/vari/cons, _,functionName )
 				//todo 当形参类型不匹配时，抛出异常
@@ -237,7 +245,7 @@ public class FourYuan {
 						}
 						break;
 					case REGISTER:
-						Register r = Registers.get(this.des);
+						Register r = DataStructure.Registers.get(this.des);
 						if(r.getType()==word.type){
 							word.setValue(r.getValue());
 						}else if(r.getType()== ClassFactory.TYPE.INT&&word.type== ClassFactory.TYPE.FLOAT){
@@ -257,7 +265,8 @@ public class FourYuan {
 						}
 						break;
 				}
-			}else if(this.oprator.contentEquals("cal")){
+			}
+			else if(this.oprator.contentEquals("cal")){
 				//todo 形如(call, _, name, _);
 				//todo 填入return dest,
 				//todo 跳转到函数语句.
@@ -278,16 +287,16 @@ public class FourYuan {
 			else if(this.oprator.contentEquals("{")) {
 				//todo 形如( {,_ , _, des=name or null)
 				//todo  null 则不是函数  非null 要将formalParam的量push, 然后释放 remove All
-				if(!inMain) {
+				if(!DataStructure.inMain) {
 					FunctionType func = getFunction(this.des);
 					mainWindow.j = func.getRet() - 1;
 				}
 				if (!"_".equals(this.des)) {
 					// 即调用main函数
-					if (TopFunction != null) {
+					if (DataStructure.TopFunction != null) {
 						//若Env是全局变量则不需要保存;
-						TopFunction.push(Top);
-						Env.push(TopFunction);
+						DataStructure.TopFunction.push(DataStructure.Top);
+						DataStructure.Env.push(DataStructure.TopFunction);
 					}
 
 					TopFunction = new Stack<>();
@@ -310,7 +319,8 @@ public class FourYuan {
 					Top = new Stack<>();
 				}
 
-			}else if(this.oprator.contentEquals("}")){
+			}
+			else if(this.oprator.contentEquals("}")){
 				//todo 形如( },_ , _, des=name or null)
 				//todo  null 则不是函数  非null  然后根据name跳转.
 
@@ -325,7 +335,8 @@ public class FourYuan {
 					Top = TopFunction.pop();
 
 				}
-			}else if (this.oprator.contentEquals("JMP")) {
+			}
+			else if (this.oprator.contentEquals("JMP")) {
 				mainWindow.j = Integer.parseInt(des) - 1;
 			}
 			else if (this.oprator.contentEquals("=")) {

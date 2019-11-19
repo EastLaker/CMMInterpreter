@@ -1,78 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d1abddbd-cba0-49a6-a38f-58bbab7c7ed3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/ElementType/ArrayType.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/ElementType/FunctionType.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/ElementType/Register.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/ElementType/Word.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/A.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/B.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/E.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/LexicalParser.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/O.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/Token$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/Token$2.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/Token$TokenType.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/Token.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/WordList.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Utils/DynamicException$classCastException.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Utils/DynamicException$defaultException.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Utils/DynamicException$dismatchFunctionParameter.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Utils/DynamicException$dynamicException.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Utils/DynamicException$illegalArratSizeException.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Utils/DynamicException$mismatchOperatorException.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Utils/DynamicException$noArrayException.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Utils/DynamicException$numberFormatException.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Utils/DynamicException$outOfArrayBoundException.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Utils/DynamicException$redeclaredIdentifierException.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Utils/DynamicException$stopMachineException.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Utils/DynamicException$unInitializedIdentifierException.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Utils/DynamicException$undeclaredIdentifierException.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Utils/DynamicException$unequalFunctionParameters.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Utils/DynamicException.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Utils/Regex.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Window/FileTreeItem.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Window/U.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Window/folder.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Window/java-keywords.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Window/light.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Window/mainWindow$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Window/mainWindow.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/floatTest.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/fouryuan.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/lexical/LexicalParser.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/lexical/Token$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/lexical/Token$2.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/lexical/Token$TokenType.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/lexical/Token.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/lexical/draft.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/sourceCode_1.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/sourceCode_2.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/sourceproject.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/test.cmm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/ClassFactory$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/ClassFactory$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/ClassFactory$TYPE.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/ClassFactory$TYPE.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/ClassFactory.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/ClassFactory.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/FourYuan$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/FourYuan$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/FourYuan$OPERATOR.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/FourYuan$OPERATOR.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/FourYuan$TokenType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/FourYuan$TokenType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/FourYuan.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/FourYuan.class" afterDir="false" />
+    <list default="true" id="a0bf9a02-b432-4f58-8b98-7b25d40b52ff" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/Parser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/Parser.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Utils/DataSturcture.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Utils/DataSturcture.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Window/cmm.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Window/cmm.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ElementType/Word.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ElementType/Word.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/ClassFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/ClassFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Window/mainWindow.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Window/mainWindow.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Parser/FourYuan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/FourYuan.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Parser/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Parser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Utils/DataSturcture.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/DataSturcture.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Window/FileTreeItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Window/FileTreeItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Window/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Window/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Window/cmm.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/Window/cmm.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Window/light.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Window/light.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utils/DataSturcture.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/DataStructure.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Window/mainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Window/mainWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lexical/Token.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lexical/Token.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -80,32 +17,20 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="DefaultGradleProjectSettings">
-    <option name="testRunner" value="GRADLE" />
-    <option name="delegatedBuild" value="true" />
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>非法的语句</find>
-      <find>Exec</find>
-    </findStrings>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="1TgbDmxQSLrbIaHzP6zUY85x9Hk" />
+  <component name="ProjectId" id="1ToTAaFJpPJqIB9cUHqhTEhKXou" />
   <component name="PropertiesComponent">
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1573573306419" />
+    <property name="extract.method.default.visibility" value="private" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -119,39 +44,18 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Window.Main" />
-      <module name="CMMInterpreter" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="Window.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Application.Main" />
-      </list>
-    </recent_temporary>
-  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="d1abddbd-cba0-49a6-a38f-58bbab7c7ed3" name="Default Changelist" comment="" />
-      <created>1573446041704</created>
+      <changelist id="a0bf9a02-b432-4f58-8b98-7b25d40b52ff" name="Default Changelist" comment="" />
+      <created>1574125307345</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1573446041704</updated>
-      <workItem from="1573446051232" duration="971000" />
-      <workItem from="1573540731974" duration="6383000" />
-      <workItem from="1573884574861" duration="1851000" />
+      <updated>1574125307345</updated>
+      <workItem from="1574125312235" duration="3816000" />
+      <workItem from="1574160302654" duration="7013000" />
     </task>
     <servers />
   </component>
@@ -166,20 +70,6 @@
             <State>
               <option name="COLUMN_ORDER" />
             </State>
-          </value>
-        </entry>
-      </map>
-    </option>
-    <option name="RECENT_FILTERS">
-      <map>
-        <entry key="Branch">
-          <value>
-            <list />
-          </value>
-        </entry>
-        <entry key="User">
-          <value>
-            <list />
           </value>
         </entry>
       </map>
