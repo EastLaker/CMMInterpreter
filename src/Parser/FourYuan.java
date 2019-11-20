@@ -118,12 +118,13 @@ public class FourYuan {
 				switch (cf.getTypeFromStr(this.op2)) {
 					case INT:
 						Word<Integer> IWord = new Word<>(ClassFactory.TYPE.INT);
+						IWord.setName(this.des);
 						IWord.setDes(Word.getDes_start());
 						if(!"_".contentEquals(this.op1)){
 							try{
 								switch (regexPat(this.op1)){
 									case CONST:
-										IWord.setValue(Integer.parseInt(this.op1));
+											IWord.setValue(Integer.parseInt(this.op1));
 										break;
 									case REGISTER:
 										IWord.setValue((Integer) checkAndGetRegister(this.op1).getValue());
@@ -141,6 +142,8 @@ public class FourYuan {
 					case FLOAT:
 						Word<Float> FWord = new Word<>(ClassFactory.TYPE.FLOAT);
 						FWord.setDes(Word.getDes_start());
+						FWord.setName(this.des);
+
 						if(!"_".contentEquals(this.op1)){
 							try{
 								switch (regexPat(this.op1)){
@@ -197,7 +200,7 @@ public class FourYuan {
 				}
 			}
 			else if(this.oprator.contentEquals("df")){
-				//todo 形如(DeclardFunction_df, return type, name, function des);
+				//todo 形如(DeclardFunction_df, return type, name, function ent_des);
 				checkGlobalFieldIsExisted(this.op2);
 				FuncSignature function = new FuncSignature(cf.getTypeFromStr(this.op1),Integer.parseInt(des));
 				Functions.put(this.op2, function);
@@ -274,6 +277,7 @@ public class FourYuan {
 					FunctionType main = new FunctionType(MAIN);
 					main.checkExecute();
 					Env.push(main);
+					Top = main;
 				} else {
 					if("_".equals(this.op2)){
 						//填完形参后 直接调用(cal, _, _, _)
@@ -288,11 +292,13 @@ public class FourYuan {
 						FunctionType function = new FunctionType(signature);
 
 						Env.push(function);
+
+						Top = function;
 					}
 				}
 			}
 			else if(this.oprator.contentEquals("{")) {
-				//todo 形如( {,op1 = ret , _, des=name or null)
+				//todo 形如( {,op1 = ret , _, des=name or _)
 				//todo  null 则不是函数  非null 要将formalParam的量push, 然后释放 remove All
 				if("_".equals(this.des)) {
 					//normal scope
@@ -304,6 +310,8 @@ public class FourYuan {
 						FuncSignature func = getFunction(this.des);
 						func.setExitDes(Integer.parseInt(this.op1));
 						mainWindow.j = func.getExitDes();
+					}else{
+						Top.signature.setExitDes(Integer.parseInt(this.op1));
 					}
 				}
 			}
@@ -313,8 +321,9 @@ public class FourYuan {
 
 				//清除此作用块的所有局部变量.
 				if(!"_".equals(this.des)){
-					mainWindow.j = Top.getRet();
-					//函数栈的作用域释放
+					//跳出main函数
+
+					rax = Top.getRax();
 					Top = Env.pop();
 				}else{
 					//普通的作用域释放
@@ -325,23 +334,28 @@ public class FourYuan {
 				mainWindow.j = Integer.parseInt(des) - 1;
 			}
 			else if (this.oprator.contentEquals("=")) {
-				//todo  golbal 赋值
-				Word word = checkAndSearchWord(this.des);
-				switch (regexPat(this.op1)) {
-					case CONST:
-						cf.setWordValue(word, this.op1);
-						break;
-					case REGISTER:
-						Register register = checkAndGetRegister(this.op1);
-						cf.setWordValue(word, register.getValue(), register.getType());
-						break;
-					case VARIABLE:
-						Word temp = checkAndSearchWord(this.op1);
-						if(temp.getValue()==null){
-							throw new DynamicException().new unInitializedIdentifierException();
-						}
-						cf.setWordValue(word, temp.getValue(), temp.type);
-						break;
+				//如果是返回寄存器.
+				if("reg_rax".equals(this.des)){
+					Top.setRax(checkAndGetRegister(this.des));
+					mainWindow.j = Top.signature.getExitDes()-1;
+				}else {
+					Word word = checkAndSearchWord(this.des);
+					switch (regexPat(this.op1)) {
+						case CONST:
+							cf.setWordValue(word, this.op1);
+							break;
+						case REGISTER:
+							Register register = checkAndGetRegister(this.op1);
+							cf.setWordValue(word, register.getValue(), register.getType());
+							break;
+						case VARIABLE:
+							Word temp = checkAndSearchWord(this.op1);
+							if (temp.getValue() == null) {
+								throw new DynamicException().new unInitializedIdentifierException();
+							}
+							cf.setWordValue(word, temp.getValue(), temp.type);
+							break;
+					}
 				}
 			} else if(this.oprator.contentEquals("wrt")){
 				//todo (wrt,_,_,des=word|register)
@@ -431,7 +445,7 @@ public class FourYuan {
 
 		//(int)
 		float sub;
-		if(registerOperation(registers[0],registers[1],OPERATOR.SUB).getValue().getClass()==int.class){
+		if(registerOperation(registers[0],registers[1],OPERATOR.SUB).getValue().getClass()==Integer.class){
 			sub = (float) (int) registerOperation(registers[0], registers[1], OPERATOR.SUB).getValue();
 		}
 		else {
@@ -615,8 +629,8 @@ public class FourYuan {
 		}
 	}
 
-	private Register checkAndGetRegister(String des) throws DynamicException.defaultException {
-		Register reg = Registers.getOrDefault(des, null);
+	private Register checkAndGetRegister(String str) throws DynamicException.defaultException {
+		Register reg = Registers.getOrDefault(str, null);
 		if (reg == null) {
 			throw new DynamicException().new defaultException("找不到寄存器");
 		}
