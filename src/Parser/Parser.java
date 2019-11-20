@@ -328,7 +328,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			String name = token.getString();
 			FourYuan fourYuan = new FourYuan();
 			fourYuan.oprator = "dw";
-			fourYuan.op1 = null;
+			fourYuan.op1 = "_";
 			fourYuan.op2 = type;
 			fourYuan.des = name;
 			fours.add(fourYuan);
@@ -478,7 +478,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 	// S->a;|{L}|if语句|while语句
 	public void L(String funcType, String funcName) {
 		// 函数类型funcType，函数名funcName
-		if (token.getString().contentEquals("return") || token.getString().contentEquals("{") || token.getString().equals("if") || token.getString().contentEquals("while") || token.getString().matches(Regex.variPat)
+		if (token.getString().contentEquals("return") || token.getString().contentEquals("{") || token.getString().equals("if") || token.getString().contentEquals("while") || token.getString().matches("write")||token.getString().matches(Regex.variPat)
 				|| token.getString().matches(Regex._float) || token.getString().matches(Regex._int)) {
 			parsers.add("L->SL");
 			S(funcType, funcName);
@@ -560,8 +560,9 @@ public class Parser {//////////////////识别完成token读到的应该是;
 					if (token.getString().contentEquals(")")) {
 						System.out.println("识别右括号");
 						token = tokens.get(cur++);
-						if (token.getString().contentEquals(";"))
+						if (token.getString().contentEquals(";")) {
 							token = tokens.get(cur++);
+						}
 					}
 				} else {
 					parserE();
@@ -907,7 +908,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			fourYuan.oprator = "dw";
 			fourYuan.des = name;
 			fourYuan.op2 = type;
-			fourYuan.op1 = null;
+			fourYuan.op1 = "_";
 			fours.add(fourYuan);
 			FourYuan.no++;
 			token = tokens.get(cur++);
