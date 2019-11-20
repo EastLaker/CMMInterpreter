@@ -310,6 +310,7 @@ public class mainWindow {
             Parser.errors.clear();
             E.reg = 0;
             Datas.clear();
+            Functions.clear();
 
             Word.setDes_start(0x0);
             Parser parse = new Parser();///////分析实例
@@ -341,7 +342,6 @@ public class mainWindow {
                 } catch (DynamicException.stopMachineException e) {
                     //todo  已退出for循环  还需要添加的工作？
                 }
-
 
                 Set<String> words = Datas.keySet();
                 output_text.append("单词表结构：\n");
