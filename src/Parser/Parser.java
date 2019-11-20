@@ -327,6 +327,13 @@ public class Parser {//////////////////识别完成token读到的应该是;
 	private void Statement(String type) {
 		if (token.getString().matches(Regex.variPat)) {
 			String name = token.getString();
+			FourYuan fourYuan = new FourYuan();
+			fourYuan.oprator = "dw";
+			fourYuan.op1 = null;
+			fourYuan.op2 = type;
+			fourYuan.des = name;
+			fours.add(fourYuan);
+			FourYuan.no++;
 			////TODO 此处需判断该name是否为声明过的全局变量，若不是则加入单词表，若是则报错
 			token = tokens.get(cur++);
 			if (token.getString().contentEquals("=")) {
@@ -363,17 +370,37 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			//todo 自动识别main
 //			if (NAME.contentEquals("main"))
 //				DataStructure.Main = FourYuan.no;
-			int no_df_statement = FourYuan.no;
-			FourYuan fourYuan = new FourYuan();
-			fourYuan.oprator = "df";
-			fourYuan.op1 = type;
-			fourYuan.op2 = NAME;
-			fourYuan.des = null;
-			fours.add(fourYuan);
-			FourYuan.no++;
-			token = tokens.get(cur + 1);    // token此时需指向"形参"的首个单词
-			cur += 2;
-			Parameter(NAME);    // 读取函数形参
+			int no_df_statement ;
+			if(NAME.contentEquals("main")){
+				no_df_statement = FourYuan.no;
+				FourYuan fourYuan = new FourYuan();
+				fourYuan.oprator = "cal";
+				fourYuan.op1 = "_";
+				fourYuan.op2 = "_";
+				fourYuan.des = "main";
+				FourYuan.no++;
+				fours.add(fourYuan);
+				token = tokens.get(cur++);/////此时token应该为（
+				if(token.getString().contentEquals("(")){
+					token = tokens.get(cur++);////此时token应该为）
+					if(token.getString().contentEquals(")")){
+						token = tokens.get(cur++);////此时token应该为{
+					}
+				}
+			}
+			else {
+				no_df_statement = FourYuan.no;
+				FourYuan fourYuan = new FourYuan();
+				fourYuan.oprator = "df";
+				fourYuan.op1 = type;
+				fourYuan.op2 = NAME;
+				fourYuan.des = null;
+				fours.add(fourYuan);
+				FourYuan.no++;
+				token = tokens.get(cur + 1);    // token此时需指向"形参"的首个单词
+				cur += 2;
+				Parameter(NAME);    // 读取函数形参
+			}
 			if (token.getString().contentEquals("{")) { // 进入"函数体"部分
 				fours.get(no_df_statement).des = FourYuan.no + "";
 				FourYuan fourYuan1 = new FourYuan();
