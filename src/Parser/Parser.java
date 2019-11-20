@@ -554,7 +554,9 @@ public class Parser {//////////////////识别完成token读到的应该是;
 
 
 			}
-		} else if (token.getString().contentEquals("if")) {////if语句识别
+		}
+		// if语句
+		else if (token.getString().contentEquals("if")) {////if语句识别
 			parsers.add("S->if语句");
 			token = tokens.get(cur++);//读入
 			if (token.getString().contentEquals("(")) {
@@ -574,11 +576,11 @@ public class Parser {//////////////////识别完成token读到的应该是;
 					if (token.getString().equals("else")) {////else分支
 						token = tokens.get(cur++);
 						if (token.getString().equals("if")) {////elseif分支
+							for (int t = 0; t < b.falselist.size(); t++) {//////回填假出口
+								fours.get(b.falselist.get(t)).des = FourYuan.no + "";
+							}
 							Elseif(funcType, funcName);
 						} else {
-							for (int t = 0; t < b.falselist.size(); t++) {//////回填假出口
-								fours.get(b.falselist.get(t)).des = FourYuan.no + 1 + "";
-							}
 							int stru = FourYuan.no;
 							FourYuan four = new FourYuan();
 							four.op1 = "_";
@@ -778,13 +780,10 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				if (token.getString().equals("else")) {
 					token = tokens.get(cur++);
 					if (token.getString().equals("if")) {
+						for (int t = 0; t < b.falselist.size(); t++)
+							fours.get(b.falselist.get(t)).des = FourYuan.no + "";
 						Elseif(funcType, funcName);
 					} else {
-						while (fours.get(b.falselist.get(0)).des == null) {////////没有回填假出口的指令
-							for (int t = 0; t < b.falselist.size(); t++)
-								fours.get(b.falselist.get(t)).des = FourYuan.no + 1 + "";
-							b = Bs.pop();
-						}
 						int stru = FourYuan.no;
 						FourYuan four = new FourYuan();
 						four.op1 = "_";
