@@ -6,9 +6,11 @@ import Window.mainWindow;
 import java.util.*;
 
 import lexical.*;
+
 /**
  * @author lfz
  */
+
 public class Parser {//////////////////识别完成token读到的应该是;
 	//语法分析    识别算术表达式   规约规则⬇️
 	//0）S->E+E
@@ -128,7 +130,6 @@ public class Parser {//////////////////识别完成token读到的应该是;
 						b = error_parserE();
 					break;
 				case 7:
-
 					if (token.getString().equals("+") || token.getString().equals("-") || token.getString().equals(")") || token.getString().equals(";") || token.getString().equals(",") ||
 							token.getString().equals("}") || token.getString().equals("]")
 							|| token.getString().equals("<") || token.getString().equals(">") || token.getString().equals(">=") || token.getString().equals("<=") ||
@@ -294,7 +295,6 @@ public class Parser {//////////////////识别完成token读到的应该是;
 		} else if (token.getString().contentEquals("#")) {
 			parsers.add("Program -> #");
 			parsers.add("识别结束！程序正确");
-			token = tokens.get(cur++);
 		} else {
 			errors.add("行" + token.getLine_no() + ": 非法的语句开始");
 
@@ -326,6 +326,13 @@ public class Parser {//////////////////识别完成token读到的应该是;
 	private void Statement(String type) {
 		if (token.getString().matches(Regex.variPat)) {
 			String name = token.getString();
+			FourYuan fourYuan = new FourYuan();
+			fourYuan.oprator = "dw";
+			fourYuan.op1 = null;
+			fourYuan.op2 = type;
+			fourYuan.des = name;
+			fours.add(fourYuan);
+			FourYuan.no++;
 			////TODO 此处需判断该name是否为声明过的全局变量，若不是则加入单词表，若是则报错
 			token = tokens.get(cur++);
 			if (token.getString().contentEquals("=")) {
@@ -340,7 +347,6 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				FourYuan.no++;
 				fours.add(four);
 			} else {
-				errors.add("行" + token.getLine_no() + ": 全局变量未初始化");
 				////TODO 全局变量只声明未赋值语义动作
 			}
 
@@ -363,18 +369,39 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			//todo 自动识别main
 //			if (NAME.contentEquals("main"))
 //				DataStructure.Main = FourYuan.no;
-			int no_df_statement = FourYuan.no;
-			FourYuan fourYuan = new FourYuan();
-			fourYuan.oprator = "df";
-			fourYuan.op1 = type;
-			fourYuan.op2 = NAME;
-			fourYuan.des = null;
-			fours.add(fourYuan);
-			FourYuan.no++;
-			token = tokens.get(cur + 1);    // token此时需指向"形参"的首个单词
-			cur += 2;
-			Parameter(NAME);    // 读取函数形参
+			int no_df_statement ;
+			if(NAME.contentEquals("main")){
+				no_df_statement = FourYuan.no;
+				FourYuan fourYuan = new FourYuan();
+				fourYuan.oprator = "cal";
+				fourYuan.op1 = "_";
+				fourYuan.op2 = "main";
+				fourYuan.des = "_";
+				FourYuan.no++;
+				fours.add(fourYuan);
+				token = tokens.get(cur++);/////此时token应该为（
+				if(token.getString().contentEquals("(")){
+					token = tokens.get(cur++);////此时token应该为）
+					if(token.getString().contentEquals(")")){
+						token = tokens.get(cur++);////此时token应该为{
+					}
+				}
+			}
+			else {
+				no_df_statement = FourYuan.no;
+				FourYuan fourYuan = new FourYuan();
+				fourYuan.oprator = "df";
+				fourYuan.op1 = type;
+				fourYuan.op2 = NAME;
+				fourYuan.des = null;
+				fours.add(fourYuan);
+				FourYuan.no++;
+				token = tokens.get(cur + 1);    // token此时需指向"形参"的首个单词
+				cur += 2;
+				Parameter(NAME);    // 读取函数形参
+			}
 			if (token.getString().contentEquals("{")) { // 进入"函数体"部分
+				int no_left = FourYuan.no;
 				fours.get(no_df_statement).des = FourYuan.no + "";
 				FourYuan fourYuan1 = new FourYuan();
 				fourYuan1.oprator = "{";
@@ -387,6 +414,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				hadReturn = type.contentEquals("void");
 				L(type, NAME);
 				if (token.getString().contentEquals("}")) {
+					fours.get(no_left).op1 = FourYuan.no+"";
 					FourYuan fourYuan2 = new FourYuan();
 					fourYuan2.oprator = "}";
 					fourYuan2.op1 = "_";
@@ -459,7 +487,6 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			parsers.add("L -> null");
 
 		} else {
-			errors.add("行" + token.getLine_no() + ": 非法的函数体语句");
 			////TODO （语法分析）此处还需要后续识别是否存在'}'
 		}
 	}
@@ -536,12 +563,12 @@ public class Parser {//////////////////识别完成token读到的应该是;
 						if (token.getString().contentEquals(";"))
 							token = tokens.get(cur++);
 					}
-				} else if (token.getString().matches(Regex.variPat)) {
+				} else {
 					parserE();
 					FourYuan four = new FourYuan();
-					four.oprator = "WRI";
-					four.op1 = null;
-					four.op2 = null;
+					four.oprator = "wrt";
+					four.op1 = "_";
+					four.op2 = "_";
 					four.des = Es.peek().des;
 					fours.add(four);
 					FourYuan.no++;

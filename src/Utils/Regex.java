@@ -26,6 +26,6 @@ public class Regex {
     public static final String _float = "(([+])?[0-9]\\d*\\.?\\d*)|((-)?[0-9]\\d*\\.?\\d*)";
 
     //for 字符串
-    public static final String _string = "^.*";
+    public static final String _string = "^\\^.*";
 
 }
