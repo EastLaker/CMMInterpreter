@@ -288,6 +288,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			fours.add(four);
 			FourYuan.no++;
 			DataStructure.Ret = mainWindow.j + 1;
+
 			for (String parameter : parameters) {
 				FourYuan fourYuan = new FourYuan();
 				fourYuan.oprator = "sp";
