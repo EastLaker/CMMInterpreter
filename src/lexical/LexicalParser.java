@@ -291,7 +291,7 @@ public class LexicalParser {
                         readChar();
                     }
                     else {
-                        readChar();
+                        //readChar();
                         break;
                     }
                 }

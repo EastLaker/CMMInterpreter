@@ -909,7 +909,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			fourYuan.oprator = "dw";
 			fourYuan.des = name;
 			fourYuan.op2 = type;
-			fourYuan.op1 = null;
+			fourYuan.op1 = "_";
 			fours.add(fourYuan);
 			FourYuan.no++;
 			token = tokens.get(cur++);
