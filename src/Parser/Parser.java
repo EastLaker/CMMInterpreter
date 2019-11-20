@@ -231,14 +231,10 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			token = tokens.get(cur++);///todo 退出本次语法分析程序
 		return b;
 	}
-	private void element_of_func(){
-           if(tokens.get(cur).getString().contentEquals("(")){
-
-		   }
-	}
 	private void element_of_array_E() {
 		String reg_ = null;
 		boolean is_element_of_array = false;
+		boolean is_element_of_func = false;
 		if (tokens.get(cur).getString().equals("[")) {///预读一个单词
 			/////是一个数组元素
 			if (!token.getString().matches(Regex.variPat)) {
@@ -265,8 +261,47 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			FourYuan.no++;
 			reg_ = e.des + "";
 		}
+		else if(tokens.get(cur).getString().contentEquals("(")){//////预读一个为（  那么参与运算的是函数调用的返回值
+			is_element_of_func = true;
+			String function = token.getString();  // "function"为函数名
+			token = tokens.get(cur++);////此时token应该为左括号
+			List<String> parameters = new ArrayList<>();  // 形参表
+            if(token.getString().contentEquals("(")){
+            	token = tokens.get(cur++);/////token应该为第一个形参的开始
+            	while (!")".contentEquals(token.getString())){
+            		parserE();
+            		parameters.add(Es.peek().des);
+            		if(token.getString().contentEquals(","))
+            			token = tokens.get(cur++);
+            		else if(token.getString().contentEquals(")"))
+            			break;
+				}
+			}
+			///此时token应该为右括号
+			///生成跳转语句
+			for (String parameter : parameters) {
+				FourYuan fourYuan = new FourYuan();
+				fourYuan.oprator = "sp";
+				fourYuan.op1 = parameter;
+				fourYuan.op2 = "_";
+				fourYuan.des = function;
+				fours.add(fourYuan);
+				FourYuan.no++;
+
+			}
+			FourYuan four = new FourYuan();
+			four.oprator = "cal";
+			four.op2 = function;
+			four.op1 = "_";
+			four.des = "_";
+			fours.add(four);
+			FourYuan.no++;
+			DataStructure.Ret = mainWindow.j + 1;
+		}
 		if (is_element_of_array)
 			symbols.push(reg_);
+		else if(is_element_of_func)
+			symbols.push("reg_rax");
 		else
 			symbols.push(token.getString());
 	}
@@ -739,50 +774,8 @@ public class Parser {//////////////////识别完成token读到的应该是;
 		// 函数调用或赋值语句
 		else if (token.getString().matches(Regex.variPat)) {
 			// 函数调用语句
-			if (tokens.get(cur).getString().contentEquals("(")) {
-				String function = token.getString();  // "function"为函数名
-				token = tokens.get(cur++);////此时token应该为左括号
-				List<String> parameters = new ArrayList<String>();  // 形参表
-				do {
 
-					token = tokens.get(cur++);
-					parserE();
-					if (!token.getString().contentEquals(")")) {
-						parameters.add(Es.peek().des);  // token加入形参
-					}
-
-					token = tokens.get(cur++);
-				} while (token.getString().contentEquals(","));
-				///此时token应该为右括号
-				///生成跳转语句
-				for (String parameter : parameters) {
-					FourYuan fourYuan = new FourYuan();
-					fourYuan.oprator = "sp";
-					fourYuan.op1 = parameter;
-					fourYuan.op2 = "_";
-					fourYuan.des = function;
-					fours.add(fourYuan);
-					FourYuan.no++;
-
-				}
-				FourYuan four = new FourYuan();
-				four.oprator = "cal";
-				four.op2 = function;
-				four.op1 = "_";
-				four.des = "_";
-				fours.add(four);
-				FourYuan.no++;
-				DataStructure.Ret = mainWindow.j + 1;
-				if (token.getString().contentEquals(")")) {
-					token = tokens.get(cur++);
-					if (token.getString().contentEquals(";")) {
-						////TODO 调用function函数，形参为parameters<String>
-						token = tokens.get(cur++);
-					} else errors.add("行" + token.getLine_no() + ": 缺少';'");
-				} else errors.add("行" + token.getLine_no() + ": 缺少')'");
-			}
 			// 赋值语句
-			else {
 				FourYuan four = new FourYuan();
 				parsers.add("S->a;");
 				String des = token.getString();
@@ -818,7 +811,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 						FourYuan.no++;
 						token = tokens.get(cur++);
 					}
-				}
+
 			}
 
 		}
