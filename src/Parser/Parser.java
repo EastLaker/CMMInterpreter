@@ -266,15 +266,17 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			String function = token.getString();  // "function"为函数名
 			token = tokens.get(cur++);////此时token应该为左括号
 			List<String> parameters = new ArrayList<>();  // 形参表
-			do {
-
-				token = tokens.get(cur++);////token应该为一个单词
-				parserE();
-				if (!token.getString().contentEquals(")")) {
-					parameters.add(Es.peek().des);  // token加入形参
+            if(token.getString().contentEquals("(")){
+            	token = tokens.get(cur++);/////token应该为第一个形参的开始
+            	while (!")".contentEquals(token.getString())){
+            		parserE();
+            		parameters.add(Es.peek().des);
+            		if(token.getString().contentEquals(","))
+            			token = tokens.get(cur++);
+            		else if(token.getString().contentEquals(")"))
+            			break;
 				}
-
-			} while (token.getString().contentEquals(","));
+			}
 			///此时token应该为右括号
 			///生成跳转语句
 			for (String parameter : parameters) {
