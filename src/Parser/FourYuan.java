@@ -303,7 +303,7 @@ public class FourYuan {
 						//未进入主main函数
 						FuncSignature func = getFunction(this.des);
 						func.setExitDes(Integer.parseInt(this.op1));
-						mainWindow.j = func.getExitDes() - 1;
+						mainWindow.j = func.getExitDes();
 					}
 				}
 			}

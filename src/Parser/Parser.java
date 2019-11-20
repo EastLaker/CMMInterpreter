@@ -375,8 +375,8 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				FourYuan fourYuan = new FourYuan();
 				fourYuan.oprator = "cal";
 				fourYuan.op1 = "_";
-				fourYuan.op2 = "_";
-				fourYuan.des = "main";
+				fourYuan.op2 = "main";
+				fourYuan.des = "_";
 				FourYuan.no++;
 				fours.add(fourYuan);
 				token = tokens.get(cur++);/////此时token应该为（
@@ -487,7 +487,6 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			parsers.add("L -> null");
 
 		} else {
-			errors.add("行" + token.getLine_no() + ": 非法的函数体语句");
 			////TODO （语法分析）此处还需要后续识别是否存在'}'
 		}
 	}
