@@ -343,8 +343,23 @@ public class FourYuan {
 						cf.setWordValue(word, temp.getValue(), temp.type);
 						break;
 				}
-			}
-			else if (this.oprator.contentEquals("J<")) {
+			} else if(this.oprator.contentEquals("wrt")){
+				//todo (wrt,_,_,des=word|register)
+
+				switch (regexPat(this.des)) {
+					case REGISTER:
+						Register r = checkAndGetRegister(this.des);
+						Parser.Console.add(r.getValue().toString());
+						break;
+					case VARIABLE:
+						Word word = checkAndSearchWord(this.des);
+						Parser.Console.add(word.getValue().toString());
+						break;
+					default:
+						throw new DynamicException().new defaultException("无法识别此字符串");
+				}
+
+			} else if (this.oprator.contentEquals("J<")) {
 				con_jmp("<");
 			} else if (this.oprator.contentEquals("J>")) {
 				con_jmp(">");

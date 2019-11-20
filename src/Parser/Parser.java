@@ -566,9 +566,9 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				} else if (token.getString().matches(Regex.variPat)) {
 					parserE();
 					FourYuan four = new FourYuan();
-					four.oprator = "WRI";
-					four.op1 = null;
-					four.op2 = null;
+					four.oprator = "wrt";
+					four.op1 = "_";
+					four.op2 = "_";
 					four.des = Es.peek().des;
 					fours.add(four);
 					FourYuan.no++;

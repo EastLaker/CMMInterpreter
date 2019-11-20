@@ -343,7 +343,6 @@ public class mainWindow {
                     //todo  已退出for循环  还需要添加的工作？
                 }
 
-
                 Set<String> words = Datas.keySet();
                 output_text.append("单词表结构：\n");
                 output_text.append("变量名\t变量类型\t变量地址\t变量值\n");
