@@ -34,4 +34,9 @@ public class DataStructure {
 
     public static Register rax;
 
+    static {
+        //初始化返回寄存器.
+        Registers.put("reg_rax",new Register());
+    }
+
 }

@@ -2,9 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7fe6b01d-ac83-4081-9711-26d257f23af1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/ElementType/FunctionType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/ElementType/FunctionType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/META-INF/CMMInterpreter.kotlin_module" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/META-INF/CMMInterpreter.kotlin_module" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/FourYuan$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/FourYuan$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/FourYuan.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/FourYuan.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/Parser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/Parser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Utils/DataStructure.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Utils/DataStructure.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Window/mainWindow.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Window/mainWindow.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/function.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/function.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/lexical/LexicalParser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/lexical/LexicalParser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ElementType/FunctionType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ElementType/FunctionType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/FourYuan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/FourYuan.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Parser/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Parser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utils/DataStructure.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/DataStructure.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Window/mainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Window/mainWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/function.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/function.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lexical/LexicalParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lexical/LexicalParser.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -35,27 +48,13 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Parser/Parser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="623" column="20" lean-forward="true" selection-start-line="623" selection-start-column="20" selection-end-line="623" selection-end-column="20" />
+            <state relative-caret-position="483">
+              <caret line="879" column="12" lean-forward="true" selection-start-line="879" selection-start-column="12" selection-end-line="879" selection-end-column="12" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#parserE#0;class#Parser#0" />
                 <element signature="method#error_parserE#0;class#Parser#0" />
-                <element signature="method#element_of_array_E#0;class#Parser#0" />
-                <element signature="method#states_push#0;class#Parser#0" />
-                <element signature="method#Program#0;class#Parser#0" />
-                <element signature="method#Block#0;class#Parser#0" />
-                <element signature="method#Statement#0;class#Parser#0" />
-                <element signature="method#Function#0;class#Parser#0" />
-                <element signature="method#Parameter#0;class#Parser#0" />
-                <element signature="e#18388#19162#1" />
-                <element signature="e#20656#20696#1" />
-                <element signature="e#20707#20742#1" />
-                <element signature="e#20806#21686#1" />
-                <element signature="e#21792#21900#1" />
-                <element signature="e#21969#24283#1" />
-                <element signature="e#24349#24693#1" />
-                <element signature="method#Ret_addr#0;class#Parser#0" />
+                <element signature="e#24404#24412#0" expanded="true" />
                 <element signature="method#T1#0;class#Parser#0" />
                 <element signature="method#push_States_O#0;class#Parser#0" />
                 <element signature="method#push_States_A#0;class#Parser#0" />
@@ -68,8 +67,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Parser/FourYuan.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2166">
-              <caret line="121" column="32" selection-start-line="121" selection-start-column="32" selection-end-line="121" selection-end-column="32" />
+            <state relative-caret-position="2185">
+              <caret line="122" column="32" selection-start-line="122" selection-start-column="32" selection-end-line="122" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -247,12 +246,12 @@
       <option name="presentableId" value="Default" />
       <updated>1574254088171</updated>
       <workItem from="1574254098918" duration="927000" />
-      <workItem from="1574255493766" duration="58000" />
+      <workItem from="1574255493766" duration="196000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2181000" />
+    <option name="totallyTimeSpent" value="2319000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="23" width="1550" height="848" extended-state="6" />
@@ -272,7 +271,7 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.3840782" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.09916201" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Version Control" order="10" />
@@ -344,27 +343,13 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/Parser/Parser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="623" column="20" lean-forward="true" selection-start-line="623" selection-start-column="20" selection-end-line="623" selection-end-column="20" />
+        <state relative-caret-position="483">
+          <caret line="879" column="12" lean-forward="true" selection-start-line="879" selection-start-column="12" selection-end-line="879" selection-end-column="12" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#parserE#0;class#Parser#0" />
             <element signature="method#error_parserE#0;class#Parser#0" />
-            <element signature="method#element_of_array_E#0;class#Parser#0" />
-            <element signature="method#states_push#0;class#Parser#0" />
-            <element signature="method#Program#0;class#Parser#0" />
-            <element signature="method#Block#0;class#Parser#0" />
-            <element signature="method#Statement#0;class#Parser#0" />
-            <element signature="method#Function#0;class#Parser#0" />
-            <element signature="method#Parameter#0;class#Parser#0" />
-            <element signature="e#18388#19162#1" />
-            <element signature="e#20656#20696#1" />
-            <element signature="e#20707#20742#1" />
-            <element signature="e#20806#21686#1" />
-            <element signature="e#21792#21900#1" />
-            <element signature="e#21969#24283#1" />
-            <element signature="e#24349#24693#1" />
-            <element signature="method#Ret_addr#0;class#Parser#0" />
+            <element signature="e#24404#24412#0" expanded="true" />
             <element signature="method#T1#0;class#Parser#0" />
             <element signature="method#push_States_O#0;class#Parser#0" />
             <element signature="method#push_States_A#0;class#Parser#0" />
@@ -375,8 +360,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Parser/FourYuan.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2166">
-          <caret line="121" column="32" selection-start-line="121" selection-start-column="32" selection-end-line="121" selection-end-column="32" />
+        <state relative-caret-position="2185">
+          <caret line="122" column="32" selection-start-line="122" selection-start-column="32" selection-end-line="122" selection-end-column="32" />
         </state>
       </provider>
     </entry>

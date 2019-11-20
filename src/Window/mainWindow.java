@@ -303,16 +303,8 @@ public class mainWindow {
         if(text==null||"".equals(text.trim())){
 
         }else{
-            output.getChildren().clear();
-            Parser.Console.clear();
-            mainWindow.j=0;
-            FourYuan.no = 0;
-            Parser.errors.clear();
-            E.reg = 0;
-            Datas.clear();
-            Functions.clear();
+            init();
 
-            Word.setDes_start(0x0);
             Parser parse = new Parser();///////分析实例
             LexicalParser lexicalParser = new LexicalParser();
             lexicalParser.setSourceCode(text);
@@ -372,6 +364,21 @@ public class mainWindow {
             t.setText(output_text.toString());
             output.getChildren().addAll(t);
         }
+    }
+
+    private void init() {
+        output.getChildren().clear();
+        Parser.Console.clear();
+        mainWindow.j=0;
+        FourYuan.no = 0;
+        Parser.errors.clear();
+        E.reg = 0;
+        Datas.clear();
+        Functions.clear();
+        Top = null;
+        Env.clear();
+        inMain = false;
+        Word.setDes_start(0x0);
     }
 
     public String getTreeItemPath(TreeItem<String> treeItem){

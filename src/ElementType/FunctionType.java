@@ -72,14 +72,6 @@ public class FunctionType{
         return FormalParam;
     }
 
-    public int getIndex() {
-        return index;
-    }
-
-    public void setIndex(int index) {
-        this.index = index;
-    }
-
     public int getRet() {
         return ret;
     }
@@ -111,5 +103,13 @@ public class FunctionType{
     public void GenerateScope(){
         Top = new Stack<>();
         Scope.push(Top);
+    }
+
+    public Register getRax() {
+        return rax;
+    }
+
+    public void setRax(Register rax) {
+        this.rax = rax;
     }
 }

@@ -231,7 +231,11 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			token = tokens.get(cur++);///todo 退出本次语法分析程序
 		return b;
 	}
+	private void element_of_func(){
+           if(tokens.get(cur).getString().contentEquals("(")){
 
+		   }
+	}
 	private void element_of_array_E() {
 		String reg_ = null;
 		boolean is_element_of_array = false;
@@ -505,16 +509,14 @@ public class Parser {//////////////////识别完成token读到的应该是;
 					fourYuan.oprator =  "=";
 					fourYuan.op1 = Es.peek().des;
 					fourYuan.op2 = "_";
-					fourYuan.des = "rax";
+					fourYuan.des = "reg_rax";
 					fours.add(fourYuan);
 					FourYuan.no++;
 	//			DataStructure.rax.setValue(Es.peek().des);
-					Ret_addr();
 					hadReturn = true;
 			} else {
 					//todo fix
 	//				DataStructure.rax.setValue(null);
-					Ret_addr();
 				token = tokens.get(cur++);
 			}
 			if (token.getString().contentEquals(";")) {
@@ -529,7 +531,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			FourYuan fourYuan = new FourYuan();
 			fourYuan.op1 = "_";
 			fourYuan.op2 = "_";
-			fourYuan.des = null;
+			fourYuan.des = "_";
 			fourYuan.oprator = "{";
 			fours.add(fourYuan);
 			FourYuan.no++;
@@ -541,7 +543,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				fourYuan1.oprator = "}";
 				fourYuan1.op1 = "_";
 				fourYuan1.op2 = "_";
-				fourYuan1.des = null;
+				fourYuan1.des = "_";
 				fours.add(fourYuan1);
 				FourYuan.no++;
 				token = tokens.get(cur++);
@@ -583,8 +585,63 @@ public class Parser {//////////////////识别完成token读到的应该是;
 
 			}
 		}
-		// if语句
-		else if (token.getString().contentEquals("if")) {////if语句识别
+
+		else if(token.getString().contentEquals("if")){
+			token = tokens.get(cur++);
+			if(token.getString().contentEquals("(")){
+				token = tokens.get(cur++);
+				parserB();
+				if(token.getString().contentEquals(")")){
+					token = tokens.get(cur++);
+					B b = Bs.peek();
+					for(int i = 0 ; i<b.truelist.size();i++)
+						fours.get(b.truelist.get(i)).des = FourYuan.no + "";
+					S(funcType,funcName);
+					List<Integer> jmp_list = new ArrayList<>();
+					jmp_list.add(FourYuan.no);
+					FourYuan fourYuan = new FourYuan();
+					fourYuan.oprator = "JMP";
+					fourYuan.op1 = "_";
+					fourYuan.op2 = "_";
+					fourYuan.des = null;
+					fours.add(fourYuan);
+					FourYuan.no++;
+					while (token.getString().contentEquals("else")&&tokens.get(cur).getString().contentEquals("if")){//else if循环
+						for(int i = 0; i<b.falselist.size(); i++)
+							fours.get(b.falselist.get(i)).des = FourYuan.no + "";
+						token = tokens.get(cur++);//token应该为if
+						token = tokens.get(cur++);//token应该为左括号
+						if(token.getString().contentEquals("(")){
+							token = tokens.get(cur++);
+							parserB();
+							if(token.getString().contentEquals(")")){
+								token = tokens.get(cur++);
+								b = Bs.peek();
+								for(int i = 0;i<b.truelist.size();i++)
+									fours.get(b.truelist.get(i)).des = FourYuan.no+"";
+								S(funcType,funcName);
+								jmp_list.add(FourYuan.no);
+								FourYuan fourYuan1 = new FourYuan();
+								fourYuan1.oprator = "JMP";
+								fourYuan1.op1 = "_";
+								fourYuan1.op2 = "_";
+								fourYuan1.des = null;
+								fours.add(fourYuan1);
+								FourYuan.no++;
+							}
+						}
+					}
+					if(token.getString().contentEquals("else")){
+						for(int i = 0;i<b.falselist.size();i++)
+							fours.get(b.falselist.get(i)).des = FourYuan.no + "";
+						S(funcType,funcName);
+						for(int i=0 ; i<jmp_list.size();i++)
+							fours.get(jmp_list.get(i)).des = FourYuan.no+ 1 + "";
+					}
+				}
+			}
+		}
+		else if (token.getString().equals("if")) {////if语句识别
 			parsers.add("S->if语句");
 			token = tokens.get(cur++);//读入
 			if (token.getString().contentEquals("(")) {
@@ -630,10 +687,12 @@ public class Parser {//////////////////识别完成token读到的应该是;
 						}
 					}
 				} else {
-					System.out.println("缺少) ");
+					error = true;
+					errors.add("line "+ token.getLine_no()+"缺少右括号\n");
 				}
 			} else {
-				System.out.println("(");
+				error = true;
+				errors.add("line "+ token.getLine_no()+"缺少左括号\n");
 			}
 		}
 		// while语句
@@ -776,16 +835,6 @@ public class Parser {//////////////////识别完成token读到的应该是;
 		}
 	}
 
-	private void Ret_addr() {
-		FourYuan four = new FourYuan();
-		four.oprator = "JMP";
-		four.op1 = "_";
-		four.op2 = "_";
-		four.des = DataStructure.Ret + "";
-		FourYuan.no++;
-		fours.add(four);
-	}
-
 	// 语法分析"else if"语句
 	private void Elseif(String funcType, String funcName) {
 		parsers.add("S->else if语句");
@@ -797,7 +846,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			parserB();
 			if (token.getString().equals(")")) {
 				token = tokens.get(cur++);
-				B b = Bs.pop();
+				B b = Bs.peek();
 				for (int i = 0; i < b.truelist.size(); i++)
 					fours.get(b.truelist.get(i)).des = FourYuan.no + "";////回填真出口
 				S(funcType, funcName);/////if只有一条语句
@@ -808,10 +857,14 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				if (token.getString().equals("else")) {
 					token = tokens.get(cur++);
 					if (token.getString().equals("if")) {
-						for (int t = 0; t < b.falselist.size(); t++)
-							fours.get(b.falselist.get(t)).des = FourYuan.no + "";
+						for(int j = 0; j<b.falselist.size();j++){
+							fours.get(b.falselist.get(j)).des = FourYuan.no + "";
+						}
 						Elseif(funcType, funcName);
 					} else {
+						for(int j = 0; j<b.falselist.size();j++){
+							fours.get(b.falselist.get(j)).des = FourYuan.no + "";
+						}
 						int stru = FourYuan.no;
 						FourYuan four = new FourYuan();
 						four.op1 = "_";
@@ -824,6 +877,9 @@ public class Parser {//////////////////识别完成token读到的应该是;
 						S(funcType, funcName);
 						fours.get(stru).des = FourYuan.no + "";
 					}
+				}
+				else {
+					//////不带else
 				}
 			} else {
 				System.out.println("缺少) ");
