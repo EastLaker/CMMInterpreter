@@ -279,6 +279,15 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			}
 			///此时token应该为右括号
 			///生成跳转语句
+
+			FourYuan four = new FourYuan();
+			four.oprator = "cal";
+			four.op2 = function;
+			four.op1 = "_";
+			four.des = "_";
+			fours.add(four);
+			FourYuan.no++;
+			DataStructure.Ret = mainWindow.j + 1;
 			for (String parameter : parameters) {
 				FourYuan fourYuan = new FourYuan();
 				fourYuan.oprator = "sp";
@@ -289,14 +298,13 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				FourYuan.no++;
 
 			}
-			FourYuan four = new FourYuan();
-			four.oprator = "cal";
-			four.op2 = function;
-			four.op1 = "_";
-			four.des = "_";
-			fours.add(four);
+			FourYuan fourYuan = new FourYuan();
+			fourYuan.oprator = "cal";
+			fourYuan.op1 = "_";
+			fourYuan.op2 = "_";
+			fourYuan.des = "_";
+			fours.add(fourYuan);
 			FourYuan.no++;
-			DataStructure.Ret = mainWindow.j + 1;
 		}
 		if (is_element_of_array)
 			symbols.push(reg_);
