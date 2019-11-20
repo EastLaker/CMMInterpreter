@@ -505,16 +505,14 @@ public class Parser {//////////////////识别完成token读到的应该是;
 					fourYuan.oprator =  "=";
 					fourYuan.op1 = Es.peek().des;
 					fourYuan.op2 = "_";
-					fourYuan.des = "rax";
+					fourYuan.des = "reg_rax";
 					fours.add(fourYuan);
 					FourYuan.no++;
 	//			DataStructure.rax.setValue(Es.peek().des);
-					Ret_addr();
 					hadReturn = true;
 			} else {
 					//todo fix
 	//				DataStructure.rax.setValue(null);
-					Ret_addr();
 				token = tokens.get(cur++);
 			}
 			if (token.getString().contentEquals(";")) {
@@ -529,7 +527,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			FourYuan fourYuan = new FourYuan();
 			fourYuan.op1 = "_";
 			fourYuan.op2 = "_";
-			fourYuan.des = null;
+			fourYuan.des = "_";
 			fourYuan.oprator = "{";
 			fours.add(fourYuan);
 			FourYuan.no++;
@@ -541,7 +539,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				fourYuan1.oprator = "}";
 				fourYuan1.op1 = "_";
 				fourYuan1.op2 = "_";
-				fourYuan1.des = null;
+				fourYuan1.des = "_";
 				fours.add(fourYuan1);
 				FourYuan.no++;
 				token = tokens.get(cur++);
@@ -772,16 +770,6 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			while (!token.getString().contentEquals(";") && !token.getString().contentEquals("#"))
 				token = tokens.get(cur++);
 		}
-	}
-
-	private void Ret_addr() {
-		FourYuan four = new FourYuan();
-		four.oprator = "JMP";
-		four.op1 = "_";
-		four.op2 = "_";
-		four.des = DataStructure.Ret + "";
-		FourYuan.no++;
-		fours.add(four);
 	}
 
 	// 语法分析"else if"语句
