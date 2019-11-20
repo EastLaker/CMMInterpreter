@@ -6,9 +6,11 @@ import Window.mainWindow;
 import java.util.*;
 
 import lexical.*;
+
 /**
  * @author lfz
  */
+
 public class Parser {//////////////////识别完成token读到的应该是;
 	//语法分析    识别算术表达式   规约规则⬇️
 	//0）S->E+E
@@ -294,7 +296,6 @@ public class Parser {//////////////////识别完成token读到的应该是;
 		} else if (token.getString().contentEquals("#")) {
 			parsers.add("Program -> #");
 			parsers.add("识别结束！程序正确");
-			token = tokens.get(cur++);
 		} else {
 			errors.add("行" + token.getLine_no() + ": 非法的语句开始");
 
@@ -340,7 +341,6 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				FourYuan.no++;
 				fours.add(four);
 			} else {
-				errors.add("行" + token.getLine_no() + ": 全局变量未初始化");
 				////TODO 全局变量只声明未赋值语义动作
 			}
 
