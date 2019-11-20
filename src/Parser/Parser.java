@@ -1,14 +1,11 @@
 package Parser;
 
-import ElementType.ArrayType;
-import ElementType.Word;
 import Utils.DataStructure;
 import Utils.Regex;
 import Window.mainWindow;
 import java.util.*;
 
 import lexical.*;
-import static Utils.DataStructure.*;
 /**
  * @author lfz
  */
@@ -300,6 +297,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			token = tokens.get(cur++);
 		} else {
 			errors.add("行" + token.getLine_no() + ": 非法的语句开始");
+
 		}
 	}
 
@@ -307,7 +305,8 @@ public class Parser {//////////////////识别完成token读到的应该是;
 	public void Block() {
 		if (token.getString().contentEquals("int") || token.getString().contentEquals("float")) {
 			String TYPE = token.getString();    // TYPE指代变量或函数数据类型
-			if (tokens.get(cur + 1).getString().contentEquals("=")) {    // 进入"全局变量"声明分支
+			if (tokens.get(cur+1).getString().contentEquals("=") || tokens.get(cur+1).getString().contentEquals(",")
+					|| tokens.get(cur+1).getString().contentEquals(";")) {    // 进入"全局变量"声明分支
 				token = tokens.get(cur++);
 				Statement(TYPE);
 			} else if (tokens.get(cur + 1).getString().contentEquals("(")) {    // 进入"函数"定义分支
@@ -342,6 +341,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				fours.add(four);
 			} else {
 				errors.add("行" + token.getLine_no() + ": 全局变量未初始化");
+				////TODO 全局变量只声明未赋值语义动作
 			}
 
 			if (token.getString().contentEquals(";")) {
@@ -473,13 +473,21 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				token = tokens.get(cur++);
 				//TODO 读取后续返回值并存储
 				parserE();
-				//reg_rax
-				DataStructure.rax.setValue(Es.peek().des);
-				Ret_addr();
-				hadReturn = true;
+				//todo
+					FourYuan fourYuan = new FourYuan();
+					fourYuan.oprator =  "=";
+					fourYuan.op1 = Es.peek().des;
+					fourYuan.op2 = "_";
+					fourYuan.des = "rax";
+					fours.add(fourYuan);
+					FourYuan.no++;
+	//			DataStructure.rax.setValue(Es.peek().des);
+					Ret_addr();
+					hadReturn = true;
 			} else {
-				DataStructure.rax.setValue(null);
-				Ret_addr();
+					//todo fix
+	//				DataStructure.rax.setValue(null);
+					Ret_addr();
 				token = tokens.get(cur++);
 			}
 			if (token.getString().contentEquals(";")) {
@@ -798,24 +806,6 @@ public class Parser {//////////////////识别完成token读到的应该是;
 		}
 	}
 
-	private void addWord(String type) {
-		if (token.getString().matches(Regex.variPat)) {
-			String name = token.getString();
-			Word word = cf.newWordFromType(type);
-			word.setDes(Word.getDes_start());
-			boolean isAdded = putWordIn(word);
-			//  if括弧的范围对不对？
-			token = tokens.get(cur++);
-			if (isAdded) {
-				is_Array(type, name, word.getDes());
-				///是数组吗？
-				to_assign(name);
-				///赋值吗？
-			}
-			T(type);
-		}
-	}
-
 	private void addWord1(String type) {
 		String name = token.getString();///name 为变量名或数组名
 		if (tokens.get(cur).getString().contentEquals("[")) {//////预读一个字符为[  是个数组的声明
@@ -910,128 +900,6 @@ public class Parser {//////////////////识别完成token读到的应该是;
 		} else if (token.getString().contentEquals(",")) {
 			token = tokens.get(cur++);
 			addWord1(type);
-		}
-	}
-
-	private void is_Array(String type, String name, int start_des) {
-		int size = 0;//数组大小
-
-		if ("[".equals(token.getString())) {
-			token = tokens.get(cur++);
-			//数组是否以={}的形式初始化.
-			boolean length_determined = false;////数组长度没有确定
-			if (token.getString().matches(Regex.positiveInt)) {
-				///token.getString()有两种情况 1是常数，那么数组长度确定（size确定，length determined为true）
-				//2是]直接跳出这一层if
-				length_determined = true;/////数组长度确定
-				size = Integer.parseInt(token.getString());////数组长度确定
-				///////初始化一个word
-				ArrayType array = cf.newArrayFromType(type, size);
-				array.setDes(start_des);
-
-				Word.getDes_start(size - 1);
-
-				Wordlist.remove(name);
-
-				Wordlist.put(name, array);
-				token = tokens.get(cur++);
-			}
-
-			if (!"]".equals(token.getString())) {
-				//todo 缺少右括号
-			} else token = tokens.get(cur++);
-			//模拟读入 "=" 不做处理 有无都可
-			if ("=".equals(token.getString())) token = tokens.get(cur++);
-			if ("{".equals(token.getString())) {
-				ArrayList<Number> var_array = new ArrayList<>();
-				int j = 0;
-				token = tokens.get(cur++);
-				while (token.getString().matches(Regex.constant) || token.getString().matches(Regex.variPat)) {
-					parserE();
-					FourYuan four = new FourYuan();
-					four.oprator = "$";
-					four.des = Es.peek().des;
-					four.op1 = name;
-					four.op2 = j + "";
-					fours.add(four);
-					FourYuan.no++;
-					j++;
-
-					if (",".equals(token.getString()))
-						token = tokens.get(cur++);
-					else break;
-				}
-				//todo  将越界检测移到while中会更安全
-				if (length_determined) {
-					if (j > size)
-						errors.add("数组赋值越界 \n");
-					else if (j < size)
-						for (; j < size; j++) {
-							FourYuan fourYuan = new FourYuan();
-							fourYuan.op1 = name;
-							fourYuan.op2 = j + "";
-							fourYuan.oprator = "$";
-							fourYuan.des = 0 + "";
-							fours.add(fourYuan);
-							FourYuan.no++;
-						}
-					////多余元素用0补足
-				}
-				ArrayType arrayType = cf.newArrayFromArray(new Number[length_determined ? size : j], type);
-				if (!length_determined)
-					Word.getDes_start(j - 1);
-				arrayType.setDes(start_des);
-				Wordlist.remove(name);
-				Wordlist.put(name, arrayType);
-
-				if (!"}".equals(token.getString())) {
-					//todo 错误匹配 数组赋值表达式没有终结符.
-				} else {
-					token = tokens.get(cur++);
-				}
-			}
-		}
-	}
-
-	private void to_assign(String name) {
-
-		if ("=".equals(token.getString())) {
-			//声明时赋值运算
-			FourYuan four = new FourYuan();
-			four.oprator = token.getString();//=
-			four.des = name;
-			token = tokens.get(cur++);
-			parserE();
-			if (error)
-				return;
-			four.op1 = Es.peek().des;
-			four.op2 = "_";
-			FourYuan.no++;
-			fours.add(four);
-		}
-	}
-
-	private boolean putWordIn(Word word) {
-
-		if (Wordlist.containsKey(token.getString())) {
-			errors.add("same variable exception");
-			return false;
-		} else {
-			Wordlist.put(token.getString(), word);
-			return true;
-		}
-	}
-
-	//语句识别"声明语句"
-	void T(String type) {
-		///TODO   声明语句
-
-		if (token.getString().contentEquals(";")) {
-			token = tokens.get(cur++);
-			return;
-		} else if (token.getString().contentEquals(",")) {
-			token = tokens.get(cur++);
-			addWord(type);
 		}
 	}
 

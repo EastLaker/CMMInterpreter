@@ -8,7 +8,7 @@ package Window;
 
 import Parser.*;
 import Utils.DataStructure;
-
+import static Utils.DataStructure.*;
 import Utils.DynamicException;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -52,8 +52,6 @@ import java.util.regex.Pattern;
 import java.awt.AWTException;
 import java.awt.Robot;
 
-import static Utils.DataStructure.Wordlist;
-import static Utils.DataStructure.inMain;
 
 public class mainWindow {
 
@@ -311,8 +309,7 @@ public class mainWindow {
             FourYuan.no = 0;
             Parser.errors.clear();
             E.reg = 0;
-            DataStructure.Wordlist.clear();
-            Wordlist.clear();
+            Datas.clear();
 
             Word.setDes_start(0x0);
             Parser parse = new Parser();///////分析实例
@@ -346,21 +343,21 @@ public class mainWindow {
                 }
 
 
-                Set<String> words = Wordlist.keySet();
+                Set<String> words = Datas.keySet();
                 output_text.append("单词表结构：\n");
                 output_text.append("变量名\t变量类型\t变量地址\t变量值\n");
                 for (String word : words) {
-                    if (Wordlist.get(word) instanceof ArrayType) {
+                    if (Datas.get(word) instanceof ArrayType) {
                         /////是个数组元素
-                        for (int i = 0; i < Wordlist.get(word).length; i++) {
+                        for (int i = 0; i < Datas.get(word).length; i++) {
                             try {
-                                output_text.append(word + "[" + i + "]\t" + Wordlist.get(word).type + "\t" + (Wordlist.get(word).getDes() + i * 4) + "\t"
-                                        + ((ArrayType) Wordlist.get(word)).getValue(i) + "\n");
+                                output_text.append(word + "[" + i + "]\t" + Datas.get(word).type + "\t" + (Datas.get(word).getDes() + i * 4) + "\t"
+                                        + ((ArrayType) Datas.get(word)).getValue(i) + "\n");
                             } catch (Exception e) {
                             }
                         }
                     } else
-                        output_text.append(word + "\t" + Wordlist.get(word).type + "\t" + Wordlist.get(word).getDes() + "\t" + Wordlist.get(word).getValue() + "\n");
+                        output_text.append(word + "\t" + Datas.get(word).type + "\t" + Datas.get(word).getDes() + "\t" + Datas.get(word).getValue() + "\n");
 
                 }
                 for (int i = 0; i < Parser.errors.size(); i++)
