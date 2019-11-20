@@ -325,7 +325,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 		else if(token.getString().contentEquals("#")) {
 			parsers.add("Program -> #");
 			parsers.add("识别结束！程序正确");
-			token = tokens.get(cur++);
+//			token = tokens.get(cur++);
 		}
 		else {
 			errors.add("行"+token.getLine_no()+ ": 非法的语句开始");
@@ -337,7 +337,8 @@ public class Parser {//////////////////识别完成token读到的应该是;
 	public void Block() {
 		if (token.getString().contentEquals("int") || token.getString().contentEquals("float")) {
 			String TYPE = token.getString();    // TYPE指代变量或函数数据类型
-			if (tokens.get(cur+1).getString().contentEquals("=")) {    // 进入"全局变量"声明分支
+			if (tokens.get(cur+1).getString().contentEquals("=") || tokens.get(cur+1).getString().contentEquals(",")
+					|| tokens.get(cur+1).getString().contentEquals(";")) {    // 进入"全局变量"声明分支
 				token = tokens.get(cur++);
 				Statement(TYPE);
 			} else if (tokens.get(cur+1).getString().contentEquals("(")) {    // 进入"函数"定义分支
@@ -371,7 +372,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				FourYuan.no++;
 				fours.add(four);
 			} else {
-				errors.add("行"+token.getLine_no()+ ": 全局变量未初始化");
+				////TODO 全局变量只声明未赋值语义动作
 			}
 
 			if(token.getString().contentEquals(";")) {
