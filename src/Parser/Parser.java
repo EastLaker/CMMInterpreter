@@ -587,7 +587,62 @@ public class Parser {//////////////////识别完成token读到的应该是;
 
 			}
 		}
-		else if (token.getString().contentEquals("if")) {////if语句识别
+		else if(token.getString().contentEquals("if")){
+			token = tokens.get(cur++);
+			if(token.getString().contentEquals("(")){
+				token = tokens.get(cur++);
+				parserB();
+				if(token.getString().contentEquals(")")){
+					token = tokens.get(cur++);
+					B b = Bs.peek();
+					for(int i = 0 ; i<b.truelist.size();i++)
+						fours.get(b.truelist.get(i)).des = FourYuan.no + "";
+					S(funcType,funcName);
+					List<Integer> jmp_list = new ArrayList<>();
+					jmp_list.add(FourYuan.no);
+					FourYuan fourYuan = new FourYuan();
+					fourYuan.oprator = "JMP";
+					fourYuan.op1 = "_";
+					fourYuan.op2 = "_";
+					fourYuan.des = null;
+					fours.add(fourYuan);
+					FourYuan.no++;
+					while (token.getString().contentEquals("else")&&tokens.get(cur).getString().contentEquals("if")){//else if循环
+						for(int i = 0; i<b.falselist.size(); i++)
+							fours.get(b.falselist.get(i)).des = FourYuan.no + "";
+						token = tokens.get(cur++);//token应该为if
+						token = tokens.get(cur++);//token应该为左括号
+						if(token.getString().contentEquals("(")){
+							token = tokens.get(cur++);
+							parserB();
+							if(token.getString().contentEquals(")")){
+								token = tokens.get(cur++);
+								b = Bs.peek();
+								for(int i = 0;i<b.truelist.size();i++)
+									fours.get(b.truelist.get(i)).des = FourYuan.no+"";
+								S(funcType,funcName);
+								jmp_list.add(FourYuan.no);
+								FourYuan fourYuan1 = new FourYuan();
+								fourYuan1.oprator = "JMP";
+								fourYuan1.op1 = "_";
+								fourYuan1.op2 = "_";
+								fourYuan1.des = null;
+								fours.add(fourYuan1);
+								FourYuan.no++;
+							}
+						}
+					}
+					if(token.getString().contentEquals("else")){
+						for(int i = 0;i<b.falselist.size();i++)
+							fours.get(b.falselist.get(i)).des = FourYuan.no + "";
+						S(funcType,funcName);
+						for(int i=0 ; i<jmp_list.size();i++)
+							fours.get(jmp_list.get(i)).des = FourYuan.no+ 1 + "";
+					}
+				}
+			}
+		}
+		else if (token.getString().equals("if")) {////if语句识别
 			parsers.add("S->if语句");
 			token = tokens.get(cur++);//读入
 			if (token.getString().contentEquals("(")) {
@@ -833,6 +888,9 @@ public class Parser {//////////////////识别完成token读到的应该是;
 						S(funcType, funcName);
 						fours.get(stru).des = FourYuan.no + "";
 					}
+				}
+				else {
+					//////不带else
 				}
 			} else {
 				System.out.println("缺少) ");
