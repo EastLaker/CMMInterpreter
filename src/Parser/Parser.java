@@ -402,6 +402,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				Parameter(NAME);    // 读取函数形参
 			}
 			if (token.getString().contentEquals("{")) { // 进入"函数体"部分
+				int no_left = FourYuan.no;
 				fours.get(no_df_statement).des = FourYuan.no + "";
 				FourYuan fourYuan1 = new FourYuan();
 				fourYuan1.oprator = "{";
@@ -414,6 +415,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				hadReturn = type.contentEquals("void");
 				L(type, NAME);
 				if (token.getString().contentEquals("}")) {
+					fours.get(no_left).op1 = FourYuan.no+"";
 					FourYuan fourYuan2 = new FourYuan();
 					fourYuan2.oprator = "}";
 					fourYuan2.op1 = "_";
