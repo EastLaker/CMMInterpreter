@@ -292,7 +292,7 @@ public class FourYuan {
 				}
 			}
 			else if(this.oprator.contentEquals("{")) {
-				//todo 形如( {,_ , _, des=name or null)
+				//todo 形如( {,op1 = ret , _, des=name or null)
 				//todo  null 则不是函数  非null 要将formalParam的量push, 然后释放 remove All
 				if("_".equals(this.des)) {
 					//normal scope
@@ -302,6 +302,7 @@ public class FourYuan {
 					if (!inMain) {
 						//未进入主main函数
 						FuncSignature func = getFunction(this.des);
+						func.setExitDes(Integer.parseInt(this.op1));
 						mainWindow.j = func.getExitDes() - 1;
 					}
 				}

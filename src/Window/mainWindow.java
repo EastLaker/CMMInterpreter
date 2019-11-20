@@ -310,6 +310,7 @@ public class mainWindow {
             Parser.errors.clear();
             E.reg = 0;
             Datas.clear();
+            Functions.clear();
 
             Word.setDes_start(0x0);
             Parser parse = new Parser();///////分析实例

@@ -130,7 +130,6 @@ public class Parser {//////////////////识别完成token读到的应该是;
 						b = error_parserE();
 					break;
 				case 7:
-
 					if (token.getString().equals("+") || token.getString().equals("-") || token.getString().equals(")") || token.getString().equals(";") || token.getString().equals(",") ||
 							token.getString().equals("}") || token.getString().equals("]")
 							|| token.getString().equals("<") || token.getString().equals(">") || token.getString().equals(">=") || token.getString().equals("<=") ||
