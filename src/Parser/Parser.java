@@ -563,7 +563,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 						if (token.getString().contentEquals(";"))
 							token = tokens.get(cur++);
 					}
-				} else if (token.getString().matches(Regex.variPat)) {
+				} else {
 					parserE();
 					FourYuan four = new FourYuan();
 					four.oprator = "wrt";
