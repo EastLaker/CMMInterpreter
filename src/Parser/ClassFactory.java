@@ -20,6 +20,7 @@ public class ClassFactory {
         FLOAT, //识别float
         INT_ARRAY,
         FLOAT_ARRAY,
+        Void,
     }
 
     public Word newWordFromType(String str) {

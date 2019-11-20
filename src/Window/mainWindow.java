@@ -339,9 +339,6 @@ public class mainWindow {
                 }
                 try {
                     for (; j < parse.fours.size(); j++){
-                        if(j== DataStructure.Main){
-                            inMain = true;
-                        }
                         parse.fours.get(j).Exec();
                     }
                 } catch (DynamicException.stopMachineException e) {

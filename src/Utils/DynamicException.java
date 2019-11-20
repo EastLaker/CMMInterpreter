@@ -102,7 +102,6 @@ public class DynamicException {
         @Override
         public void errorInfo() {
             addErrorInfo("在第"+ mainWindow.j+"条指令中, 数组的长度必须大于0");
-
         }
     }
 
