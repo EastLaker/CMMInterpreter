@@ -232,7 +232,11 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			token = tokens.get(cur++);///todo 退出本次语法分析程序
 		return b;
 	}
+	private void element_of_func(){
+           if(tokens.get(cur).getString().contentEquals("(")){
 
+		   }
+	}
 	private void element_of_array_E() {
 		String reg_ = null;
 		boolean is_element_of_array = false;
@@ -583,7 +587,8 @@ public class Parser {//////////////////识别完成token读到的应该是;
 
 
 			}
-		} else if (token.getString().contentEquals("if")) {////if语句识别
+		}
+		else if (token.getString().contentEquals("if")) {////if语句识别
 			parsers.add("S->if语句");
 			token = tokens.get(cur++);//读入
 			if (token.getString().contentEquals("(")) {
@@ -629,10 +634,12 @@ public class Parser {//////////////////识别完成token读到的应该是;
 						}
 					}
 				} else {
-					System.out.println("缺少) ");
+					error = true;
+					errors.add("line "+ token.getLine_no()+"缺少右括号\n");
 				}
 			} else {
-				System.out.println("(");
+				error = true;
+				errors.add("line "+ token.getLine_no()+"缺少左括号\n");
 			}
 		}
 		// while语句
@@ -796,7 +803,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			parserB();
 			if (token.getString().equals(")")) {
 				token = tokens.get(cur++);
-				B b = Bs.pop();
+				B b = Bs.peek();
 				for (int i = 0; i < b.truelist.size(); i++)
 					fours.get(b.truelist.get(i)).des = FourYuan.no + "";////回填真出口
 				S(funcType, funcName);/////if只有一条语句
@@ -807,12 +814,13 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				if (token.getString().equals("else")) {
 					token = tokens.get(cur++);
 					if (token.getString().equals("if")) {
+						for(int j = 0; j<b.falselist.size();j++){
+							fours.get(b.falselist.get(j)).des = FourYuan.no + "";
+						}
 						Elseif(funcType, funcName);
 					} else {
-						while (fours.get(b.falselist.get(0)).des == null) {////////没有回填假出口的指令
-							for (int t = 0; t < b.falselist.size(); t++)
-								fours.get(b.falselist.get(t)).des = FourYuan.no + 1 + "";
-							b = Bs.pop();
+						for(int j = 0; j<b.falselist.size();j++){
+							fours.get(b.falselist.get(j)).des = FourYuan.no + "";
 						}
 						int stru = FourYuan.no;
 						FourYuan four = new FourYuan();
