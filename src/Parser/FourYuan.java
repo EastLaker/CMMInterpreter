@@ -7,6 +7,8 @@ import Utils.Regex;
 import Window.mainWindow;
 
 import static Utils.DataStructure.*;
+
+import java.lang.reflect.Type;
 import java.util.Stack;
 
 /**
@@ -322,7 +324,6 @@ public class FourYuan {
 				//清除此作用块的所有局部变量.
 				if(!"_".equals(this.des)){
 					//跳出main函数
-
 					rax = Top.getRax();
 					Top = Env.pop();
 				}else{
@@ -336,8 +337,45 @@ public class FourYuan {
 			else if (this.oprator.contentEquals("=")) {
 				//如果是返回寄存器.
 				if("reg_rax".equals(this.des)){
-					Top.setRax(checkAndGetRegister(this.des));
+					Register reg_rax = checkAndGetRegister(this.des);
+					ClassFactory.TYPE returnType = Top.signature.getReturnType();
+					switch (regexPat(this.op1)){
+						case CONST:
+							ClassFactory.TYPE type = cf.getTypeFromNum(this.op1);
+							if((type == ClassFactory.TYPE.INT&&returnType == ClassFactory.TYPE.FLOAT)||(returnType==type)){
+								reg_rax.setType(returnType);
+								setRegisterValue(reg_rax, this.op1);
+							}else{
+								throw new DynamicException().new numberFormatException();
+							}
+							break;
+						case REGISTER:
+							Register register = checkAndGetRegister(this.op1);
+							type = register.getType();
+							if((type == ClassFactory.TYPE.INT&&returnType == ClassFactory.TYPE.FLOAT)||(returnType==type)){
+								reg_rax.setType(returnType);
+								reg_rax.setValue(register.getValue());
+							}else{
+								throw new DynamicException().new numberFormatException();
+							}
+							break;
+						case VARIABLE:
+							Word word = checkAndSearchWord(this.op1);
+							if (reg_rax.getValue() == null) {
+								throw new DynamicException().new unInitializedIdentifierException();
+							}
+							type = word.type;
+							if((type == ClassFactory.TYPE.INT&&returnType == ClassFactory.TYPE.FLOAT)||(returnType==type)){
+								reg_rax.setType(returnType);
+								reg_rax.setValue(word.getValue());
+							}else{
+								throw new DynamicException().new numberFormatException();
+							}
+							break;
+					}
+					Top.setRax(reg_rax);
 					mainWindow.j = Top.signature.getExitDes()-1;
+
 				}else {
 					Word word = checkAndSearchWord(this.des);
 					switch (regexPat(this.op1)) {
@@ -435,6 +473,19 @@ public class FourYuan {
 			default:
 				throw new DynamicException().new numberFormatException();
 		}
+	}
+
+	public void setRegisterValue(Register register, String str) throws DynamicException.numberFormatException {
+			try{
+				if(register.getType()== ClassFactory.TYPE.INT){
+					register.setValue(Integer.parseInt(str));
+			}else if(register.getType()== ClassFactory.TYPE.FLOAT){
+					register.setValue(Float.parseFloat(str));
+				}
+		}catch (NumberFormatException e){
+				throw new DynamicException().new numberFormatException();
+			}
+
 	}
 
 	private void con_jmp(String op) throws DynamicException.undeclaredIdentifierException,

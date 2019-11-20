@@ -6,12 +6,11 @@ int compare(int a, int b){
 
 int main(){
 	int c = 1;
-	if(c>a&&c>b){
-	write(c);
+	if(c==0){
+	int d = compare(a,b);
 	}else{
-	write(a+b);
+	int d = compare(a,c);
 	}
+	int d = 1+compare(b+c)+a;
     return 0;
 }
-
-//int num1, num2 = 1;
