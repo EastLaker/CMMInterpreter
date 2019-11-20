@@ -261,20 +261,19 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			FourYuan.no++;
 			reg_ = e.des + "";
 		}
-		else if(tokens.get(cur).getString().contentEquals("(")){
+		else if(tokens.get(cur).getString().contentEquals("(")){//////预读一个为（  那么参与运算的是函数调用的返回值
 			is_element_of_func = true;
 			String function = token.getString();  // "function"为函数名
 			token = tokens.get(cur++);////此时token应该为左括号
 			List<String> parameters = new ArrayList<>();  // 形参表
 			do {
 
-				token = tokens.get(cur++);
+				token = tokens.get(cur++);////token应该为一个单词
 				parserE();
 				if (!token.getString().contentEquals(")")) {
 					parameters.add(Es.peek().des);  // token加入形参
 				}
 
-				token = tokens.get(cur++);
 			} while (token.getString().contentEquals(","));
 			///此时token应该为右括号
 			///生成跳转语句
@@ -296,13 +295,6 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			fours.add(four);
 			FourYuan.no++;
 			DataStructure.Ret = mainWindow.j + 1;
-			if (token.getString().contentEquals(")")) {
-				token = tokens.get(cur++);
-				if (token.getString().contentEquals(";")) {
-					////TODO 调用function函数，形参为parameters<String>
-					token = tokens.get(cur++);
-				} else errors.add("行" + token.getLine_no() + ": 缺少';'");
-			} else errors.add("行" + token.getLine_no() + ": 缺少')'");
 		}
 		if (is_element_of_array)
 			symbols.push(reg_);
