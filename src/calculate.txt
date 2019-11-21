@@ -1,0 +1,10 @@
+float sum(float a ,float b){
+    return a+b;
+}
+
+int main(){
+    float a = 1;
+    float b = 1.2;
+    write(sum(a,b));
+    return 0;
+}

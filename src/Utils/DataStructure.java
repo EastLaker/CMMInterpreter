@@ -4,6 +4,7 @@ import ElementType.FuncSignature;
 import ElementType.FunctionType;
 import ElementType.Register;
 import ElementType.Word;
+import Parser.ClassFactory;
 
 import java.util.*;
 
@@ -34,13 +35,13 @@ public class DataStructure {
     public static int Ret;
     //返回寄存器
     public static Register rax;
-
     //初始化数据结构
     static {
         Capacity = 10;
         inMain = false;
 
         MAIN = new FuncSignature();
+        MAIN.setReturnType(ClassFactory.TYPE.INT);
 
         Env = new Stack<>();
         Datas = new HashMap<>(Capacity);
@@ -48,7 +49,6 @@ public class DataStructure {
         Registers = new HashMap<>();
 
         Registers.put("reg_rax",new Register());
-
     }
 
 }

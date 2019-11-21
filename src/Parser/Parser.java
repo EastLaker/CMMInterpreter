@@ -243,7 +243,6 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				return;
 			}
 			is_element_of_array = true;
-
 			String s = token.getString();  ////此时s token == id
 			token = tokens.get(cur++);////此时token == [
 			token = tokens.get(cur++);
@@ -280,33 +279,8 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			///此时token应该为右括号
 			///生成跳转语句
 
-			FourYuan four = new FourYuan();
-			four.oprator = "cal";
-			four.op2 = function;
-			four.op1 = "_";
-			four.des = "_";
-			fours.add(four);
-			FourYuan.no++;
-			DataStructure.Ret = mainWindow.j + 1;
-
-			for (String parameter : parameters) {
-				FourYuan fourYuan = new FourYuan();
-				fourYuan.oprator = "sp";
-				fourYuan.op1 = parameter;
-				fourYuan.op2 = "_";
-				fourYuan.des = function;
-				fours.add(fourYuan);
-				FourYuan.no++;
-
-			}
-			FourYuan fourYuan = new FourYuan();
-			fourYuan.oprator = "cal";
-			fourYuan.op1 = "_";
-			fourYuan.op2 = "_";
-			fourYuan.des = "_";
-			fours.add(fourYuan);
-			FourYuan.no++;
-		}
+            fouryuan_call(function, parameters);
+        }
 		if (is_element_of_array)
 			symbols.push(reg_);
 		else if(is_element_of_func)
@@ -315,7 +289,36 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			symbols.push(token.getString());
 	}
 
-	private void states_push() {
+    private void fouryuan_call(String function, List<String> parameters) {
+        FourYuan four = new FourYuan();
+        four.oprator = "cal";
+        four.op2 = function;
+        four.op1 = "_";
+        four.des = "_";
+        fours.add(four);
+        FourYuan.no++;
+        DataStructure.Ret = mainWindow.j + 1;
+
+        for (String parameter : parameters) {
+            FourYuan fourYuan = new FourYuan();
+            fourYuan.oprator = "sp";
+            fourYuan.op1 = parameter;
+            fourYuan.op2 = "_";
+            fourYuan.des = function;
+            fours.add(fourYuan);
+            FourYuan.no++;
+
+        }
+        FourYuan fourYuan = new FourYuan();
+        fourYuan.oprator = "cal";
+        fourYuan.op1 = "_";
+        fourYuan.op2 = "_";
+        fourYuan.des = "_";
+        fours.add(fourYuan);
+        FourYuan.no++;
+    }
+
+    private void states_push() {
 		switch (states.peek()) {
 			case 0:
 				states.push(1);
@@ -354,7 +357,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 		if (token.getString().contentEquals("int") || token.getString().contentEquals("float")) {
 			String TYPE = token.getString();    // TYPE指代变量或函数数据类型
 			if (tokens.get(cur+1).getString().contentEquals("=") || tokens.get(cur+1).getString().contentEquals(",")
-					|| tokens.get(cur+1).getString().contentEquals(";")) {    // 进入"全局变量"声明分支
+					|| tokens.get(cur+1).getString().contentEquals(";")||tokens.get(cur+1).getString().contentEquals("[")) {    // 进入"全局变量"声明分支
 				token = tokens.get(cur++);
 				Statement(TYPE);
 			} else if (tokens.get(cur + 1).getString().contentEquals("(")) {    // 进入"函数"定义分支
@@ -374,40 +377,45 @@ public class Parser {//////////////////识别完成token读到的应该是;
 	private void Statement(String type) {
 		if (token.getString().matches(Regex.variPat)) {
 			String name = token.getString();
-			FourYuan fourYuan = new FourYuan();
-			fourYuan.oprator = "dw";
-			fourYuan.op1 = "_";
-			fourYuan.op2 = type;
-			fourYuan.des = name;
-			fours.add(fourYuan);
-			FourYuan.no++;
-			////TODO 此处需判断该name是否为声明过的全局变量，若不是则加入单词表，若是则报错
-			token = tokens.get(cur++);
-			if (token.getString().contentEquals("=")) {
-				////TODO 全局变量声明语义动作
-				FourYuan four = new FourYuan();
-				four.oprator = token.getString();//=
-				four.des = name;
-				token = tokens.get(cur++);
-				parserE();
-				four.op1 = Es.peek().des;
-				four.op2 = "_";
+			if (tokens.get(cur).getString().contentEquals("["))//////预读一个是[ 说明是一个全局数组
+				declare_array(type, name);
+			else {
+				FourYuan fourYuan = new FourYuan();
+				fourYuan.oprator = "dw";
+				fourYuan.op1 = "_";
+				fourYuan.op2 = type;
+				fourYuan.des = name;
+				fours.add(fourYuan);
 				FourYuan.no++;
-				fours.add(four);
-			} else {
-				////TODO 全局变量只声明未赋值语义动作
+				////TODO 此处需判断该name是否为声明过的全局变量，若不是则加入单词表，若是则报错
+				token = tokens.get(cur++);
+				if (token.getString().contentEquals("=")) {
+					////TODO 全局变量声明语义动作
+					FourYuan four = new FourYuan();
+					four.oprator = token.getString();//=
+					four.des = name;
+					token = tokens.get(cur++);
+					parserE();
+					four.op1 = Es.peek().des;
+					four.op2 = "_";
+					FourYuan.no++;
+					fours.add(four);
+				} else {
+					////TODO 全局变量只声明未赋值语义动作
+				}
+
+				if (token.getString().contentEquals(";")) {
+					token = tokens.get(cur++);
+					return;
+				} else if (token.getString().contentEquals(",")) {
+					token = tokens.get(cur++);
+					Statement(type);
+				}
+			}
+		}else{
+				errors.add("行" + token.getLine_no() + ": 不合法标识符");
 			}
 
-			if (token.getString().contentEquals(";")) {
-				token = tokens.get(cur++);
-				return;
-			} else if (token.getString().contentEquals(",")) {
-				token = tokens.get(cur++);
-				Statement(type);
-			}
-		} else {
-			errors.add("行" + token.getLine_no() + ": 不合法标识符");
-		}
 	}
 
 	// 语法分析"函数"入口
@@ -650,6 +658,8 @@ public class Parser {//////////////////识别完成token读到的应该是;
 					fourYuan.des = null;
 					fours.add(fourYuan);
 					FourYuan.no++;
+					for(int i=0 ; i<jmp_list.size();i++)
+						fours.get(jmp_list.get(i)).des = FourYuan.no+ "";
 					while (token.getString().contentEquals("else")&&tokens.get(cur).getString().contentEquals("if")){//else if循环
 						for(int i = 0; i<b.falselist.size(); i++)
 							fours.get(b.falselist.get(i)).des = FourYuan.no + "";
@@ -672,6 +682,8 @@ public class Parser {//////////////////识别完成token读到的应该是;
 								fourYuan1.des = null;
 								fours.add(fourYuan1);
 								FourYuan.no++;
+								for(int i=0 ; i<jmp_list.size();i++)
+									fours.get(jmp_list.get(i)).des = FourYuan.no + "";
 							}
 						}
 					}
@@ -812,7 +824,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 					else
 						errors.add(token.getString() + "缺少]");
 				}
-				if (token.getString().contentEquals("=")) {
+				if (token.getString().contentEquals("=")) {/////赋值语句
 					token = tokens.get(cur++);
 					parserE();
 					if (token.getString().contentEquals(";")) {
@@ -829,7 +841,22 @@ public class Parser {//////////////////识别完成token读到的应该是;
 						token = tokens.get(cur++);
 					}
 
-			}
+			} else if(token.getString().contentEquals("(")){///单独的函数调用
+				    token = tokens.get(cur++);////token应该为）或者形参列表的开始
+				    List<String> parameters = new ArrayList<>();
+				    while(!token.getString().contentEquals(")")){
+				        parserE();
+				        parameters.add(Es.peek().des);
+				        if(token.getString().contentEquals(","))
+				            token = tokens.get(cur++);
+				        else if(token.getString().contentEquals(")"))
+				            break;
+                    }
+				    //此时token应该为）
+				fouryuan_call(des,parameters);
+				    token = tokens.get(cur++);////此时token应该为;
+					token = tokens.get(cur++);
+                }
 
 		}
 		// 常变量声明
@@ -901,84 +928,9 @@ public class Parser {//////////////////识别完成token读到的应该是;
 
 	private void addWord1(String type) {
 		String name = token.getString();///name 为变量名或数组名
-		if (tokens.get(cur).getString().contentEquals("[")) {//////预读一个字符为[  是个数组的声明
-			token = tokens.get(cur++);///此时token 应该为[
-			if (token.getString().contentEquals("[")) {
-				boolean length_determined = false;
-				int size = 0;
-				token = tokens.get(cur++);
-				int no_of_declare_statement = FourYuan.no;/////声明这个赋值语句的序号
-				if (token.getString().matches(Regex.positiveInt)) {
-					length_determined = true;
-					size = Integer.parseInt(token.getString());
-					FourYuan fourYuan = new FourYuan();
-					fourYuan.oprator = "da";
-					fourYuan.op1 = size + "";
-					fourYuan.op2 = type;
-					fourYuan.des = name;
-					fours.add(fourYuan);
-					FourYuan.no++;
-					token = tokens.get(cur++);
-				} else if (token.getString().contentEquals("]")) {
-					FourYuan fourYuan = new FourYuan();
-					fourYuan.oprator = "da";
-					fourYuan.op1 = null;
-					fourYuan.op2 = type;
-					fourYuan.des = name;
-					fours.add(fourYuan);
-					FourYuan.no++;
-				}
-				if (!"]".contentEquals(token.getString())) {
-					error = true;
-					errors.add("line :" + token.getLine_no() + "   缺少]\n");
-					return;
-				} else token = tokens.get(cur++);
-				if (token.getString().contentEquals("=")) {//////数组元素需要初始化
-					token = tokens.get(cur++);
-					if ((token.getString().matches(Regex.constant) || token.getString().matches(Regex.variPat)) && length_determined) {
-						parserE();
-						for (int i = 0; i < size; i++) {
-							FourYuan fourYuan = new FourYuan();
-							fourYuan.oprator = "$";
-							fourYuan.des = Es.peek().des;
-							fourYuan.op1 = name;
-							fourYuan.op2 = i + "";
-						}
-					} else if (token.getString().contentEquals("{")) {
-						int j = 0;
-						token = tokens.get(cur++);///////////////////////////////////////////////////////////////
-						while (token.getString().matches(Regex.variPat) || token.getString().matches(Regex.constant)) {
-							parserE();
-							FourYuan fourYuan = new FourYuan();
-							fourYuan.oprator = "$";
-							fourYuan.des = Es.peek().des;
-							fourYuan.op1 = name;
-							fourYuan.op2 = j + "";
-							fours.add(fourYuan);
-							FourYuan.no++;
-							j++;
-							if (token.getString().contentEquals(","))
-								token = tokens.get(cur++);
-							else break;
-						}
-						if (token.getString().contentEquals("}")) { // 数组初始化完毕
-							if (fours.get(no_of_declare_statement).oprator.contentEquals("da") && !length_determined) {
-								fours.get(no_of_declare_statement).op1 = j + "";/////回填声明数组大小
-							}
-							token = tokens.get(cur++);
-							if (token.getString().contentEquals(";")){
-								token = tokens.get(cur++);
-							} else {
-								errors.add("行" + token.getLine_no() + ": 语句缺少';'");
-							}
-						} else {
-							errors.add("行" + token.getLine_no() + ": 数组初始化缺少'}'");
-						}
-					}
-				}
-			}
-		}
-		else {
+		if (tokens.get(cur).getString().contentEquals("[")) {
+			declare_array(type, name);
+		} else {
 			/////普通变量  不是数组
 			FourYuan fourYuan = new FourYuan();
 			fourYuan.oprator = "dw";
@@ -1000,6 +952,85 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				FourYuan.no++;
 			}
 			T1(type);
+		}
+	}
+
+	private void declare_array(String type, String name) {
+		//////预读一个字符为[  是个数组的声明
+		token = tokens.get(cur++);///此时token 应该为[
+		if (token.getString().contentEquals("[")) {
+			boolean length_determined = false;
+			int size = 0;
+			token = tokens.get(cur++);
+			int no_of_declare_statement = FourYuan.no;/////声明这个赋值语句的序号
+			if (token.getString().matches(Regex.positiveInt)) {
+				length_determined = true;
+				size = Integer.parseInt(token.getString());
+				FourYuan fourYuan = new FourYuan();
+				fourYuan.oprator = "da";
+				fourYuan.op1 = size + "";
+				fourYuan.op2 = type;
+				fourYuan.des = name;
+				fours.add(fourYuan);
+				FourYuan.no++;
+				token = tokens.get(cur++);
+			} else if (token.getString().contentEquals("]")) {
+				FourYuan fourYuan = new FourYuan();
+				fourYuan.oprator = "da";
+				fourYuan.op1 = null;
+				fourYuan.op2 = type;
+				fourYuan.des = name;
+				fours.add(fourYuan);
+				FourYuan.no++;
+			}
+			if (!"]".contentEquals(token.getString())) {
+				error = true;
+				errors.add("line :" + token.getLine_no() + "   缺少]\n");
+				return;
+			} else token = tokens.get(cur++);
+			if (token.getString().contentEquals("=")) {//////数组元素需要初始化
+				token = tokens.get(cur++);
+				if ((token.getString().matches(Regex.constant) || token.getString().matches(Regex.variPat)) && length_determined) {
+					parserE();
+					for (int i = 0; i < size; i++) {
+						FourYuan fourYuan = new FourYuan();
+						fourYuan.oprator = "$";
+						fourYuan.des = Es.peek().des;
+						fourYuan.op1 = name;
+						fourYuan.op2 = i + "";
+					}
+				} else if (token.getString().contentEquals("{")) {
+					int j = 0;
+					token = tokens.get(cur++);///////////////////////////////////////////////////////////////
+					while (token.getString().matches(Regex.variPat) || token.getString().matches(Regex.constant)) {
+						parserE();
+						FourYuan fourYuan = new FourYuan();
+						fourYuan.oprator = "$";
+						fourYuan.des = Es.peek().des;
+						fourYuan.op1 = name;
+						fourYuan.op2 = j + "";
+						fours.add(fourYuan);
+						FourYuan.no++;
+						j++;
+						if (token.getString().contentEquals(","))
+							token = tokens.get(cur++);
+						else break;
+					}
+					if (token.getString().contentEquals("}")) { // 数组初始化完毕
+						if (fours.get(no_of_declare_statement).oprator.contentEquals("da") && !length_determined) {
+							fours.get(no_of_declare_statement).op1 = j + "";/////回填声明数组大小
+						}
+						token = tokens.get(cur++);
+						if (token.getString().contentEquals(";")){
+							token = tokens.get(cur++);
+						} else {
+							errors.add("行" + token.getLine_no() + ": 语句缺少';'");
+						}
+					} else {
+						errors.add("行" + token.getLine_no() + ": 数组初始化缺少'}'");
+					}
+				}
+			}
 		}
 	}
 

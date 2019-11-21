@@ -1,0 +1,13 @@
+int plus(int i){
+    if(i==0){
+        return 1;
+    }else{
+        return i*plus(i-1);
+    }
+}
+
+int main(){
+    int num  = 5;
+    write(plus(5));
+    return 0;
+}

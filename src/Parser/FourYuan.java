@@ -171,7 +171,7 @@ public class FourYuan {
 			}
 			else if(this.oprator.contentEquals("da")){
 				//todo 形如(declare_array, length, type, name)  length null?
-				checkAndSearchArray(this.des);
+				checkWordIsExisted(this.des);
 
 				final int length = getIndex(this.op1);
 				switch (cf.getTypeFromStr(this.op2)){
@@ -179,6 +179,7 @@ public class FourYuan {
 						ArrayType<Float> FArray;
 						try{
 							FArray = new ArrayType<>(new Float[length], ClassFactory.TYPE.INT_ARRAY);
+							FArray.setName(this.des);
 							FArray.setDes(Word.getDes_start());
 							Word.setDes_start(length-1);
 						}catch (NegativeArraySizeException e){
@@ -191,6 +192,7 @@ public class FourYuan {
 						try{
 							IArray = new ArrayType<>(new Integer[length], ClassFactory.TYPE.INT_ARRAY);
 							IArray.setDes(Word.getDes_start());
+							IArray.setName(this.des);
 							Word.setDes_start(length-1);
 						}catch (NegativeArraySizeException e){
 							throw new DynamicException().new illegalArratSizeException();
@@ -230,12 +232,10 @@ public class FourYuan {
 									// op1=int
 									float f = Float.parseFloat(this.op1);
 									word.setValue(f);
-									word.type = ClassFactory.TYPE.INT;
 									break;
 								case INT:
 									int i = Integer.parseInt(this.op1);
 									word.setValue(i);
-									word.type = ClassFactory.TYPE.FLOAT;
 									break;
 							}
 						}catch (NumberFormatException e){
@@ -328,7 +328,12 @@ public class FourYuan {
 					//跳出main函数
 					rax = Top.getRax();
 					mainWindow.j = Top.getRet()-1;
-					Top = Env.pop();
+					Env.pop();
+					if(!"main".equals(this.des)){
+						Top = Env.peek();
+					}else{
+						mainWindow.j = MAIN.getExitDes();
+					}
 				}else{
 					//普通的作用域释放
 					Top.outOfScope();
@@ -340,8 +345,8 @@ public class FourYuan {
 			else if (this.oprator.contentEquals("=")) {
 				//如果是返回寄存器.
 				if("reg_rax".equals(this.des)){
-					Register reg_rax = checkAndGetRegister(this.des);
 					ClassFactory.TYPE returnType = Top.signature.getReturnType();
+					Register reg_rax = new Register(returnType);
 					switch (regexPat(this.op1)){
 						case CONST:
 							ClassFactory.TYPE type = cf.getTypeFromNum(this.op1);
@@ -377,8 +382,8 @@ public class FourYuan {
 							break;
 					}
 					Top.setRax(reg_rax);
+					Registers.put(this.des,reg_rax);
 					mainWindow.j = Top.signature.getExitDes()-1;
-
 				}else {
 					Word word = checkAndSearchWord(this.des);
 					switch (regexPat(this.op1)) {
@@ -398,7 +403,8 @@ public class FourYuan {
 							break;
 					}
 				}
-			} else if(this.oprator.contentEquals("wrt")){
+			}
+			else if(this.oprator.contentEquals("wrt")){
 				//todo (wrt,_,_,des=word|register)
 
 				switch (regexPat(this.des)) {
@@ -414,7 +420,8 @@ public class FourYuan {
 						throw new DynamicException().new defaultException("无法识别此字符串");
 				}
 
-			} else if (this.oprator.contentEquals("J<")) {
+			}
+			else if (this.oprator.contentEquals("J<")) {
 				con_jmp("<");
 			} else if (this.oprator.contentEquals("J>")) {
 				con_jmp(">");
@@ -687,6 +694,11 @@ public class FourYuan {
 		Register reg = Registers.getOrDefault(str, null);
 		if (reg == null) {
 			throw new DynamicException().new defaultException("找不到寄存器");
+		}
+
+		if("reg_rax".equals(str)){
+			//销毁返回值寄存器
+			Registers.put(str,null);
 		}
 		return reg;
 	}

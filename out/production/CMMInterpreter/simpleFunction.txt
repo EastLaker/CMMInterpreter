@@ -1,0 +1,16 @@
+int a = 1, b = 0;
+
+int sum(int a, int b){
+	return a+b;
+}
+
+int main(){
+	int c = 1;
+	if(c==0){
+	int d = sum(a,b);
+	}else{
+	int d = sum(a,c);
+	}
+	int d = 1+sum(b,sum(10,20))+a;
+    return 0;
+}
