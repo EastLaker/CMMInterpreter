@@ -12,5 +12,6 @@ int main(){
 	int d = sum(a,c);
 	}
 	int d = 1+sum(b,sum(10,20))+a;
+	write(d);
     return 0;
 }

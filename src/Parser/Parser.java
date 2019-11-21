@@ -696,22 +696,6 @@ public class Parser {//////////////////识别完成token读到的应该是;
 						S(funcType,funcName);
 						for(int i=0 ; i<jmp_list.size();i++)
 							fours.get(jmp_list.get(i)).des = FourYuan.no + "";
-						/*
-						if(tokens.get(cur).getString().contentEquals("{")){
-							for(int i = 0;i<b.falselist.size();i++)
-								fours.get(b.falselist.get(i)).des = FourYuan.no + "";
-							S(funcType,funcName);
-							for(int i=0 ; i<jmp_list.size();i++)
-								fours.get(jmp_list.get(i)).des = FourYuan.no+ 2 + "";
-						}
-						// else不带{}
-						else {
-							for (int i = 0; i < b.falselist.size(); i++)
-								fours.get(b.falselist.get(i)).des = FourYuan.no + "";
-							S(funcType, funcName);
-							for (int i = 0; i < jmp_list.size(); i++)
-								fours.get(jmp_list.get(i)).des = FourYuan.no +1+ "";
-						}*/
 					}
 					//// 只有if语句
 					else {////回填假出口
