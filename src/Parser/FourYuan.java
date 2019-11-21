@@ -328,7 +328,8 @@ public class FourYuan {
 					//跳出main函数
 					rax = Top.getRax();
 					mainWindow.j = Top.getRet()-1;
-					Top = Env.pop();
+					Env.pop();
+					Top = Env.peek();
 				}else{
 					//普通的作用域释放
 					Top.outOfScope();
@@ -340,7 +341,7 @@ public class FourYuan {
 			else if (this.oprator.contentEquals("=")) {
 				//如果是返回寄存器.
 				if("reg_rax".equals(this.des)){
-					Register reg_rax = checkAndGetRegister(this.des);
+					Register reg_rax = Registers.get(this.des);
 					ClassFactory.TYPE returnType = Top.signature.getReturnType();
 					switch (regexPat(this.op1)){
 						case CONST:
@@ -398,7 +399,8 @@ public class FourYuan {
 							break;
 					}
 				}
-			} else if(this.oprator.contentEquals("wrt")){
+			}
+			else if(this.oprator.contentEquals("wrt")){
 				//todo (wrt,_,_,des=word|register)
 
 				switch (regexPat(this.des)) {
@@ -687,6 +689,11 @@ public class FourYuan {
 		Register reg = Registers.getOrDefault(str, null);
 		if (reg == null) {
 			throw new DynamicException().new defaultException("找不到寄存器");
+		}
+
+		if("reg_rax".equals(str)){
+			//销毁返回值寄存器
+			Registers.put(str,null);
 		}
 		return reg;
 	}

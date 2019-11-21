@@ -46,7 +46,6 @@ public class DataStructure {
         Registers = new HashMap<>();
 
         Registers.put("reg_rax",new Register());
-
     }
 
 }
