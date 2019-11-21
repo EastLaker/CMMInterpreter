@@ -357,7 +357,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 		if (token.getString().contentEquals("int") || token.getString().contentEquals("float")) {
 			String TYPE = token.getString();    // TYPE指代变量或函数数据类型
 			if (tokens.get(cur+1).getString().contentEquals("=") || tokens.get(cur+1).getString().contentEquals(",")
-					|| tokens.get(cur+1).getString().contentEquals(";")) {    // 进入"全局变量"声明分支
+					|| tokens.get(cur+1).getString().contentEquals(";")||tokens.get(cur+1).getString().contentEquals("[")) {    // 进入"全局变量"声明分支
 				token = tokens.get(cur++);
 				Statement(TYPE);
 			} else if (tokens.get(cur + 1).getString().contentEquals("(")) {    // 进入"函数"定义分支
