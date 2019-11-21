@@ -196,6 +196,7 @@ public class mainWindow {
                     builder.append('\n');
                 }
                 String sourceCode = builder.toString();
+                codeArea.clear();
                 codeArea.replaceText(0, 0, sourceCode);
             }
             catch (IOException e) {
