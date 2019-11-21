@@ -7,9 +7,9 @@ void bubble_sort(int len) {
   j = i+1;
   while(j<len){
    if(arr[i]<arr[j]){
-     int temp = a[i];
-     a[i] = a[j];
-     a[j] = temp;
+     int temp = arr[i];
+     arr[i] = arr[j];
+     arr[j] = temp;
    }
    j=j+1;
   }
