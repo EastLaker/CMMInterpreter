@@ -1,0 +1,35 @@
+int arr[] = {5,2,7,3,6,8,1,33,73,4};
+int length = 10;
+
+void bubble_sort(int len) {
+ int i = 0,j;
+ while(i<len-1){
+  j = i+1;
+  while(j<len){
+   if(arr[i]<arr[j]){
+     int temp = a[i];
+     a[i] = a[j];
+     a[j] = temp;
+   }
+   j=j+1;
+  }
+  i = i+1;
+ }
+}
+
+void printArray(int len){
+ int i = 0;
+ while(i<len){
+  write(arr[i]);
+  i=i+1;
+ }
+}
+
+int main(){
+ bubble_sort(length);
+ printArray(length);
+ return 0;
+}
+
+
+

@@ -420,7 +420,8 @@ public class FourYuan {
 						throw new DynamicException().new defaultException("无法识别此字符串");
 				}
 
-			} else if (this.oprator.contentEquals("J<")) {
+			}
+			else if (this.oprator.contentEquals("J<")) {
 				con_jmp("<");
 			} else if (this.oprator.contentEquals("J>")) {
 				con_jmp(">");

@@ -1,7 +1,0 @@
-int i = 1;
-int main(){
-    int b[] = {3,4};
-    i = b[0];
-    write(i);
-    return 1;
-}

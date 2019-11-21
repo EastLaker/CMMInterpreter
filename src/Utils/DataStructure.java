@@ -33,7 +33,6 @@ public class DataStructure {
     public static int Ret;
     //返回寄存器
     public static Register rax;
-
     //初始化数据结构
     static {
         Capacity = 10;
