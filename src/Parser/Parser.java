@@ -828,8 +828,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 						token = tokens.get(cur++);
 					}
 
-			}
-				else if(token.getString().contentEquals("(")){///单独的函数调用
+			} else if(token.getString().contentEquals("(")){///单独的函数调用
 				    token = tokens.get(cur++);////token应该为）或者形参列表的开始
 				    List<String> parameters = new ArrayList<>();
 				    while(!token.getString().contentEquals(")")){
@@ -843,6 +842,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				    //此时token应该为）
 				fouryuan_call(des,parameters);
 				    token = tokens.get(cur++);////此时token应该为;
+					token = tokens.get(cur++);
                 }
 
 		}
