@@ -1,16 +1,16 @@
 int a = 1, b = 0;
 
-int compare(int a, int b){
-	return a-b;
+int sum(int a, int b){
+	return a+b;
 }
 
 int main(){
 	int c = 1;
 	if(c==0){
-	int d = compare(a,b);
+	int d = sum(a,b);
 	}else{
-	int d = compare(a,c);
+	int d = sum(a,c);
 	}
-	int d = 1+compare(b,c)+a;
+	int d = 1+sum(b,sum(10,20))+a;
     return 0;
 }

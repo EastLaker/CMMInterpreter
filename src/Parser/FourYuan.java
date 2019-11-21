@@ -232,12 +232,10 @@ public class FourYuan {
 									// op1=int
 									float f = Float.parseFloat(this.op1);
 									word.setValue(f);
-									word.type = ClassFactory.TYPE.INT;
 									break;
 								case INT:
 									int i = Integer.parseInt(this.op1);
 									word.setValue(i);
-									word.type = ClassFactory.TYPE.FLOAT;
 									break;
 							}
 						}catch (NumberFormatException e){
