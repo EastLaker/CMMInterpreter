@@ -12,11 +12,11 @@ float arrf[] = {1.1,2.2,3.3};
 */
 
 int sumArray(int len){
-    int i = len;
-    if(len<0){
+    int i = len-1;
+    if(i<0){
         return 0;
     }else{
-        return arr[len]+sumArray(len-1);
+        return arr[i]+sumArray(i-1);
     }
 }
 

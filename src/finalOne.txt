@@ -12,14 +12,12 @@ float arrf[] = {1.1,2.2,3.3};
 */
 
 int sumArray(int len){
-    int i = len;
-    if(len<0){
+    if(len==0){
         return 0;
     }else{
-        return arr[len]+sumArray(len-1);
+        return arr[len-1]+sumArray(len-1);
     }
 }
-
 float sum(int a, float b){
     return a+b;
 }
@@ -43,4 +41,5 @@ int main(){
     print(a);
     print(b);
     print(sumArray(len));
+    return 0;
 }
