@@ -15,9 +15,9 @@ public class Parser {//////////////////识别完成token读到的应该是;
 	//语法分析    识别算术表达式   规约规则⬇️
 	//0）S->E+E
 	//1) E->E+E
-	//2)E->E+E
-	//3)E->(E)
-	//4)E->id
+	//2) E->E+E
+	//3) E->(E)
+	//4) E->id
 	public static List<String> errors = new ArrayList<String>();
 	public List<String> parsers = new ArrayList<String>();
 	public static List<String> Console = new ArrayList<String>();
@@ -672,6 +672,14 @@ public class Parser {//////////////////识别完成token读到的应该是;
 						S(funcType,funcName);
 						for(int i=0 ; i<jmp_list.size();i++)
 							fours.get(jmp_list.get(i)).des = FourYuan.no+ 1 + "";
+					}
+					//// 只有if语句
+					else {////回填假出口
+						while (fours.get(b.falselist.get(0)).des == null) {
+							for (int j = 0; j < b.falselist.size(); j++)
+								fours.get(b.falselist.get(j)).des = FourYuan.no + "";
+							b = Bs.pop();
+						}
 					}
 				}
 			}

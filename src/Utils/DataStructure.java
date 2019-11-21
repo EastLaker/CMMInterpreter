@@ -24,7 +24,6 @@ public class DataStructure {
     //总调用过程
     public static final Stack<FunctionType> Env = new Stack<>();
     public static final FuncSignature MAIN = new FuncSignature();
-
     //调用过程的指针
     public static FunctionType Top;
 

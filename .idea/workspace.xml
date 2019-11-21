@@ -4,6 +4,8 @@
     <list default="true" id="7fe6b01d-ac83-4081-9711-26d257f23af1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/Parser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/Parser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Parser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utils/DataStructure.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/DataStructure.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -31,20 +33,40 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Parser/Parser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="184">
-              <caret line="931" column="16" selection-start-line="931" selection-start-column="16" selection-end-line="931" selection-end-column="16" />
+            <state relative-caret-position="-2887">
+              <caret line="481" column="17" selection-start-line="481" selection-start-column="17" selection-end-line="481" selection-end-column="17" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#parserE#0;class#Parser#0" />
-                <element signature="method#error_parserE#0;class#Parser#0" />
+                <element signature="method#states_push#0;class#Parser#0" />
+                <element signature="e#18091#18826#1" />
+                <element signature="e#18167#18532#1" />
+                <element signature="e#18886#19508#0" />
+                <element signature="e#19192#19419#1" />
+                <element signature="e#19571#20426#1" />
+                <element signature="e#24294#25174#1" />
+                <element signature="e#25280#25388#1" />
+                <element signature="e#25457#26442#1" />
+                <element signature="e#26508#26852#1" />
+                <element signature="method#Elseif#0;class#Parser#0" />
+                <element signature="method#addWord1#0;class#Parser#0" />
                 <element signature="method#T1#0;class#Parser#0" />
+                <element signature="method#parserB#0;class#Parser#0" />
                 <element signature="method#push_States_O#0;class#Parser#0" />
                 <element signature="method#push_States_A#0;class#Parser#0" />
                 <element signature="method#push_States_B#0;class#Parser#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Utils/DataStructure.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="380">
+              <caret line="25" column="65" selection-start-line="25" selection-start-column="65" selection-end-line="25" selection-end-column="65" />
             </state>
           </provider>
         </entry>
@@ -132,21 +154,21 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/Parser/Parser.java" />
+        <option value="$PROJECT_DIR$/src/Utils/DataStructure.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="-15" />
-    <option name="y" value="-15" />
-    <option name="width" value="1940" />
-    <option name="height" value="1040" />
+  <component name="ProjectFrameBounds" extendedState="1">
+    <option name="x" value="-8" />
+    <option name="y" value="37" />
+    <option name="width" value="977" />
+    <option name="height" value="1050" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -174,6 +196,12 @@
               <item name="CMMInterpreter" type="b2602c69:ProjectViewProjectNode" />
               <item name="CMMInterpreter" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Utils" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CMMInterpreter" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CMMInterpreter" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="Window" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -181,6 +209,7 @@
         </subPane>
       </pane>
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -232,19 +261,20 @@
       <updated>1574254088171</updated>
       <workItem from="1574254098918" duration="927000" />
       <workItem from="1574255493766" duration="687000" />
-      <workItem from="1574263094925" duration="1504000" />
+      <workItem from="1574263094925" duration="4083000" />
+      <workItem from="1574295583390" duration="4676000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4314000" />
+    <option name="totallyTimeSpent" value="11569000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="23" width="1550" height="848" extended-state="7" />
+    <frame x="-6" y="30" width="781" height="840" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4290429" visible="true" weight="0.19932885" />
-      <window_info id="Structure" order="1" sideWeight="0.5709571" side_tool="true" weight="0.19664429" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.42514125" weight="0.14840499" />
+      <window_info id="Structure" order="1" sideWeight="0.5748588" side_tool="true" weight="0.1816921" />
       <window_info id="Designer" order="2" />
       <window_info id="UI Designer" order="3" />
       <window_info id="Favorites" order="4" side_tool="true" />
@@ -252,13 +282,13 @@
       <window_info id="Image Layers" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49932885" visible="true" weight="0.23463687" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49932885" weight="0.25418994" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.30865923" />
-      <window_info active="true" anchor="bottom" id="Event Log" order="8" sideWeight="0.50067115" side_tool="true" visible="true" weight="0.23463687" />
+      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.49932885" weight="0.30865923" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.50067115" side_tool="true" weight="0.30865923" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Version Control" order="10" />
       <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
@@ -329,13 +359,24 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/Parser/Parser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="931" column="16" selection-start-line="931" selection-start-column="16" selection-end-line="931" selection-end-column="16" />
+        <state relative-caret-position="-2887">
+          <caret line="481" column="17" selection-start-line="481" selection-start-column="17" selection-end-line="481" selection-end-column="17" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#parserE#0;class#Parser#0" />
-            <element signature="method#error_parserE#0;class#Parser#0" />
+            <element signature="method#states_push#0;class#Parser#0" />
+            <element signature="e#18091#18826#1" />
+            <element signature="e#18167#18532#1" />
+            <element signature="e#18886#19508#0" />
+            <element signature="e#19192#19419#1" />
+            <element signature="e#19571#20426#1" />
+            <element signature="e#24294#25174#1" />
+            <element signature="e#25280#25388#1" />
+            <element signature="e#25457#26442#1" />
+            <element signature="e#26508#26852#1" />
+            <element signature="method#Elseif#0;class#Parser#0" />
+            <element signature="method#addWord1#0;class#Parser#0" />
             <element signature="method#T1#0;class#Parser#0" />
+            <element signature="method#parserB#0;class#Parser#0" />
             <element signature="method#push_States_O#0;class#Parser#0" />
             <element signature="method#push_States_A#0;class#Parser#0" />
             <element signature="method#push_States_B#0;class#Parser#0" />
@@ -395,6 +436,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
           <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Utils/DataStructure.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="25" column="65" selection-start-line="25" selection-start-column="65" selection-end-line="25" selection-end-column="65" />
         </state>
       </provider>
     </entry>
