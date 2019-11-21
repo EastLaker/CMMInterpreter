@@ -534,12 +534,13 @@ public class Parser {//////////////////识别完成token读到的应该是;
 	// S->a;|{L}|if语句|while语句
 	public void L(String funcType, String funcName) {
 		// 函数类型funcType，函数名funcName
-		if (token.getString().contentEquals("return") || token.getString().contentEquals("{") || token.getString().equals("if") || token.getString().contentEquals("while") || token.getString().matches("write")||token.getString().matches(Regex.variPat)
+		while (token.getString().contentEquals("return") || token.getString().contentEquals("{") || token.getString().equals("if") || token.getString().contentEquals("while") || token.getString().matches("write")||token.getString().matches(Regex.variPat)
 				|| token.getString().matches(Regex._float) || token.getString().matches(Regex._int)) {
 			parsers.add("L->SL");
 			S(funcType, funcName);
 			L(funcType, funcName);
-		} else if (token.getString().contentEquals("}")) {
+		}
+		if (token.getString().contentEquals("}")) {
 			parsers.add("L -> null");
 
 		} else {
@@ -688,11 +689,29 @@ public class Parser {//////////////////识别完成token读到的应该是;
 						}
 					}
 					if(token.getString().contentEquals("else")){
+						// else带{}
+						token = tokens.get(cur++);
 						for(int i = 0;i<b.falselist.size();i++)
 							fours.get(b.falselist.get(i)).des = FourYuan.no + "";
 						S(funcType,funcName);
 						for(int i=0 ; i<jmp_list.size();i++)
-							fours.get(jmp_list.get(i)).des = FourYuan.no+ 1 + "";
+							fours.get(jmp_list.get(i)).des = FourYuan.no + "";
+						/*
+						if(tokens.get(cur).getString().contentEquals("{")){
+							for(int i = 0;i<b.falselist.size();i++)
+								fours.get(b.falselist.get(i)).des = FourYuan.no + "";
+							S(funcType,funcName);
+							for(int i=0 ; i<jmp_list.size();i++)
+								fours.get(jmp_list.get(i)).des = FourYuan.no+ 2 + "";
+						}
+						// else不带{}
+						else {
+							for (int i = 0; i < b.falselist.size(); i++)
+								fours.get(b.falselist.get(i)).des = FourYuan.no + "";
+							S(funcType, funcName);
+							for (int i = 0; i < jmp_list.size(); i++)
+								fours.get(jmp_list.get(i)).des = FourYuan.no +1+ "";
+						}*/
 					}
 					//// 只有if语句
 					else {////回填假出口
@@ -705,60 +724,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				}
 			}
 		}
-		else if (token.getString().equals("if")) {////if语句识别
-			parsers.add("S->if语句");
-			token = tokens.get(cur++);//读入
-			if (token.getString().contentEquals("(")) {
-				token = tokens.get(cur++);
-				////识别逻辑表达式B();
-				///////////栈顶一个B，真出口链，假出口链回填
-				parserB();
-				if (token.getString().equals(")")) {
-					token = tokens.get(cur++);
-					B b = Bs.peek();
-					for (int i = 0; i < b.truelist.size(); i++)
-						fours.get(b.truelist.get(i)).des = FourYuan.no + "";////回填真出口
-					S(funcType, funcName);/////if只有一条语句
-					/*
-					 * {}|a;|if语句|while语句
-					 */
-					if (token.getString().equals("else")) {////else分支
-						token = tokens.get(cur++);
-						if (token.getString().equals("if")) {////elseif分支
-							for (int t = 0; t < b.falselist.size(); t++) {//////回填假出口
-								fours.get(b.falselist.get(t)).des = FourYuan.no + "";
-							}
-							Elseif(funcType, funcName);
-						} else {
-							int stru = FourYuan.no;
-							FourYuan four = new FourYuan();
-							four.op1 = "_";
-							four.op2 = "_";
-							four.oprator = "JMP";
-							four.des = null;
-							FourYuan.no++;
-							fours.add(four);
-							////TODO 回填真出口
-							S(funcType, funcName);
-							fours.get(stru).des = FourYuan.no + "";
-						}
-					} else {//////不带else
-						////回填假出口
-						while (fours.get(b.falselist.get(0)).des == null) {
-							for (int j = 0; j < b.falselist.size(); j++)
-								fours.get(b.falselist.get(j)).des = FourYuan.no + "";
-							b = Bs.pop();
-						}
-					}
-				} else {
-					error = true;
-					errors.add("line "+ token.getLine_no()+"缺少右括号\n");
-				}
-			} else {
-				error = true;
-				errors.add("line "+ token.getLine_no()+"缺少左括号\n");
-			}
-		}
+
 		// while语句
 		else if ("while".equals(token.getString())) {
 			parsers.add("S->while语句");
@@ -869,60 +835,6 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			}
 			while (!token.getString().contentEquals(";") && !token.getString().contentEquals("#"))
 				token = tokens.get(cur++);
-		}
-	}
-
-	// 语法分析"else if"语句
-	private void Elseif(String funcType, String funcName) {
-		parsers.add("S->else if语句");
-		token = tokens.get(cur++);//读入
-		if (token.getString().contentEquals("(")) {
-			token = tokens.get(cur++);
-
-			//栈顶一个B，真出口链，假出口链回填
-			parserB();
-			if (token.getString().equals(")")) {
-				token = tokens.get(cur++);
-				B b = Bs.peek();
-				for (int i = 0; i < b.truelist.size(); i++)
-					fours.get(b.truelist.get(i)).des = FourYuan.no + "";////回填真出口
-				S(funcType, funcName);/////if只有一条语句
-				/*
-				 * {}|a;|if语句|while语句
-				 */
-				//token = tokens.get(cur++);
-				if (token.getString().equals("else")) {
-					token = tokens.get(cur++);
-					if (token.getString().equals("if")) {
-						for(int j = 0; j<b.falselist.size();j++){
-							fours.get(b.falselist.get(j)).des = FourYuan.no + "";
-						}
-						Elseif(funcType, funcName);
-					} else {
-						for(int j = 0; j<b.falselist.size();j++){
-							fours.get(b.falselist.get(j)).des = FourYuan.no + "";
-						}
-						int stru = FourYuan.no;
-						FourYuan four = new FourYuan();
-						four.op1 = "_";
-						four.op2 = "_";
-						four.oprator = "JMP";
-						four.des = null;
-						FourYuan.no++;
-						fours.add(four);
-						////TODO 回填真出口
-						S(funcType, funcName);
-						fours.get(stru).des = FourYuan.no + "";
-					}
-				}
-				else {
-					//////不带else
-				}
-			} else {
-				System.out.println("缺少) ");
-			}
-		} else {
-			System.out.println("缺少( ");
 		}
 	}
 
