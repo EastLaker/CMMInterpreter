@@ -16,7 +16,7 @@ public class FuncSignature<T> {
     //形参个数
     private int numOfParam;
     //形参列表
-    private List<ClassFactory.TYPE> FormalParamType;
+    private List<Word> FormalParamType;
     //返回类型
     private ClassFactory.TYPE returnType;
     //des of out of scope
@@ -32,13 +32,17 @@ public class FuncSignature<T> {
         this.enterDes = enterDes;
     }
 
-    public void addParam(ClassFactory.TYPE paramType){
-        FormalParamType.add(paramType);
+    public void addParam(Word word){
+        FormalParamType.add(word);
         ++numOfParam;
     }
 
     public ClassFactory.TYPE getParamTypeOfIndex(int index){
-        return FormalParamType.get(index);
+        return FormalParamType.get(index).type;
+    }
+
+    public String getParamNameOfIndex(int index){
+        return FormalParamType.get(index).getName();
     }
 
     public int getEnterDes() {
@@ -53,11 +57,11 @@ public class FuncSignature<T> {
         this.numOfParam = numOfParam;
     }
 
-    public List<ClassFactory.TYPE> getFormalParamType() {
+    public List<Word> getFormalParamType() {
         return FormalParamType;
     }
 
-    public void setFormalParamType(List<ClassFactory.TYPE> formalParamType) {
+    public void setFormalParamType(List<Word> formalParamType) {
         FormalParamType = formalParamType;
     }
 
