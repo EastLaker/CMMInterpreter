@@ -958,9 +958,9 @@ public class Parser {//////////////////识别完成token读到的应该是;
 					}
 				}
 			}
-		} else {
+		}
+		else {
 			/////普通变量  不是数组
-			int no_of_dw_statement = FourYuan.no;
 			FourYuan fourYuan = new FourYuan();
 			fourYuan.oprator = "dw";
 			fourYuan.des = name;
@@ -972,7 +972,13 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			if (token.getString().contentEquals("=")) {
 				token = tokens.get(cur++);
 				parserE();
-				fours.get(no_of_dw_statement).op1 = Es.peek().des;
+				FourYuan fourYuan1 = new FourYuan();
+				fourYuan1.oprator = "=";
+				fourYuan1.op1 = name;
+				fourYuan1.op2 = "_";
+				fourYuan1.des = Es.peek().des;
+				fours.add(fourYuan1);
+				FourYuan.no++;
 			}
 			T1(type);
 		}
