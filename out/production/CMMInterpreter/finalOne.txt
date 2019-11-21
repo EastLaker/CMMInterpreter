@@ -1,8 +1,15 @@
 int a = 1;
 float b = 2.2;
 int c = 0;
-//int arr[] = {0,5,10};
-//float arrf[] = {1.1,2.2,3.3};
+int len = 3;
+int arr[] = {0,5,10};
+float arrf[] = {1.1,2.2,3.3};
+
+//注释
+
+/*
+    也是一段注释
+*/
 
 int sumArray(int len){
     int i = len;
@@ -35,4 +42,5 @@ int main(){
     }
     print(a);
     print(b);
+    print(sumArray(len));
 }
