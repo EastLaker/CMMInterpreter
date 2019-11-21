@@ -2,10 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7fe6b01d-ac83-4081-9711-26d257f23af1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/ElementType/FuncSignature.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/ElementType/FuncSignature.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/ElementType/FunctionType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/ElementType/FunctionType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/FourYuan$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/FourYuan$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/FourYuan$OPERATOR.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/FourYuan$OPERATOR.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/FourYuan$TokenType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/FourYuan$TokenType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/FourYuan.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/FourYuan.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/Parser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Parser/Parser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/Utils/DataStructure.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/Utils/DataStructure.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CMMInterpreter/function.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CMMInterpreter/function.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ElementType/FuncSignature.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ElementType/FuncSignature.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ElementType/FunctionType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ElementType/FunctionType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/FourYuan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/FourYuan.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Parser/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Parser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Utils/DataStructure.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/DataStructure.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/function.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/function.txt" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -36,21 +47,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Parser/Parser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2887">
-              <caret line="481" column="17" selection-start-line="481" selection-start-column="17" selection-end-line="481" selection-end-column="17" />
+            <state relative-caret-position="-2431">
+              <caret line="490" column="17" selection-start-line="490" selection-start-column="17" selection-end-line="490" selection-end-column="17" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#states_push#0;class#Parser#0" />
-                <element signature="e#18091#18826#1" />
-                <element signature="e#18167#18532#1" />
-                <element signature="e#18886#19508#0" />
-                <element signature="e#19192#19419#1" />
-                <element signature="e#19571#20426#1" />
-                <element signature="e#24294#25174#1" />
-                <element signature="e#25280#25388#1" />
-                <element signature="e#25457#26442#1" />
-                <element signature="e#26508#26852#1" />
-                <element signature="method#Elseif#0;class#Parser#0" />
                 <element signature="method#addWord1#0;class#Parser#0" />
                 <element signature="method#T1#0;class#Parser#0" />
                 <element signature="method#parserB#0;class#Parser#0" />
@@ -65,8 +65,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Utils/DataStructure.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="380">
-              <caret line="25" column="65" selection-start-line="25" selection-start-column="65" selection-end-line="25" selection-end-column="65" />
+            <state relative-caret-position="475">
+              <caret line="30" selection-start-line="30" selection-end-line="30" />
             </state>
           </provider>
         </entry>
@@ -74,8 +74,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Parser/FourYuan.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2185">
-              <caret line="122" column="32" selection-start-line="122" selection-start-column="32" selection-end-line="122" selection-end-column="32" />
+            <state relative-caret-position="2223">
+              <caret line="124" column="32" selection-start-line="124" selection-start-column="32" selection-end-line="124" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -158,7 +158,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-8" />
     <option name="y" value="37" />
     <option name="width" value="977" />
@@ -262,18 +262,18 @@
       <workItem from="1574254098918" duration="927000" />
       <workItem from="1574255493766" duration="687000" />
       <workItem from="1574263094925" duration="4083000" />
-      <workItem from="1574295583390" duration="4676000" />
+      <workItem from="1574295583390" duration="5340000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11569000" />
+    <option name="totallyTimeSpent" value="12233000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-6" y="30" width="781" height="840" extended-state="0" />
+    <frame x="-7" y="23" width="1550" height="848" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.42514125" weight="0.14840499" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.42514125" visible="true" weight="0.14832215" />
       <window_info id="Structure" order="1" sideWeight="0.5748588" side_tool="true" weight="0.1816921" />
       <window_info id="Designer" order="2" />
       <window_info id="UI Designer" order="3" />
@@ -287,7 +287,7 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.49932885" weight="0.30865923" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" sideWeight="0.49932885" visible="true" weight="0.041899443" />
       <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.50067115" side_tool="true" weight="0.30865923" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Version Control" order="10" />
@@ -359,21 +359,10 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/Parser/Parser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2887">
-          <caret line="481" column="17" selection-start-line="481" selection-start-column="17" selection-end-line="481" selection-end-column="17" />
+        <state relative-caret-position="-2431">
+          <caret line="490" column="17" selection-start-line="490" selection-start-column="17" selection-end-line="490" selection-end-column="17" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#states_push#0;class#Parser#0" />
-            <element signature="e#18091#18826#1" />
-            <element signature="e#18167#18532#1" />
-            <element signature="e#18886#19508#0" />
-            <element signature="e#19192#19419#1" />
-            <element signature="e#19571#20426#1" />
-            <element signature="e#24294#25174#1" />
-            <element signature="e#25280#25388#1" />
-            <element signature="e#25457#26442#1" />
-            <element signature="e#26508#26852#1" />
-            <element signature="method#Elseif#0;class#Parser#0" />
             <element signature="method#addWord1#0;class#Parser#0" />
             <element signature="method#T1#0;class#Parser#0" />
             <element signature="method#parserB#0;class#Parser#0" />
@@ -386,8 +375,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Parser/FourYuan.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2185">
-          <caret line="122" column="32" selection-start-line="122" selection-start-column="32" selection-end-line="122" selection-end-column="32" />
+        <state relative-caret-position="2223">
+          <caret line="124" column="32" selection-start-line="124" selection-start-column="32" selection-end-line="124" selection-end-column="32" />
         </state>
       </provider>
     </entry>
@@ -441,8 +430,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Utils/DataStructure.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="25" column="65" selection-start-line="25" selection-start-column="65" selection-end-line="25" selection-end-column="65" />
+        <state relative-caret-position="475">
+          <caret line="30" selection-start-line="30" selection-end-line="30" />
         </state>
       </provider>
     </entry>

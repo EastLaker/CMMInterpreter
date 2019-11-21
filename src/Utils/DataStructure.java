@@ -13,29 +13,42 @@ import java.util.*;
  * created
  */
 public class DataStructure {
-    public static Boolean inMain = false;
-
-    public static HashMap<String, Register> Registers = new HashMap<>();
-
-    private static final int Capacity = 10;
-    public static final HashMap<String, Word> Datas = new HashMap<>(Capacity);
-    public static final HashMap<String, FuncSignature> Functions = new HashMap<>(Capacity);
-
+    //是否已经进入main函数
+    public static Boolean inMain;
+    //寄存器表
+    public static HashMap<String, Register> Registers;
+    //初始化大小
+    private static final int Capacity;
+    //全局变量
+    public static final HashMap<String, Word> Datas;
+    //函数表
+    public static final HashMap<String, FuncSignature> Functions;
     //总调用过程
-    public static final Stack<FunctionType> Env = new Stack<>();
-    public static final FuncSignature MAIN = new FuncSignature();
+
+    public static final Stack<FunctionType> Env;
+    //创建运行线程的main函数
+    public static final FuncSignature MAIN;
+
     //调用过程的指针
     public static FunctionType Top;
-
-
-    //todo 调用前设置形参  调用后置null.
     public static int Ret;
-
+    //返回寄存器
     public static Register rax;
 
+    //初始化数据结构
     static {
-        //初始化返回寄存器.
+        Capacity = 10;
+        inMain = false;
+
+        MAIN = new FuncSignature();
+
+        Env = new Stack<>();
+        Datas = new HashMap<>(Capacity);
+        Functions = new HashMap<>(Capacity);
+        Registers = new HashMap<>();
+
         Registers.put("reg_rax",new Register());
+
     }
 
 }

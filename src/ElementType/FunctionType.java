@@ -33,11 +33,15 @@ public class FunctionType{
     public FuncSignature signature;
 
     public FunctionType(){
-        index = -1;
+        index = 0;
         FormalParam = new LinkedList<>();
+        Scope = new Stack<>();
+        Top = new Stack<>();
+        Scope.push(Top);
     }
 
     public FunctionType(FuncSignature func){
+        this();
         this.signature = func;
     }
 
@@ -55,6 +59,14 @@ public class FunctionType{
         ++paramIndex;
     }
 
+    public ClassFactory.TYPE getParamTypeOfIndex(){
+        return signature.getParamTypeOfIndex(paramIndex);
+    }
+
+    public String getParamNameOfIndex(){
+        return signature.getParamNameOfIndex(paramIndex);
+    }
+
     public void checkExecute() throws DynamicException.unequalFunctionParameters {
         if(signature.getReturnType()!= ClassFactory.TYPE.Void){
             rax = new Register(signature.getReturnType());
@@ -63,9 +75,9 @@ public class FunctionType{
             throw new DynamicException().new unequalFunctionParameters();
         }
 
-        Scope = new Stack<>();
-        Top = new Stack<>();
-        Scope.push(Top);
+        index = 0;
+
+
     }
 
     public Iterable<Word> getParamList(){
@@ -111,5 +123,13 @@ public class FunctionType{
 
     public void setRax(Register rax) {
         this.rax = rax;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 }

@@ -37,7 +37,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 	public boolean hadReturn = false;   // 用来函数体是否包含返回值,若类型为"void"则视为已有返回值
 
 	public boolean error = false;//////源程序无错
-	ClassFactory cf = new ClassFactory();
+
 
 	public void parserE() {///////////词法分析程序
 		states.push(0);/////将0状态入栈
@@ -279,6 +279,16 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			}
 			///此时token应该为右括号
 			///生成跳转语句
+
+			FourYuan four = new FourYuan();
+			four.oprator = "cal";
+			four.op2 = function;
+			four.op1 = "_";
+			four.des = "_";
+			fours.add(four);
+			FourYuan.no++;
+			DataStructure.Ret = mainWindow.j + 1;
+
 			for (String parameter : parameters) {
 				FourYuan fourYuan = new FourYuan();
 				fourYuan.oprator = "sp";
@@ -289,14 +299,13 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				FourYuan.no++;
 
 			}
-			FourYuan four = new FourYuan();
-			four.oprator = "cal";
-			four.op2 = function;
-			four.op1 = "_";
-			four.des = "_";
-			fours.add(four);
+			FourYuan fourYuan = new FourYuan();
+			fourYuan.oprator = "cal";
+			fourYuan.op1 = "_";
+			fourYuan.op2 = "_";
+			fourYuan.des = "_";
+			fours.add(fourYuan);
 			FourYuan.no++;
-			DataStructure.Ret = mainWindow.j + 1;
 		}
 		if (is_element_of_array)
 			symbols.push(reg_);
@@ -490,7 +499,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				FourYuan fourYuan = new FourYuan();
 				fourYuan.oprator = "dp";
 				fourYuan.op1 = type;
-				fourYuan.op2 = "_";
+				fourYuan.op2 = parName;
 				fourYuan.des = funcName;
 				fours.add(fourYuan);
 				FourYuan.no++;
@@ -628,7 +637,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				parserB();
 				if(token.getString().contentEquals(")")){
 					token = tokens.get(cur++);
-					B b = Bs.peek();
+					B b = Bs.peek();/////此时b为if分支的B
 					for(int i = 0 ; i<b.truelist.size();i++)
 						fours.get(b.truelist.get(i)).des = FourYuan.no + "";
 					S(funcType,funcName);
@@ -944,7 +953,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 							fourYuan.oprator = "$";
 							fourYuan.des = Es.peek().des;
 							fourYuan.op1 = name;
-							fourYuan.op1 = j + "";
+							fourYuan.op2 = j + "";
 							fours.add(fourYuan);
 							FourYuan.no++;
 							j++;
@@ -958,9 +967,9 @@ public class Parser {//////////////////识别完成token读到的应该是;
 					}
 				}
 			}
-		} else {
+		}
+		else {
 			/////普通变量  不是数组
-			int no_of_dw_statement = FourYuan.no;
 			FourYuan fourYuan = new FourYuan();
 			fourYuan.oprator = "dw";
 			fourYuan.des = name;
@@ -972,7 +981,13 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			if (token.getString().contentEquals("=")) {
 				token = tokens.get(cur++);
 				parserE();
-				fours.get(no_of_dw_statement).op1 = Es.peek().des;
+				FourYuan fourYuan1 = new FourYuan();
+				fourYuan1.oprator = "=";
+				fourYuan1.op1 = Es.peek().des;
+				fourYuan1.op2 = "_";
+				fourYuan1.des = name;
+				fours.add(fourYuan1);
+				FourYuan.no++;
 			}
 			T1(type);
 		}
