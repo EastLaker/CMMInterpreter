@@ -37,7 +37,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 	public boolean hadReturn = false;   // 用来函数体是否包含返回值,若类型为"void"则视为已有返回值
 
 	public boolean error = false;//////源程序无错
-	ClassFactory cf = new ClassFactory();
+
 
 	public void parserE() {///////////词法分析程序
 		states.push(0);/////将0状态入栈
@@ -944,7 +944,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 							fourYuan.oprator = "$";
 							fourYuan.des = Es.peek().des;
 							fourYuan.op1 = name;
-							fourYuan.op1 = j + "";
+							fourYuan.op2 = j + "";
 							fours.add(fourYuan);
 							FourYuan.no++;
 							j++;
