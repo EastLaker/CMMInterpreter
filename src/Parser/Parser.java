@@ -243,7 +243,6 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				return;
 			}
 			is_element_of_array = true;
-
 			String s = token.getString();  ////此时s token == id
 			token = tokens.get(cur++);////此时token == [
 			token = tokens.get(cur++);
@@ -280,33 +279,8 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			///此时token应该为右括号
 			///生成跳转语句
 
-			FourYuan four = new FourYuan();
-			four.oprator = "cal";
-			four.op2 = function;
-			four.op1 = "_";
-			four.des = "_";
-			fours.add(four);
-			FourYuan.no++;
-			DataStructure.Ret = mainWindow.j + 1;
-
-			for (String parameter : parameters) {
-				FourYuan fourYuan = new FourYuan();
-				fourYuan.oprator = "sp";
-				fourYuan.op1 = parameter;
-				fourYuan.op2 = "_";
-				fourYuan.des = function;
-				fours.add(fourYuan);
-				FourYuan.no++;
-
-			}
-			FourYuan fourYuan = new FourYuan();
-			fourYuan.oprator = "cal";
-			fourYuan.op1 = "_";
-			fourYuan.op2 = "_";
-			fourYuan.des = "_";
-			fours.add(fourYuan);
-			FourYuan.no++;
-		}
+            fouryuan_call(function, parameters);
+        }
 		if (is_element_of_array)
 			symbols.push(reg_);
 		else if(is_element_of_func)
@@ -315,7 +289,36 @@ public class Parser {//////////////////识别完成token读到的应该是;
 			symbols.push(token.getString());
 	}
 
-	private void states_push() {
+    private void fouryuan_call(String function, List<String> parameters) {
+        FourYuan four = new FourYuan();
+        four.oprator = "cal";
+        four.op2 = function;
+        four.op1 = "_";
+        four.des = "_";
+        fours.add(four);
+        FourYuan.no++;
+        DataStructure.Ret = mainWindow.j + 1;
+
+        for (String parameter : parameters) {
+            FourYuan fourYuan = new FourYuan();
+            fourYuan.oprator = "sp";
+            fourYuan.op1 = parameter;
+            fourYuan.op2 = "_";
+            fourYuan.des = function;
+            fours.add(fourYuan);
+            FourYuan.no++;
+
+        }
+        FourYuan fourYuan = new FourYuan();
+        fourYuan.oprator = "cal";
+        fourYuan.op1 = "_";
+        fourYuan.op2 = "_";
+        fourYuan.des = "_";
+        fours.add(fourYuan);
+        FourYuan.no++;
+    }
+
+    private void states_push() {
 		switch (states.peek()) {
 			case 0:
 				states.push(1);
@@ -803,7 +806,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 					else
 						errors.add(token.getString() + "缺少]");
 				}
-				if (token.getString().contentEquals("=")) {
+				if (token.getString().contentEquals("=")) {/////赋值语句
 					token = tokens.get(cur++);
 					parserE();
 					if (token.getString().contentEquals(";")) {
@@ -821,6 +824,21 @@ public class Parser {//////////////////识别完成token读到的应该是;
 					}
 
 			}
+				else if(token.getString().contentEquals("(")){///单独的函数调用
+				    token = tokens.get(cur++);////token应该为）或者形参列表的开始
+				    List<String> parameters = new ArrayList<>();
+				    while(!token.getString().contentEquals(")")){
+				        parserE();
+				        parameters.add(Es.peek().des);
+				        if(token.getString().contentEquals(","))
+				            token = tokens.get(cur++);
+				        else if(token.getString().contentEquals(")"))
+				            break;
+                    }
+				    //此时token应该为）
+				fouryuan_call(des,parameters);
+				    token = tokens.get(cur++);////此时token应该为;
+                }
 
 		}
 		// 常变量声明
