@@ -636,7 +636,7 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				parserB();
 				if(token.getString().contentEquals(")")){
 					token = tokens.get(cur++);
-					B b = Bs.peek();
+					B b = Bs.peek();/////此时b为if分支的B
 					for(int i = 0 ; i<b.truelist.size();i++)
 						fours.get(b.truelist.get(i)).des = FourYuan.no + "";
 					S(funcType,funcName);
