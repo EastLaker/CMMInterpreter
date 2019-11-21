@@ -4,6 +4,7 @@ import ElementType.FuncSignature;
 import ElementType.FunctionType;
 import ElementType.Register;
 import ElementType.Word;
+import Parser.ClassFactory;
 
 import java.util.*;
 
@@ -39,6 +40,7 @@ public class DataStructure {
         inMain = false;
 
         MAIN = new FuncSignature();
+        MAIN.setReturnType(ClassFactory.TYPE.INT);
 
         Env = new Stack<>();
         Datas = new HashMap<>(Capacity);

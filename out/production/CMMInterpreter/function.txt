@@ -11,6 +11,6 @@ int main(){
 	}else{
 	int d = compare(a,c);
 	}
-	int d = 1+compare(b+c)+a;
+	int d = 1+compare(b,c)+a;
     return 0;
 }

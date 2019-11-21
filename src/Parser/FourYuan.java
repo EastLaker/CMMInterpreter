@@ -171,7 +171,7 @@ public class FourYuan {
 			}
 			else if(this.oprator.contentEquals("da")){
 				//todo 形如(declare_array, length, type, name)  length null?
-				checkAndSearchArray(this.des);
+				checkWordIsExisted(this.des);
 
 				final int length = getIndex(this.op1);
 				switch (cf.getTypeFromStr(this.op2)){
@@ -179,6 +179,7 @@ public class FourYuan {
 						ArrayType<Float> FArray;
 						try{
 							FArray = new ArrayType<>(new Float[length], ClassFactory.TYPE.INT_ARRAY);
+							FArray.setName(this.des);
 							FArray.setDes(Word.getDes_start());
 							Word.setDes_start(length-1);
 						}catch (NegativeArraySizeException e){
@@ -191,6 +192,7 @@ public class FourYuan {
 						try{
 							IArray = new ArrayType<>(new Integer[length], ClassFactory.TYPE.INT_ARRAY);
 							IArray.setDes(Word.getDes_start());
+							IArray.setName(this.des);
 							Word.setDes_start(length-1);
 						}catch (NegativeArraySizeException e){
 							throw new DynamicException().new illegalArratSizeException();
@@ -329,7 +331,11 @@ public class FourYuan {
 					rax = Top.getRax();
 					mainWindow.j = Top.getRet()-1;
 					Env.pop();
-					Top = Env.peek();
+					if(!"main".equals(this.des)){
+						Top = Env.peek();
+					}else{
+						mainWindow.j = MAIN.getExitDes();
+					}
 				}else{
 					//普通的作用域释放
 					Top.outOfScope();
@@ -341,8 +347,8 @@ public class FourYuan {
 			else if (this.oprator.contentEquals("=")) {
 				//如果是返回寄存器.
 				if("reg_rax".equals(this.des)){
-					Register reg_rax = Registers.get(this.des);
 					ClassFactory.TYPE returnType = Top.signature.getReturnType();
+					Register reg_rax = new Register(returnType);
 					switch (regexPat(this.op1)){
 						case CONST:
 							ClassFactory.TYPE type = cf.getTypeFromNum(this.op1);
@@ -378,8 +384,8 @@ public class FourYuan {
 							break;
 					}
 					Top.setRax(reg_rax);
+					Registers.put(this.des,reg_rax);
 					mainWindow.j = Top.signature.getExitDes()-1;
-
 				}else {
 					Word word = checkAndSearchWord(this.des);
 					switch (regexPat(this.op1)) {
