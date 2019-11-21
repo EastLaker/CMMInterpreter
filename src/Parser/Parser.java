@@ -952,8 +952,18 @@ public class Parser {//////////////////识别完成token读到的应该是;
 								token = tokens.get(cur++);
 							else break;
 						}
-						if (fours.get(no_of_declare_statement).oprator.contentEquals("da") && !length_determined) {
-							fours.get(no_of_declare_statement).op1 = j + "";/////回填声明数组大小
+						if (token.getString().contentEquals("}")) { // 数组初始化完毕
+							if (fours.get(no_of_declare_statement).oprator.contentEquals("da") && !length_determined) {
+								fours.get(no_of_declare_statement).op1 = j + "";/////回填声明数组大小
+							}
+							token = tokens.get(cur++);
+							if (token.getString().contentEquals(";")){
+								token = tokens.get(cur++);
+							} else {
+								errors.add("行" + token.getLine_no() + ": 语句缺少';'");
+							}
+						} else {
+							errors.add("行" + token.getLine_no() + ": 数组初始化缺少'}'");
 						}
 					}
 				}
