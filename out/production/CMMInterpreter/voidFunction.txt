@@ -1,0 +1,7 @@
+void print(int a){
+ write(a);
+}
+
+int main(){
+    print(2);
+}

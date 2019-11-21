@@ -178,7 +178,9 @@ public class ClassFactory {
             return TYPE.FLOAT;
         }else if("float_array".equals(str.toLowerCase())){
             return TYPE.FLOAT_ARRAY;
-        }else{
+        }else if("void".equals(str.toLowerCase())){
+            return TYPE.Void;
+        } else{
             throw new DynamicException().new defaultException("无法解析的数据类型");
         }
     }

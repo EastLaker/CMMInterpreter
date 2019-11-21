@@ -324,9 +324,9 @@ public class mainWindow {
                     output_text.append(Parser.errors.get(i)+"\n");
             }
             else {
-//                for (int i = 0; i < parse.fours.size(); i++) {
-//                    output_text.append(i + " " + parse.fours.get(i).get_four_str() + "\n");
-//                }
+                for (int i = 0; i < parse.fours.size(); i++) {
+                    output_text.append(i + " " + parse.fours.get(i).get_four_str() + "\n");
+                }
                 try {
                     for (; j < parse.fours.size(); j++){
                         parse.fours.get(j).Exec();
@@ -335,29 +335,29 @@ public class mainWindow {
                     //todo  已退出for循环  还需要添加的工作？
                 }
 
-//                Set<String> words = Datas.keySet();
-//                output_text.append("单词表结构：\n");
-//                output_text.append("变量名\t变量类型\t变量地址\t变量值\n");
-//                for (String word : words) {
-//                    if (Datas.get(word) instanceof ArrayType) {
-//                        /////是个数组元素
-//                        for (int i = 0; i < Datas.get(word).length; i++) {
-//                            try {
-//                                output_text.append(word + "[" + i + "]\t" + Datas.get(word).type + "\t" + (Datas.get(word).getDes() + i * 4) + "\t"
-//                                        + ((ArrayType) Datas.get(word)).getValue(i) + "\n");
-//                            } catch (Exception e) {
-//                            }
-//                        }
-//                    } else
-//                        output_text.append(word + "\t" + Datas.get(word).type + "\t" + Datas.get(word).getDes() + "\t" + Datas.get(word).getValue() + "\n");
-//
-//                }
+                Set<String> words = Datas.keySet();
+                output_text.append("单词表结构：\n");
+                output_text.append("变量名\t变量类型\t变量地址\t变量值\n");
+                for (String word : words) {
+                    if (Datas.get(word) instanceof ArrayType) {
+                        /////是个数组元素
+                        for (int i = 0; i < Datas.get(word).length; i++) {
+                            try {
+                                output_text.append(word + "[" + i + "]\t" + Datas.get(word).type + "\t" + (Datas.get(word).getDes() + i * 4) + "\t"
+                                        + ((ArrayType) Datas.get(word)).getValue(i) + "\n");
+                            } catch (Exception e) {
+                            }
+                        }
+                    } else
+                        output_text.append(word + "\t" + Datas.get(word).type + "\t" + Datas.get(word).getDes() + "\t" + Datas.get(word).getValue() + "\n");
+
+                }
                 for (int i = 0; i < Parser.errors.size(); i++)
                     output_text.append(Parser.errors.get(i)+"\n");
                 output_text.append("控制台输出：\n");
                 for(int i = 0; i<Parser.Console.size() ; i++)
                     output_text.append(Parser.Console.get(i)+"\n");
-//                System.out.println("下一条指令地址：" + FourYuan.no);
+                System.out.println("下一条指令地址：" + FourYuan.no);
             }
             //todo 将需要输出的内容输出到output中
             Text t = new Text();
