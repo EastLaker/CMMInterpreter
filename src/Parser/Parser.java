@@ -974,9 +974,9 @@ public class Parser {//////////////////识别完成token读到的应该是;
 				parserE();
 				FourYuan fourYuan1 = new FourYuan();
 				fourYuan1.oprator = "=";
-				fourYuan1.op1 = name;
+				fourYuan1.op1 = Es.peek().des;
 				fourYuan1.op2 = "_";
-				fourYuan1.des = Es.peek().des;
+				fourYuan1.des = name;
 				fours.add(fourYuan1);
 				FourYuan.no++;
 			}
