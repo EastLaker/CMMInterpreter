@@ -45,6 +45,23 @@ public class FourYuan {
 	//todo 声明四元式: 强类型
 	public void Exec() throws DynamicException.stopMachineException {
 		try {
+			//todo (+   , op1=reg/word/const , op2=reg/word/const , des=reg/word/const)   -> des = op1+op2
+			//todo (-   , op1=reg/word/const , op2=reg/word/const , des=reg/word/const)   -> des = op1-op2
+			//todo (*   , op1=reg/word/const , op2=reg/word/const , des=reg/word/const)   -> des = op1*op2
+			//todo ($   , op1=array name 	 , op2=offset 	      , des=value 		  )   -> array[offset] = value;
+			//todo (&   , op1=array name 	 , op2=offset 		  , des=word/reg 	  )   -> word/reg = array[offset];
+			//todo (dw  , op1= _ 			 , op2=type 		  , des=name 		  )   -> int(type) a(name);
+			//todo (da  , op1=length 		 , op2=type 		  , des=name 		  )	  -> int(type) array[length];
+			//todo (df  , op1=return type    , op2=name 		  , des = func_ent_des)	  -> int sum();
+			//todo (dp  , op1=Param_Type     , op2=paramName      , des=function name )	  -> int sum(int a);
+			//todo (sp  , op1=reg/word/const , op2= _ 			  , des=function name )	  -> sum(1);
+			//todo (cal , op1=reg/word/const , op2= _			  , des=function name )	  -> sum(1);
+			//todo ({   , op1= _ 			 , op2= _			  , des=func_name|null)	  -> when meet {, create a temporary scope
+			//todo (}   , op1= _ 			 , op2= _			  , des=func_name|null)	  -> when meet {, destroy a temporary scope
+			//todo (wrt , op1= _ 			 , op2= _ 			  , des=word|register )	  -> write(a);
+			//todo (=   , op1=word/reg       , op2= _ 			  , des=word		  )	  -> a = 3;
+
+			//todo (op = JMP || j< || j> || j== ..., op1=_ , op2=_ , des)   		  	  -> jump des;
 			if (this.oprator.contentEquals("+")) {
 				Register[] registers = makeOpsRegister(this.op1, this.op2);
 				Register register = registerOperation(registers[0], registers[1], OPERATOR.ADD);
@@ -423,15 +440,20 @@ public class FourYuan {
 			}
 			else if (this.oprator.contentEquals("J<")) {
 				con_jmp("<");
-			} else if (this.oprator.contentEquals("J>")) {
+			}
+			else if (this.oprator.contentEquals("J>")) {
 				con_jmp(">");
-			} else if (this.oprator.equals("J<=")) {
+			}
+			else if (this.oprator.equals("J<=")) {
 				con_jmp("<=");
-			} else if (this.oprator.equals("J>=")) {
+			}
+			else if (this.oprator.equals("J>=")) {
 				con_jmp(">=");
-			} else if (this.oprator.equals("J==")) {
+			}
+			else if (this.oprator.equals("J==")) {
 				con_jmp("==");
-			} else if (this.oprator.equals("J!=")) {
+			}
+			else if (this.oprator.equals("J!=")) {
 				con_jmp("!=");
 			}
 		} catch (DynamicException.undeclaredIdentifierException e) {

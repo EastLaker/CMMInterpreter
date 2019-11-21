@@ -8,6 +8,6 @@ int plus(int i){
 
 int main(){
     int num  = 5;
-    write(plus(5));
+    write(plus(num));
     return 0;
 }
