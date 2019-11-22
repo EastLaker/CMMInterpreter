@@ -56,7 +56,15 @@
                       </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="262.0" prefWidth="454.0">
                            <children>
-                              <TextFlow fx:id="output" prefHeight="129.0" prefWidth="654.0" style="-fx-background-color: rgb(60,63,65);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <ScrollPane prefHeight="129.0" prefWidth="654.0" style="-fx-background-color: rgb(60, 63, 65);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <content>
+                                  <AnchorPane>
+                                       <children>
+                                          <TextFlow fx:id="output" prefHeight="129.0" prefWidth="652.0" style="-fx-background-color: rgb(60,63,65);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                       </children>
+                                    </AnchorPane>
+                                </content>
+                              </ScrollPane>
                            </children>
                       </AnchorPane>
                     </items>

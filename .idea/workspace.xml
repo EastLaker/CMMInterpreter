@@ -1,20 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="80ff6d31-cffd-4d1a-9318-f2517c5c4ce6" name="Default Changelist" comment="">
+    <list default="true" id="7fe6b01d-ac83-4081-9711-26d257f23af1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Window/mainWindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/Window/mainWindow.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Window/mainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Window/mainWindow.java" afterDir="false" />
     </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="isMigrated" value="true" />
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>dw</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="1TvaGLiP7TEUpXhxfwXUtkK0IH4" />
+  <component name="ProjectId" id="1TvbiSMScnuOrZ1gCEYD8csYHUm" />
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
   </component>
@@ -54,14 +79,49 @@
     <configuration />
   </component>
   <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7fe6b01d-ac83-4081-9711-26d257f23af1" name="Default Changelist" comment="" />
+      <created>1574254088171</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1574254088171</updated>
+      <workItem from="1574254098918" duration="927000" />
+      <workItem from="1574255493766" duration="687000" />
+      <workItem from="1574263094925" duration="4083000" />
+      <workItem from="1574295583390" duration="7161000" />
+      <workItem from="1574321547027" duration="4882000" />
+      <workItem from="1574334766587" duration="18000" />
+      <workItem from="1574338764885" duration="288000" />
+      <workItem from="1574343644892" duration="1274000" />
+      <workItem from="1574345178200" duration="2455000" />
+    </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
           </value>
         </entry>
       </map>

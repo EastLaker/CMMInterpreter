@@ -7,6 +7,9 @@ package Window;
 
 
 import Parser.*;
+import Utils.DataStructure;
+import static Utils.DataStructure.*;
+import Utils.DynamicException;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,6 +26,7 @@ import javafx.scene.text.TextFlow;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
 import lexical.LexicalParser;
 import lexical.Token;
 import org.fxmisc.flowless.VirtualizedScrollPane;
@@ -35,9 +39,8 @@ import java.time.Duration;
 import java.util.*;
 import java.lang.*;
 
-import Parser.ClassFactory;
-import Parser.Word;
-import Parser.ArrayType;
+import ElementType.Word;
+import ElementType.ArrayType;
 import org.fxmisc.richtext.model.StyleSpans;
 import org.fxmisc.richtext.model.StyleSpansBuilder;
 import org.reactfx.Subscription;
@@ -45,8 +48,10 @@ import org.reactfx.Subscription;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
 import java.awt.AWTException;
 import java.awt.Robot;
+
 
 public class mainWindow {
 
@@ -196,7 +201,6 @@ public class mainWindow {
                     builder.append('\n');
                 }
                 String sourceCode = builder.toString();
-                codeArea.clear();
                 codeArea.replaceText(0, 0, sourceCode);
             }
             catch (IOException e) {
@@ -299,13 +303,8 @@ public class mainWindow {
         if(text==null||"".equals(text.trim())){
 
         }else{
-            output.getChildren().clear();
-            mainWindow.j=0;
-            FourYuan.no = 0;
-            Parser.errors.clear();
-            E.reg = 0;
-            ClassFactory.Wordlist.clear();
-            Word.setDes_start(0x0);
+            init();
+
             Parser parse = new Parser();///////分析实例
             LexicalParser lexicalParser = new LexicalParser();
             lexicalParser.setSourceCode(text);
@@ -316,7 +315,7 @@ public class mainWindow {
                 parse.tokens.add(token);
             }
             parse.token = parse.tokens.get(parse.cur++);////读入第一个单词
-            parse.L();
+            parse.Program();
             ////测试
             StringBuilder output_text = new StringBuilder();
             if(parse.error){
@@ -329,40 +328,60 @@ public class mainWindow {
                     output_text.append(i + " " + parse.fours.get(i).get_four_str() + "\n");
                 }
                 try {
-                    for (; j < parse.fours.size(); j++)
+                    for (; j < parse.fours.size(); j++){
                         parse.fours.get(j).Exec();
+                    }
                 } catch (DynamicException.stopMachineException e) {
                     //todo  已退出for循环  还需要添加的工作？
                 }
 
-                Set<String> words = ClassFactory.Wordlist.keySet();
+                Set<String> words = Datas.keySet();
                 output_text.append("单词表结构：\n");
                 output_text.append("变量名\t变量类型\t变量地址\t变量值\n");
                 for (String word : words) {
-                    if (ClassFactory.Wordlist.get(word) instanceof ArrayType) {
+                    if (Datas.get(word) instanceof ArrayType) {
                         /////是个数组元素
-                        for (int i = 0; i < ClassFactory.Wordlist.get(word).length; i++) {
+                        for (int i = 0; i < Datas.get(word).length; i++) {
                             try {
-                                output_text.append(word + "[" + i + "]\t" + ClassFactory.Wordlist.get(word).type + "\t" + (ClassFactory.Wordlist.get(word).getDes() + i * 4) + "\t"
-                                        + ((ArrayType) ClassFactory.Wordlist.get(word)).getValue(i) + "\n");
+//                                output_text.append(word + "[" + i + "]\t" + Datas.get(word).type + "\t" + (Datas.get(word).getDes() + i * 4) + "\t"
+//                                        + ((ArrayType) Datas.get(word)).getValue(i) + "\n");
                             } catch (Exception e) {
                             }
                         }
                     } else
-
-                        output_text.append(word + "\t" + ClassFactory.Wordlist.get(word).type + "\t" + ClassFactory.Wordlist.get(word).getDes() + "\t" + ClassFactory.Wordlist.get(word).getValue() + "\n");
+                        System.out.println();
+                        //output_text.append(word + "\t" + Datas.get(word).type + "\t" + Datas.get(word).getDes() + "\t" + Datas.get(word).getValue() + "\n");
 
                 }
                 for (int i = 0; i < Parser.errors.size(); i++)
-                    output_text.append(Parser.errors.get(i));
+                    output_text.append(Parser.errors.get(i)+"\n");
+                output_text.append("控制台输出：\n");
+                for(int i = 0; i<Parser.Console.size() ; i++)
+                    output_text.append(Parser.Console.get(i)+"\n");
                 System.out.println("下一条指令地址：" + FourYuan.no);
             }
+            //todo 将需要输出的内容输出到output中
             //todo 将需要输出的内容输出到output中
             Text t = new Text();
             t.setText(output_text.toString());
             t.setStyle("-fx-fill: rgb(187,187,187)");
             output.getChildren().addAll(t);
         }
+    }
+
+    private void init() {
+        output.getChildren().clear();
+        Parser.Console.clear();
+        mainWindow.j=0;
+        FourYuan.no = 0;
+        Parser.errors.clear();
+        E.reg = 0;
+        Datas.clear();
+        Functions.clear();
+        Top = null;
+        Env.clear();
+        inMain = false;
+        Word.setDes_start(0x0);
     }
 
     public String getTreeItemPath(TreeItem<String> treeItem){

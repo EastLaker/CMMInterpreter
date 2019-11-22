@@ -1,3 +1,4 @@
+
 package lexical;
 
 import java.io.*;
@@ -290,6 +291,7 @@ public class LexicalParser {
                         readChar();
                     }
                     else {
+                        //readChar();
                         break;
                     }
                 }
