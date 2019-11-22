@@ -21,6 +21,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.DirectoryChooser;
@@ -30,6 +31,8 @@ import javafx.stage.Stage;
 import lexical.LexicalParser;
 import lexical.Token;
 import org.fxmisc.flowless.VirtualizedScrollPane;
+
+import org.fxmisc.richtext.CaretNode;
 import org.fxmisc.richtext.CodeArea;
 import org.fxmisc.richtext.LineNumberFactory;
 
@@ -205,6 +208,7 @@ public class mainWindow {
                     builder.append('\n');
                 }
                 String sourceCode = builder.toString();
+                codeArea.clear();
                 codeArea.replaceText(0, 0, sourceCode);
             }
             catch (IOException e) {
@@ -298,6 +302,10 @@ public class mainWindow {
         tab.setContent(new VirtualizedScrollPane<>(codeArea));
         String css = getClass().getResource("dark.css").toExternalForm();
         codeArea.getStylesheets().add(css);
+        CaretNode mycaret = new CaretNode("a", codeArea);
+        mycaret.setStroke(Color.WHITE);
+        codeArea.addCaret(mycaret);
+        codeArea.removeCaret(mycaret);
         return tab;
     }
 
@@ -368,7 +376,7 @@ public class mainWindow {
             //todo 将需要输出的内容输出到output中
             Text t = new Text();
             t.setText(output_text.toString());
-            t.setStyle("-fx-fill: rgb(187,187,187)");
+            t.setStyle("-fx-fill: rgb(187,187,187); -fx-font-size: 18");
             output.getChildren().addAll(t);
         }
     }

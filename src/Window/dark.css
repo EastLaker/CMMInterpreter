@@ -23,6 +23,9 @@
 #codeArea .comment {
     -fx-fill: rgb(98,151,85);
 }
+#codeArea .caret{
+    -fx-stroke: WHITE;
+}
 #codeArea .paragraph-box:has-caret {
     -fx-background-color: rgb(50,50,50);
 }
