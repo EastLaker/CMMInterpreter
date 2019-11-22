@@ -195,7 +195,7 @@ public class FourYuan {
 					case FLOAT:
 						ArrayType<Float> FArray;
 						try{
-							FArray = new ArrayType<>(new Float[length], ClassFactory.TYPE.INT_ARRAY);
+							FArray = new ArrayType<>(new Float[length], ClassFactory.TYPE.FLOAT_ARRAY);
 							FArray.setName(this.des);
 							FArray.setDes(Word.getDes_start());
 							Word.setDes_start(length-1);
