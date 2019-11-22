@@ -93,6 +93,15 @@
 .tab:selected {
 	-fx-text-fill: rgb(187, 187, 187);
 }
+.scroll-pane {
+    -fx-fill: transparent;
+}
+.scroll-pane *.scroll-pane-divider{
+    -fx-background-color: transparent;
+}
+.anchor-pane {
+    -fx-background-fill: transparent;
+}
 .scroll-bar {
 	-fx-background-color: transparent;
 }

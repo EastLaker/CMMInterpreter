@@ -104,6 +104,9 @@ public class mainWindow {
     @FXML
     private AnchorPane rootAnchor;
 
+    @FXML
+    private ScrollPane scrollPane;
+
     private static CodeArea codeArea;
 
     private String opened_folder_parent;
@@ -154,6 +157,7 @@ public class mainWindow {
                 }
             }
         });
+        scrollPane.setStyle("-fx-background: rgb(60, 63, 65);");
     }
 
     private static Stage frame;
@@ -343,13 +347,14 @@ public class mainWindow {
                         /////是个数组元素
                         for (int i = 0; i < Datas.get(word).length; i++) {
                             try {
-                                output_text.append(word + "[" + i + "]\t" + Datas.get(word).type + "\t" + (Datas.get(word).getDes() + i * 4) + "\t"
-                                        + ((ArrayType) Datas.get(word)).getValue(i) + "\n");
+//                                output_text.append(word + "[" + i + "]\t" + Datas.get(word).type + "\t" + (Datas.get(word).getDes() + i * 4) + "\t"
+//                                        + ((ArrayType) Datas.get(word)).getValue(i) + "\n");
                             } catch (Exception e) {
                             }
                         }
                     } else
-                        output_text.append(word + "\t" + Datas.get(word).type + "\t" + Datas.get(word).getDes() + "\t" + Datas.get(word).getValue() + "\n");
+                        System.out.println();
+                        //output_text.append(word + "\t" + Datas.get(word).type + "\t" + Datas.get(word).getDes() + "\t" + Datas.get(word).getValue() + "\n");
 
                 }
                 for (int i = 0; i < Parser.errors.size(); i++)
