@@ -3,8 +3,26 @@
   <component name="ChangeListManager">
     <list default="true" id="7fe6b01d-ac83-4081-9711-26d257f23af1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/.idea/$PRODUCT_WORKSPACE_FILE$" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/.idea/src.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/ArrayType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/DynamicException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/FunctionType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/LexicalParser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/Register.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/SemanticAnalysis.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/Token.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/Word.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/WordList.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utils/DataSturcture.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Window/mainWindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/Window/mainWindow.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Window/mainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Window/mainWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sourceCode_1.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sourceCode_2.txt" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -92,8 +110,8 @@
       <workItem from="1574321547027" duration="4882000" />
       <workItem from="1574334766587" duration="18000" />
       <workItem from="1574338764885" duration="288000" />
-      <workItem from="1574343644892" duration="1274000" />
-      <workItem from="1574345178200" duration="2455000" />
+      <workItem from="1574343644892" duration="842000" />
+      <workItem from="1574384177144" duration="29000" />
     </task>
     <servers />
   </component>

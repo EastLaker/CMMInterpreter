@@ -343,14 +343,13 @@ public class mainWindow {
                         /////是个数组元素
                         for (int i = 0; i < Datas.get(word).length; i++) {
                             try {
-//                                output_text.append(word + "[" + i + "]\t" + Datas.get(word).type + "\t" + (Datas.get(word).getDes() + i * 4) + "\t"
-//                                        + ((ArrayType) Datas.get(word)).getValue(i) + "\n");
+                                output_text.append(word + "[" + i + "]\t" + Datas.get(word).type + "\t" + (Datas.get(word).getDes() + i * 4) + "\t"
+                                        + ((ArrayType) Datas.get(word)).getValue(i) + "\n");
                             } catch (Exception e) {
                             }
                         }
                     } else
-                        System.out.println();
-                        //output_text.append(word + "\t" + Datas.get(word).type + "\t" + Datas.get(word).getDes() + "\t" + Datas.get(word).getValue() + "\n");
+                        output_text.append(word + "\t" + Datas.get(word).type + "\t" + Datas.get(word).getDes() + "\t" + Datas.get(word).getValue() + "\n");
 
                 }
                 for (int i = 0; i < Parser.errors.size(); i++)
